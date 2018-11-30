@@ -180,7 +180,7 @@ namespace Senparc.Service
                         {
                             new Claim(ClaimTypes.Name, userName),
                             //new Claim(ClaimTypes.Role, string.Join(",",roles)),
-                            new Claim("UserMember", "", ClaimValueTypes.String, "http://www.neuchar.com")
+                            new Claim("UserMember", "", ClaimValueTypes.String)
                         };
 
                 //var claimsIdentity = new ClaimsIdentity(claims,
@@ -272,7 +272,7 @@ namespace Senparc.Service
 
             do
             {
-                userName = $"neuchar_{Guid.NewGuid().ToString("n").Substring(0, 8)}";
+                userName = $"SCF_{Guid.NewGuid().ToString("n").Substring(0, 8)}";
                 account = this.GetAccount(userName);
             } while (account != null);
 

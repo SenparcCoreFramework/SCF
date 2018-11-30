@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Local.scmp" />
-    <None Include="Remote.scmp" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />

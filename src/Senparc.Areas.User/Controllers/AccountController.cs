@@ -137,7 +137,7 @@ namespace Senparc.Areas.User.Controllers
             {
                 //创建订单
                 var domain = SiteConfig.IsDebug ? "https://localhost:44306" : "https://weixin.senparc.com";
-                var url = $"{domain}/neucharPay/getPayQr?totalFee={totalFee}&openId={FullAccount.WeixinOpenId}";
+                var url = $"{domain}/scfPay/getPayQr?totalFee={totalFee}&openId={FullAccount.WeixinOpenId}";
                 var orderJson = RequestUtility.HttpPost(url, formData: new Dictionary<string, string>
                 {
                     {"totalFee",totalFee.ToString()},

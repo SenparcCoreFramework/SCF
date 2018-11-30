@@ -198,11 +198,11 @@ namespace Senparc.Areas.User.Controllers
 
             //未登录
             var remoteDomain = "https://weixin.senparc.com"; //SiteConfig.IsDebug ? "https://localhost:44305" : "https://weixin.senparc.com";
-            var loaclDomain = $"{Request.Scheme}://{Request.Host.Value}"; //SiteConfig.IsDebug ? "http://localhost:11942" : "https://www.neuchar.com";
+            var loaclDomain = $"{Request.Scheme}://{Request.Host.Value}"; //SiteConfig.IsDebug ? "http://localhost:11942" : "https://scf.senparc.com";
 
             var callbackUrl = $"{loaclDomain}/User/Home/OAuthCallback?returnUrl={returnUrl.UrlEncode()}";
 
-            var url = $"{remoteDomain}/OAuth2/Authorize?appId={_senparcWeixinSetting.WeixinAppId}&redirect_uri={callbackUrl.UrlEncode()}&response_type=code&state=NeuChar&scope=snsapi_base#senparc_redirect";
+            var url = $"{remoteDomain}/OAuth2/Authorize?appId={_senparcWeixinSetting.WeixinAppId}&redirect_uri={callbackUrl.UrlEncode()}&response_type=code&state=SCF&scope=snsapi_base#senparc_redirect";
             return Redirect(url);
         }
 

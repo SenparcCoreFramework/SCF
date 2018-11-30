@@ -76,7 +76,7 @@ namespace Senparc.Service
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userName),
-                new Claim("AdminMember", "", ClaimValueTypes.String, "http://www.neuchar.com")
+                new Claim("AdminMember", "", ClaimValueTypes.String)
             };
             var identity = new ClaimsIdentity(AdminAuthorizeAttribute.AuthenticationScheme);
             identity.AddClaims(claims);
