@@ -1,0 +1,30 @@
+@model Senparc.Areas.Admin.Models.VD.IBaseAdminVD
+@using System.Web.Mvc
+<aside class="aside">
+    <div class="aside-inner">
+        <nav class="sidebar show-scrollbar" data-sidebar-anyclick-close="">
+            <ul class="nav">
+                <li class="has-user-block">
+                    <div class="collapse" id="user-block">
+                        <div class="item user-block">
+                            <!-- User picture-->
+                            <div class="user-block-picture">
+                                <div class="user-block-status">
+                                    <img class="img-thumbnail img-circle img-responsive"
+                                         src=""
+                                         alt="">
+                                    <span class="circle circle-success circle-lg mt"></span>
+                                </div>
+                            </div>
+                            <!-- Name and Job-->
+                            <div class="user-block-info">
+                                <span class="user-block-name">@Model.UserName</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

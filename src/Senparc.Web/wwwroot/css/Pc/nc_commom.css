@@ -1,0 +1,96 @@
+﻿/*该样式表是所有项目中共用到的样式*/
+    /*铃铛样式*/
+    .infoActive {
+        position: relative;
+    }
+    
+        .infoActive:after {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: red;
+            top: 0;
+            right: 0;
+            display: block;
+            content: "";
+        }
+/*错误弹窗样式*/
+    .alert-error {
+        color: #b94a48;
+        background-color: #f2dede;
+        border-color: #eed3d7;
+    }
+    /*信息提示样式*/
+    .alertInfo {
+        position: fixed;
+        width: 280px;
+        height: 86px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px #ccc;
+        right: -1000px;
+        top: 50%;
+        /*与提示消息不重合*/
+        margin-top: -135px;
+        z-index: 100;
+        box-sizing: border-box;
+        padding-left: 75px;
+        background-color: white;
+        cursor: pointer;
+    }
+
+        .alertInfo > img {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            border: 1px solid #ccc;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+        }
+
+        .alertInfo > p {
+            margin: 0;
+            font-size: 14px;
+            color: black;
+        }
+
+        .alertInfo .alertInfoTitle {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+    .alertInfoContent {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: 40px;
+        overflow: hidden;
+    }
+    /*全局搜索按钮样式*/
+    .z_searchList{
+        text-decoration:none!important;
+        background-color:#3e4448!important;
+        border-color:#3e4448!important;
+        color:white!important;
+        border-right:1px solid black!important;
+    }
+    .z_searchInput{
+        background-color:#3e4448!important;
+        border-color:#3e4448!important;
+        color:white!important;
+    }
+    .z_searchList:hover{
+        background-color:#565a5e!important;
+        color:white!important;
+    }
+     .z_searchInput:focus{
+         background-color:#4a4e52!important;
+     }
+    

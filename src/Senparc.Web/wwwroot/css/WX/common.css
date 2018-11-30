@@ -1,0 +1,109 @@
+﻿.container {
+    height: 100%;
+}
+.scroll {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 2;
+    background-color: transparent;
+    padding-top: 0px;
+    padding-bottom: 60px !important;
+}
+.bg-bule-color {
+    background-color: #3973d0;
+}
+.bg-garybtn-color{
+    background-color:#c5c5c5;
+}
+.text-bule-color {
+    color: #3973d0!important;
+}
+.text-yellow-color{
+    color:#f19b56;
+}
+.text-darkblue-color{
+    color:#5298ef;
+}
+.text-color333{
+    color:#333;
+}
+.text-color666{
+    color:#666;
+}
+.text-color999{
+    color:#999;
+}
+.text-white-color{
+    color:#fff;
+}
+.bg-white{
+    background-color:#fff!important;
+}
+.border-bule {
+    border: 1px solid #3973d0;
+}
+.border-color {
+    border: 1px solid #c5c5c5;
+}
+.border-gray{
+    border:1px solid #c5c5c5;
+}
+.font12{
+    font-size:12px!important;
+}
+.font13{
+    font-size:13px!important;
+}
+.font14{
+    font-size:14px!important;
+}
+.font15{
+    font-size:15px!important;
+}
+.font16{
+    font-size:16px!important;
+}
+.fr{
+    float:right;
+}
+.fl{
+    float:left;
+}
+.overflow{
+    overflow:hidden;
+}
+.border-bottom-color{
+    border-bottom:1px solid #e6e6e6;
+}
+input::-webkit-input-placeholder { /* WebKit browsers */
+    color: #c5c5c5;
+}
+
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #c5c5c5;
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #c5c5c5;
+}
+
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #c5c5c5;
+}
+.border-bottom{
+    border-bottom:1px solid #c5c5c5;
+}
+.lm_active {
+    display: block;
+}
+.stop{
+   overflow:hidden;
+}
+a {
+    -webkit-tap-highlight-color: transparent;
+}

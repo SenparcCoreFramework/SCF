@@ -1,0 +1,102 @@
+
+<div class="panel-group b bt0" :id="'accordion_'+value" role="tablist" aria-multiselectable="true">
+    <div class="panel" v-for="(item,index) in officialAccountList">
+        <div class="panel-heading p-sm" :id="'heading_'+index" role="tab" style="display:flex">
+            <h4 class="panel-title p pointer" data-toggle="collapse" data-parent="#accordion" title="点击展开/收起"
+                :href="'#collapse_'+index"
+                v-bind:aria-expanded="index==0"
+                :aria-controls="'collapse_'+index"
+                @@click="officialAccount_select(item.id)"
+                style="flex:1">
+                <span class="text-primary">
+                    {{item.name}}
+                </span>
+            </h4>
+            <span class="text-danger pointer ml-lg p" @@click="officialAccount_delete(index,item.id)">
+                <em class="fa fa-trash-o"></em>
+            </span>
+        </div>
+        <div class="panel-collapse collapse" v-bind:class="{in:index==0}" :id="'collapse_'+index" role="tabpanel" :aria-labelledby="'heading_'+index">
+            <div class="panel-body">
+                <div v-if="item.id!=0" class="form-group b border-color-green text-center" style="border-color:#37bc9b">
+                    <label class="radio c-radio c-radio-rounded" @@change="pullResource_set(item.id)">
+                        <input type="radio" :name="'pull-resource_'+value" v-bind:value="item.id" v-model="defaultResourceId">
+                        <span class="fa fa-check"></span>设为配置源
+                    </label>
+                    <p class=" pt-sm text-warning"> 配置源：从配置源拉取【素材】【关键回复】【自定义菜单】 配置</p>
+                </div>
+                <form method="post" onsubmit="return vm.officialAccount_edit(this)" :data-id="'officialAccountForm_'+index" :data-index="index">
+                    <!-- START panel-->
+                    <div class="panel b">
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label class="control-label">公众号名称</label>
+                                <input type="text"
+                                       v-model="item.name"
+                                       required
+                                       name="Name"
+                                       :id="'name_'+index"
+                                       class="form-control input-md" style="width:100%" placeholder="请输入公众号名称" />
+                                <span class="help-block m-b-none pl-md"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Url</label>
+                                <input type="url"
+                                       v-model="item.url"
+                                       required
+                                       name="Url"
+                                       :id="'url_'+index"
+                                       class="form-control input-md" style="width:100%" placeholder="请输入地址，以http(s)开头" />
+                                <span class="help-block m-b-none pl-md"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Token</label>
+                                <input type="text"
+                                       v-model="item.toKen"
+                                       required
+                                       name="Token"
+                                       :id="'token_'+index"
+                                       class="form-control input-md" style="width:100%" placeholder="请输入Token" />
+                                <span class="help-block m-b-none pl-md"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">AppId</label>
+                                <input type="text"
+                                       v-model="item.appId"
+                                       name="AppId"
+                                       :id="'appId_'+index"
+                                       class="form-control input-md" style="width:100%" placeholder="请输入AppID" />
+                                <span class="help-block m-b-none pl-md"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">AppSecret</label>
+                                <input type="text"
+                                       v-model="item.appSecret"
+                                       name="AppSecret"
+                                       :id="'appSecret_'+index"
+                                       class="form-control input-md" style="width:100%" placeholder="请输入AppSecret" />
+                                <span class="help-block m-b-none pl-md"></span>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-green" type="submit" data-loading-text="保存中...">保存</button>
+
+                        </div>
+                    </div>
+                    <!-- END panel-->
+                </form>
+            </div>
+        </div>
+    </div>
+    @if (Senparc.Core.Config.SiteConfig.IsDebug)
+    {
+        <div class="panel p-lg text-center" @@click="officialAccount_add">
+            <span class="">
+                <em class="fa fa-plus fa-2x"></em>
+            </span>
+        </div>
+    }
+</div>
+
+

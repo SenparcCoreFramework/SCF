@@ -1,0 +1,80 @@
+@using System.Web.Mvc
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SCF</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <environment include="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/css/Pc/common.css" rel="stylesheet" />
+        <link href="~/css/Pc/swiper.min.css" rel="stylesheet" />
+        <link href="~/css/Pc/style.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/Pc/common.css" rel="stylesheet" />
+        <link href="~/css/Pc/swiper.min.css" rel="stylesheet" />
+        <link href="~/css/Pc/style.css" rel="stylesheet" />
+    </environment>
+    <style>
+        .current .active {
+            /*color: #0094ff;*/
+            background: #0560AD;
+        }
+
+        .nav-item:hover {
+            background: #2981ca;
+        }
+    </style>
+    @RenderSection("HeaderContent", false)
+</head>
+<body>
+    <nav class="main-navigation">
+        <div class="container">
+            <div class="row">
+                <div class=" ">
+                    <nav class="navbar navbar-expand-lg navbar-light  navbar-paddimg-0">
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+    <!-- start content-->
+    <section>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+    <!-- end content-->
+    <!-- start footer-->
+    <footer class="main-footer bg-gary"></footer>
+    <div class=" uk-notify uk-notify-top-center"></div>
+    <!-- end footer-->
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/js/Pc/pc_common.js"></script>
+        <script src="~/js/Pc/swiper.min.js"></script>
+        <script src="~/js/Pc/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/WX/vue.js"></script>
+        <script src="~/js/Pc/formValidCommom.js"></script>
+        <script src="~/js/Pc/base.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/js/Pc/pc_common.js"></script>
+        <script src="~/js/Pc/swiper.min.js"></script>
+        <script src="~/js/Pc/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/js/Pc/vue.min.js"></script>
+        <script src="~/js/Pc/formValidCommom.js"></script>
+        <script src="~/js/Pc/base.js"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,95 @@
+@model Senparc.Areas.Admin.Models.VD.AdminUserInfo_IndexVD
+@using System.Web.Mvc
+@{
+    ViewData["Title"] = "管理员管理";
+}
+@section breadcrumbs{
+    <li>
+        @ViewData["Title"]
+    </li>
+}
+<!-- START panel-->
+<div class="panel panel-green">
+    <div class="panel-body">
+        <div class="pull-left">
+            <a asp-action="Edit" asp-route-id="" title="新增" class="btn-sm btn btn-primary btn-outline">
+                <em class="fa fa-plus"></em> &nbsp;<small>新增</small>
+            </a>
+            <label for="deleteBtn" class="btn-sm btn btn-danger btn-outline" title="删除">
+                <em class="fa fa-trash-o"></em> &nbsp;<small>删除</small>
+                <input type="submit" id="deleteBtn" onclick="deleteCheck('ids','deleteForm'); return false;" form="deleteForm" class="hidden" value="删除" />
+            </label>
+        </div>
+    </div>
+    <!-- START table-responsive-->
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th data-check-all>
+                        <div class="checkbox c-checkbox" data-toggle="tooltip">
+                            <label>
+                                <input type="checkbox">
+                                <span class="fa fa-check"></span>
+                            </label>
+                        </div>
+                    </th>
+                    <th>#</th>
+                    <th>用户名</th>
+                    <th>备注</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AdminUserInfoList)
+                {
+                    <tr>
+                        <td>
+                            <div class="checkbox c-checkbox">
+                                <label>
+                                    <input type="checkbox" name="ids" value="@item.Id" form="deleteForm">
+                                    <span class="fa fa-check"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.UserName
+                        </td>
+                        <td>
+                            @item.Note
+                        </td>
+                        <td>
+                            @item.AddTime.ToString("yyyy-MM-dd HH:mm")
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-primary btn-outline">
+                                <em class="fa fa-pencil-square-o"></em>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <!-- END table-responsive-->
+    <div class="panel-footer">
+        <div class="row">
+            @Html.Raw((Html.PagerBar(Model.AdminUserInfoList, new PagerBarSettings(Url.Action("Index", "AdminUserInfo", new
+        {
+            pageIndex = "{0}"
+        }))
+        {
+            NoRecordTip = "无数据",
+            barStyle = BarStyle.bootstrap,
+            ShowTotalCount = true
+        })))
+        </div>
+    </div>
+</div>
+<!-- END panel-->
+<form method="post" asp-action="Delete" id="deleteForm"></form>

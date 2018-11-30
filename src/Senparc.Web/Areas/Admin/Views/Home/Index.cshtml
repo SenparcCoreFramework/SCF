@@ -1,0 +1,13 @@
+@model Senparc.Areas.Admin.Models.VD.Home_IndexVD
+@{
+    ViewData["Title"] = "管理后台首页";
+}
+<p>
+    当前服务器时间：<span id="serverTime">@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</span> |
+    页面执行时间：@((Model.PageEndTime - Model.PageStartTime).TotalSeconds.ToString())秒
+</p>
+@*<p>
+        系统启动时间：@Senparc.Core.Config.SiteConfig.ApplicationStartTime
+        | Structure启动时间：@StructureMapControllerFactory.StrcutureMapStartupTime 秒
+        | WRUFL启动时间：@Senparc.Utility.WurflUtility.WurflStartupTime 秒，状态：@Senparc.Utility.WurflUtility.RegisterState
+</p>*@

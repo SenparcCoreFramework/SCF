@@ -1,0 +1,21 @@
+<!-- offsidebar-->
+<aside class="offsidebar hide feedBackBox b0">
+    <div class="panel b">
+        <div class="panel-heading">
+            用户反馈
+        </div>
+        <div class="panel-body bt">
+            <div class="form-group">
+                <label>分类：</label>
+                <select class="input-sm b" id="type" asp-items="@Html.GetEnumSelectList(typeof(Module))" ></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">反馈内容：</label>
+                <textarea id="Content" class="form-control" placeholder="请输入反馈内容" rows="5" cols="6" type="text" name="Content" required></textarea>
+            </div>
+            <span class="help-block text-gray-dark"><em class="fa fa-exclamation-circle text-green mr-sm"></em>反馈内容无回复，更多问题解答请前往 <a target="_blank" href="https://weixin.senparc.com/QA?catalog=2" class="link-unstyled">问题交流</a></span>
+            <button class="btn btn-green" type="button" onclick="feedBack.sendToUs(this)">提交</button>
+            <button class="btn btn-default" id="feedBackCancelBtn" type="button" data-toggle-state="offsidebar-open" data-no-persist="true">取消</button>
+        </div>
+    </div>
+</aside>

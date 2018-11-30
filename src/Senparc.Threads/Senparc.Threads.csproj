@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
+    <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
+    <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

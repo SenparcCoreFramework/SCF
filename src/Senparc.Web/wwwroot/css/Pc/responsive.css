@@ -1,0 +1,228 @@
+/* ========== Responsive Styles ========== */
+
+
+
+/* --------- max width 991px -------- */
+@media only screen and (max-width: 991px) {
+	/* Main menu */
+	.navbar-nav > li > a {
+		font-size: 14px !important;
+	}
+	
+	.step-no {
+		margin: 0 auto 60px;
+	}
+	
+	/* steps */
+	.step-even .step-img, .step-even .step-details {
+		float: none;
+	}
+	
+	.step-img, .step-details{
+		margin-bottom: 40px;
+	}
+	
+	.step-img {
+		text-align:center;
+	}
+	
+	.single-pricing {
+		margin-bottom: 60px;
+	}
+	
+	.project-photo, .project-details {
+		margin-bottom: 60px;
+	}
+	
+
+}
+
+
+
+
+
+/* --------- Styles for Screen width between 768px To 1023px -------- */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+	/* Features */
+	.baraja-container {
+		width: 180px;
+		height: 275px;
+	}
+
+	.single-feature .feature-icon i {
+		font-size: 70px;
+	}
+
+	.single-feature .feature-title {
+		font-size: 18px;
+		line-height: 24px;
+	}
+
+	.single-feature .feature-text {
+		display:none;
+	}
+
+	
+	
+}
+
+
+/* --------- Styles for Screen width Smaller than 767px -------- */
+@media only screen and (max-width: 767px) {
+	
+	/* Main menu */
+	.navbar-collapse {
+		margin-left: -16px;
+		margin-right: -16px;
+		background: #222;
+		overflow-y:scroll;
+		max-height: 200px;
+	}
+
+	.navbar-nav > li > a {
+		padding-left: 30px;
+	}
+	
+
+	/* features */
+	.container.features {
+		padding-bottom: 120px;
+	}
+	
+	.baraja-container {
+		width: 180px;
+		height: 250px;
+	}
+
+
+	.single-feature .feature-title {
+		font-size: 14px;
+		line-height: 20px;
+		padding: 0 5px;
+	}
+
+	.single-feature .feature-text {
+		display:none;
+	}
+
+	/* services */
+	.service {
+		margin-bottom: 20px;
+	}
+
+	.service .service-description {
+		margin: auto;
+		max-width: 480px;
+	}
+
+	/* Steps */
+	.step-even .step-img, .step-even .step-details {
+		float: none;
+	}
+
+	.step .step-img {
+		margin-top: 30px;
+	}
+		
+	.sub-steps .sub-text {
+		line-height: 28px;
+	}
+
+	/* Screenshots */
+	.figure {
+		width: 33.333%;
+	}
+
+	.figure-large {
+		width: 66.6667%;
+	}
+
+	/* Pricing table */
+	.single-pricing-wrap {
+		margin-bottom: 40px;
+	}
+}
+
+
+/* --------- Styles for Screen width Smaller than 480px -------- */
+@media only screen and (max-width: 480px) {
+	/* Headings for mobile View */
+	h1 {
+		font-size: 36px;
+		line-height: 48px;
+	}
+
+	h2 {
+		font-size: 26px;
+		line-height: 34px;
+	}
+
+	h3 {
+		font-size: 24px;
+		line-height: 32px;
+	}
+
+
+	#section-feature {
+		padding-top: 140px;
+		padding-bottom: 40px;
+	}
+	
+	.well-come {
+		margin-top: 150px;
+		font-size: 48px;
+	}
+	
+	.features-control {
+		float: left;
+		height: 160px;
+		width: 42px;
+		bottom: 340px;
+	}
+
+	.features-control .control-icon {
+		position: relative;
+		left: 2px !important;
+		float: left;
+		margin-bottom: 8px;
+	}
+
+	/* Steps */
+	.step-details .step-description {
+		text-align:justify;
+	}
+
+	.sub-steps {
+		margin-left: 5%;
+	}
+
+
+	/* Sreenshots */
+	.screenshots .col-xs-6 {
+		width: 100% !important;
+	}
+	
+		#subscription-form  .input-email {
+		width: 320px;
+	}
+}
+
+
+/* --------- Styles for Screen width Smaller than 360px -------- */
+@media only screen and (max-width: 360px) {
+	.client-photos .photo-hold {
+		width: 80px;
+		height: 80px;
+		margin-bottom: 16px;
+	}
+
+	/* Subscription Form */
+	#subscription-form  .input-email {
+		width: 250px;
+	}
+}
+
+
+
+
+

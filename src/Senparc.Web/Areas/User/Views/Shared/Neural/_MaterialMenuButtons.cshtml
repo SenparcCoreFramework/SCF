@@ -1,0 +1,23 @@
+@model Senparc.Areas.User.Models.VD.Material_BaseVD
+<div class="row">
+    <div class="tab-title">
+        <ul class="list-unstyled list-inline mb0">
+            <li class="mh-lg @Html.CurrentMenu("Material.Text","current-tab")">
+                <a class="link-unstyled text-gray-dark" asp-controller="Material" asp-action="Text" asp-route-app="@Model.CurrentNeuralApp.Id">文字</a>
+            </li>
+            <li class="mh-lg  @Html.CurrentMenu("Material.AppMsg","current-tab")">
+                <a class="link-unstyled text-gray-dark" asp-controller="Material" asp-action="AppMsg" asp-route-app="@Model.CurrentNeuralApp.Id">图文消息</a>
+            </li>
+            <li class="mh-lg  @Html.CurrentMenu("Material.Image","current-tab")">
+                <a class="link-unstyled text-gray-dark" asp-controller="Material" asp-action="Image" asp-route-app="@Model.CurrentNeuralApp.Id">图片</a>
+            </li>
+            <li class="mh-lg disabled">
+                <a class="link-unstyled" href="javascript:void(0);">语音</a>
+            </li>
+            <li class="mh-lg disabled">
+                <a class="link-unstyled disabled" href="javascript:void(0);">视频</a>
+            </li>
+        </ul>
+        <hr class="m0 mb-xl" />
+    </div>
+</div>
