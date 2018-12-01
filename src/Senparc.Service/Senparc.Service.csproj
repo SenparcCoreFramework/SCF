@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
     <PackageReference Include="Senparc.NeuChar" Version="0.4.4.3" />
     <PackageReference Include="Senparc.Weixin.MP" Version="16.5.0" />
