@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -19,6 +19,7 @@
         <Compile Remove="Views\Login\**" />
         <Compile Remove="Views\Shared\Components\**" />
         <Compile Remove="wwwroot\bower_components\**" />
+        <Compile Remove="wwwroot\headImgs\**" />
         <Compile Remove="wwwroot\upload\**" />
         <Content Remove="App_Data\Log\**" />
         <Content Remove="Areas\Admin\Content\**" />
@@ -28,6 +29,7 @@
         <Content Remove="Views\Login\**" />
         <Content Remove="Views\Shared\Components\**" />
         <Content Remove="wwwroot\bower_components\**" />
+        <Content Remove="wwwroot\headImgs\**" />
         <Content Remove="wwwroot\upload\**" />
         <EmbeddedResource Remove="App_Data\Log\**" />
         <EmbeddedResource Remove="Areas\Admin\Content\**" />
@@ -37,6 +39,7 @@
         <EmbeddedResource Remove="Views\Login\**" />
         <EmbeddedResource Remove="Views\Shared\Components\**" />
         <EmbeddedResource Remove="wwwroot\bower_components\**" />
+        <EmbeddedResource Remove="wwwroot\headImgs\**" />
         <EmbeddedResource Remove="wwwroot\upload\**" />
         <None Remove="App_Data\Log\**" />
         <None Remove="Areas\Admin\Content\**" />
@@ -46,6 +49,7 @@
         <None Remove="Views\Login\**" />
         <None Remove="Views\Shared\Components\**" />
         <None Remove="wwwroot\bower_components\**" />
+        <None Remove="wwwroot\headImgs\**" />
         <None Remove="wwwroot\upload\**" />
     </ItemGroup>
 
@@ -93,7 +97,7 @@
     <ItemGroup>
         <Folder Include="Properties\PublishProfiles\" />
         <Folder Include="wwwroot\bower_components\" />
-        <Folder Include="wwwroot\headImgs\" />
+        <Folder Include="wwwroot\css\Admin\adminlogin\" />
         <Folder Include="wwwroot\lib\Editor\" />
     </ItemGroup>
 

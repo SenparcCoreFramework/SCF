@@ -1,4 +1,4 @@
-﻿.img-checkcode {
+.img-checkcode {
     width: 100px;
     height: 40px;
     margin-left: 15px;
@@ -43,7 +43,8 @@ body {
 /*logo样式*/
 .logoBox .logoImg {
     display: block;
-    width: 240px;
+    text-align: center;
+    /*width: 240px;*/
     height: 116px;
     margin: 0px auto;
     padding-top: -109px;
@@ -53,7 +54,7 @@ body {
 }
 
     .logoBox .logoImg img {
-        width: 100%;
+        /*width: 100%;*/
         border-radius: 4px;
     }
 
