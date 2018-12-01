@@ -144,7 +144,7 @@ namespace Senparc.Service
 
             var salt = DateTime.Now.Ticks.ToString();
             userName = $"SenparcCoreAdmin{new Random().Next(100).ToString("00")}";
-            password = Guid.NewGuid().ToString("n").SubString(0, 8);
+            password = Guid.NewGuid().ToString("n").Substring(0, 8);
 
             var adminUserInfo = new AdminUserInfo()
             {
