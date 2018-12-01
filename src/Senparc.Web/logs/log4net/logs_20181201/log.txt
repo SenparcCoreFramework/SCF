@@ -6,3 +6,29 @@
 ----------------------header--------------------------
 2018-12-01 10:14:07,402 [1] INFO  SystemLoggerRepository - 测试Log4net
  : ? R=1187 T=1
+
+----------------------header--------------------------
+2018-12-01 10:56:15,344 [1] INFO  SystemLoggerRepository - 测试Log4net
+ : ? R=2674 T=1
+
+----------------------header--------------------------
+2018-12-01 11:06:57,438 [1] INFO  SystemLoggerRepository - 测试Log4net
+ : ? R=1233 T=1
+
+----------------------header--------------------------
+2018-12-01 11:09:33,390 [1] INFO  SystemLoggerRepository - 测试Log4net
+ : ? R=2818 T=1
+
+----------------------header--------------------------
+2018-12-01 11:12:07,106 [1] INFO  SystemLoggerRepository - 测试Log4net
+ : ? R=1641 T=1
+
+----------------------header--------------------------
+2018-12-01 11:14:34,137 [1] INFO  SystemLoggerRepository - 测试Log4net
+ : ? R=1788 T=1
+
+----------------------header--------------------------
+2018-12-01 11:32:06,303 [1] INFO  SystemLoggerRepository - 测试Log4net
+ : ? R=3278 T=1
+2018-12-01 11:32:09,819 [12] INFO  WebLoggerRepository - AdminUserInfo新增：SenparcCoreAdmin76（ID：1）
+ : ? R=6793 T=12

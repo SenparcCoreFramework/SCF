@@ -132,14 +132,23 @@ namespace Senparc.Service
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        public AdminUserInfo Init()
+        public AdminUserInfo Init(out string userName, out string password)
         {
+            var oldAdminUserInfo = GetObject(z => true);
+            if (oldAdminUserInfo != null)
+            {
+                userName = null;
+                password = null;
+                return null;
+            }
+
             var salt = DateTime.Now.Ticks.ToString();
-            var password = "123123";
+            userName = $"SenparcCoreAdmin{new Random().Next(100).ToString("00")}";
+            password = Guid.NewGuid().ToString("n").SubString(0, 8);
 
             var adminUserInfo = new AdminUserInfo()
             {
-                UserName = "TNT2",
+                UserName = userName,
                 Password = GetPassword(password, salt, false),
                 PasswordSalt = salt,
                 Note = "初始化数据",

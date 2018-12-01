@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.User", "Senpa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.WX", "Senparc.Areas.WX\Senparc.Areas.WX.csproj", "{A0AE58F3-3630-4223-848F-45D7A4D9302E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetSources", "NugetSources", "{B2B84E12-606C-45FE-8376-D947C29FEDA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

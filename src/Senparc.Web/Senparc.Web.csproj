@@ -322,6 +322,9 @@
         <Content Update="Areas\WX\_ViewStart.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
+        <Content Update="Views\Install\Index.cshtml">
+          <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
         <Content Update="wwwroot\css\Admin\base\pagecss.css">
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         </Content>
