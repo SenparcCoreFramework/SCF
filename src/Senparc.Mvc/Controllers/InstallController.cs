@@ -7,13 +7,18 @@ namespace Senparc.Mvc.Controllers
     public class InstallController : Controller
     {
         private readonly AdminUserInfoService _accountInfoService;
-        public InstallController(AdminUserInfoService accountService)
+        private readonly SystemConfigService _systemConfigService;
+        public InstallController(AdminUserInfoService accountService, SystemConfigService systemConfigService)
         {
             _accountInfoService = accountService;
+            _systemConfigService = systemConfigService;
         }
         public IActionResult Index()
         {
             var adminUserInfo = _accountInfoService.Init(out string userName, out string password);
+
+            _systemConfigService.Init();
+
             if (adminUserInfo == null)
             {
                 return new StatusCodeResult(404);

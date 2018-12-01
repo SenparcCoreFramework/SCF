@@ -24,6 +24,23 @@ namespace Senparc.Service
 
         }
 
+        public SystemConfig Init()
+        {
+           var systemConfig = GetObject(z => true);
+            if (systemConfig!=null)
+            {
+                return null;
+            }
+
+            systemConfig = new SystemConfig() {
+                SystemName = "SCF - Template Project"
+            };
+
+            SaveObject(systemConfig);
+
+            return systemConfig;
+        }
+
         public override void SaveObject(SystemConfig obj)
         {
             LogUtility.SystemLogger.Info("系统信息被编辑");
