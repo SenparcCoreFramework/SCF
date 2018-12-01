@@ -66,6 +66,7 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" />
         <PackageReference Include="Senparc.CO2NET" Version="0.3.0.2" />
         <PackageReference Include="Senparc.Weixin.Open" Version="4.2.0" />
