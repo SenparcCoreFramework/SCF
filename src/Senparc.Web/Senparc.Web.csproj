@@ -57,6 +57,7 @@
     <ItemGroup>
         <PackageReference Include="log4net" Version="2.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
+        <!--<PackageReference Include="Microsoft.AspNetCore.App"  />-->
         <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.1.1" />
         <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
