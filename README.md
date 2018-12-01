@@ -34,7 +34,7 @@ SCF 将提供全自动的安装程序，目前正在整理阶段，您可以通�
 
 1. 确保已经安装 SQL Server 2008 以上，系统登录用户具有数据库创建权限（可以不需要使用sa等账号登录），如果必须要使用账号登录，[请看这里](https://github.com/SenparcCoreFramework/SCF/wiki/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%9F)
 
-2. 输入命令：dotnet ef database update 回车
+2. 输入命令：`dotnet ef database update` 回车
 
 3. 稍等片刻（会自动编译一次项目，因此请勿修改项目代码），完成后输出如下结果，表示数据库安装成功：
 
