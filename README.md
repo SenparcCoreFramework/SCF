@@ -45,9 +45,9 @@ Done.
 
 ### 第三步：初始化数据库
 
- 1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：http://localhost:11942/
+ 1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：http://localhost:11946/
 
- 2. 打开 http://localhost:11942/Install ，数据库将会自动初始化
+ 2. 打开 http://localhost:11946/Install ，数据库将会自动初始化
 
  3. 完成后，保存页面上显示的账号和密码，根据提示进入管理员后台。
 
