@@ -8,6 +8,5 @@ obj/
 .pdb
 .user
 .vscode/
-/src/Senparc.Web/logs/log4net/logs_20181130
 /src/Senparc.Web/wwwroot/bower_components
-/src/Senparc.Web/logs/log4net/logs_20181201
+/src/Senparc.Web/logs/
