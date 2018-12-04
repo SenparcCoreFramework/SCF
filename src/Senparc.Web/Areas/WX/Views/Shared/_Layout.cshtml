@@ -10,13 +10,11 @@
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
     @*本地*@
     <environment include="Development">
-        <link href="~/js/WX/base/jquery-weui/lib/weui.css" rel="stylesheet" />
-        <link href="~/js/WX/base/jquery-weui/css/jquery-weui.css" rel="stylesheet" />
+        <link href="~/bower_components/jquery-weui/src/lib/weui.css" rel="stylesheet" />
     </environment>
     @*线上*@
     <environment exclude="Development">
-        <link href="~/js/WX/base/jquery-weui/lib/weui.css" rel="stylesheet" />
-        <link href="~/js/WX/base/jquery-weui/css/jquery-weui.min.css" rel="stylesheet" />
+        <link href="~/bower_components/jquery-weui/src/lib/weui.min.css" rel="stylesheet" />
     </environment>
     @RenderSection("Style", false)
 
@@ -25,21 +23,13 @@
     @RenderBody()
     @*本地*@
     <environment include="Development">
-        <script src="~/js/WX/base/jquery-weui/lib/jquery-2.1.4.js"></script>
-        <script src="~/js/WX/base/jquery-weui/js/jquery-weui.js"></script>
-        <script src="~/js/WX/base/jssdk-config.js"></script>
-        <script src=" https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <script src="~/bower_components/jquery/dist/jquery.js"></script>
     </environment>
     @*线上*@
     <environment exclude="Development">
-        <script src="~/js/WX/base/jquery-weui/lib/jquery-2.1.4.js"></script>
-        <script src="~/js/WX/base/jquery-weui/js/jquery-weui.min.js"></script>
-        <script src="~/js/WX/base/jssdk-config.js"></script>
-        <script src=" https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+        <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+
     </environment>
-    @*SignalR *@
-    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/chat.js"></script>
     @RenderSection("scripts", false)
 </body>
 

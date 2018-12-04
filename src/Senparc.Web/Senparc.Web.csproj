@@ -102,7 +102,6 @@
         <Folder Include="Properties\PublishProfiles\" />
         <Folder Include="wwwroot\bower_components\" />
         <Folder Include="wwwroot\css\Admin\adminlogin\" />
-        <Folder Include="wwwroot\lib\Editor\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -211,45 +210,6 @@
         <None Include="wwwroot\lib\signalr\dist\esm\WebSocketTransport.js" />
         <None Include="wwwroot\lib\signalr\dist\esm\WebSocketTransport.js.map" />
         <None Include="wwwroot\lib\signalr\README.md" />
-        <None Include="wwwroot\lib\vendor\bootstrap-filestyle\src\bootstrap-filestyle.js" />
-        <None Include="wwwroot\lib\vendor\bootstrap-tour\build\js\bootstrap-tour-standalone.js" />
-        <None Include="wwwroot\lib\vendor\bootstrap-wysiwyg\bootstrap-wysiwyg.js" />
-        <None Include="wwwroot\lib\vendor\bootstrap-wysiwyg\external\jquery.hotkeys.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\buttons.bootstrap.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\buttons.bootstrap4.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\buttons.dataTables.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\buttons.foundation.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\buttons.jqueryui.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\buttons.semanticui.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\common.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\css\mixins.scss" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.bootstrap.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.bootstrap4.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.colVis.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.flash.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.foundation.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.html5.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.jqueryui.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.print.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\buttons.semanticui.js" />
-        <None Include="wwwroot\lib\vendor\datatables-buttons\js\dataTables.buttons.js" />
-        <None Include="wwwroot\lib\vendor\datatables-colvis\js\dataTables.colVis.js" />
-        <None Include="wwwroot\lib\vendor\datatables-responsive\js\dataTables.responsive.js" />
-        <None Include="wwwroot\lib\vendor\datatables-responsive\js\responsive.bootstrap.js" />
-        <None Include="wwwroot\lib\vendor\datatables\media\images\Sorting icons.psd" />
-        <None Include="wwwroot\lib\vendor\datatables\media\js\dataTables.bootstrap.js" />
-        <None Include="wwwroot\lib\vendor\datatables\media\js\jquery.dataTables.min.js" />
-        <None Include="wwwroot\lib\vendor\eonasdan-bootstrap-datetimepicker\build\js\bootstrap-datetimepicker.min.js" />
-        <None Include="wwwroot\lib\vendor\fontawesome\fonts\fontawesome-webfont.svg" />
-        <None Include="wwwroot\lib\vendor\fontawesome\fonts\fontawesome-webfont.woff2" />
-        <None Include="wwwroot\lib\vendor\html.sortable\dist\html.sortable.js" />
-        <None Include="wwwroot\lib\vendor\nestable\jquery.nestable.js" />
-        <None Include="wwwroot\lib\vendor\parsleyjs\dist\parsley.min.js" />
-        <None Include="wwwroot\lib\vendor\screenfull\dist\screenfull.js" />
-        <None Include="wwwroot\lib\vendor\simple-line-icons\fonts\Simple-Line-Icons.svg" />
-        <None Include="wwwroot\lib\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
-        <None Include="wwwroot\lib\vendor\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.js" />
-        <None Include="wwwroot\lib\vendor\x-editable\dist\bootstrap3-editable\js\bootstrap-editable.min.js" />
     </ItemGroup>
 
     <ItemGroup>
@@ -290,19 +250,10 @@
         <Content Update="Areas\User\Views\Home\Recover.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
-        <Content Update="Areas\User\Views\Shared\Neural\_PlatformSettingPartial.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Shared\_SyncBtnPartial.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
         <Content Update="Areas\User\Views\Shared\_HeaderPartial.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
         <Content Update="Areas\User\Views\Shared\_LoginLayout.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Shared\_FeedBackPartial.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
         <Content Update="Areas\User\Views\Account\Index.cshtml">
