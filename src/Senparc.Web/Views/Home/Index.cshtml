@@ -60,7 +60,7 @@
                             <!--Right Nav-->@*@Url.Action("Logout", "Login")*@
                             <ul class="nav navbar-nav navbar-right">
                                 @*@Html.Partial("_LoginPartial")*@
-                                <li>
+                                @*<li>
                                     @if (Model.FullAccount.IsLogined)
                                     {
                                         <span>您好，<a asp-controller="Home" asp-action="Index" asp-area="User" title="@Model.FullAccount.DisplayName">@(Model.FullAccount.DisplayName)</a> | </span>
@@ -70,7 +70,7 @@
                                     {
                                         <a asp-controller="Home" asp-action="Index" asp-area="User" title="登录">登录</a>
                                     }
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                         <!-- Main Navigation menu ends-->
