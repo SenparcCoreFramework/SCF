@@ -9,6 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <title>SCF</title>
+    <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style>
         .container.step {
             padding-bottom: 0 !important;
@@ -40,23 +41,22 @@
                 <div id="topbar-hold" class="nav-hold container">
                     <nav class="navbar" role="navigation">
                         <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                            @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>*@
                             <!--=== Site Name ===-->
-                            <a class="site-name navbar-brand" href="#">
-                                <img style="height:50px" src="~/images/PC/logo.png" />
+                            @*site-name navbar-brand*@
+                            <a class="" href="#">
+                                <img style="height:50px" src="~/images/logo-login.png" />
                             </a>
                         </div>
                         <!-- Main Navigation menu Starts -->
                         <div class="collapse navbar-collapse navbar-responsive-collapse">
                             <!--Left Nav-->
-                            <ul class="nav navbar-nav navbar-left">
-                              
-                            </ul>
+                            <ul class="nav navbar-nav navbar-left"></ul>
                             <!--Right Nav-->@*@Url.Action("Logout", "Login")*@
                             <ul class="nav navbar-nav navbar-right">
                                 @*@Html.Partial("_LoginPartial")*@
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-   
+    <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
 
