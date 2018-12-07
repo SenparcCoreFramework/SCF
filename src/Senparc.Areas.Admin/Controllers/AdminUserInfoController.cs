@@ -18,6 +18,7 @@ namespace Senparc.Areas.Admin.Controllers
     {
         private readonly AdminUserInfoService _adminUserInfoService;
 
+
         public AdminUserInfoController(AdminUserInfoService adminUserInfoService)
         {
             _adminUserInfoService = adminUserInfoService;
