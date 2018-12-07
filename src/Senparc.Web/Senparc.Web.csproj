@@ -117,6 +117,16 @@
         <None Include="Areas\User\Views\Home\Login.cshtml" />
         <None Include="Areas\User\Views\Home\Register.cshtml" />
         <None Include="Views\Home\Index.cshtml" />
+        <None Include="wwwroot\js\course-demo-umi\.gitignore" />
+        <None Include="wwwroot\js\course-demo-umi\config\config.js" />
+        <None Include="wwwroot\js\course-demo-umi\dist\umi.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\layout\index.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\page\.umi\router.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\page\.umi\umi.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\page\Dashboard\Analysis.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\page\Dashboard\Monitor.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\page\Dashboard\Workplace.js" />
+        <None Include="wwwroot\js\course-demo-umi\src\page\HelloWorld.js" />
         <None Include="wwwroot\lib\signalr\dist\browser\signalr.js" />
         <None Include="wwwroot\lib\signalr\dist\browser\signalr.js.map" />
         <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js" />

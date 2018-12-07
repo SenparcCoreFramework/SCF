@@ -1,0 +1,20 @@
+{
+  "name": "course-demo-umi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "umi": "^2.0.3",
+    "umi-plugin-react": "^1.0.3"
+  },
+  "dependencies": {
+    "antd": "^3.9.2"
+  }
+}

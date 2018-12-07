@@ -26,72 +26,49 @@
 
 </head>
 <body>
-    <div id="app" v-cloak>
-        <helloworld></helloworld>
-        <script type="text/x-template" id="HelloWorld-template">
-            <a-layout id="components-layout-demo-responsive">
-                <a-layout-sider breakpoint="lg"
-                                collapsedWidth="0"
-                                @@collapse="onCollapse"
-                                @@breakpoint="onBreakpoint">
-                    <div class="logo" />
-                    <a-menu theme="dark" mode="inline" :defaultSelectedKeys="['4']">
-                        <a-menu-item key="1">
-                            <a-icon type="user" />
-                            <span class="nav-text">nav 1</span>
-                        </a-menu-item>
-                        <a-menu-item key="2">
-                            <a-icon type="video-camera" />
-                            <span class="nav-text">nav 2</span>
-                        </a-menu-item>
-                        <a-menu-item key="3">
-                            <a-icon type="upload" />
-                            <span class="nav-text">nav 3</span>
-                        </a-menu-item>
-                        <a-menu-item key="4">
-                            <a-icon type="user" />
-                            <span class="nav-text">nav 4</span>
-                        </a-menu-item>
-                    </a-menu>
-                </a-layout-sider>
-                <a-layout>
-                    <a-layout-header :style="{ background: '#fff', padding: 0 }" />
-                    <a-layout-content :style="{ margin: '24px 16px 0' }">
-                        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-                            content
-                        </div>
-                    </a-layout-content>
-                    <a-layout-footer style="textAlign: center">
-                        Ant Design ©2018 Created by Ant UED
-                    </a-layout-footer>
-                </a-layout>
-            </a-layout>
-        </script>
+    <div id="root">
         @RenderBody()
     </div>
-    @*本地*@
+    <script>window.routerBase = "/";</script>
     <environment include="Development">
         <!-- ===============BASE JQUERY SCRIPTS ===============-->
         <script src="~/bower_components/jquery/dist/jquery.js"></script>
+        <script src="~/js/course-demo-umi/require.js"></script>
         <!-- ===============BASE VUE SCRIPTS ===============-->
-        <script src="~/bower_components/vue/dist/vue.js"></script>
+        @*<script src="~/bower_components/vue/dist/vue.js"></script>*@
         <!-- ===============BASE MOMENT SCRIPTS ===============-->
         @*<script src="~/node_modules/ant-design-vue/node_modules/moment/src/moment.js"></script>*@
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
         <!-- ===============BASE ANTD SCRIPTS ===============-->
         <script src="~/node_modules/ant-design-vue/dist/antd.js"></script>
-        <script src="~/js/Admin/main.js"></script>
+        <script src="~/js/course-demo-umi/dist/umi.js"></script>
+        <script src="~/js/course-demo-umi/src/layout/index.js"></script>
+        <script src="~/js/course-demo-umi/src/page/.umi/router.js"></script>
+        <script src="~/js/course-demo-umi/src/page/.umi/umi.js"></script>
+        <script>window.routerBase = "/";</script>
+
     </environment>
     @*线上*@
     <environment exclude="Development">
         <!-- ===============BASE JQUERY SCRIPTS ===============-->
         <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="~/js/course-demo-umi/require.js"></script>
         <!-- ===============BASE VUE SCRIPTS ===============-->
-        <script src="~/bower_components/vue/dist/vue.min.js"></script>
+        @*<script src="~/bower_components/vue/dist/vue.min.js"></script>*@
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
         <!-- ===============BASE MOMENT SCRIPTS ===============-->
         @*<script src="~/node_modules/ant-design-vue/node_modules/moment/min/moment.min.js"></script>*@
         <!-- ===============BASE ANTD SCRIPTS ===============-->
         <script src="~/node_modules/ant-design-vue/dist/antd.min.js"></script>
-        <script src="~/js/Admin/main.js"></script>
+        <script src="~/js/course-demo-umi/dist/umi.js"></script>
+        <script src="~/js/course-demo-umi/src/layout/index.js"></script>
+        <script src="~/js/course-demo-umi/src/page/.umi/router.js"></script>
+        <script src="~/js/course-demo-umi/src/page/.umi/umi.js"></script>
+        <script>window.routerBase = "/";</script>
 
     </environment>
     @RenderSection("scripts", false)
