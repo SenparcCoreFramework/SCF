@@ -100,7 +100,6 @@
 
     <ItemGroup>
         <Folder Include="Properties\PublishProfiles\" />
-        <Folder Include="wwwroot\bower_components\" />
         <Folder Include="wwwroot\css\Admin\adminlogin\" />
         <Folder Include="wwwroot\lib\Editor\" />
     </ItemGroup>
