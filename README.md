@@ -1,3 +1,5 @@
+<img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" />
+
 # SCF - SenparcCoreFramework
 
 SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包含了基础的缓存、数据库、模型、验证及配套管理后台，模块化，具有高度的可扩展性。
@@ -43,15 +45,21 @@ Applying migration '20181130085128_init'.
 Done.
 ```
 
+<img src="https://weixin.senparc.com/images/SCF/Install/01.png" />
+
 ### 第三步：初始化数据
 
  1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：http://localhost:11946/
 
- 2. 打开 http://localhost:11946/Install ，数据库将会自动初始化
+ <img src="https://weixin.senparc.com/images/SCF/Install/02.png" />
+ 
+ 2. 打开 http://localhost:11946/Install ，数据库将会自动初始化。
+ 
+<img src="https://weixin.senparc.com/images/SCF/Install/03.png" />
 
  3. 完成后，保存页面上显示的账号和密码，根据提示进入管理员后台。
 
-
+<img src="https://weixin.senparc.com/images/SCF/Install/04.png" />
 
 ## 待办事项：
 
