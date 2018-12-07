@@ -14,18 +14,17 @@
 
         <!-- =============== VENDOR STYLES ===============-->
         <!-- =============== BOOTSTRAP STYLES ===============-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-        <!--Base APP-->
-        <link href="~/lib/bootstrap/dist/css/app.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <!--Base custom-->
+        <link href="~/bower_components/gentelella/build/css/custom.css" rel="stylesheet" />
     </environment>
     <environment names="Staging,Production">
-
         <!-- =============== VENDOR STYLES ===============-->
-        <link href="~/lib/vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <!-- =============== BOOTSTRAP STYLES ===============-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-        <!--Base APP-->
-        <link href="~/lib/bootstrap/dist/css/app.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!--Base custom-->
+        <link href="~/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet" />
     </environment>
     @RenderSection("HeaderContent", false)
 </head>

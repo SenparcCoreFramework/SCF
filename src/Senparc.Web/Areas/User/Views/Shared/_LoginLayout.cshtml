@@ -15,37 +15,27 @@
     <environment include="Development">
         <!-- ===============Base CSS BEGIN ===============-->
         <!-- ===============Base VENDOR STYLES ===============-->
-        <link href="~/lib/vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/lib/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <!-- ===============Base BOOTSTRAP STYLES ===============-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-        <!--tour-->
-        <link href="~/lib/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <!-- ===============Base PLUGIN OR OTHERS ===============-->
         <!--Base SWEET ALERT-->
-        <link href="~/js/User/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />
-        <!--Base APP-->
-        <link href="~/lib/bootstrap/dist/css/app.css" rel="stylesheet" />
-        <!--Base THEME-->
-        <link href="~/lib/bootstrap/dist/css/theme-b.css" rel="stylesheet" />
+        @*<link href="~/js/User/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />*@
+        <!--Base custom-->
+        <link href="~/bower_components/gentelella/build/css/custom.css" rel="stylesheet" />
     </environment>
     @*线上*@
     <environment exclude="Development">
         <!-- ===============Base CSS BEGIN ===============-->
         <!-- ===============Base VENDOR STYLES ===============-->
-        <link href="~/lib/vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/lib/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
-        <!--tour-->
-        <link href="~/lib/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <!-- ===============Base BOOTSTRAP STYLES ===============-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <!-- ===============Base PLUGIN OR OTHERS ===============-->
         <!--Base SWEET ALERT-->
-        <link href="~/js/User/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />
-        <!--Base APP-->
-        <link href="~/lib/bootstrap/dist/css/app.css" rel="stylesheet" />
-        <!--Base THEME-->
-        <link href="~/lib/bootstrap/dist/css/theme-b.css" rel="stylesheet" />
+        @*<link href="~/js/User/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />*@
+        <!--Base custom-->
+        <link href="~/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet" />
     </environment>
     @RenderSection("HeaderContent", false)
     @RenderSection("Style", false)
@@ -84,51 +74,29 @@
         <!-- ===============BASE JQUERY SCRIPTS ===============-->
         <script src="~/bower_components/jquery/dist/jquery.js"></script>
         <!-- ===============BASE BOOTSTRAP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.js"></script>
         <!-- ===============BASE VUE SCRIPTS ===============-->
-        <script src="~/lib/vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-        <script src="~/lib/vendor/parsleyjs/dist/parsley.min.js"></script>
-        <script src="~/bower_components/parsleyjs/dist/i18n/zh_cn.js"></script>
-        <script src="~/lib/vendor/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-        <script src="~/lib/vendor/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
         <!--jquery-qrcode-->
         <script src="~/bower_components/jquery-qrcode/dist/jquery-qrcode.min.js"></script>
         <!--Sortable-->
-        <script src="~/js/User/base/plugin/sweetalert/dist/sweetalert.min.js"></script>
+        @*<script src="~/js/User/base/plugin/sweetalert/dist/sweetalert.min.js"></script>*@
         <!--tour-->
-        <script src="~/lib/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.js"></script>
-        <script src="~/js/User/base/base.js"></script>
-        <!-- ===============BASE APP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/app.js"></script>
-        <script src="~/js/User/Ajax/Ajax.js"></script>
+        <script src="~/bower_components/gentelella/build/js/custom.js"></script>
     </environment>
     @*线上*@
     <environment exclude="Development">
         <!-- ===============BASE JQUERY SCRIPTS ===============-->
         <script src="~/bower_components/jquery/dist/jquery.js"></script>
         <!-- ===============BASE BOOTSTRAP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- ===============BASE VUE SCRIPTS ===============-->
-        <script src="~/lib/vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-        <script src="~/lib/vendor/parsleyjs/dist/parsley.min.js"></script>
-        <script src="~/bower_components/parsleyjs/dist/i18n/zh_cn.js"></script>
-        <script src="~/lib/vendor/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-        <script src="~/lib/vendor/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
-        <!--jquery-qrcode-->
         <script src="~/bower_components/jquery-qrcode/dist/jquery-qrcode.min.js"></script>
         <!--Sortable-->
-        <script src="~/js/User/base/plugin/sweetalert/dist/sweetalert.min.js"></script>
+        @*<script src="~/js/User/base/plugin/sweetalert/dist/sweetalert.min.js"></script>*@
         <!--tour-->
-        <script src="~/lib/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.js"></script>
-        <script src="~/js/User/base/base.js"></script>
         <!-- ===============BASE APP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/app.js"></script>
-        <script src="~/js/User/Ajax/Ajax.js"></script>
-
+        <script src="~/bower_components/gentelella/build/js/custom.min.js"></script>
     </environment>
-    @*SignalR *@
-    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/chat.js"></script>
     @RenderSection("scripts", false)
     @Html.RenderMessageBox()
 </body>

@@ -7,11 +7,7 @@ namespace Senparc.Areas.Admin.Controllers
     [MenuFilter("SystemConfig")]
     public class SystemConfigController : BaseAdminController
     {
-        public SystemConfigController()
-        {
-        }
-
-        public ActionResult Index(string sysName = "C_")
+        public ActionResult Index()
         {
             return View();
         }

@@ -9,27 +9,11 @@
     <meta name="description" content="">
 
     <environment include="Development">
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-        <link href="~/css/Pc/common.css" rel="stylesheet" />
-        <link href="~/css/Pc/swiper.min.css" rel="stylesheet" />
-        <link href="~/css/Pc/style.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
-        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/css/Pc/common.css" rel="stylesheet" />
-        <link href="~/css/Pc/swiper.min.css" rel="stylesheet" />
-        <link href="~/css/Pc/style.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     </environment>
-    <style>
-        .current .active {
-            /*color: #0094ff;*/
-            background: #0560AD;
-        }
-
-        .nav-item:hover {
-            background: #2981ca;
-        }
-    </style>
     @RenderSection("HeaderContent", false)
 </head>
 <body>
@@ -56,24 +40,10 @@
     <div class=" uk-notify uk-notify-top-center"></div>
     <!-- end footer-->
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/js/Pc/pc_common.js"></script>
-        <script src="~/js/Pc/swiper.min.js"></script>
-        <script src="~/js/Pc/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/WX/vue.js"></script>
-        <script src="~/js/Pc/formValidCommom.js"></script>
-        <script src="~/js/Pc/base.js"></script>
+        <script src="~/bower_components/jquery/dist/jquery.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/js/Pc/pc_common.js"></script>
-        <script src="~/js/Pc/swiper.min.js"></script>
-        <script src="~/js/Pc/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="~/js/Pc/vue.min.js"></script>
-        <script src="~/js/Pc/formValidCommom.js"></script>
-        <script src="~/js/Pc/base.js"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>

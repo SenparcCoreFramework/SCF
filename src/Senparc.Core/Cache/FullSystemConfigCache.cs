@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Senparc.Core.Exceptions;
 using Senparc.Core.Models;
 
 namespace Senparc.Core.Cache
@@ -25,6 +26,10 @@ namespace Senparc.Core.Cache
             if (systemConfig != null)
             {
                 fullSystemConfig = FullSystemConfig.CreateEntity<FullSystemConfig>(systemConfig);
+            }
+            else
+            {
+                throw new SCFExceptionBase("SCF 系统未初始化，请先执行 /Install 进行数据初始化");
             }
             base.SetData(fullSystemConfig, base.TimeOut, null);
             return base.Data;

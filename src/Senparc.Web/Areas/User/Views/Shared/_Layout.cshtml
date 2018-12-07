@@ -11,63 +11,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
-    <script src="~/bower_components/jquery/dist/jquery.js"></script>
-
     @*本地*@
     <environment include="Development">
         <!-- ===============Base CSS BEGIN ===============-->
         <!-- ===============Base VENDOR STYLES ===============-->
-        <link href="~/lib/vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/lib/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
-        <!--tour-->
-        <link href="~/lib/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <!-- ===============Base BOOTSTRAP STYLES ===============-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <!--animate-->
-        <link href="~/lib/vendor/animate.css/animate.min.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/animate.css/animate.css" rel="stylesheet" />
         <!-- ===============Base PLUGIN OR OTHERS ===============-->
         <!--Base SWEET ALERT-->
-        <link href="~/js/User/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />
-        <!--Editor 富文本编辑器-->
-        <link href="~/lib/Editor/wangEditor.css" rel="stylesheet" />
-        <!-- XEDITABLE-->
-        <link rel="stylesheet" href="~/lib/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css">
-        <!--Base APP-->
-        <link href="~/lib/bootstrap/dist/css/app.css" rel="stylesheet" />
-        <!--Base THEME-->
-        <link href="~/lib/bootstrap/dist/css/theme-b.css" rel="stylesheet" />
-        <!--Base paging-->
-        <link href="~/css/User/base/pagecss.css" rel="stylesheet" />
+        @*<link href="~/js/Admin/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />*@
+        <!--Base custom-->
+        <link href="~/bower_components/gentelella/build/css/custom.css" rel="stylesheet" />
+        <!--pagebar-->
+        <link href="~/css/Admin/base/pagecss.css" rel="stylesheet" />
         <!--Base customStyle-->
-        <link href="~/css/User/styles.css" rel="stylesheet" />
+        <link href="~/css/Admin/styles.css" rel="stylesheet" />
     </environment>
     @*线上*@
     <environment exclude="Development">
         <!-- ===============Base CSS BEGIN ===============-->
         <!-- ===============Base VENDOR STYLES ===============-->
-        <link href="~/lib/vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="~/lib/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
-        <!--tour-->
-        <link href="~/lib/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <!-- ===============Base BOOTSTRAP STYLES ===============-->
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <!--animate-->
-        <link href="~/lib/vendor/animate.css/animate.min.css" rel="stylesheet" />
+        <link href="~/bower_components/gentelella/vendors/animate.css/animate.min.css" rel="stylesheet" />
         <!-- ===============Base PLUGIN OR OTHERS ===============-->
         <!--Base SWEET ALERT-->
-        <link href="~/js/User/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />
-        <!--Editor 富文本编辑器-->
-        <link href="~/lib/Editor/wangEditor.min.css" rel="stylesheet" />
-        <!-- XEDITABLE-->
-        <link rel="stylesheet" href="~/lib/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css">
-        <!--Base APP-->
-        <link href="~/lib/bootstrap/dist/css/app.css" rel="stylesheet" />
+        @*<link href="~/js/Developer/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />*@
+        <!--Base custom-->
+        <link href="~/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet" />
         <!--Base THEME-->
-        <link href="~/lib/bootstrap/dist/css/theme-b.css" rel="stylesheet" />
-        <!--Base paging-->
-        <link href="~/css/User/base/pagecss.css" rel="stylesheet" />
+        <!--pagebar-->
+        <link href="~/css/Admin/base/pagecss.css" rel="stylesheet" />
         <!--Base customStyle-->
-        <link href="~/css/User/styles.css" rel="stylesheet" />
+        <link href="~/css/Admin/styles.css" rel="stylesheet" />
         <!-- ===============Base CSS END ===============-->
     </environment>
     @RenderSection("HeaderContent", false)
@@ -75,7 +56,7 @@
 
 </head>
 <body class="aside-hover">
-    <partial name="_SyncDataPartial"/>
+    <partial name="_SyncDataPartial" />
 
     @RenderSection("modal", false)
 
@@ -132,96 +113,35 @@
         <!-- ===============BASE JQUERY SCRIPTS ===============-->
         <script src="~/bower_components/jquery/dist/jquery.js"></script>
         <!-- ===============BASE BOOTSTRAP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.js"></script>
         @*<script src="~/bower_components/AngularJS/angular.min.js"></script>*@
         <!-- ===============BASE VUE SCRIPTS ===============-->
         <script src="~/bower_components/vue/dist/vue.js"></script>
-
-        <!-- FILESTYLE-->
-        <script src="~/lib/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
-
         <!-- ===============BASE VENDOR SCRIPTS ===============-->
-        <script src="~/lib/vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-        <script src="~/lib/vendor/screenfull/dist/screenfull.js"></script>
-        @*<script src="~/lib/vendor/jquery-localize-i18n/dist/jquery.localize.js"></script>*@
-        <script src="~/lib/vendor/parsleyjs/dist/parsley.min.js"></script>
-        @*<script src="~/bower_components/parsleyjs/dist/parsley.js"></script>*@
-        <script src="~/bower_components/parsleyjs/dist/i18n/zh_cn.js"></script>
-        <!--nestable-->
-        <script src="~/lib/vendor/nestable/jquery.nestable.js"></script>
-        <!-- WYSIWYG-->
-        @*<script src="~/lib/vendor/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-        <script src="~/lib/vendor/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>*@
-
-        <!--Editor 富文本编辑器-->
-        <script src="~/lib/Editor/wangEditor.js"></script>
-        <!-- XEDITABLE-->
-        <script src="~/lib/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js"></script>
-        <!--tour-->
-        <script src="~/lib/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.js"></script>
-
-        <!--jquery-qrcode -->
-        <script src="~/bower_components/jquery-qrcode/dist/jquery-qrcode.js"></script>
         <!-- ===============Base PLUGIN OR OTHERS ===============-->
-        <script src="~/js/User/base/plugin/sweetalert/dist/sweetalert.min.js"></script>
+        @*<script src="~/js/Admin/base/plugin/sweetalert/dist/sweetalert.min.js"></script>*@
         <!-- ===============BASE JS ===============-->
-        <script src="~/js/User/base/base.js"></script>
-        <script src="~/js/User/base/Ajax/Ajax.js"></script>
-        <script src="~/js/User/base/enum.js"></script>
-        <!-- ===============BASE Feedbackjs ===============-->
-        <script src="~/js/User/FeedBack/SharedPartial.js"></script>
-        <!-- ===============BASE SyncJS ===============-->
-        <script src="~/js/User/Sync/Sync.js"></script>
+        <script src="~/js/Admin/base/base.js"></script>
+        <script src="~/js/Admin/base/Ajax/Ajax.js"></script>
+        <script src="~/js/Admin/base/enum.js"></script>
         <!-- ===============BASE APP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/app.js"></script>
-        <!-- ===============auto refresh page ===============-->
-        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-        <script src="~/js/chat.js"></script>
+        <script src="~/bower_components/gentelella/build/js/custom.js"></script>
     </environment>
     @*线上*@
     <environment exclude="Development">
         <!-- ===============BASE JQUERY SCRIPTS ===============-->
         <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- ===============BASE BOOTSTRAP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         @*<script src="~/bower_components/AngularJS/angular.min.js"></script>*@
         <!-- ===============BASE VUE SCRIPTS ===============-->
         <script src="~/bower_components/vue/dist/vue.min.js"></script>
-
-        <!-- FILESTYLE-->
-        <script src="~/lib/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
-
-        <!-- ===============BASE VENDOR SCRIPTS ===============-->
-        <script src="~/lib/vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-        <script src="~/lib/vendor/screenfull/dist/screenfull.js"></script>
-        @*<script src="~/lib/vendor/jquery-localize-i18n/dist/jquery.localize.js"></script>*@
-        <script src="~/lib/vendor/parsleyjs/dist/parsley.min.js"></script>
-        @*<script src="~/bower_components/parsleyjs/dist/parsley.js"></script>*@
-        <script src="~/bower_components/parsleyjs/dist/i18n/zh_cn.js"></script>
-        <!--nestable-->
-        <script src="~/lib/vendor/nestable/jquery.nestable.js"></script>
-        <!-- WYSIWYG-->
-        @*<script src="~/lib/vendor/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
-        <script src="~/lib/vendor/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>*@
-        <!--Editor 富文本编辑器-->
-        <script src="~/lib/Editor/wangEditor.js"></script>
-        <!-- XEDITABLE-->
-        <script src="~/lib/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js"></script>
-        <!-- ===============Base PLUGIN OR OTHERS ===============-->
-        <!--tour-->
-        <script src="~/lib/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.js"></script>
-        <!--jquery-qrcode -->
-        <script src="~/bower_components/jquery-qrcode/dist/jquery-qrcode.min.js"></script>
         <!-- SWEETALERT-->
-        <script src="~/js/User/base/plugin/sweetalert/dist/sweetalert.min.js"></script>
+        @*<script src="~/js/Admin/base/plugin/sweetalert/dist/sweetalert.min.js"></script>*@
         <!-- ===============BASE JS ===============-->
-        <script src="~/js/User/base.min.js"></script>
-        <!-- ===============BASE Feedbackjs ===============-->
-        <script src="~/js/User/FeedBack/SharedPartial.min.js"></script>
-        <!-- ===============BASE SyncJS ===============-->
-        <script src="~/js/User/Sync/Sync.min.js"></script>
+        <script src="~/js/Admin/base.min.js"></script>
         <!-- ===============BASE APP SCRIPTS ===============-->
-        <script src="~/lib/bootstrap/dist/js/app.js"></script>
+        <script src="~/bower_components/gentelella/build/js/custom.min.js"></script>
 
     </environment>
     <script>
@@ -232,14 +152,6 @@
             hm.src = "https://hm.baidu.com/hm.js?cff4d7b0f55e45ceab91d2197cb95cdc";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
-        });
-        Parsley.on('form:submit', function () {
-            //如果是表单提交则加上这个标记
-            if (this.$element.data('isformsubmit')) {
-                return true;
-            } else {
-                return false;
-            }
         });
     </script>
     @RenderSection("scripts", false)
