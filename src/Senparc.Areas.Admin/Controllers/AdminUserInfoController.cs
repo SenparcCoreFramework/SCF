@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Senparc.Areas.Admin.Models.VD;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Enums;
@@ -10,17 +7,20 @@ using Senparc.Mvc;
 using Senparc.Mvc.Filter;
 using Senparc.Service;
 using Senparc.Utility;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Controllers
 {
     [MenuFilter("AdminUserInfo")]
     public class AdminUserInfoController : BaseAdminController
     {
-        private AdminUserInfoService _adminUserInfoService;
+        private readonly AdminUserInfoService _adminUserInfoService;
+
 
         public AdminUserInfoController(AdminUserInfoService adminUserInfoService)
         {
-
             _adminUserInfoService = adminUserInfoService;
         }
 
@@ -60,7 +60,6 @@ namespace Senparc.Areas.Admin.Controllers
         {
 
             bool isEdit = model.Id > 0;
-
             this.Validator(model.UserName, "用户名", "UserName", false)
                 .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(model.Id, z), "用户名已存在！", true);
 
@@ -112,9 +111,7 @@ namespace Senparc.Areas.Admin.Controllers
         {
             var userInfoList = _adminUserInfoService.GetAdminUserInfo(ids);
             _adminUserInfoService.DeleteAll(userInfoList);
-
             SetMessager(MessageType.success, "删除成功！");
-
             return RedirectToAction("Index");
         }
     }

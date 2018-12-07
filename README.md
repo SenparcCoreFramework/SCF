@@ -1,8 +1,12 @@
+<img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" />
+
 # SCF - SenparcCoreFramework
 
 SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包含了基础的缓存、数据库、模型、验证及配套管理后台，模块化，具有高度的可扩展性。
 
-> 说明：SCF 由盛派（Senparc）团队经过多年优化迭代的自用系统底层框架 SenparcCore 整理而来，经历了 .NET 3.5/4.5 众多系统的实战检验，并最终移植到 .NET Core，目前已在多个 .NET Core 系统中稳定运行，在将其转型为开源项目的过程中，需要进行一系列的重构、注释完善和兼容性升级，目前尚处于雏形阶段，希望大家多提意见，我们会争取在最短的时间内优化并发布第一个试用版。感谢大家一直以来的支持！
+> 说明：SCF 由盛派（Senparc）团队经过多年优化迭代的自用系统底层框架 SenparcCore 整理而来，经历了 .NET 3.5/4.5 众多系统的实战检验，并最终移植到 .NET Core，目前已在多个 .NET Core 系统中稳定运行，在将其转型为开源项目的过程中，需要进行一系列的重构、注释完善和兼容性升级，目前尚处于雏形阶段，希望大家多提意见，我们会争取在最短的时间内优化并发布第一个试用版（Preview1）。感谢大家一直以来的支持！<br>
+> <br>
+> Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
 SCF 将提供完善的项目自动生成服务（参考 [WeChatSampleBuilder](http://sdk.weixin.senparc.com/Home/WeChatSampleBuilder)），为开发者提供项目定制生成服务。
 
@@ -43,14 +47,22 @@ Applying migration '20181130085128_init'.
 Done.
 ```
 
+<img src="https://weixin.senparc.com/images/SCF/Install/02.png" />
+
 ### 第三步：初始化数据
 
  1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：http://localhost:11946/
 
- 2. 打开 http://localhost:11946/Install ，数据库将会自动初始化
+ <img src="https://weixin.senparc.com/images/SCF/Install/01.png" />
+ 
+ 2. 打开 http://localhost:11946/Install ，数据库将会自动初始化。
+ 
+<img src="https://weixin.senparc.com/images/SCF/Install/03.png" />
 
  3. 完成后，保存页面上显示的账号和密码，根据提示进入管理员后台。
 
+
+<img src="https://weixin.senparc.com/images/SCF/Install/04.png" />
 
 
 ## 待办事项：
