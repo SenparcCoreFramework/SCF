@@ -17,6 +17,8 @@ namespace Senparc.Areas.Admin.Controllers
     public class AdminUserInfoController : BaseAdminController
     {
         private readonly AdminUserInfoService _adminUserInfoService;
+
+
         public AdminUserInfoController(AdminUserInfoService adminUserInfoService)
         {
             _adminUserInfoService = adminUserInfoService;
@@ -58,7 +60,6 @@ namespace Senparc.Areas.Admin.Controllers
         {
 
             bool isEdit = model.Id > 0;
-
             this.Validator(model.UserName, "用户名", "UserName", false)
                 .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(model.Id, z), "用户名已存在！", true);
 
@@ -110,9 +111,7 @@ namespace Senparc.Areas.Admin.Controllers
         {
             var userInfoList = _adminUserInfoService.GetAdminUserInfo(ids);
             _adminUserInfoService.DeleteAll(userInfoList);
-
             SetMessager(MessageType.success, "删除成功！");
-
             return RedirectToAction("Index");
         }
     }

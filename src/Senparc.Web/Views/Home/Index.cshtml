@@ -9,83 +9,9 @@
 <head>
     <meta charset="utf-8" />
     <title>SCF</title>
-    <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <style>
-        .container.step {
-            padding-bottom: 0 !important;
-        }
-
-        /*最外围首页个人中心样式*/
-        .z_personal {
-            height: 50px !important;
-            line-height: 50px;
-            display: inline-block;
-        }
-
-            .z_personal button {
-                font-size: 16px;
-            }
-    </style>
 </head>
 <body>
-    <!--preloader-->
-    <section id="preloader">
-        <div class="loading-circle fa-spin"></div>
-    </section>
-    <!---background-image-->
-    <div id="slideshow" class="wd-wide" style="height:100vh;position: fixed;width: 100vw;z-index: -1;"></div>
-    <div class="header-section">
-        <!-- sticky-bar Starts-->
-        <div class="sticky-bar-wrap">
-            <div class="sticky-section">
-                <div id="topbar-hold" class="nav-hold container">
-                    <nav class="navbar" role="navigation">
-                        <div class="navbar-header">
-                            @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>*@
-                            <!--=== Site Name ===-->
-                            @*site-name navbar-brand*@
-                            <a class="" href="#">
-                                <img style="height:50px" src="~/images/logo-login.png" />
-                            </a>
-                        </div>
-                        <!-- Main Navigation menu Starts -->
-                        <div class="collapse navbar-collapse navbar-responsive-collapse">
-                            <!--Left Nav-->
-                            <ul class="nav navbar-nav navbar-left"></ul>
-                            <!--Right Nav-->@*@Url.Action("Logout", "Login")*@
-                            <ul class="nav navbar-nav navbar-right">
-                                @*@Html.Partial("_LoginPartial")*@
-                                @*<li>
-                                    @if (Model.FullAccount.IsLogined)
-                                    {
-                                        <span>您好，<a asp-controller="Home" asp-action="Index" asp-area="User" title="@Model.FullAccount.DisplayName">@(Model.FullAccount.DisplayName)</a> | </span>
-                                        <span><a asp-controller="Home" asp-action="Logout" asp-area="User">注销</a></span>
-                                    }
-                                    else
-                                    {
-                                        <a asp-controller="Home" asp-action="Index" asp-area="User" title="登录">登录</a>
-                                    }
-                                </li>*@
-                            </ul>
-                        </div>
-                        <!-- Main Navigation menu ends-->
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <!--=== Home Section Starts ===-->
-        <div id="section-home" class="home-section-wrap center">
-            <div class="section-overlay"></div>
-            <div class="container home">
-            </div>
-        </div>
-    </div>
-    <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    
 </body>
 </html>
 
