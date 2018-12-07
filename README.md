@@ -45,13 +45,13 @@ Applying migration '20181130085128_init'.
 Done.
 ```
 
-<img src="https://weixin.senparc.com/images/SCF/Install/01.png" />
+<img src="https://weixin.senparc.com/images/SCF/Install/02.png" />
 
 ### 第三步：初始化数据
 
  1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：http://localhost:11946/
 
- <img src="https://weixin.senparc.com/images/SCF/Install/02.png" />
+ <img src="https://weixin.senparc.com/images/SCF/Install/01.png" />
  
  2. 打开 http://localhost:11946/Install ，数据库将会自动初始化。
  
