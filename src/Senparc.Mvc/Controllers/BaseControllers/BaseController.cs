@@ -34,8 +34,7 @@ namespace Senparc.Mvc.Controllers
 
         public string UserName => User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
-        public bool IsAdmin => base.HttpContext.Session.GetString("AdminLogin") as string == "1" &&
-                       FullAccount != null;
+        public bool IsAdmin => base.HttpContext.Session.GetString("AdminLogin") as string == "1" && FullAccount != null;
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -68,9 +67,9 @@ namespace Senparc.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                context.Result = RenderError(ex.Message);
+                context.Result = RenderError(ex.Message, ex);
             }
-         
+
         }
 
         public void OnResultExecuting(ResultExecutingContext context)
@@ -184,7 +183,7 @@ namespace Senparc.Mvc.Controllers
         }
 
         [NonAction]
-        public virtual ActionResult RenderError(string message)
+        public virtual ActionResult RenderError(string message, Exception ex = null)
         {
             //保留原有的controller和action信息
             ViewData["FakeControllerName"] = RouteData.Values["controller"] as string;
@@ -192,7 +191,8 @@ namespace Senparc.Mvc.Controllers
 
             return View("Error", new Error_ExceptionVD
             {
-                Message = message
+                Message = message,
+                Exception = ex
             });
         }
 

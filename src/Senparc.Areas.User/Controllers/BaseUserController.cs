@@ -10,6 +10,7 @@ using Senparc.Core.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Models.VD;
 using Senparc.Mvc.Controllers;
+using System;
 using System.Collections.Generic;
 
 namespace Senparc.Areas.User.Controllers
@@ -100,13 +101,13 @@ namespace Senparc.Areas.User.Controllers
         }
 
         [NonAction]
-        public override ActionResult RenderError(string message)
+        public override ActionResult RenderError(string message, Exception ex = null)
         {
             //保留原有的controller和action信息
             ViewData["FakeControllerName"] = RouteData.Values["controller"] as string;
             ViewData["FakeActionName"] = RouteData.Values["action"] as string;
 
-            return View("Error", new Error_ExceptionVD() { Message = message });
+            return View("Error", new Error_ExceptionVD() { Message = message, Exception = ex });
         }
 
         /// <summary>
