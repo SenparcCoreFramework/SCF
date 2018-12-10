@@ -1,0 +1,9 @@
+﻿.logo {
+    height: 32px;
+    background: #fff;
+    margin: 16px;
+    background-image: url('../Images/scflog.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

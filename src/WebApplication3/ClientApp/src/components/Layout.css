@@ -1,0 +1,15 @@
+﻿.ant-back-top {
+    bottom: 100px;
+}
+
+.ant-back-top-inner {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 100%;
+    background-color: #b7b7b7b3;
+    color: #3e3e3e;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #c3c3c375;
+}
