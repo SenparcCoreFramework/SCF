@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     Table, Input, Button, Icon,
 } from 'antd';
+import reqwest from 'reqwest';
 import './FetchData.css';
 const data = [{
     key: '1',
@@ -23,9 +24,21 @@ const data = [{
     name: 'Jim Red',
     age: 32,
     address: 'London No. 2 Lake Park',
-}];
+    }];
+//data = (callback) => {
+//    reqwest({
+//        url: fakeDataUrl,
+//        type: 'json',
+//        method: 'get',
+//        contentType: 'application/json',
+//        success: (res) => {
+//            callback(res);
+//        },
+//    });
+//}
 
 export class FetchData extends Component {
+    displayName = FetchData.name
     state = {
         searchText: '',
     };
