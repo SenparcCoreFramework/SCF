@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Senparc.Core.Models.VD
 {
     /// <summary>
@@ -34,6 +36,7 @@ namespace Senparc.Core.Models.VD
     public class Error_ExceptionVD : Error_BaseVD
     {
         public string Message { get; set; }
+        public Exception Exception { get; set; }
     }
 
 

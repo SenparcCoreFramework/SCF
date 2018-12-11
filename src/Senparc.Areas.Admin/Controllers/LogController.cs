@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc;
 using Senparc.Areas.Admin.Models.VD;
-using System.ComponentModel;
-using Senparc.Core.Models;
 using Senparc.Core.Extensions;
-using Senparc.Mvc.Filter;
-using Microsoft.AspNetCore.Mvc;
+using Senparc.Core.Models;
 using Senparc.Core.Utility;
+using Senparc.Mvc.Filter;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace Senparc.Areas.Admin.Controllers
 {
@@ -49,7 +49,7 @@ namespace Senparc.Areas.Admin.Controllers
                 date = $"{date.Substring(0, 4)}-{date.Substring(4, 2)}-{date.Substring(6, 2)}";
             }
             DateTime logDate = Convert.ToDateTime(date);
-            string logFileDir = Server.GetMapPath($"~/App_Data/Log/Logs_{logDate.ToString("yyyyMMdd")}/");
+            string logFileDir = Server.GetMapPath($"~/App_Data/Log/Logs_{logDate:yyyyMMdd}/");
 
             if (!Directory.Exists(logFileDir))
             {
@@ -58,16 +58,13 @@ namespace Senparc.Areas.Admin.Controllers
 
             List<string> filePathNames = Directory.GetFiles(logFileDir).OrderBy(z => z).ToList();
             List<WebLog> logList = new List<WebLog>();
-            int insertListIndex = 0;//日志插入点
             int fileStartIndex = pageIndex > 0 ? pageIndex - 1 : 0;//开始查找日志文件，如果pageIndex为0，则查找全部
             int fileEndIndex = pageIndex > 0 ? pageIndex : filePathNames.Count;//结束查找日志文件，如果pageIndex为0，则查找全部
 
             for (int i = fileStartIndex; i < fileEndIndex; i++)
             {
                 string filePathName = filePathNames[i];
-                insertListIndex = logList.Count;//当前列表最大位置
-
-                insertListIndex = logList.Count;
+                var insertListIndex = logList.Count;
                 string newFilename = filePathName + ".bak";
                 System.IO.File.Delete(newFilename);
                 System.IO.File.Copy(filePathName, newFilename, true);//读取备份文件，以免资源占用
@@ -133,7 +130,7 @@ namespace Senparc.Areas.Admin.Controllers
                 date = $"{date.Substring(0, 4)}-{date.Substring(4, 2)}-{date.Substring(6, 2)}";
             }
             DateTime logDate = Convert.ToDateTime(date);
-            string logFileDir = Server.GetMapPath($"~/App_Data/Log/Logs_{logDate.ToString("yyyyMMdd")}/");
+            string logFileDir = Server.GetMapPath($"~/App_Data/Log/Logs_{logDate:yyyyMMdd}/");
             WebLog log = new WebLog();
             if (!Directory.Exists(logFileDir))
             {

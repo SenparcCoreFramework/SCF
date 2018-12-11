@@ -105,7 +105,6 @@ namespace Senparc.Areas.Admin.Controllers
                , z => z.Note);
 
                 this._accountService.SaveObject(account);
-
                 base.SetMessager(MessageType.success, $"{(isEdit ? "修改" : "新增")}成功！");
                 return RedirectToAction("Index");
             }
@@ -133,5 +132,3 @@ namespace Senparc.Areas.Admin.Controllers
         }
     }
 }
-
-
