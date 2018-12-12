@@ -67,3 +67,52 @@ function deleteCheck(checkBoxName, formId) {
         }
     });
 }
+/**
+ * 简单信息提示 sweetAlert : A basic message
+ * @param {string} title  标题
+ * @param {string} message  提示内容
+ */
+function show_tip(title, message) {
+    swal(title, message);
+}
+
+/**
+ * 操作成功提示  sweetAlert : A title with a text under
+ * @param {string} title  标题
+ * @param {string} message  提示内容
+ */
+function show_success(title, message) {
+    swal(title, message, "success");
+    //swal("Good job!", "You clicked the button!", "success");
+}
+/**
+ * 确认提示弹框  sweetAlert : A warning message, with a function attached to the "Confirm"-button
+ * @param {string} title  标题
+ * @param {string} message  提示内容
+ * @param {function()} successCallBack  成功回调
+ * @param {function()} cancelCallback  取消回调
+ */
+function show_confirm(title, message, successCallBack, cancelCallback) {
+    swal(title, message, "success");
+    swal({
+        title: title,
+        text: message ? message : "",
+        type: "warning",
+        showCancelButton: successCallBack ? true : false,
+        confirmButtonColor: "#37bc9b",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        closeOnConfirm: true,
+        closeOnCancel: true
+    }, function (isConfirm) {
+        if (isConfirm) {
+            if (successCallBack) {
+                successCallBack();
+            }
+        } else {
+            if (cancelCallback) {
+                cancelCallback();
+            }
+        }
+    });
+}
