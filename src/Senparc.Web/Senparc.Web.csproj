@@ -256,6 +256,9 @@
         <Content Update="Areas\User\Views\Account\Index.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
+        <Content Update="Areas\User\Views\Shared\_MenuPartial.cshtml">
+          <Pack>$(IncludeRazorContentInPack)</Pack>
+        </Content>
         <Content Update="Areas\WX\Views\Shared\Error.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
