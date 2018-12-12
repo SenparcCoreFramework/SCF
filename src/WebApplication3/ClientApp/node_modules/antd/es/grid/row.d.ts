@@ -1,0 +1,33 @@
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+export declare type Breakpoint = 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+export declare type BreakpointMap = Partial<Record<Breakpoint, string>>;
+export interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
+    gutter?: number | Partial<Record<Breakpoint, number>>;
+    type?: 'flex';
+    align?: 'top' | 'middle' | 'bottom';
+    justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+    prefixCls?: string;
+}
+export interface RowState {
+    screens: BreakpointMap;
+}
+export default class Row extends React.Component<RowProps, RowState> {
+    static defaultProps: {
+        gutter: number;
+    };
+    static propTypes: {
+        type: PropTypes.Requireable<string>;
+        align: PropTypes.Requireable<string>;
+        justify: PropTypes.Requireable<string>;
+        className: PropTypes.Requireable<string>;
+        children: PropTypes.Requireable<PropTypes.ReactNodeLike>;
+        gutter: PropTypes.Requireable<number | object>;
+        prefixCls: PropTypes.Requireable<string>;
+    };
+    state: RowState;
+    componentDidMount(): void;
+    componentWillUnmount(): void;
+    getGutter(): number | undefined;
+    render(): JSX.Element;
+}
