@@ -238,9 +238,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="Areas\Admin\Views\Feedback\Index.cshtml">
-          <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
         <Content Update="Areas\Admin\Views\Shared\_HeaderPartial.cshtml">
             <Pack>$(IncludeRazorContentInPack)</Pack>
         </Content>
