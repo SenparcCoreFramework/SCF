@@ -42,6 +42,12 @@
                             管理员管理
                         </a>
                     </li>
+                    <li class="@Html.CurrentMenu("Account")">
+                        <a asp-action="Index" asp-controller="Account">
+                            <i class="fa fa-users"></i>
+                            用户管理
+                        </a>
+                    </li>
                     <li class="@Html.CurrentMenu("Feedback")">
                         <a asp-action="Index" asp-controller="Feedback">
                             <i class="fa fa-envelope"></i>
