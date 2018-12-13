@@ -21,7 +21,7 @@
                 <form class="form-horizontal form-label-left" novalidate method="post">
                     <input type="hidden" asp-for="Id" />
                     <div style="position:absolute;left:-9999px">
-                        <input name="old-userName" type="text">
+                        <input name="old-userName" type="text" >
                         <input name="old-pwd" type="password">
                     </div>
                     @*<p>
@@ -33,7 +33,7 @@
                             用户名 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input asp-for="UserName" class="form-control col-md-7 col-xs-12" data-validate-length="1,20" name="name" placeholder="请输入用户名" required="required" type="text">
+                            <input asp-for="UserName" class="form-control col-md-7 col-xs-12" data-validate-length="1,20" placeholder="请输入用户名" required="required" type="text">
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                     </div>
