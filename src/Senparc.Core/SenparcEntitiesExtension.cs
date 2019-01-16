@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET;
 using Senparc.Core.Models;
 
 namespace Senparc.Core
@@ -23,6 +24,8 @@ namespace Senparc.Core
             //                .UseSqlServer(Config.SenparcDatabaseConfigs.ClientConnectionString)
             //                .Options));
             //#endif
+
+            SenparcDI.GlobalIServiceProvider = null;//清空缓存，下次使用DI会自动重新Build
 
             return services;
         }

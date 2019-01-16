@@ -1,4 +1,5 @@
-﻿using Senparc.Core.Enums;
+﻿using Senparc.CO2NET;
+using Senparc.Core.Enums;
 
 namespace Senparc.Core.Models
 {

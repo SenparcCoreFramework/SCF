@@ -57,7 +57,7 @@ namespace Senparc.Core.Cache
             var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
             foreach (var server in _serverlist)
             {
-                config.Servers.Add(new IPEndPoint(IPAddress.Parse(server.Key), server.Value));
+                config.Servers.Add(new DnsEndPoint(server.Key, server.Value));
             }
             config.Protocol = MemcachedProtocol.Binary;
 
