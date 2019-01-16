@@ -1,4 +1,5 @@
-﻿using Senparc.Core.Cache.BaseCache;
+﻿using Senparc.CO2NET;
+using Senparc.Core.Cache.BaseCache;
 using Senparc.Core.Models;
 using Senparc.Utility;
 using System;

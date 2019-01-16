@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Senparc.CO2NET;
 using Senparc.Core.Enums;
 using Senparc.Core.Models;
 using Senparc.Utility;

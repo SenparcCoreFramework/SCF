@@ -43,16 +43,6 @@
     }
 
     /// <summary>
-    /// 性别
-    /// </summary>
-    public enum Sex
-    {
-        未设置 = 0,
-        男 = 1,
-        女 = 2,
-    }
-
-    /// <summary>
     /// 排序类型
     /// </summary>
     public enum OrderingType
@@ -109,24 +99,6 @@
         微信自动注册 = 4
     }
 
-    /// <summary>
-    /// 缓存类型
-    /// </summary>
-    public enum CacheType
-    {
-        /// <summary>
-        /// 本地运行时缓存（单机）
-        /// </summary>
-        Location,
-        /// <summary>
-        /// Redis缓存（支持分布式）
-        /// </summary>
-        Redis,
-        /// <summary>
-        /// Memcached（支持分布式）
-        /// </summary>
-        Memcached
-    }
 
     /// <summary>
     /// Meta类型

@@ -4,6 +4,7 @@ using Senparc.Log;
 using Senparc.Repository;
 using Senparc.Core.Cache;
 using Senparc.Utility;
+using Senparc.CO2NET;
 
 namespace Senparc.Service
 {

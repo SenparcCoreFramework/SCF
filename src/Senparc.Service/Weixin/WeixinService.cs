@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Cache;
 using Senparc.Core.Models.WeixinTemplate;

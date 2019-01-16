@@ -8,13 +8,6 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class Extensions
     {
 
-        public static IServiceCollection AddSenparcMvcDI(this IServiceCollection services)
-        {
-            DI.ServiceCollection = services;
-            DI.ServiceProvider = services.BuildServiceProvider();
-            return services;
-        }
-
         public static IApplicationBuilder UseSenparcMvcDI(this IApplicationBuilder builder)
         {
             DI.ServiceProvider = builder.ApplicationServices;
@@ -27,7 +20,6 @@ namespace Microsoft.Extensions.DependencyInjection
     /// </summary>
     public static class DI
     {
-        public static IServiceCollection ServiceCollection { get; set; }
         public static IServiceProvider ServiceProvider { get; set; }
     }
 }

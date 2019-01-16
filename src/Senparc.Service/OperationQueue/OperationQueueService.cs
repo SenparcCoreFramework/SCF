@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;

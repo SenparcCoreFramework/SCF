@@ -11,3 +11,4 @@ obj/
 /src/Senparc.Web/wwwroot/bower_components
 /src/Senparc.Web/logs/
 /src/Senparc.Database
+*.user

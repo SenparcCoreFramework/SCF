@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Senparc.CO2NET;
 using Senparc.Utility;
 
 namespace Senparc.Core.Models

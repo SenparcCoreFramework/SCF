@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Cache;
 using Senparc.Core.Enums;

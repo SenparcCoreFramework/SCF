@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Senparc.CO2NET;
 using Senparc.Core.Extensions;
 using Senparc.Log;
 using Senparc.Utility;

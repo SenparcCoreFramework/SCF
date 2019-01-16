@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
         <!--<MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>-->
         <ServerGarbageCollection>false</ServerGarbageCollection>
         <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
