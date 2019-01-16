@@ -13,6 +13,11 @@
   </Target>
 
   <ItemGroup>
+    <Compile Remove="Cache\BaseCache\CacheStrategyFactory.cs" />
+    <Compile Remove="Cache\BaseCache\LocalCacheStrategy.cs" />
+    <Compile Remove="Cache\BaseCache\MemcachedStrategy.cs" />
+    <Compile Remove="Cache\BaseCache\RedisStrategy.cs" />
+    <Compile Remove="Cache\Interface\IBaseCacheStrategy.cs" />
     <Compile Remove="Models\DataBaseModel\Mapping\AccountTypeConfigurationMapping.cs" />
   </ItemGroup>
   

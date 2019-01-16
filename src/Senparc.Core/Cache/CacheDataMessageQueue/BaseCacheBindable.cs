@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Senparc.CO2NET.Cache;
 using Senparc.Core.Cache.BaseCache;
 using Senparc.Log;
 using Senparc.Weixin.Entities;
@@ -50,10 +51,10 @@ namespace Senparc.Core.Cache
             CacheDataMessageQueue mq = new CacheDataMessageQueue();
             mq.Add(mqKey, () =>
             {
-                var cacheStragegy = CacheStrategyFactory.GetCacheStrategy<T>();
+                var cacheStragegy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
                 //var cacheKey = objCacheData.Key;
                 objCacheData.CacheTime = DateTime.Now;//记录缓存时间
-                cacheStragegy.UpdateData(objCacheData.Key, objCacheData as T);
+                cacheStragegy.Set(objCacheData.Key, objCacheData as T);
 
                 //var cacheKey = ContainerHelper.GetCacheKey(this.GetType());
                 //containerBag.CacheTime = DateTime.Now;//记录缓存时间
