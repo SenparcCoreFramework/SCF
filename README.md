@@ -14,7 +14,7 @@ SCF 将提供完善的项目自动生成服务（参考 [WeChatSampleBuilder](ht
 
 - Visual Studio 2017 15.7 版本以上或 VS Code 最新版本
 
-- .NET Core 2.1.4+ （未来将支持更多版本），SDK下载地址：https://dotnet.microsoft.com/download/dotnet-core/2.1
+- .NET Core 2.2+ （未来将支持更多版本），SDK下载地址：https://dotnet.microsoft.com/download/dotnet-core/2.2
 
 ## 如何安装
 
