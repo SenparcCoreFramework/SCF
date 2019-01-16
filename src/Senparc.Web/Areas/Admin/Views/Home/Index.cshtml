@@ -2,9 +2,9 @@
 @{
     ViewData["Title"] = "管理后台首页";
 }
-<p>
+@*<p>
     警告：当前后台页面模板为商业授权模板，请勿用于系统发布，盛派将提供开源免费的后台模板，请留意更新。
-</p>
+</p>*@
 <p>
     当前服务器时间：<span id="serverTime">@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</span> |
     页面执行时间：@((Model.PageEndTime - Model.PageStartTime).TotalSeconds.ToString())秒

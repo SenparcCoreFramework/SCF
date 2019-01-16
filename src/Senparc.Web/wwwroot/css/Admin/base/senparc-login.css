@@ -183,17 +183,17 @@ body {
 .login-ICP {
     text-align: center;
     bottom: 22px;
-    color: #d4d4d4;
+    color: #FFF;
     width: 100%;
     margin-top: 20px;
 }
 
     .login-ICP a {
-        color: #d4d4d4;
+        color: #1382f0;
     }
 
     .login-ICP a:hover {
-       text-decoration:underline;
+       text-decoration:none;
     }
 
 .bg-white {

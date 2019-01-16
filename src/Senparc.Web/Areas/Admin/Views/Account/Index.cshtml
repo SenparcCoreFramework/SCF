@@ -3,115 +3,113 @@
 @{
     ViewData["Title"] = "用户列表";
 }
-@section breadcrumbs{
-    <li> @ViewData["Title"]</li>
-}
-<div class="panel panel-green">
-    <div class="panel-body">
-        @*<div class="pull-left">
-                <label for="deleteBtn" class="btn-sm btn btn-danger btn-outline" title="删除">
-                    <em class="fa fa-trash-o"></em> &nbsp;<small>删除</small>
-                    <input type="submit" id="deleteBtn" onclick="deleteCheck('ids','deleteForm'); return false;" form="deleteForm" class="hidden" value="删除" />
-                </label>
-            </div>*@
-        <form class="form-inline" asp-action="Index" asp-controller="Account">
-            <div class="pull-right">
-                <div class="input-group">
-                    <input type="text" class="form-control input-sm" asp-for="kw" style="width:250px" placeholder="用户名、昵称、真实姓名、手机号" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default btn-sm" type="submit">
-                            <em class="fa fa-search"></em>
-                        </button>
-                    </span>
-                </div>
+@section filter{
+    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <form asp-controller="Account" asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" asp-for="kw" class="form-control" placeholder="用户名、昵称、真实姓名、手机号">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
             </div>
         </form>
     </div>
-    <!-- START table-responsive-->
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    @*<th data-check-all>
-                            <div class="checkbox c-checkbox" data-toggle="tooltip">
-                                <label>
-                                    <input type="checkbox">
-                                    <span class="fa fa-check"></span>
-                                </label>
-                            </div>
-                        </th>*@
-                    <th>ID</th>
-                    <th>用户名</th>
-                    <th>昵称</th>
-                    <th>真实姓名</th>
-                    <th>手机号</th>
-                    <th>邮箱</th>
-                    <th>类型</th>
-                    <th>Neural Cell 数量</th>
-                    <th>开发者认证</th>
-                    <th>积分</th>
-                    <th>加入时间</th>
-                    <th>备注</th>
-                    <th>最后一次登录时间</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.AccountList)
-                {
-                    <tr>
-                        @*<td>
-                                <div class="checkbox c-checkbox">
-                                    <label>
-                                        <input type="checkbox" name="ids" value="@item.Id" form="deleteForm">
-                                        <span class="fa fa-check"></span>
-                                    </label>
-                                </div>
-                            </td>*@
-
-                        <td>@item.Id</td>
-                        <td>@item.UserName</td>
-                        <td>@item.NickName</td>
-                        <td>@item.RealName</td>
-                        <td>@item.Phone</td>
-                        <td>
-                            <a href="mailto: @item.Email">@item.Email</a>
-                        </td>
-                        <td>@item.Type</td>
-                        <td>@item.NeurolApps.Count</td>
-                        <td>
-                            @(item.Developer == null ? "否" : "已加入开发者")
-                            @if (item.Developer != null)
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="pull-left">
+                <a asp-action="Edit" asp-route-id="" title="新增" class="btn-sm btn btn-success">
+                    <em class="fa fa-plus"></em> &nbsp;<small>新增</small>
+                </a>
+                <label for="deleteBtn" class="btn-sm btn btn-danger" title="删除">
+                    <em class="fa fa-trash-o"></em> &nbsp;<small>删除</small>
+                    <input type="submit" id="deleteBtn" onclick="deleteCheck('ids','deleteForm'); return false;" form="deleteForm" class="hidden" value="删除" />
+                </label>
+            </div>
+            <div class="x_content">
+                <!-- START table-responsive-->
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th>
+                                    <input type="checkbox" id="check-all" class="flat">
+                                </th>
+                                <th class="column-title">ID</th>
+                                <th class="column-title">用户名</th>
+                                <th class="column-title">昵称</th>
+                                <th class="column-title">真实姓名</th>
+                                <th class="column-title">手机号</th>
+                                <th class="column-title">邮箱</th>
+                                @*<th class="column-title">类型</th>
+                                    <th class="column-title">Neural Cell 数量</th>
+                                    <th class="column-title">开发者认证</th>*@
+                                <th class="column-title">积分</th>
+                                <th class="column-title">加入时间</th>
+                                <th class="column-title">备注</th>
+                                <th class="column-title">最后一次登录时间</th>
+                                <th class="column-title">操作</th>
+                                <th class="bulk-actions" colspan="12">
+                                    <a class="antoo" style="color:#fff; font-weight:500;">
+                                        已选中 <span class="action-cnt"> </span>
+                                        <i class="fa fa-chevron-down"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.AccountList)
                             {
-                                <span>@(item.Developer.Status == Developer_Status.已认证 ? "已认证" : "未认证")</span>
+                                <tr class="pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat table_records" name="ids" form="deleteForm" value="@item.Id">
+                                    </td>
+                                    <td>@item.Id</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.NickName</td>
+                                    <td>@item.RealName</td>
+                                    <td>@item.Phone</td>
+                                    <td>
+                                        <a href="mailto: @item.Email">@item.Email</a>
+                                    </td>
+                                    @*<td>@item.Type</td>
+                                        <td>@item.NeurolApps.Count</td>
+                                        <td>
+                                            @(item.Developer == null ? "否" : "已加入开发者")
+                                            @if (item.Developer != null)
+                                            {
+                                                <span>@(item.Developer.Status == Developer_Status.已认证 ? "已认证" : "未认证")</span>
+                                            }
+                                        </td>*@
+                                    <td>@item.Points</td>
+                                    <td>@item.AddTime.ToShortDateString()</td>
+                                    <td>@item.Note</td>
+                                    <td>@item.ThisLoginTime.ToShortDateString()</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-primary btn-outline">
+                                            <em class="fa fa-pencil-square-o"></em>
+                                        </a>
+                                    </td>
+                                </tr>
                             }
-                        </td>
-                        <td>@item.Points</td>
-                        <td>@item.AddTime.ToShortDateString()</td>
-                        <td>@item.Note</td>
-                        <td>@item.ThisLoginTime.ToShortDateString()</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-primary btn-outline">
-                                <em class="fa fa-pencil-square-o"></em>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="panel-footer">
-        <div class="row">
-            @Html.Raw((Html.PagerBar(Model.AccountList, new PagerBarSettings(Url.Action("Index", "Account", new
-            {
-                pageIndex = "{0}",
-               Model.kw
-            }))
-            {
-                NoRecordTip = "无数据",
-                barStyle = BarStyle.bootstrap,
-                ShowTotalCount = true
-            })))
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center p jpagerbar">
+                    @Html.Raw((Html.PagerBar(Model.AccountList, new PagerBarSettings(Url.Action("Index", "Account", new
+       {
+           pageIndex = "{0}"
+       }))
+       {
+           NoRecordTip = "暂无数据",
+           ShowTotalCount = true
+       })))
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
