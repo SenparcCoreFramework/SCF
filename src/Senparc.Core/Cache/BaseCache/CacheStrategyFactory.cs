@@ -1,4 +1,5 @@
 ﻿using System;
+using Senparc.CO2NET;
 using Senparc.Core.Config;
 using Senparc.Core.Enums;
 
@@ -14,7 +15,7 @@ namespace Senparc.Core.Cache.BaseCache
             IBaseCacheStrategy<T> cache;
             switch (SiteConfig.CacheType)
             {
-                case CacheType.Location:
+                case CacheType.Local:
                     cache = LocalCacheStrategy<T>.Instance;
                     break;
                 case CacheType.Memcached:

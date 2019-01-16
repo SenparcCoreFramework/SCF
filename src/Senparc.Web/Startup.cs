@@ -100,11 +100,11 @@ namespace Senparc.Web
             services.Configure<SenparcCoreSetting>(Configuration.GetSection("SenparcCoreSetting"))
                 .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
                 .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))
-                .AddSenparcDI() //全局注册 SenparcDI
-                .AddSenparcMvcDI() //TODO：需要和AddSenparcDI()进行合并
+                //.AddSenparcDI() //全局注册 SenparcDI
+                //.AddSenparcMvcDI() //TODO：需要和AddSenparcDI()进行合并
                 .AddSenparcEntitiesDI(); //SQL Server设置
             services.AddSenparcGlobalServices(Configuration) //Senparc.CO2NET 全局注册
-                .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册
+                    .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
@@ -338,6 +338,7 @@ namespace Senparc.Web
             ;
 
             #endregion
+            
             #region .NET Core默认不支持GB2312
 
             //http://www.mamicode.com/info-detail-2225481.html

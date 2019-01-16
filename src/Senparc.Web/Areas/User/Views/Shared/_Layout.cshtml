@@ -2,7 +2,7 @@
 @using System.Web.Mvc
 @using Senparc.Web.UI
 <!DOCTYPE html>
-<html lang="zh-CN" class="csstransforms3d">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"]</title>
@@ -13,135 +13,145 @@
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
     @*本地*@
     <environment include="Development">
-        <!-- ===============Base CSS BEGIN ===============-->
-        <!-- ===============Base VENDOR STYLES ===============-->
-        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-        <!-- ===============Base BOOTSTRAP STYLES ===============-->
-        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-        <!--animate-->
-        <link href="~/bower_components/gentelella/vendors/animate.css/animate.css" rel="stylesheet" />
-        <!-- ===============Base PLUGIN OR OTHERS ===============-->
-        <!--Base SWEET ALERT-->
-        @*<link href="~/js/Admin/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />*@
-        <!--Base custom-->
-        <link href="~/bower_components/gentelella/build/css/custom.css" rel="stylesheet" />
-        <!--pagebar-->
+
+        <!-- Bootstrap -->
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="~/bower_components/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="~/bower_components/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- PNotify -->
+        <link href="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+        <link href="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+        @*<link href="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">*@
+        <!-- Sweetalert -->
+        <link href="~/bower_components/bootstrap-sweetalert/dist/sweetalert.css" rel="stylesheet" />
+        <!-- Custom Theme Style -->
+        <link href="~/bower_components/gentelella/build/css/custom.css" rel="stylesheet">
+        <!--Public Pagebar-->
         <link href="~/css/Admin/base/pagecss.css" rel="stylesheet" />
-        <!--Base customStyle-->
+        <!--Base CustomStyle-->
         <link href="~/css/Admin/styles.css" rel="stylesheet" />
     </environment>
     @*线上*@
     <environment exclude="Development">
-        <!-- ===============Base CSS BEGIN ===============-->
-        <!-- ===============Base VENDOR STYLES ===============-->
-        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-        <!-- ===============Base BOOTSTRAP STYLES ===============-->
-        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <!--animate-->
-        <link href="~/bower_components/gentelella/vendors/animate.css/animate.min.css" rel="stylesheet" />
-        <!-- ===============Base PLUGIN OR OTHERS ===============-->
-        <!--Base SWEET ALERT-->
-        @*<link href="~/js/Developer/base/plugin/sweetalert/dist/sweetalert.css" rel="stylesheet" />*@
-        <!--Base custom-->
-        <link href="~/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet" />
-        <!--Base THEME-->
-        <!--pagebar-->
+
+        <!-- Bootstrap -->
+        <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="~/bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="~/bower_components/gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="~/bower_components/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        <!-- PNotify -->
+        <link href="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+        <link href="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+        @*<link href="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">*@
+        <!-- Sweetalert -->
+        <link href="~/bower_components/bootstrap-sweetalert/dist/sweetalert.css" rel="stylesheet" />
+        <!-- Custom Theme Style -->
+        <link href="~/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet">
+        <!--Public Pagebar-->
         <link href="~/css/Admin/base/pagecss.css" rel="stylesheet" />
-        <!--Base customStyle-->
+        <!--Base CustomStyle-->
         <link href="~/css/Admin/styles.css" rel="stylesheet" />
-        <!-- ===============Base CSS END ===============-->
     </environment>
     @RenderSection("HeaderContent", false)
     @RenderSection("Style", false)
 
 </head>
-<body class="aside-hover">
-    <partial name="_SyncDataPartial" />
-
+<body class="nav-md">
     @RenderSection("modal", false)
+    <div class="container body">
+        <div class="main_container">
+            <!-- sidebar-->
+            <partial name="_MenuPartial" model="@Model" />
 
-    <div class="wrapper" id="app" v-cloak>
-        <!-- top navbar-->
-        <partial name="_HeaderPartial" />
+            <!-- top navbar-->
+            <partial name="_HeaderPartial" />
 
-        <!-- sidebar-->
-        @*@await Html.PartialAsync("_MenuPartial")*@
-
-        <partial name="_MenuPartial" model="@Model" />
-
-        <!-- Main section-->
-        <section class="disflex">
-            <!-- Page content-->
-            <div class="content-wrapper">
-                <h3>
-                    <!-- btn right aligned-->
-                    <div class="pull-right">
-                        @RenderSection("buttons", false)
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div>
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                                @ViewData["Title"]
+                                <small> @RenderSection("explanations", false)</small>
+                            </h3>
+                            <ol class="breadcrumb">
+                                @RenderSection("breadcrumbs", false)
+                            </ol>
+                        </div>
+                        <div class="title_right">
+                            @RenderSection("filter", false)
+                        </div>
                     </div>
-
-                    @ViewData["Title"]
-                    <span class="pointer  ml-lg">@RenderSection("tour", false)</span>
-                    <!-- Small text for title-->
-                    <small class="pt-sm">
-                        @RenderSection("explaination", false)
-                    </small>
-                    <!-- Breadcrumb below title-->
-
-                    <ol class="breadcrumb">
-                        @RenderSection("breadcrumbs", false)
-                    </ol>
-
-                </h3>
-                @RenderBody()
-                <a href="javascript:void(0);" data-toggle-state="offsidebar-open" data-no-persist="true" class="feedBackBtn b box-shadow link-unstyled btn btn-green btn-outline">
-                    <em class="icon-envelope mr"></em>我要反馈
-                </a>
+                    <div class="clearfix"></div>
+                    @RenderBody()
+                </div>
             </div>
-        </section>
-        <partial name="_FeedBackPartial" />
-        <!-- Page footer-->
-        <footer>
-            <span>&copy; @DateTime.Now.Year - <a href="http://www.senparc.com/" target="_blank">苏州盛派网络科技有限公司</a></span>
-        </footer>
+
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    &copy; @DateTime.Now.Year -  <a href="http://wwww.senparc.com">苏州盛派网络科技有限公司</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
     </div>
-    <button class="btn btn-danger hidden" id="baseDangerAlert" type="button" data-notify="" data-message="Message with status.." data-options="{&quot;status&quot;:&quot;danger&quot;}">Danger</button>
-    <button class="btn btn-info hidden" id="baseInfoAlert" type="button" data-notify="" data-message="Message with status.." data-options="{&quot;status&quot;:&quot;info&quot;}">Info</button>
-    <button class="btn btn-warning hidden" id="baseWarningAlert" type="button" data-notify="" data-message="Message with status.." data-options="{&quot;status&quot;:&quot;warning&quot;}">Warning</button>
-    <button class="btn btn-success hidden" id="baseSuccessAlert" type="button" data-notify="" data-message="Message with status.." data-options="{&quot;status&quot;:&quot;success&quot;}">Success</button>
     @*本地*@
     <environment include="Development">
-        <!-- ===============BASE JQUERY SCRIPTS ===============-->
-        <script src="~/bower_components/jquery/dist/jquery.js"></script>
-        <!-- ===============BASE BOOTSTRAP SCRIPTS ===============-->
-        <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.js"></script>
-        @*<script src="~/bower_components/AngularJS/angular.min.js"></script>*@
-        <!-- ===============BASE VUE SCRIPTS ===============-->
-        <script src="~/bower_components/vue/dist/vue.js"></script>
-        <!-- ===============BASE VENDOR SCRIPTS ===============-->
-        <!-- ===============Base PLUGIN OR OTHERS ===============-->
-        @*<script src="~/js/Admin/base/plugin/sweetalert/dist/sweetalert.min.js"></script>*@
-        <!-- ===============BASE JS ===============-->
-        <script src="~/js/Admin/base/base.js"></script>
-        <script src="~/js/Admin/base/Ajax/Ajax.js"></script>
-        <script src="~/js/Admin/base/enum.js"></script>
-        <!-- ===============BASE APP SCRIPTS ===============-->
+        <!-- jQuery -->
+        <script src="~/bower_components/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="~/bower_components/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="~/bower_components/gentelella/vendors/nprogress/nprogress.js"></script>
+        <!-- iCheck -->
+        <script src="~/bower_components/gentelella/vendors/iCheck/icheck.min.js"></script>
+        <!-- PNotify -->
+        <script src="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.js"></script>
+        <script src="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.buttons.js"></script>
+        <!-- Sweetalert -->
+        <script src="~/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+        <!-- validator -->
+        <script src="~/bower_components/gentelella/vendors/validator/validator.js"></script>
+        <!-- Custom Theme Scripts -->
         <script src="~/bower_components/gentelella/build/js/custom.js"></script>
+        <script src="~/js/base.js"></script>
+
     </environment>
     @*线上*@
     <environment exclude="Development">
-        <!-- ===============BASE JQUERY SCRIPTS ===============-->
-        <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- ===============BASE BOOTSTRAP SCRIPTS ===============-->
+        <!-- jQuery -->
+        <script src="~/bower_components/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
         <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-        @*<script src="~/bower_components/AngularJS/angular.min.js"></script>*@
-        <!-- ===============BASE VUE SCRIPTS ===============-->
-        <script src="~/bower_components/vue/dist/vue.min.js"></script>
-        <!-- SWEETALERT-->
-        @*<script src="~/js/Admin/base/plugin/sweetalert/dist/sweetalert.min.js"></script>*@
-        <!-- ===============BASE JS ===============-->
-        <script src="~/js/Admin/base.min.js"></script>
-        <!-- ===============BASE APP SCRIPTS ===============-->
+        <!-- FastClick -->
+        <script src="~/bower_components/gentelella/vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="~/bower_components/gentelella/vendors/nprogress/nprogress.js"></script>
+        <!-- iCheck -->
+        <script src="~/bower_components/gentelella/vendors/iCheck/icheck.min.js"></script>
+        <!-- PNotify -->
+        <script src="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.js"></script>
+        <script src="~/bower_components/gentelella/vendors/pnotify/dist/pnotify.buttons.js"></script>
+        <!-- Sweetalert -->
+        <script src="~/bower_components/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+        <!-- validator -->
+        <script src="~/bower_components/gentelella/vendors/validator/validator.js"></script>
+        <!-- Custom Theme Scripts -->
         <script src="~/bower_components/gentelella/build/js/custom.min.js"></script>
+        <script src="~/js/base.js"></script>
 
     </environment>
     <script>

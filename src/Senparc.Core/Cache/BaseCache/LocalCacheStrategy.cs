@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Caching.Memory;
+using Senparc.CO2NET;
 using Senparc.Core.Cache.Lock;
 using Senparc.Utility;
 

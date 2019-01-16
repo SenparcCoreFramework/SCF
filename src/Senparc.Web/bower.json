@@ -16,12 +16,9 @@
   ],
   "dependencies": {
     "jquery-ui": "1.12.1",
-    "jquery-weui": "v1.0.1",
-    "swiper": "v4.3.3",
     "blueimp-file-upload": "jquery-file-upload#v9.21.0",
     "jquery": "jQuery#2.1.3",
     "vue": "v2.5.17",
-    "summernote": "v0.8.2",
     "jquery-qrcode": "jquery.qrcode#v0.14.0",
     "gentelella": "1.4.0",
     "jquery-validation": "1.16.0",

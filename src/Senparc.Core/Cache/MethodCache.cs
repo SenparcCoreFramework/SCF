@@ -1,4 +1,5 @@
 ﻿using System;
+using Senparc.CO2NET.Cache;
 using Senparc.Core.Cache.BaseCache;
 
 namespace Senparc.Core.Cache
@@ -10,17 +11,17 @@ namespace Senparc.Core.Cache
 
             cacheKey = cacheKey.ToUpper();
 
-            var cache = CacheStrategyFactory.GetCacheStrategy<T>();
+            var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
 
             T result;
 
             if (!cache.CheckExisted(cacheKey))
             {
-                cache.InsertToCache(cacheKey, func(), //每次储存的是重新执行过的最新的结果
-                    timeoutSeconds * 60);
+                cache.Set(cacheKey, func(), //每次储存的是重新执行过的最新的结果
+                   TimeSpan.FromSeconds(timeoutSeconds));
             }
 
-            result = cache.Get(cacheKey);//输出结果
+            result = cache.Get<T>(cacheKey);//输出结果
 
             return result;
         }
@@ -38,7 +39,7 @@ namespace Senparc.Core.Cache
         {
             cacheKey = cacheKey.ToUpper();
 
-            var cache = CacheStrategyFactory.GetCacheStrategy<T>();
+            var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
 
             cache.RemoveFromCache(cacheKey);
         }

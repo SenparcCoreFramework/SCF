@@ -5,47 +5,47 @@
 }
 @section HeaderContent{
 }
+@section filter{
+    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <form asp-controller="Feedback" asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" asp-for="Kw" class="form-control" placeholder="反馈内容">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+}
 <div class="row">
     <div class="col-md-12">
-        <div class="panel">
-            <div class="panel-heading">
-                <form asp-controller="Feedback" asp-action="Index" method="get" class="pull-right form-inline form-group-sm">
-                    <div class="input-group input-group-sm">
-                        <input type="search" asp-for="Kw" style="width:300px;" class="form-control" placeholder="请输入内容" />
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">
-                                <em class="fa fa-search"></em>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-                <div class="clearfix"></div>
-            </div>
-            <div class="panel-body">
+        <div class="x_panel">
+            <div class="x_content">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table table-striped jambo_table ">
                         <thead>
-                            <tr>
-                                <th>内容</th>
-                                <th class="wd-sm">反馈时间</th>
-                                <th class="wd-xs">用户</th>
+                            <tr class="headings">
+                                <th class="column-title widget">内容 </th>
+                                <th class="column-title">反馈时间</th>
+                                <th class="column-title">用户 </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.FeedbackList)
                             {
                                 <tr>
-                                   
                                     <td>
                                         @item.Content
                                     </td>
                                     <td>@item.AddTime.ToString("yyyy-MM-dd")</td>
                                     <td>
-                                         @item.Account.UserName
+                                        @item.Account.UserName
                                         <br />
                                         <a href="@("mailto:"+item.Account.Email)">@item.Account.Email</a>
                                         <br />
-                                         @item.Account.Phone
+                                        @item.Account.Phone
                                     </td>
                                 </tr>
                             }
@@ -56,8 +56,12 @@
                new
                {
                    pageIndex = "{0}",
+
                    Model.Kw,
-               })) { NoRecordTip = "无数据" })))
+               }))
+                   { NoRecordTip = "暂无数据",
+                       ShowTotalCount = true
+                   })))
 
                     </div>
                 </div>

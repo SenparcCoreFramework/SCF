@@ -1,10 +1,11 @@
 ﻿using System;
+using Senparc.CO2NET.Cache;
 namespace Senparc.Core.Cache
 {
     public interface IBaseCache<T>
        where T : class, new()
     {
-        IBaseCacheStrategy<T> Cache { get; set; }
+        IBaseObjectCacheStrategy Cache { get; set; }
         /// <summary>
         /// Data不能在Update()方法中调用，否则会引发循环调用。Update()方法中应该使用SetData()方法
         /// </summary>

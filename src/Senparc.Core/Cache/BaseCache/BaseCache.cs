@@ -1,4 +1,6 @@
-﻿using Senparc.Core.Cache.BaseCache;
+﻿using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
+using Senparc.Core.Cache.BaseCache;
 using Senparc.Core.Models;
 using Senparc.Utility;
 using System;
@@ -9,7 +11,7 @@ namespace Senparc.Core.Cache
     {
         protected virtual bool UpdateToCache(string key, T obj)
         {
-            Cache.UpdateData(key, obj);
+            Cache.Set(key, obj);
             return true;
         }
 
@@ -22,6 +24,8 @@ namespace Senparc.Core.Cache
         protected string CacheKey;
         private T _data;
 
+        public string CacheSetKey { get; private set; }
+
         public DateTime CacheTime { get; set; }
         public DateTime CacheTimeOut { get; set; }
 
@@ -31,7 +35,7 @@ namespace Senparc.Core.Cache
         /// 缓存策略。
         /// 请尽量不要再BaseCache以外调用这个对象的方法，尤其Cache的Key在DictionaryCache中是会被重新定义的
         /// </summary>
-        public IBaseCacheStrategy<T> Cache { get; set; }
+        public IBaseObjectCacheStrategy Cache { get; set; }
         /// <summary>
         /// 超时时间，1400分钟为1天。
         /// </summary>
@@ -51,9 +55,8 @@ namespace Senparc.Core.Cache
                 TimeOut = 1440;
             }
 
-
-            Cache = CacheStrategyFactory.GetCacheStrategy<T>();
-            Cache.CacheSetKey = cacheKey;//设置缓存集合键，必须提供
+            Cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+            this.CacheSetKey = cacheKey;//设置缓存集合键，必须提供
         }
 
         /// <summary>
@@ -79,9 +82,9 @@ namespace Senparc.Core.Cache
                 {
                     _data = this.Update();
                 }
-                return Cache.Get(CacheKey);
+                return Cache.Get<T>(CacheKey);
             }
-            set => Cache.InsertToCache(CacheKey, value, TimeOut);
+            set => Cache.Set(CacheKey, value, TimeSpan.FromMinutes(TimeOut));
         }
 
         /// <summary>
@@ -92,7 +95,7 @@ namespace Senparc.Core.Cache
         /// <param name="updateWithDatabases"></param>
         public virtual void SetData(T value, int timeOut, UpdateWithBataBase updateWithDatabases)
         {
-            Cache.InsertToCache(CacheKey, value, timeOut);
+            Cache.Set(CacheKey, value, TimeSpan.FromMinutes(timeOut));
 
             //记录缓存时间
             this.CacheTime = DateTime.Now;

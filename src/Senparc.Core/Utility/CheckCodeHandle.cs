@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using Senparc.CO2NET.Cache;
 using Senparc.Core.Cache.BaseCache;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,10 @@ namespace Senparc.Core.Utility
         {
             get
             {
-                var cacheStrategy = CacheStrategyFactory.GetCacheStrategy<Dictionary<string, string>>();
+                var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
                 if (cacheStrategy.Get("SenparcCheckCodeSuccessCollection") == null)
                 {
-                    cacheStrategy.InsertToCache("SenparcCheckCodeSuccessCollection", new Dictionary<string, string>(), 20);
+                    cacheStrategy.Set("SenparcCheckCodeSuccessCollection", new Dictionary<string, string>(), TimeSpan.FromMinutes(20));
                 }
                 return _cache.Get<Dictionary<string, string>>("SenparcCheckCodeSuccessCollection");
             }

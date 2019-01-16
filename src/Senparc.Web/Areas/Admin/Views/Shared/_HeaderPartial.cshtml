@@ -1,112 +1,19 @@
 @using System.Web.Mvc
-<header class="topnavbar-wrapper">
-    <!-- START Top Navbar-->
-    <nav class="navbar topnavbar" role="navigation">
-        <!-- START navbar header-->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="javascript:void(0);">
-                <div class="brand-logo">
-                    <img class="img-responsive" src="~/images/Admin/head/logo.png" />
-                </div>
-                <div class="brand-logo-collapsed">
-                    <img class="img-responsive" src="~/images/Admin/head/logo-single.png" />
-                </div>
-            </a>
-        </div>
-        <!-- END navbar header-->
-        <!-- START Nav wrapper-->
-        <div class="nav-wrapper">
-            <!-- START Left navbar-->
-            <ul class="nav navbar-nav">
-                <li>
-                    <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-                    <a class="hidden-xs" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed-text" title="收起左侧菜单">
-                        <em class="fa fa-navicon"></em>
-                    </a>
-                    <!-- Button to show/hide the sidebar on mobile. Visible on mobile only.-->
-                    <a class="visible-xs sidebar-toggle" href="#" data-toggle-state="aside-toggled" data-no-persist="true" title="展开左侧菜单">
-                        <em class="fa fa-navicon"></em>
-                    </a>
-                </li>
-                <!-- START User avatar toggle-->
-                <li>
-                    <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-                    <a id="user-block-toggle" href="#user-block" data-toggle="collapse" title="开发者信息">
-                        <em class="icon-user"></em>
-                    </a>
-                </li>
-                <!-- END User avatar toggle-->
-                <!-- START lock screen-->
-                @*<li>
-                    <a href="https://weixin.senparc.com/User/Account/ChangePassword" target="_blank" title="修改密码">
-                        <em class="icon-key"></em>
-                    </a>
-                </li>*@
-                <!-- END lock screen-->
-                <!-- START lock screen-->
-                <li>
-                    <a asp-controller="Login" asp-action="Logout" asp-area="Admin" title="返回">
-                        <em class="icon-logout"></em>
-                    </a>
-                </li>
-                <!-- END lock screen-->
-
-            </ul>
-            <!-- END Left navbar-->
-            <!-- START Right Navbar-->
-            <!-- START Right Navbar-->
+<!-- top navigation -->
+<div class="top_nav">
+    <div class="nav_menu">
+        <nav>
+            <div class="nav toggle">
+                <a href="javascript:;" id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
             <ul class="nav navbar-nav navbar-right">
-                <!-- Search icon-->
-                @*<li>
-                        <a href="#" data-search-open="">
-                            <em class="icon-magnifier"></em>
-                        </a>
-                    </li>*@
-                <!-- Fullscreen (only desktops)-->
-                <li class="visible-lg">
-                    <a href="#" data-toggle-fullscreen="">
-                        <em class="fa fa-expand"></em>
+                <li>
+                    <a data-toggle="tooltip" data-placement="left" title="退出登录" asp-controller="Login" asp-action="Logout">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </li>
-                <!-- START Offsidebar button-->
-                @*<li>
-                        <a href="#" data-toggle-state="offsidebar-open" data-no-persist="true" title="用户反馈">
-                            <em class="icon-question"></em>用户反馈
-                        </a>
-                    </li>*@
             </ul>
-            <!-- END Right Navbar-->
-        </div>
-        <!-- START Search form-->
-        @*<form class="navbar-form" role="search" action="search.html">
-                <div class="form-group has-feedback" style="display:flex">
-                    <div class="input-group m-b">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" style="height: 55px;" type="button" data-toggle="dropdown" aria-expanded="true">
-                                Action
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" id="ddinput1">
-                                <li>
-                                    <a href="#">Action</a>
-                                </li>
-                                <li>
-                                    <a href="#">Another action</a>
-                                </li>
-                                <li>
-                                    <a href="#">Something else here</a>
-                                </li>
-                                <li class="divider"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <input class="form-control" type="text" placeholder="请输入搜索内容，按回车键搜索">
-                    <div class="fa fa-times form-control-feedback" data-search-dismiss=""></div>
-                </div>
-                <button class="hidden btn btn-default" type="submit">Submit</button>
-            </form>*@
-        <!-- END Search form-->
-        <!-- END Nav wrapper-->
-    </nav>
-    <!-- END Top Navbar-->
-</header>
+        </nav>
+    </div>
+</div>
+<!-- /top navigation -->

@@ -85,7 +85,7 @@ namespace Senparc.Core.Cache
 
             string finalKey = null;
 
-            if (base.Cache is IRedisStrategy)
+            if (base.Cache is Senparc.CO2NET.Cache.Redis.BaseRedisObjectCacheStrategy)
             {
                 finalKey = $"{keyCode}";
             }
@@ -107,20 +107,26 @@ namespace Senparc.Core.Cache
             }
         }
 
-        /// <summary>
-        /// 获取指定Key下所有的子Key的Value
-        /// </summary>
-        /// <param name="key">xxx*</param>
-        /// <returns></returns>
-        protected virtual IList<TValue> GetObjectList(TKey key)
-        {
-            if (key == null)
-            {
-                return null;
-            }
-            var finalCacheKey = GetFinalCacheKey(key);
-            return base.Cache.GetAll(finalCacheKey);
-        }
+        ///// <summary>
+        ///// 获取指定Key下所有的子Key的Value
+        ///// </summary>
+        ///// <param name="key">xxx*</param>
+        ///// <returns></returns>
+        //protected virtual IList<TValue> GetObjectList(TKey key)
+        //{
+        //    if (key == null)
+        //    {
+        //        return null;
+        //    }
+        //    var finalCacheKey = GetFinalCacheKey(key);
+        //    var allData =  base.Cache.GetAll();
+
+        //    if (allData.ContainsKey(finalCacheKey))
+        //    {
+        //        return allData[finalCacheKey]
+        //    }
+        //    return 
+        //}
 
         /// <summary>
         /// 
@@ -168,7 +174,7 @@ namespace Senparc.Core.Cache
                     //{
                     //    throw new Exception("base.Data=null");
                     //}
-                    base.Cache.InsertToCache(finalCacheKey, fullObj);
+                    base.Cache.Set(finalCacheKey, fullObj);
                     return fullObj;
                 }
                 catch (Exception ex)
@@ -184,11 +190,11 @@ namespace Senparc.Core.Cache
             }
             else if (obj as TValue != null)
             {
-                base.Cache.InsertToCache(finalCacheKey, obj as TValue);
+                base.Cache.Set(finalCacheKey, obj as TValue);
                 return obj as TValue;
             }
 
-            base.Cache.InsertToCache(finalCacheKey, fullObj);
+            base.Cache.Set(finalCacheKey, fullObj);
             return fullObj;
         }
 
@@ -203,7 +209,7 @@ namespace Senparc.Core.Cache
 
             if (base.Cache.CheckExisted(finalCacheKey))
             {
-                return base.Cache.Get(finalCacheKey);
+                return base.Cache.Get<TValue>(finalCacheKey);
             }
             else
             {

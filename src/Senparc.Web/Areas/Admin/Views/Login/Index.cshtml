@@ -5,12 +5,21 @@
     Layout = "~/Areas/Admin/Views/Shared/_Empty.cshtml";
 }
 
+@section HeaderContent{ 
+    <style>
+        body {
+            background: #94a1ae;
+        }
+
+    </style>
+}
+
 <link href="~/css/Admin/base/senparc-login.css" rel="stylesheet" />
 <div class="content">
     <div class="login-container animated fadeIn logoBox ">
         <div class="login-inner-box">
             <span class="logoImg">
-                <img src="~/images/logo-login-0.png" />
+                <img src="~/images/logo-login-scf.png" width="173" />
             </span>
             <form asp-action="Index" asp-controller="Login" method="post">
                 <div class="form-control" style="position:absolute;left:-9999px;">
@@ -52,7 +61,7 @@
             </form>
             @*技术支持*@
             <div class="login-ICP">
-                技术支持：<a href="http://www.senparc.com/" target="_blank">苏州盛派网络科技有限公司</a>
+                技术支持：<a href="http://www.senparc.com/" target="_blank" title="点击进入官网">苏州盛派网络科技有限公司</a>
             </div>
         </div>
     </div>

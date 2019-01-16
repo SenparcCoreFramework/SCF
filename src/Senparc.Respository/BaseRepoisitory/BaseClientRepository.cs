@@ -1,4 +1,5 @@
-﻿using Senparc.Core.Models;
+﻿using Senparc.CO2NET;
+using Senparc.Core.Models;
 using Senparc.Utility;
 
 namespace Senparc.Repository

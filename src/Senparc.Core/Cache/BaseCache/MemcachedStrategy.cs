@@ -6,6 +6,7 @@ using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Senparc.CO2NET;
 using Senparc.Core.Cache.Lock;
 //using Memcached.ClientLibrary;
 using Senparc.Core.Config;
@@ -56,7 +57,7 @@ namespace Senparc.Core.Cache
             var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
             foreach (var server in _serverlist)
             {
-                config.Servers.Add(new IPEndPoint(IPAddress.Parse(server.Key), server.Value));
+                config.Servers.Add(new DnsEndPoint(server.Key, server.Value));
             }
             config.Protocol = MemcachedProtocol.Binary;
 
@@ -111,7 +112,7 @@ namespace Senparc.Core.Cache
             }
             catch (Exception ex)
             {
-                SiteConfig.CacheType = CacheType.Location;//强制切换到本地缓存状态
+                SiteConfig.CacheType = CacheType.Local;//强制切换到本地缓存状态
                 LogUtility.SystemLogger.ErrorFormat($"MemcachedStrategy静态构造函数异常：{ex.Message}", ex);
 
                 throw new Exception("系统繁忙，请稍后再试！");
