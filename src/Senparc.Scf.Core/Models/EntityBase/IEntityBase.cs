@@ -2,9 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.Scf.Core.Models.EntityBase
+namespace Senparc.Scf.Core.Models
 {
-    public class IEntityBase
+    public interface IEntityBase : ISoftDelete
     {
+
+    }
+
+    public interface IEntityBase<TKey> : IEntityBase
+    {
+        /// <summary>
+        /// 主键
+        /// </summary>
+        TKey Id { get; set; }
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        DateTimeOffset AddTime { get; set; }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        DateTimeOffset UpdateTime { get; set; }
     }
 }
