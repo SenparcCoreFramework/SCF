@@ -1,9 +1,17 @@
-using log4net;
-using log4net.Config;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,12 +26,10 @@ using Senparc.Core.Config;
 using Senparc.Core.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
-using Senparc.Log;
 using Senparc.Mvc.Filter;
 using Senparc.Repository;
 using Senparc.Service;
 using Senparc.SMS;
-using Senparc.Utility;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.Redis;
@@ -33,13 +39,6 @@ using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.TenPay;
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using System.Threading.Tasks;
 
 namespace Senparc.Web
 {
@@ -48,70 +47,75 @@ namespace Senparc.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //è¯»å–Logé…ç½®æ–‡ä»¶
-            var repository = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
         }
 
-        public IConfiguration Configuration
-        {
-            get;
-        }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //å¦‚æœè¿è¡Œåœ¨IISä¸­ï¼Œéœ€è¦æ·»åŠ IISé…ç½®
+            //Èç¹ûÔËĞĞÔÚIISÖĞ£¬ĞèÒªÌí¼ÓIISÅäÖÃ
             //https://docs.microsoft.com/zh-cn/aspnet/core/host-and-deploy/iis/index?view=aspnetcore-2.1&tabs=aspnetcore2x#supported-operating-systems
             //services.Configure<IISOptions>(options =>
             //{
             //    options.ForwardClientCertificate = false;
             //});
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+
             services.AddMvc(options =>
-                {
-                    options.Filters.Add<HttpGlobalExceptionFilter>();
-                })
-                .AddXmlSerializerFormatters()
-                .AddJsonOptions(options =>
-                {
-                    //å¿½ç•¥å¾ªç¯å¼•ç”¨
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    //ä¸ä½¿ç”¨é©¼å³°æ ·å¼çš„key
-                    //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                    //è®¾ç½®æ—¶é—´æ ¼å¼
-                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
-                })
-                //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
-                .AddSessionStateTempDataProvider()
-                //å¿½ç•¥JSONåºåˆ—åŒ–è¿‡ç¨‹ä¸­çš„å¾ªç¯å¼•ç”¨ï¼šhttps://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
-                .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            {
+                options.Filters.Add<HttpGlobalExceptionFilter>();
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddXmlSerializerFormatters()
+            .AddJsonOptions(options =>
+            {
+                //ºöÂÔÑ­»·ÒıÓÃ
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                //²»Ê¹ÓÃÍÕ·åÑùÊ½µÄkey
+                //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                //ÉèÖÃÊ±¼ä¸ñÊ½
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+            })
+            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
+            //.AddSessionStateTempDataProvider()
+            //ºöÂÔJSONĞòÁĞ»¯¹ı³ÌÖĞµÄÑ­»·ÒıÓÃ£ºhttps://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
+            ;
 
             services.AddSession();
-
-            //è§£å†³ä¸­æ–‡è¿›è¡Œç¼–ç é—®é¢˜
+            //½â¾öÖĞÎÄ½øĞĞ±àÂëÎÊÌâ
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
-            services.AddMemoryCache(); //ä½¿ç”¨å†…å­˜ç¼“å­˜
+            //Ê¹ÓÃÄÚ´æ»º´æ
+            services.AddMemoryCache();
 
-            //services.Configure<RazorViewEngineOptions>();//https://stackoverflow.com/questions/36372926/asp-net-mvc-core-custom-controller-factory
+            //×¢²á SignalR
             services.AddSignalR();
-            services.AddTransient(typeof(Lazy<>)); //æ³¨å†ŒLazy
+            //×¢²áLazy
+            services.AddTransient(typeof(Lazy<>));
 
-            //var cache = services.BuildServiceProvider().GetService<IMemoryCache>();//æµ‹è¯•æˆåŠŸ
+            //var cache = services.BuildServiceProvider().GetService<IMemoryCache>();//²âÊÔ³É¹¦
             services.Configure<SenparcCoreSetting>(Configuration.GetSection("SenparcCoreSetting"))
                 .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
                 .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))
-                //.AddSenparcDI() //å…¨å±€æ³¨å†Œ SenparcDI
-                //.AddSenparcMvcDI() //TODOï¼šéœ€è¦å’ŒAddSenparcDI()è¿›è¡Œåˆå¹¶
-                .AddSenparcEntitiesDI(); //SQL Serverè®¾ç½®
-            services.AddSenparcGlobalServices(Configuration) //Senparc.CO2NET å…¨å±€æ³¨å†Œ
-                    .AddSenparcWeixinServices(Configuration); //Senparc.Weixin æ³¨å†Œ
+                //.AddSenparcDI() //È«¾Ö×¢²á SenparcDI
+                //.AddSenparcMvcDI() //TODO£ºĞèÒªºÍAddSenparcDI()½øĞĞºÏ²¢
+                .AddSenparcEntitiesDI(); //SQL ServerÉèÖÃ
+            services.AddSenparcGlobalServices(Configuration) //Senparc.CO2NET È«¾Ö×¢²á
+                    .AddSenparcWeixinServices(Configuration); //Senparc.Weixin ×¢²á
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 443;
             });
 
-            //æ³¨å†Œ Repository å’Œ Service
+            //×¢²á Repository ºÍ Service
             services
                 .AddScoped<FullSystemConfigCache>()
                 .AddSingleton<PhoneCheckCodeCache>()
@@ -130,10 +134,10 @@ namespace Senparc.Web
                 .AddTransient<WeixinService>()
                 .AddScoped<SmsRecordService>();
 
-            //æ·»åŠ SenparcCoreSettingé…ç½®æ–‡ä»¶ï¼ˆå†…å®¹å¯ä»¥æ ¹æ®éœ€è¦å¯¹åº”ä¿®æ”¹ï¼‰
-            //æ³¨å†Œæ•°æ®åº“å®¢æˆ·ç«¯è¿æ¥
+            //Ìí¼ÓSenparcCoreSettingÅäÖÃÎÄ¼ş£¨ÄÚÈİ¿ÉÒÔ¸ù¾İĞèÒª¶ÔÓ¦ĞŞ¸Ä£©
+            //×¢²áÊı¾İ¿â¿Í»§¶ËÁ¬½Ó
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            //æ·»åŠ åŸºäºCookieçš„æƒé™éªŒè¯ï¼šhttps://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
+            //Ìí¼Ó»ùÓÚCookieµÄÈ¨ÏŞÑéÖ¤£ºhttps://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(AdminAuthorizeAttribute.AuthenticationScheme, options =>
                 {
@@ -166,78 +170,86 @@ namespace Senparc.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<SenparcSetting> senparcSetting,
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IOptions<SenparcSetting> senparcSetting,
             IOptions<SenparcWeixinSetting> senparcWeixinSetting, IHubContext<ReloadPageHub> hubContext)
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+
+            app.UseMvc();
 
             #region CO2NET
 
-            // å¯åŠ¨ CO2NET å…¨å±€æ³¨å†Œï¼Œå¿…é¡»ï¼
+            // Æô¶¯ CO2NET È«¾Ö×¢²á£¬±ØĞë£¡
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
-                //å…³äº UseSenparcGlobal() çš„æ›´å¤šç”¨æ³•è§ CO2NET Demoï¼šhttps://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
+                //¹ØÓÚ UseSenparcGlobal() µÄ¸ü¶àÓÃ·¨¼û CO2NET Demo£ºhttps://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
                 .UseSenparcGlobal();
 
-            #region å…¨å±€ç¼“å­˜é…ç½®ï¼ˆæŒ‰éœ€ï¼‰
+            #region È«¾Ö»º´æÅäÖÃ£¨°´Ğè£©
 
-            //å½“åŒä¸€ä¸ªåˆ†å¸ƒå¼ç¼“å­˜åŒæ—¶æœåŠ¡äºå¤šä¸ªç½‘ç«™ï¼ˆåº”ç”¨ç¨‹åºæ± ï¼‰æ—¶ï¼Œå¯ä»¥ä½¿ç”¨å‘½åç©ºé—´å°†å…¶éš”ç¦»ï¼ˆéå¿…é¡»ï¼‰
+            //µ±Í¬Ò»¸ö·Ö²¼Ê½»º´æÍ¬Ê±·şÎñÓÚ¶à¸öÍøÕ¾£¨Ó¦ÓÃ³ÌĞò³Ø£©Ê±£¬¿ÉÒÔÊ¹ÓÃÃüÃû¿Õ¼ä½«Æä¸ôÀë£¨·Ç±ØĞë£©
             register.ChangeDefaultCacheNamespace("SCFCache");
 
-            #region é…ç½®å’Œä½¿ç”¨ Redis
+            #region ÅäÖÃºÍÊ¹ÓÃ Redis
 
-            //é…ç½®å…¨å±€ä½¿ç”¨Redisç¼“å­˜ï¼ˆæŒ‰éœ€ï¼Œç‹¬ç«‹ï¼‰
+            //ÅäÖÃÈ«¾ÖÊ¹ÓÃRedis»º´æ£¨°´Ğè£¬¶ÀÁ¢£©
             var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
-            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redisé…ç½®";
-            if (useRedis) //è¿™é‡Œä¸ºäº†æ–¹ä¾¿ä¸åŒç¯å¢ƒçš„å¼€å‘è€…è¿›è¡Œé…ç½®ï¼Œåšæˆäº†åˆ¤æ–­çš„æ–¹å¼ï¼Œå®é™…å¼€å‘ç¯å¢ƒä¸€èˆ¬æ˜¯ç¡®å®šçš„ï¼Œè¿™é‡Œçš„ifæ¡ä»¶å¯ä»¥å¿½ç•¥
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "RedisÅäÖÃ";
+            if (useRedis) //ÕâÀïÎªÁË·½±ã²»Í¬»·¾³µÄ¿ª·¢Õß½øĞĞÅäÖÃ£¬×ö³ÉÁËÅĞ¶ÏµÄ·½Ê½£¬Êµ¼Ê¿ª·¢»·¾³Ò»°ãÊÇÈ·¶¨µÄ£¬ÕâÀïµÄifÌõ¼ş¿ÉÒÔºöÂÔ
             {
-                /* è¯´æ˜ï¼š
-                 * 1ã€Redis çš„è¿æ¥å­—ç¬¦ä¸²ä¿¡æ¯ä¼šä» Config.SenparcSetting.Cache_Redis_Configuration è‡ªåŠ¨è·å–å¹¶æ³¨å†Œï¼Œå¦‚ä¸éœ€è¦ä¿®æ”¹ï¼Œä¸‹æ–¹æ–¹æ³•å¯ä»¥å¿½ç•¥
-                /* 2ã€å¦‚éœ€æ‰‹åŠ¨ä¿®æ”¹ï¼Œå¯ä»¥é€šè¿‡ä¸‹æ–¹ SetConfigurationOption æ–¹æ³•æ‰‹åŠ¨è®¾ç½® Redis é“¾æ¥ä¿¡æ¯ï¼ˆä»…ä¿®æ”¹é…ç½®ï¼Œä¸ç«‹å³å¯ç”¨ï¼‰
+                /* ËµÃ÷£º
+                 * 1¡¢Redis µÄÁ¬½Ó×Ö·û´®ĞÅÏ¢»á´Ó Config.SenparcSetting.Cache_Redis_Configuration ×Ô¶¯»ñÈ¡²¢×¢²á£¬Èç²»ĞèÒªĞŞ¸Ä£¬ÏÂ·½·½·¨¿ÉÒÔºöÂÔ
+                /* 2¡¢ÈçĞèÊÖ¶¯ĞŞ¸Ä£¬¿ÉÒÔÍ¨¹ıÏÂ·½ SetConfigurationOption ·½·¨ÊÖ¶¯ÉèÖÃ Redis Á´½ÓĞÅÏ¢£¨½öĞŞ¸ÄÅäÖÃ£¬²»Á¢¼´ÆôÓÃ£©
                  */
                 Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
 
-                //ä»¥ä¸‹ä¼šç«‹å³å°†å…¨å±€ç¼“å­˜è®¾ç½®ä¸º Redis
-                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow(); //é”®å€¼å¯¹ç¼“å­˜ç­–ç•¥ï¼ˆæ¨èï¼‰
-                //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSetå‚¨å­˜æ ¼å¼çš„ç¼“å­˜ç­–ç•¥
+                //ÒÔÏÂ»áÁ¢¼´½«È«¾Ö»º´æÉèÖÃÎª Redis
+                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow(); //¼üÖµ¶Ô»º´æ²ßÂÔ£¨ÍÆ¼ö£©
+                //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet´¢´æ¸ñÊ½µÄ»º´æ²ßÂÔ
 
-                //ä¹Ÿå¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹å¼è‡ªå®šä¹‰å½“å‰éœ€è¦å¯ç”¨çš„ç¼“å­˜ç­–ç•¥
-                //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//é”®å€¼å¯¹
+                //Ò²¿ÉÒÔÍ¨¹ıÒÔÏÂ·½Ê½×Ô¶¨Òåµ±Ç°ĞèÒªÆôÓÃµÄ»º´æ²ßÂÔ
+                //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//¼üÖµ¶Ô
                 //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisHashSetObjectCacheStrategy.Instance);//HashSet
             }
-            //å¦‚æœè¿™é‡Œä¸è¿›è¡ŒRedisç¼“å­˜å¯ç”¨ï¼Œåˆ™ç›®å‰è¿˜æ˜¯é»˜è®¤ä½¿ç”¨å†…å­˜ç¼“å­˜ 
+            //Èç¹ûÕâÀï²»½øĞĞRedis»º´æÆôÓÃ£¬ÔòÄ¿Ç°»¹ÊÇÄ¬ÈÏÊ¹ÓÃÄÚ´æ»º´æ 
 
             #endregion
 
-            #region æ³¨å†Œæ—¥å¿—ï¼ˆæŒ‰éœ€ï¼Œå»ºè®®ï¼‰
+            #region ×¢²áÈÕÖ¾£¨°´Ğè£¬½¨Òé£©
 
-            register.RegisterTraceLog(ConfigTraceLog); //é…ç½®TraceLog
-
-            #endregion
+            register.RegisterTraceLog(ConfigTraceLog); //ÅäÖÃTraceLog
 
             #endregion
 
             #endregion
 
-            #region Weixin è®¾ç½®
+            #endregion
 
-            /* å¾®ä¿¡é…ç½®å¼€å§‹
+            #region Weixin ÉèÖÃ
+
+            /* Î¢ĞÅÅäÖÃ¿ªÊ¼
              * 
-             * å»ºè®®æŒ‰ç…§ä»¥ä¸‹é¡ºåºè¿›è¡Œæ³¨å†Œï¼Œå°¤å…¶é¡»å°†ç¼“å­˜æ”¾åœ¨ç¬¬ä¸€ä½ï¼
+             * ½¨Òé°´ÕÕÒÔÏÂË³Ğò½øĞĞ×¢²á£¬ÓÈÆäĞë½«»º´æ·ÅÔÚµÚÒ»Î»£¡
              */
 
-            //æ³¨å†Œå¼€å§‹
+            //×¢²á¿ªÊ¼
 
-            #region å¾®ä¿¡ç¼“å­˜ï¼ˆæŒ‰éœ€ï¼Œå¿…é¡»åœ¨ register.UseSenparcWeixin () ä¹‹å‰ï¼‰
+            #region Î¢ĞÅ»º´æ£¨°´Ğè£¬±ØĞëÔÚ register.UseSenparcWeixin () Ö®Ç°£©
 
-            //å¾®ä¿¡çš„ Redis ç¼“å­˜ï¼Œå¦‚æœä¸ä½¿ç”¨åˆ™æ³¨é‡Šæ‰ï¼ˆå¼€å¯å‰å¿…é¡»ä¿è¯é…ç½®æœ‰æ•ˆï¼Œå¦åˆ™ä¼šæŠ›é”™ï¼‰
+            //Î¢ĞÅµÄ Redis »º´æ£¬Èç¹û²»Ê¹ÓÃÔò×¢ÊÍµô£¨¿ªÆôÇ°±ØĞë±£Ö¤ÅäÖÃÓĞĞ§£¬·ñÔò»áÅ×´í£©
             if (useRedis)
             {
                 app.UseSenparcWeixinCacheRedis();
@@ -245,19 +257,19 @@ namespace Senparc.Web
 
             #endregion
 
-            //å¼€å§‹æ³¨å†Œå¾®ä¿¡ä¿¡æ¯ï¼Œå¿…é¡»ï¼
+            //¿ªÊ¼×¢²áÎ¢ĞÅĞÅÏ¢£¬±ØĞë£¡
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
-                //æ³¨æ„ï¼šä¸Šä¸€è¡Œæ²¡æœ‰ ; ä¸‹é¢å¯æ¥ç€å†™ .RegisterXX()
-            #region æ³¨å†Œå…¬ä¼—å·æˆ–å°ç¨‹åºï¼ˆæŒ‰éœ€ï¼‰
+                //×¢Òâ£ºÉÏÒ»ĞĞÃ»ÓĞ ; ÏÂÃæ¿É½Ó×ÅĞ´ .RegisterXX()
+            #region ×¢²á¹«ÖÚºÅ»òĞ¡³ÌĞò£¨°´Ğè£©
 
-                //æ³¨å†Œå…¬ä¼—å·ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
+                //×¢²á¹«ÖÚºÅ£¨¿É×¢²á¶à¸ö£©
                 .RegisterMpAccount(senparcWeixinSetting.Value, "SCF")
                 .RegisterMpAccount("", "", "Senparc_Template")
 
-                //æ³¨å†Œå¤šä¸ªå…¬ä¼—å·æˆ–å°ç¨‹åºï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
-                //.RegisterWxOpenAccount(senparcWeixinSetting.Value, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å°ç¨‹åº")
-                //æ³¨å†Œç¬¬ä¸‰æ–¹å¹³å°ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
-            #region æ³¨å†Œç¬¬ä¸‰æ–¹å¹³å°
+                //×¢²á¶à¸ö¹«ÖÚºÅ»òĞ¡³ÌĞò£¨¿É×¢²á¶à¸ö£©
+                //.RegisterWxOpenAccount(senparcWeixinSetting.Value, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿Ğ¡³ÌĞò")
+                //×¢²áµÚÈı·½Æ½Ì¨£¨¿É×¢²á¶à¸ö£©
+            #region ×¢²áµÚÈı·½Æ½Ì¨
 
                 .RegisterOpenComponent(senparcWeixinSetting.Value,
                     //getComponentVerifyTicketFunc
@@ -320,46 +332,46 @@ namespace Senparc.Web
                              binFormat.Serialize(fs, refreshResult);
                              fs.Flush();
                          }
-                     }, "ã€ç››æ´¾ç½‘ç»œã€‘å¼€æ”¾å¹³å°")
+                     }, "¡¾Ê¢ÅÉÍøÂç¡¿¿ª·ÅÆ½Ì¨")
 
             #endregion
-                //é™¤æ­¤ä»¥å¤–ï¼Œä»ç„¶å¯ä»¥åœ¨ç¨‹åºä»»æ„åœ°æ–¹æ³¨å†Œå…¬ä¼—å·æˆ–å°ç¨‹åºï¼š
-                //AccessTokenContainer.Register(appId, appSecret, name);//å‘½åç©ºé—´ï¼šSenparc.Weixin.MP.Containers
+                //³ı´ËÒÔÍâ£¬ÈÔÈ»¿ÉÒÔÔÚ³ÌĞòÈÎÒâµØ·½×¢²á¹«ÖÚºÅ»òĞ¡³ÌĞò£º
+                //AccessTokenContainer.Register(appId, appSecret, name);//ÃüÃû¿Õ¼ä£ºSenparc.Weixin.MP.Containers
 
             #endregion
 
-            #region æ³¨å†Œå¾®ä¿¡æ”¯ä»˜ï¼ˆæŒ‰éœ€ï¼‰
+            #region ×¢²áÎ¢ĞÅÖ§¸¶£¨°´Ğè£©
 
-                //æ³¨å†Œæœ€æ–°å¾®ä¿¡æ”¯ä»˜ç‰ˆæœ¬ï¼ˆV3ï¼‰ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
-                .RegisterTenpayV3(senparcWeixinSetting.Value, "SCF") //è®°å½•åˆ°åŒä¸€ä¸ª SenparcWeixinSettingItem å¯¹è±¡ä¸­
+                //×¢²á×îĞÂÎ¢ĞÅÖ§¸¶°æ±¾£¨V3£©£¨¿É×¢²á¶à¸ö£©
+                .RegisterTenpayV3(senparcWeixinSetting.Value, "SCF") //¼ÇÂ¼µ½Í¬Ò»¸ö SenparcWeixinSettingItem ¶ÔÏóÖĞ
 
             #endregion
 
             ;
 
             #endregion
-            
-            #region .NET Coreé»˜è®¤ä¸æ”¯æŒGB2312
+
+            #region .NET CoreÄ¬ÈÏ²»Ö§³ÖGB2312
 
             //http://www.mamicode.com/info-detail-2225481.html
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             #endregion
 
-            #region Senparc.Core è®¾ç½®
+            #region Senparc.Core ÉèÖÃ
 
-            //ç”¨äºè§£å†³HttpContext.Connection.RemoteIpAddressä¸ºnullçš„é—®é¢˜
+            //ÓÃÓÚ½â¾öHttpContext.Connection.RemoteIpAddressÎªnullµÄÎÊÌâ
             //https://stackoverflow.com/questions/35441521/remoteipaddress-is-always-null
             app.UseHttpMethodOverride(new HttpMethodOverrideOptions
             {
-                //FormFieldName = "X-Http-Method-Override"//æ­¤ä¸ºé»˜è®¤å€¼
+                //FormFieldName = "X-Http-Method-Override"//´ËÎªÄ¬ÈÏÖµ
             });
 
             app.UseSenparcMvcDI();
 
-            //Senparc.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//ç½‘ç«™è®¾ç½®
+            //Senparc.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//ÍøÕ¾ÉèÖÃ
 
-            //æä¾›ç½‘ç«™æ ¹ç›®å½•
+            //Ìá¹©ÍøÕ¾¸ùÄ¿Â¼
             if (env.ContentRootPath != null)
             {
                 Senparc.Core.Config.SiteConfig.ApplicationPath = env.ContentRootPath;
@@ -368,41 +380,10 @@ namespace Senparc.Web
 
             #endregion
 
-            app.UseStaticFiles();
-            app.UseAuthentication();
-            app.UseSession();
-            app.UseAutoMapper();
-            LogUtility.SystemLogger.Info("æµ‹è¯•Log4net");
-            //app.UseMvcWithDefaultRoute();
-            if (env.IsDevelopment())
-            {
-                app.UsePhysicalFile(hubContext);
-                app.UseSignalR(routes =>
-                {
-                    routes.MapHub<ReloadPageHub>(ReloadPageHub.Route);
-                });
-            }
-
-            if (!env.IsDevelopment())
-            {
-                app.UseHttpsRedirection();
-            }
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "areaW",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
-                );
-            });
-
-            #region å¼‚æ­¥çº¿ç¨‹
+            #region Òì²½Ïß³Ì
 
             {
-                ////APM Ending æ•°æ®ç»Ÿè®¡
+                ////APM Ending Êı¾İÍ³¼Æ
                 //var utility = new APMNeuralDataThreadUtility();
                 //Thread thread = new Thread(utility.Run) { Name = "APMNeuralDataThread" };
                 //SiteConfig.AsynThread.Add(thread.Name, thread);
@@ -412,101 +393,103 @@ namespace Senparc.Web
             {
                 z.IsBackground = true;
                 z.Start();
-            }); //å…¨éƒ¨è¿è¡Œ 
+            }); //È«²¿ÔËĞĞ 
 
             #endregion
+
         }
 
         /// <summary>
-        /// é…ç½®å¾®ä¿¡è·Ÿè¸ªæ—¥å¿—
+        /// ÅäÖÃÎ¢ĞÅ¸ú×ÙÈÕÖ¾
         /// </summary>
         private void ConfigTraceLog()
         {
-            //è¿™é‡Œè®¾ä¸ºDebugçŠ¶æ€æ—¶ï¼Œ/App_Data/WeixinTraceLog/ç›®å½•ä¸‹ä¼šç”Ÿæˆæ—¥å¿—æ–‡ä»¶è®°å½•æ‰€æœ‰çš„APIè¯·æ±‚æ—¥å¿—ï¼Œæ­£å¼å‘å¸ƒç‰ˆæœ¬å»ºè®®å…³é—­
+            //ÕâÀïÉèÎªDebug×´Ì¬Ê±£¬/App_Data/WeixinTraceLog/Ä¿Â¼ÏÂ»áÉú³ÉÈÕÖ¾ÎÄ¼ş¼ÇÂ¼ËùÓĞµÄAPIÇëÇóÈÕÖ¾£¬ÕıÊ½·¢²¼°æ±¾½¨Òé¹Ø±Õ
 
-            //å¦‚æœå…¨å±€çš„IsDebugï¼ˆSenparc.CO2NET.Config.IsDebugï¼‰ä¸ºfalseï¼Œæ­¤å¤„å¯ä»¥å•ç‹¬è®¾ç½®trueï¼Œå¦åˆ™è‡ªåŠ¨ä¸ºtrue
-            CO2NET.Trace.SenparcTrace.SendCustomLog("ç³»ç»Ÿæ—¥å¿—",
-                "SenparcCoreFramework ç³»ç»Ÿå¯åŠ¨"); //åªåœ¨Senparc.Weixin.Config.IsDebug = trueçš„æƒ…å†µä¸‹ç”Ÿæ•ˆ
+            //Èç¹ûÈ«¾ÖµÄIsDebug£¨Senparc.CO2NET.Config.IsDebug£©Îªfalse£¬´Ë´¦¿ÉÒÔµ¥¶ÀÉèÖÃtrue£¬·ñÔò×Ô¶¯Îªtrue
+            CO2NET.Trace.SenparcTrace.SendCustomLog("ÏµÍ³ÈÕÖ¾",
+                "SenparcCoreFramework ÏµÍ³Æô¶¯"); //Ö»ÔÚSenparc.Weixin.Config.IsDebug = trueµÄÇé¿öÏÂÉúĞ§
 
-            //å…¨å±€è‡ªå®šä¹‰æ—¥å¿—è®°å½•å›è°ƒ
+            //È«¾Ö×Ô¶¨ÒåÈÕÖ¾¼ÇÂ¼»Øµ÷
             CO2NET.Trace.SenparcTrace.OnLogFunc = () =>
             {
-                //åŠ å…¥æ¯æ¬¡è§¦å‘Logåéœ€è¦æ‰§è¡Œçš„ä»£ç 
+                //¼ÓÈëÃ¿´Î´¥·¢LogºóĞèÒªÖ´ĞĞµÄ´úÂë
             };
 
-            //å½“å‘ç”ŸåŸºäºWeixinExceptionçš„å¼‚å¸¸æ—¶è§¦å‘
+            //µ±·¢Éú»ùÓÚWeixinExceptionµÄÒì³£Ê±´¥·¢
             WeixinTrace.OnWeixinExceptionFunc = ex =>
             {
-                //åŠ å…¥æ¯æ¬¡è§¦å‘WeixinExceptionLogåéœ€è¦æ‰§è¡Œçš„ä»£ç 
+                //¼ÓÈëÃ¿´Î´¥·¢WeixinExceptionLogºóĞèÒªÖ´ĞĞµÄ´úÂë
 
-                //å‘é€æ¨¡æ¿æ¶ˆæ¯ç»™ç®¡ç†å‘˜
+                //·¢ËÍÄ£°åÏûÏ¢¸ø¹ÜÀíÔ±
                 //var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
                 //eventService.ConfigOnWeixinExceptionFunc(ex);
             };
         }
-
-    }
-}
-
-public static class PhysicalFileAppBuilderExtensions
-{
-    private static readonly PhysicalFileProvider _fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
-
-    /// <summary>
-    /// æ£€æµ‹æˆ‘å‘¢è§å˜åŒ–
-    /// </summary>
-    /// <param name="app"></param>
-    /// <param name="hubContext"></param>
-    /// <returns></returns>
-    public static IApplicationBuilder UsePhysicalFile(this IApplicationBuilder app, IHubContext<ReloadPageHub> hubContext)
-    {
-        RegisterPhysical(hubContext);
-        return app;
     }
 
-    /// <summary>
-    /// æ³¨å†Œæ£€æŸ¥
-    /// </summary>
-    /// <param name="hubContext"></param>
-    public static void RegisterPhysical(IHubContext<ReloadPageHub> hubContext)
+
+
+    public static class PhysicalFileAppBuilderExtensions
     {
-        Task.Run(() =>
+        private static readonly PhysicalFileProvider _fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+
+        /// <summary>
+        /// ¼ì²âÎÒÄØ¼û±ä»¯
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="hubContext"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UsePhysicalFile(this IApplicationBuilder app, IHubContext<ReloadPageHub> hubContext)
         {
-            var tcs = new TaskCompletionSource<object>();
-            while (true)
+            RegisterPhysical(hubContext);
+            return app;
+        }
+
+        /// <summary>
+        /// ×¢²á¼ì²é
+        /// </summary>
+        /// <param name="hubContext"></param>
+        public static void RegisterPhysical(IHubContext<ReloadPageHub> hubContext)
+        {
+            Task.Run(() =>
             {
-                PhysicalFileAsync(hubContext).GetAwaiter().GetResult();
-            }
-        });
-    }
+                var tcs = new TaskCompletionSource<object>();
+                while (true)
+                {
+                    PhysicalFileAsync(hubContext).GetAwaiter().GetResult();
+                }
+            });
+        }
 
-    /// <summary>
-    /// æ£€æŸ¥æ–‡ä»¶å˜åŒ–
-    /// </summary>
-    /// <param name="hubContext"></param>
-    /// <returns></returns>
-    private static async Task PhysicalFileAsync(IHubContext<ReloadPageHub> hubContext)
-    {
-        var jsToken = _fileProvider.Watch("wwwroot/**/*.js");
-        var cssToken = _fileProvider.Watch("wwwroot/**/*.css");
-        var cshtmlToken = _fileProvider.Watch("**/*.cshtml");
-        var tcs = new TaskCompletionSource<object>();
-        //TODO:å¦‚æœè€ƒè™‘æ•ˆç‡é—®é¢˜å¯ä»¥ä¸ä½¿ç”¨while(true)ï¼Œå¯ä»¥é€‰ä¸­åœ¨RegisterChangeCallback å†…éƒ¨å†æ¬¡è°ƒç”¨fileProvider.Watch
-        jsToken.RegisterChangeCallback(state =>
+        /// <summary>
+        /// ¼ì²éÎÄ¼ş±ä»¯
+        /// </summary>
+        /// <param name="hubContext"></param>
+        /// <returns></returns>
+        private static async Task PhysicalFileAsync(IHubContext<ReloadPageHub> hubContext)
         {
-            ((TaskCompletionSource<object>)state).TrySetResult(null);
-            hubContext.Clients.All.SendAsync("ReloadPage", "jsæ–‡ä»¶å‘ç”Ÿå˜åŒ–");
-        }, tcs);
-        cssToken.RegisterChangeCallback(state =>
-        {
-            ((TaskCompletionSource<object>)state).TrySetResult(null);
-            hubContext.Clients.All.SendAsync("ReloadPage", "cssæ–‡ä»¶å‘ç”Ÿå˜åŒ–");
-        }, tcs);
-        cshtmlToken.RegisterChangeCallback(state =>
-        {
-            ((TaskCompletionSource<object>)state).TrySetResult(null);
-            hubContext.Clients.All.SendAsync("ReloadPage", "cshtmlæ–‡ä»¶å‘ç”Ÿå˜åŒ–");
-        }, tcs);
-        await tcs.Task.ConfigureAwait(false);
+            var jsToken = _fileProvider.Watch("wwwroot/**/*.js");
+            var cssToken = _fileProvider.Watch("wwwroot/**/*.css");
+            var cshtmlToken = _fileProvider.Watch("**/*.cshtml");
+            var tcs = new TaskCompletionSource<object>();
+            //TODO:Èç¹û¿¼ÂÇĞ§ÂÊÎÊÌâ¿ÉÒÔ²»Ê¹ÓÃwhile(true)£¬¿ÉÒÔÑ¡ÖĞÔÚRegisterChangeCallback ÄÚ²¿ÔÙ´Îµ÷ÓÃfileProvider.Watch
+            jsToken.RegisterChangeCallback(state =>
+            {
+                ((TaskCompletionSource<object>)state).TrySetResult(null);
+                hubContext.Clients.All.SendAsync("ReloadPage", "jsÎÄ¼ş·¢Éú±ä»¯");
+            }, tcs);
+            cssToken.RegisterChangeCallback(state =>
+            {
+                ((TaskCompletionSource<object>)state).TrySetResult(null);
+                hubContext.Clients.All.SendAsync("ReloadPage", "cssÎÄ¼ş·¢Éú±ä»¯");
+            }, tcs);
+            cshtmlToken.RegisterChangeCallback(state =>
+            {
+                ((TaskCompletionSource<object>)state).TrySetResult(null);
+                hubContext.Clients.All.SendAsync("ReloadPage", "cshtmlÎÄ¼ş·¢Éú±ä»¯");
+            }, tcs);
+            await tcs.Task.ConfigureAwait(false);
+        }
     }
 }

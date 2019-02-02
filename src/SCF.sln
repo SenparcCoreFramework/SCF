@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web", "Senparc.Web\Senparc.Web.csproj", "{3905E4D1-B72C-43C7-889F-166A08191528}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4D53646F-67EE-430A-8B50-9600CFACF434}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnusualUsing", "UnusualUsing", "{836380F1-2B33-494B-845B-BA6D6D7C5B25}"
@@ -56,16 +54,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetSources", "NugetSources", "{B2B84E12-606C-45FE-8376-D947C29FEDA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Web", "Senparc.Web\Senparc.Web.csproj", "{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web.OldMvc", "Senparc.Web.OldMvc\Senparc.Web.OldMvc.csproj", "{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.SCF-Packages", "1.SCF-Packages", "{20618121-91AE-4EFE-9899-ABCB0ADACE86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Mvc.UI", "Senparc.Scf.Mvc.UI\Senparc.Scf.Mvc.UI.csproj", "{353775C5-4979-48FF-B4C6-90C54D923AB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3905E4D1-B72C-43C7-889F-166A08191528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3905E4D1-B72C-43C7-889F-166A08191528}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3905E4D1-B72C-43C7-889F-166A08191528}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3905E4D1-B72C-43C7-889F-166A08191528}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D0EF2816-B99A-4554-964A-6EA6814B3A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0EF2816-B99A-4554-964A-6EA6814B3A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0EF2816-B99A-4554-964A-6EA6814B3A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -140,6 +142,18 @@ Global
 		{A0AE58F3-3630-4223-848F-45D7A4D9302E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0AE58F3-3630-4223-848F-45D7A4D9302E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0AE58F3-3630-4223-848F-45D7A4D9302E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +174,7 @@ Global
 		{DFF2FDD1-7520-4122-95EF-FE16D8B355D9} = {4D53646F-67EE-430A-8B50-9600CFACF434}
 		{052488C5-7806-47FD-9CED-C68DEB86E58E} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
 		{A0AE58F3-3630-4223-848F-45D7A4D9302E} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
+		{353775C5-4979-48FF-B4C6-90C54D923AB7} = {20618121-91AE-4EFE-9899-ABCB0ADACE86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7427A6C9-D522-4B10-B0AC-607D69736B50}

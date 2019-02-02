@@ -1,294 +1,50 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
-        <!--<MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>-->
-        <ServerGarbageCollection>false</ServerGarbageCollection>
-        <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-        <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
-        <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Remove="App_Data\Log\**" />
-        <Compile Remove="Areas\Admin\Content\**" />
-        <Compile Remove="Areas\Admin\Scripts\**" />
-        <Compile Remove="Areas\Admin\Views\Report\**" />
-        <Compile Remove="logs\**" />
-        <Compile Remove="Views\Login\**" />
-        <Compile Remove="Views\Shared\Components\**" />
-        <Compile Remove="wwwroot\bower_components\**" />
-        <Compile Remove="wwwroot\headImgs\**" />
-        <Compile Remove="wwwroot\upload\**" />
-        <Content Remove="App_Data\Log\**" />
-        <Content Remove="Areas\Admin\Content\**" />
-        <Content Remove="Areas\Admin\Scripts\**" />
-        <Content Remove="Areas\Admin\Views\Report\**" />
-        <Content Remove="logs\**" />
-        <Content Remove="Views\Login\**" />
-        <Content Remove="Views\Shared\Components\**" />
-        <Content Remove="wwwroot\bower_components\**" />
-        <Content Remove="wwwroot\headImgs\**" />
-        <Content Remove="wwwroot\upload\**" />
-        <EmbeddedResource Remove="App_Data\Log\**" />
-        <EmbeddedResource Remove="Areas\Admin\Content\**" />
-        <EmbeddedResource Remove="Areas\Admin\Scripts\**" />
-        <EmbeddedResource Remove="Areas\Admin\Views\Report\**" />
-        <EmbeddedResource Remove="logs\**" />
-        <EmbeddedResource Remove="Views\Login\**" />
-        <EmbeddedResource Remove="Views\Shared\Components\**" />
-        <EmbeddedResource Remove="wwwroot\bower_components\**" />
-        <EmbeddedResource Remove="wwwroot\headImgs\**" />
-        <EmbeddedResource Remove="wwwroot\upload\**" />
-        <None Remove="App_Data\Log\**" />
-        <None Remove="Areas\Admin\Content\**" />
-        <None Remove="Areas\Admin\Scripts\**" />
-        <None Remove="Areas\Admin\Views\Report\**" />
-        <None Remove="logs\**" />
-        <None Remove="Views\Login\**" />
-        <None Remove="Views\Shared\Components\**" />
-        <None Remove="wwwroot\bower_components\**" />
-        <None Remove="wwwroot\headImgs\**" />
-        <None Remove="wwwroot\upload\**" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
 
 
-    <ItemGroup>
-        <PackageReference Include="log4net" Version="2.0.8" />
-        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
-        <!--<PackageReference Include="Microsoft.AspNetCore.App"  />-->
-        <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
-        <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
-        <PackageReference Include="Senparc.CO2NET" Version="0.5.1.1" />
-        <PackageReference Include="Senparc.Weixin.Open" Version="4.4.0.2" />
-        <PackageReference Include="Senparc.Weixin.TenPay" Version="1.1.2.2" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
 
-    <!--<ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0-preview1-final" />
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
-  </ItemGroup>-->
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.5.1.1" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.4.0.2" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.1.2.2" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Senparc.Areas.Admin\Senparc.Areas.Admin.csproj" />
+    <ProjectReference Include="..\Senparc.Areas.WX\Senparc.Areas.WX.csproj" />
+    <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
+    <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
+    <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Mvc.UI\Senparc.Scf.Mvc.UI.csproj" />
+    <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
+    <ProjectReference Include="..\Senparc.Threads\Senparc.Threads.csproj" />
+    <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
+    <ProjectReference Include="..\Senparc.Web.UI\Senparc.Web.UI.csproj" />
+    <ProjectReference Include="..\Senparc.Areas.User\Senparc.Areas.User.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Senparc.Areas.Admin\Senparc.Areas.Admin.csproj" />
-        <ProjectReference Include="..\Senparc.Areas.WX\Senparc.Areas.WX.csproj" />
-        <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
-        <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
-        <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-        <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
-        <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
-        <ProjectReference Include="..\Senparc.Threads\Senparc.Threads.csproj" />
-        <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
-        <ProjectReference Include="..\Senparc.Web.UI\Senparc.Web.UI.csproj" />
-        <ProjectReference Include="..\Senparc.Areas.User\Senparc.Areas.User.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Properties\PublishProfiles\" />
-        <Folder Include="wwwroot\bower_components\" />
-        <Folder Include="wwwroot\css\Admin\adminlogin\" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <_CustomFiles Include="$(MSBuildProjectDirectory)/wwwroot/bower_components/**/*" />
-        <DotnetPublishFiles Include="@(_CustomFiles)">
-            <DestinationRelativePath>wwwroot/bower_components/%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
-        </DotnetPublishFiles>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="Areas\Admin\Views\AdminUserInfo\Edit.cshtml" />
-        <None Include="Areas\Admin\Views\AdminUserInfo\Index.cshtml" />
-        <None Include="Areas\User\Views\Home\Login.cshtml" />
-        <None Include="Areas\User\Views\Home\Register.cshtml" />
-        <None Include="Views\Home\Index.cshtml" />
-        <None Include="wwwroot\lib\signalr\dist\browser\signalr.js" />
-        <None Include="wwwroot\lib\signalr\dist\browser\signalr.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js" />
-        <None Include="wwwroot\lib\signalr\dist\browser\signalr.min.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\AbortController.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\AbortController.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\browser-index.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\browser-index.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Errors.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Errors.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HandshakeProtocol.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HandshakeProtocol.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HttpClient.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HttpClient.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HttpConnection.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HttpConnection.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HubConnection.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HubConnection.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HubConnectionBuilder.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\HubConnectionBuilder.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\IConnection.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\IConnection.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\IHttpConnectionOptions.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\IHttpConnectionOptions.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\IHubProtocol.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\IHubProtocol.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\ILogger.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\ILogger.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\index.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\index.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\ITransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\ITransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\JsonHubProtocol.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\JsonHubProtocol.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Loggers.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Loggers.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\LongPollingTransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\LongPollingTransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\ServerSentEventsTransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\ServerSentEventsTransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Stream.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Stream.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\TextMessageFormat.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\TextMessageFormat.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Utils.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\Utils.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\WebSocketTransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\cjs\WebSocketTransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\AbortController.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\AbortController.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\browser-index.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\browser-index.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Errors.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Errors.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HandshakeProtocol.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HandshakeProtocol.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HttpClient.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HttpClient.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HttpConnection.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HttpConnection.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HubConnection.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HubConnection.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HubConnectionBuilder.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\HubConnectionBuilder.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\IConnection.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\IConnection.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\IHttpConnectionOptions.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\IHttpConnectionOptions.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\IHubProtocol.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\IHubProtocol.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\ILogger.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\ILogger.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\index.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\index.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\ITransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\ITransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\JsonHubProtocol.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\JsonHubProtocol.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Loggers.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Loggers.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\LongPollingTransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\LongPollingTransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\ServerSentEventsTransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\ServerSentEventsTransport.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Stream.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Stream.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\TextMessageFormat.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\TextMessageFormat.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Utils.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\Utils.js.map" />
-        <None Include="wwwroot\lib\signalr\dist\esm\WebSocketTransport.js" />
-        <None Include="wwwroot\lib\signalr\dist\esm\WebSocketTransport.js.map" />
-        <None Include="wwwroot\lib\signalr\README.md" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\AbortController.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\browser-index.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\Errors.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\HandshakeProtocol.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\HttpClient.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\HttpConnection.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\HubConnection.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\HubConnectionBuilder.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\IConnection.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\IHttpConnectionOptions.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\IHubProtocol.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\ILogger.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\index.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\ITransport.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\JsonHubProtocol.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\Loggers.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\LongPollingTransport.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\ServerSentEventsTransport.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\Stream.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\TextMessageFormat.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\Utils.d.ts" />
-        <TypeScriptCompile Include="wwwroot\lib\signalr\dist\esm\WebSocketTransport.d.ts" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Update="Areas\Admin\Views\Shared\_HeaderPartial.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Account\Buy.cshtml">
-          <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Home\Recover.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Shared\_HeaderPartial.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Shared\_LoginLayout.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Account\Index.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\User\Views\Shared\_MenuPartial.cshtml">
-          <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\WX\Views\Shared\Error.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\WX\Views\Shared\Success.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\WX\Views\Shared\_Empty.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\WX\Views\Shared\_Layout.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\WX\_ViewImports.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Areas\WX\_ViewStart.cshtml">
-            <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="Views\Install\Index.cshtml">
-          <Pack>$(IncludeRazorContentInPack)</Pack>
-        </Content>
-        <Content Update="wwwroot\css\Admin\base\pagecss.css">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </Content>
-    </ItemGroup>
-
-    <ProjectExtensions>
-        <VisualStudio>
-            <UserProperties appsettings_1json__JSONSchema="" />
-        </VisualStudio>
-    </ProjectExtensions>
 
 </Project>
