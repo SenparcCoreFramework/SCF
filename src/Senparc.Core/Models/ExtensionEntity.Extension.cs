@@ -7,23 +7,11 @@ namespace Senparc.Core.Models
     public class FullSystemConfig : FullSystemConfigBase
     {
         [AutoSetCache]
-        public string MchId
-        {
-            get;
-            set;
-        }
+        public string MchId { get; set; }
         [AutoSetCache]
-        public string MchKey
-        {
-            get;
-            set;
-        }
+        public string MchKey { get; set; }
         [AutoSetCache]
-        public string TenPayAppId
-        {
-            get;
-            set;
-        }
+        public string TenPayAppId { get; set; }
 
 
         public override void CreateEntity(SystemConfig entity)

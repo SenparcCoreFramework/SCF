@@ -28,29 +28,13 @@ namespace Senparc.Core.Models
             SkipCount = skipCount ?? Senparc.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
         }
 
-        public int PageIndex
-        {
-            get;
-            set;
-        }
+        public int PageIndex { get; set; }
 
-        public int PageCount
-        {
-            get;
-            set;
-        }
+        public int PageCount { get; set; }
 
-        public int TotalCount
-        {
-            get;
-            set;
-        }
+        public int TotalCount { get; set; }
 
-        public int SkipCount
-        {
-            get;
-            set;
-        }
+        public int SkipCount { get; set; }
 
         public int TotalPageNumber => Convert.ToInt32((TotalCount - 1) / PageCount) + 1;
     }
@@ -79,35 +63,15 @@ namespace Senparc.Core.Models
     /// </summary>
     public class HomeSlider
     {
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
-        public string Title
-        {
-            get;
-            set;
-        }
+        public string Title { get; set; }
 
-        public string Url
-        {
-            get;
-            set;
-        }
+        public string Url { get; set; }
 
-        public string Pic
-        {
-            get;
-            set;
-        }
+        public string Pic { get; set; }
 
-        public int DisplayOrder
-        {
-            get;
-            set;
-        }
+        public int DisplayOrder { get; set; }
     }
 
     /// <summary>
@@ -116,65 +80,25 @@ namespace Senparc.Core.Models
     [Serializable]
     public class SenparcConfig
     {
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public string Host
-        {
-            get;
-            set;
-        }
+        public string Host { get; set; }
 
-        public string DataBase
-        {
-            get;
-            set;
-        }
+        public string DataBase { get; set; }
 
-        public string UserName
-        {
-            get;
-            set;
-        }
+        public string UserName { get; set; }
 
-        public string Password
-        {
-            get;
-            set;
-        }
+        public string Password { get; set; }
 
-        public string Provider
-        {
-            get;
-            set;
-        }
+        public string Provider { get; set; }
 
-        public string ConnectionString
-        {
-            get;
-            set;
-        }
+        public string ConnectionString { get; set; }
 
-        public string ConnectionStringFull
-        {
-            get;
-            set;
-        }
+        public string ConnectionStringFull { get; set; }
 
-        public string ApplicationPath
-        {
-            get;
-            set;
-        }
+        public string ApplicationPath { get; set; }
     }
 
     /// <summary>
@@ -183,23 +107,11 @@ namespace Senparc.Core.Models
     [Serializable]
     public class Messager
     {
-        public MessageType MessageType
-        {
-            get;
-            set;
-        }
+        public MessageType MessageType { get; set; }
 
-        public string MessageText
-        {
-            get;
-            set;
-        }
+        public string MessageText { get; set; }
 
-        public bool ShowClose
-        {
-            get;
-            set;
-        }
+        public bool ShowClose { get; set; }
 
         public Messager(MessageType messageType, string messageText, bool showClose = true)
         {
@@ -214,53 +126,21 @@ namespace Senparc.Core.Models
     /// </summary>
     public class WebLog
     {
-        public DateTime DateTime
-        {
-            get;
-            set;
-        }
+        public DateTime DateTime { get; set; }
 
-        public string Level
-        {
-            get;
-            set;
-        }
+        public string Level { get; set; }
 
-        public string LoggerName
-        {
-            get;
-            set;
-        }
+        public string LoggerName { get; set; }
 
-        public string Message
-        {
-            get;
-            set;
-        }
+        public string Message { get; set; }
 
-        public string Details
-        {
-            get;
-            set;
-        }
+        public string Details { get; set; }
 
-        public string ThreadName
-        {
-            get;
-            set;
-        }
+        public string ThreadName { get; set; }
 
-        public int PageIndex
-        {
-            get;
-            set;
-        }
+        public int PageIndex { get; set; }
 
-        public int Line
-        {
-            get;
-            set;
-        }
+        public int Line { get; set; }
     }
 
     #endregion
@@ -330,11 +210,7 @@ namespace Senparc.Core.Models
     public partial class FullSystemConfigBase : BaseFullEntity<SystemConfig>
     {
         [AutoSetCache]
-        public string SystemName
-        {
-            get;
-            set;
-        }
+        public string SystemName { get; set; }
 
         public override void CreateEntity(SystemConfig entity)
         {
@@ -351,38 +227,14 @@ namespace Senparc.Core.Models
         public override string Key => UserName;
 
         [AutoSetCache]
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
         [AutoSetCache]
-        public string UserName
-        {
-            get;
-            set;
-        }
-        public DateTime LastActiveTime
-        {
-            get;
-            set;
-        }
-        public DateTime LastOpenPageTime
-        {
-            get;
-            set;
-        }
-        public string LastOpenPageUrl
-        {
-            get;
-            set;
-        }
-        public string LastActiveUserAgent
-        {
-            get;
-            set;
-        }
+        public string UserName { get; set; }
+        public DateTime LastActiveTime { get; set; }
+        public DateTime LastOpenPageTime { get; set; }
+        public string LastOpenPageUrl { get; set; }
+        public string LastActiveUserAgent { get; set; }
         ///// <summary>
         ///// 最近一次活动的客户端设备信息
         ///// </summary>
@@ -405,29 +257,17 @@ namespace Senparc.Core.Models
         /// <summary>
         /// 强制退出登录
         /// </summary>
-        public bool ForceLogout
-        {
-            get;
-            set;
-        }
+        public bool ForceLogout { get; set; }
 
         /// <summary>
         /// 未读消息数量
         /// </summary>
-        public int UnReadMessageCount
-        {
-            get;
-            set;
-        }
+        public int UnReadMessageCount { get; set; }
 
         /// <summary>
         /// 已经输入过验证码（如果需要加强验证，可以加上次输入验证码的时间以及token）
         /// </summary>
-        public bool CheckCodePassed
-        {
-            get;
-            set;
-        }
+        public bool CheckCodePassed { get; set; }
 
         /// <summary>
         /// 在线图标
@@ -556,23 +396,11 @@ namespace Senparc.Core.Models
     [Serializable]
     public class AppVersion
     {
-        public int Main
-        {
-            get;
-            set;
-        }
+        public int Main { get; set; }
 
-        public int Sub
-        {
-            get;
-            set;
-        }
+        public int Sub { get; set; }
 
-        public int Fix
-        {
-            get;
-            set;
-        }
+        public int Fix { get; set; }
 
         public AppVersion(int main, int sub, int fix)
         {
@@ -627,47 +455,19 @@ namespace Senparc.Core.Models
     /// </summary>
     public class AutoSendEmail
     {
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
-        public string Address
-        {
-            get;
-            set;
-        }
+        public string Address { get; set; }
 
-        public string Subject
-        {
-            get;
-            set;
-        }
+        public string Subject { get; set; }
 
-        public string Body
-        {
-            get;
-            set;
-        }
+        public string Body { get; set; }
 
-        public string UserName
-        {
-            get;
-            set;
-        }
+        public string UserName { get; set; }
 
-        public DateTime LastSendTime
-        {
-            get;
-            set;
-        }
+        public DateTime LastSendTime { get; set; }
 
-        public int SendCount
-        {
-            get;
-            set;
-        }
+        public int SendCount { get; set; }
     }
 
     /// <summary>
@@ -675,98 +475,38 @@ namespace Senparc.Core.Models
     /// </summary>
     public class AutoSendEmailBak
     {
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
-        public string Address
-        {
-            get;
-            set;
-        }
+        public string Address { get; set; }
 
-        public string Subject
-        {
-            get;
-            set;
-        }
+        public string Subject { get; set; }
 
-        public string Body
-        {
-            get;
-            set;
-        }
+        public string Body { get; set; }
 
-        public string UserName
-        {
-            get;
-            set;
-        }
+        public string UserName { get; set; }
 
-        public DateTime SendTime
-        {
-            get;
-            set;
-        }
+        public DateTime SendTime { get; set; }
     }
 
     public class EmailUser
     {
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public string DisplayName
-        {
-            get;
-            set;
-        }
+        public string DisplayName { get; set; }
 
-        public string EmailAddress
-        {
-            get;
-            set;
-        }
+        public string EmailAddress { get; set; }
 
-        public string Password
-        {
-            get;
-            set;
-        }
+        public string Password { get; set; }
 
-        public string SmtpHost
-        {
-            get;
-            set;
-        }
+        public string SmtpHost { get; set; }
 
-        public int SmtpPort
-        {
-            get;
-            set;
-        }
+        public int SmtpPort { get; set; }
 
-        public bool NeedCredentials
-        {
-            get;
-            set;
-        }
+        public bool NeedCredentials { get; set; }
 
-        public string Note
-        {
-            get;
-            set;
-        }
+        public string Note { get; set; }
     }
 
     #endregion
@@ -777,35 +517,15 @@ namespace Senparc.Core.Models
     /// </summary>
     public class XmlConfig_Email
     {
-        public string ToUse
-        {
-            get;
-            set;
-        }
+        public string ToUse { get; set; }
 
-        public string Subject
-        {
-            get;
-            set;
-        }
+        public string Subject { get; set; }
 
-        public string Body
-        {
-            get;
-            set;
-        }
+        public string Body { get; set; }
 
-        public string Holders
-        {
-            get;
-            set;
-        }
+        public string Holders { get; set; }
 
-        public DateTime UpdateTime
-        {
-            get;
-            set;
-        }
+        public DateTime UpdateTime { get; set; }
     }
 
     #endregion
@@ -816,38 +536,22 @@ namespace Senparc.Core.Models
     public class AreaXML_Provinces
     {
         [DataMember]
-        public int ID
-        {
-            get;
-            set;
-        }
+        public int ID { get; set; }
 
         [DataMember]
-        public string ProvinceName
-        {
-            get;
-            set;
-        }
+        public string ProvinceName { get; set; }
 
         /// <summary>
         /// 地区代码
         /// </summary>
         [DataMember]
-        public string DivisionsCode
-        {
-            get;
-            set;
-        }
+        public string DivisionsCode { get; set; }
 
         /// <summary>
         /// 缩写（去掉“省”“市”“自治区”等）
         /// </summary>
         [DataMember]
-        public string ShortName
-        {
-            get;
-            set;
-        }
+        public string ShortName { get; set; }
 
         public AreaXML_Provinces(int id, string provinceName, string divisionsCode, string shortName)
         {
@@ -863,46 +567,22 @@ namespace Senparc.Core.Models
     public class AreaXML_Cities
     {
         [DataMember]
-        public int ID
-        {
-            get;
-            set;
-        }
+        public int ID { get; set; }
 
         [DataMember]
-        public int PID
-        {
-            get;
-            set;
-        }
+        public int PID { get; set; }
 
         [DataMember]
-        public string CityName
-        {
-            get;
-            set;
-        }
+        public string CityName { get; set; }
 
         [DataMember]
-        public string ZipCode
-        {
-            get;
-            set;
-        }
+        public string ZipCode { get; set; }
 
         [DataMember]
-        public string CityCode
-        {
-            get;
-            set;
-        }
+        public string CityCode { get; set; }
 
         [DataMember]
-        public int MaxShopId
-        {
-            get;
-            set;
-        }
+        public int MaxShopId { get; set; }
 
         public AreaXML_Cities(int id, int pID, string cityName, string zipCode, string cityCode, int maxShopId)
         {
@@ -920,25 +600,13 @@ namespace Senparc.Core.Models
     public class AreaXML_Districts
     {
         [DataMember]
-        public int ID
-        {
-            get;
-            set;
-        }
+        public int ID { get; set; }
 
         [DataMember]
-        public int CID
-        {
-            get;
-            set;
-        }
+        public int CID { get; set; }
 
         [DataMember]
-        public string DistrictName
-        {
-            get;
-            set;
-        }
+        public string DistrictName { get; set; }
 
         public AreaXML_Districts(int id, int cID, string districtName)
         {

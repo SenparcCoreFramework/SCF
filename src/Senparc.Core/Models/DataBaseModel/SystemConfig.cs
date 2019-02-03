@@ -8,19 +8,11 @@ namespace Senparc.Core.Models
     public partial class SystemConfig
     {
         [Key]
-        public int Id
-        {
-            get;
-            set;
-        }
+        public int Id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string SystemName
-        {
-            get;
-            set;
-        }
+        public string SystemName { get; set; }
 
         [Column(TypeName = "varchar(100)")]
         public string MchId { get; set; }

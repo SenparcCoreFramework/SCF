@@ -50,11 +50,7 @@ namespace Senparc.Log
         public static ILog Reply => GetLogger("ReplyRepository");
 
 
-        public static int Int
-        {
-            get;
-            set;
-        }
+        public static int Int { get; set; }
         //新建的领域可以在这里继续添加
 
         public static ILog GetLogger(string name)

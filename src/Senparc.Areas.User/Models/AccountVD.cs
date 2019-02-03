@@ -12,11 +12,7 @@ namespace Senparc.Areas.User.Models.VD
 
     public class Account_InfoVD : BaseAccountVD
     {
-        public Account Account
-        {
-            get;
-            set;
-        }
+        public Account Account { get; set; }
     }
 
 
@@ -31,42 +27,22 @@ namespace Senparc.Areas.User.Models.VD
 
     public class BasicEdit
     {
-        public string RealName
-        {
-            get;
-            set;
-        }
+        public string RealName { get; set; }
 
         [EmailAddress(ErrorMessage = "请输入正确邮箱地址")]
-        public string Email
-        {
-            get;
-            set;
-        }
+        public string Email { get; set; }
     }
 
     public class PasswordEdit
     {
         [Required(ErrorMessage = "请输入旧密码")]
-        public string OldPassword
-        {
-            get;
-            set;
-        }
+        public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "请输入新密码")]
-        public string NewPassword
-        {
-            get;
-            set;
-        }
+        public string NewPassword { get; set; }
 
         [Required(ErrorMessage = "请输入确定密码")]
         [Compare("NewPassword", ErrorMessage = "两次输入密码不一致")]
-        public string ConfirmNewPassword
-        {
-            get;
-            set;
-        }
+        public string ConfirmNewPassword { get; set; }
     }
 }
