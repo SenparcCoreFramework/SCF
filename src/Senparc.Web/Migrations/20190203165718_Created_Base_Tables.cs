@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Senparc.Web.Migrations
 {
-    public partial class init : Migration
+    public partial class Created_Base_Tables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,9 +12,11 @@ namespace Senparc.Web.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    Flag = table.Column<bool>(nullable: false, defaultValue: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Flag = table.Column<bool>(nullable: false, defaultValue: false),
+                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: false),
                     UserName = table.Column<string>(maxLength: 50, nullable: false),
                     Password = table.Column<string>(maxLength: 100, nullable: true),
                     PasswordSalt = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -45,7 +47,6 @@ namespace Senparc.Web.Migrations
                     LastWeixinSignInTime = table.Column<DateTime>(nullable: true),
                     WeixinSignTimes = table.Column<int>(nullable: false),
                     WeixinUnionId = table.Column<string>(nullable: true),
-                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     WeixinOpenId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -59,6 +60,9 @@ namespace Senparc.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Flag = table.Column<bool>(nullable: false),
+                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: false),
                     UserName = table.Column<string>(maxLength: 50, nullable: true),
                     Password = table.Column<string>(maxLength: 50, nullable: true),
                     PasswordSalt = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -68,8 +72,7 @@ namespace Senparc.Web.Migrations
                     ThisLoginTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     ThisLoginIP = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
                     LastLoginTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    LastLoginIP = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
-                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    LastLoginIP = table.Column<string>(unicode: false, maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,6 +85,9 @@ namespace Senparc.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Flag = table.Column<bool>(nullable: false),
+                    AddTime = table.Column<DateTime>(nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: false),
                     SystemName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     MchId = table.Column<string>(type: "varchar(100)", nullable: true),
                     MchKey = table.Column<string>(type: "varchar(300)", nullable: true),
@@ -98,12 +104,14 @@ namespace Senparc.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Flag = table.Column<bool>(nullable: false),
+                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: false),
                     AccountId = table.Column<int>(nullable: false),
                     OrderNumber = table.Column<string>(type: "varchar(100)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "money", nullable: false),
                     PayMoney = table.Column<decimal>(type: "money", nullable: false),
                     UsedPoints = table.Column<decimal>(type: "decimal(18, 2)", nullable: true),
-                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     CompleteTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     AddIp = table.Column<string>(type: "varchar(50)", nullable: true),
                     GetPoints = table.Column<decimal>(type: "money", nullable: false),
@@ -133,12 +141,13 @@ namespace Senparc.Web.Migrations
                 name: "FeedBacks",
                 columns: table => new
                 {
-                    Flag = table.Column<bool>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Flag = table.Column<bool>(nullable: false),
+                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: false),
                     AccountId = table.Column<int>(nullable: false),
-                    Content = table.Column<string>(nullable: true),
-                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Content = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -157,13 +166,15 @@ namespace Senparc.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Flag = table.Column<bool>(nullable: false),
+                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LastUpdateTime = table.Column<DateTime>(nullable: false),
                     AccountId = table.Column<int>(nullable: false),
                     AccountPayLogId = table.Column<int>(nullable: true),
                     Points = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     BeforePoints = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     AfterPoints = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    AddTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

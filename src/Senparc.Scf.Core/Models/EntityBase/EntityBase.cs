@@ -18,11 +18,11 @@ namespace Senparc.Scf.Core.Models
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTimeOffset AddTime { get; set; }
+        public DateTime AddTime { get; set; }
         /// <summary>
-        /// 更新时间
+        /// 上次更新时间
         /// </summary>
-        public DateTimeOffset UpdateTime { get; set; }
+        public DateTime LastUpdateTime { get; set; }
     }
 
     /// <summary>

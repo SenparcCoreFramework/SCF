@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using System.Threading.Tasks;
+using log4net;
+using log4net.Config;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +32,13 @@ using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.TenPay;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using System.Threading.Tasks;
 
 namespace Senparc.Web
 {
@@ -47,6 +47,10 @@ namespace Senparc.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            //读取Log配置文件
+            var repository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
         }
 
         public IConfiguration Configuration { get; }
@@ -71,7 +75,7 @@ namespace Senparc.Web
 
             services.AddMvc(options =>
             {
-                options.Filters.Add<HttpGlobalExceptionFilter>();
+                //options.Filters.Add<HttpGlobalExceptionFilter>();
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddXmlSerializerFormatters()
@@ -117,7 +121,7 @@ namespace Senparc.Web
 
             //注册 Repository 和 Service
             services
-                .AddScoped<FullSystemConfigCache>()
+                .AddScoped<FullSystemConfigCache>()//TODO：根据接口自动添加
                 .AddSingleton<PhoneCheckCodeCache>()
                 .AddSingleton<QrCodeRegCache>()
                 .AddSingleton<OAuthCodeCache>()

@@ -1,5 +1,6 @@
 ﻿using Senparc.CO2NET;
 using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Utility;
 
 namespace Senparc.Repository
@@ -9,7 +10,7 @@ namespace Senparc.Repository
         ISqlClientFinanceData DB { get; }
     }
 
-    public class BaseClientRepository<T> : BaseRepository<T>, IBaseClientRepository<T> where T : class, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class BaseClientRepository<T> : BaseRepository<T>, IBaseClientRepository<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         public ISqlClientFinanceData DB
         {

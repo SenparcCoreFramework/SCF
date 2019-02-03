@@ -10,14 +10,14 @@ using Senparc.Core.Models;
 namespace Senparc.Web.Migrations
 {
     [DbContext(typeof(SenparcEntities))]
-    [Migration("20181130085128_init")]
-    partial class init
+    [Migration("20190203165718_Created_Base_Tables")]
+    partial class Created_Base_Tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -55,6 +55,8 @@ namespace Senparc.Web.Migrations
                     b.Property<string>("LastLoginIP");
 
                     b.Property<DateTime>("LastLoginTime");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<DateTime?>("LastWeixinSignInTime");
 
@@ -143,8 +145,12 @@ namespace Senparc.Web.Migrations
                     b.Property<decimal>("Fee")
                         .HasColumnType("money");
 
+                    b.Property<bool>("Flag");
+
                     b.Property<decimal>("GetPoints")
                         .HasColumnType("money");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -194,6 +200,8 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("Flag");
+
                     b.Property<string>("LastLoginIp")
                         .HasColumnName("LastLoginIP")
                         .HasMaxLength(20)
@@ -201,6 +209,8 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("LastLoginTime")
                         .HasColumnType("datetime");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<string>("Note");
 
@@ -249,6 +259,8 @@ namespace Senparc.Web.Migrations
 
                     b.Property<bool>("Flag");
 
+                    b.Property<DateTime>("LastUpdateTime");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -277,6 +289,10 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
                     b.Property<decimal>("Points")
                         .HasColumnType("decimal(18, 2)");
 
@@ -294,6 +310,12 @@ namespace Senparc.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<string>("MchId")
                         .HasColumnType("varchar(100)");

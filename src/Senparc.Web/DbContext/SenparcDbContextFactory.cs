@@ -13,7 +13,10 @@ namespace Senparc.Web
         public SenparcEntities CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<SenparcEntities>();
-            builder.UseSqlServer(SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"));
+
+            //如果运行 Add-Migration 命令，此处可能无法自动获取到连接字符串
+            var sqlConnection = SenparcDatabaseConfigs.ClientConnectionString ?? "Server=.\\;Database=SCF;Trusted_Connection=True;integrated security=True;";
+            builder.UseSqlServer(sqlConnection, b => b.MigrationsAssembly("Senparc.Web"));
             return new SenparcEntities(builder.Options);
         }
     }

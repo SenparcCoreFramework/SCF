@@ -4,6 +4,7 @@ using System.Reflection;
 namespace Senparc.Core.Models
 {
     using Microsoft.EntityFrameworkCore;
+    using Senparc.Scf.Core.Models;
 
     public partial class SenparcEntities : DbContext
     {
@@ -43,7 +44,7 @@ namespace Senparc.Core.Models
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="builder"></param>
-        public void SetGlobalQuery<T>(ModelBuilder builder) where T : BaseModel
+        public void SetGlobalQuery<T>(ModelBuilder builder) where T : EntityBase
         {
             builder.Entity<T>().HasQueryFilter(z => z.Flag);
         }

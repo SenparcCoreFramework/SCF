@@ -3,6 +3,7 @@ using Senparc.Core.Enums;
 using Senparc.Core.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
+using Senparc.Scf.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Repository
 {
-    public class BaseRepository<T> : BaseData, IBaseRepository<T> where T : class, new() //global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class BaseRepository<T> : BaseData, IBaseRepository<T> where T : EntityBase, new() //global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         protected string _entitySetName;
 
@@ -240,10 +241,12 @@ namespace Senparc.Repository
         {
             if (this.IsInsert(obj))
             {
+                obj.AddTime = obj.LastUpdateTime = SystemTime.Now.LocalDateTime;
                 this.Add(obj);
             }
             else
             {
+                obj.LastUpdateTime = SystemTime.Now.LocalDateTime;
                 this.Update(obj);
             }
         }
