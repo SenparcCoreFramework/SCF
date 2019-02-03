@@ -65,6 +65,7 @@ namespace Senparc.Repository
                                         .Includes(includes)
                                         .Where(where)
                                         .OrderBy(orderBy, orderingType);//.Includes(includes);
+
             if (pageCount > 0 && pageIndex > 0)
             {
                 resultList = resultList.Skip(skipCount).Take(pageCount);
@@ -256,9 +257,21 @@ namespace Senparc.Repository
             BaseDB.BaseDataContext.SaveChanges();//TODO: SaveOptions.
         }
 
-        public virtual void Delete(T obj)
+        /// <summary>
+        /// 删除对象
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="softDelete">是否使用软删除</param>
+        public virtual void Delete(T obj, bool softDelete = false)
         {
-            BaseDB.BaseDataContext.Set<T>().Remove(obj);
+            if (softDelete)
+            {
+                obj.Flag = true;//软删除
+            }
+            else
+            {
+                BaseDB.BaseDataContext.Set<T>().Remove(obj);//硬删除
+            }
             this.SaveChanges();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Senparc.Core.Enums;
 using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Repository
 {
-    public interface IBaseRepository<T> : IBaseData where T : class, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IBaseRepository<T> : IBaseData where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         bool IsInsert(T obj);
 
@@ -45,7 +46,7 @@ namespace Senparc.Repository
         /// <param name="obj"></param>
         void Save(T obj);
 
-        void Delete(T obj);
+        void Delete(T obj, bool softDelete = false);
 
         void SaveChanges();
     }

@@ -5,7 +5,7 @@ using Senparc.Utility;
 
 namespace Senparc.Repository
 {
-    public interface IBaseClientRepository<T> : IBaseRepository<T> where T : class, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IBaseClientRepository<T> : IBaseRepository<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         ISqlClientFinanceData DB { get; }
     }
