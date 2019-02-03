@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Senparc.Scf.Core.Models;
+using System;
 
 namespace Senparc.Core.Models
 {
-    public partial class AdminUserInfo
+    [Serializable]
+    public partial class AdminUserInfo: EntityBase<int>
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
@@ -15,6 +16,5 @@ namespace Senparc.Core.Models
         public string ThisLoginIp { get; set; }
         public DateTime LastLoginTime { get; set; }
         public string LastLoginIp { get; set; }
-        public DateTime AddTime { get; set; }
     }
 }

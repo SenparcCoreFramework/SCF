@@ -1,17 +1,15 @@
 ﻿using Senparc.Core.Enums;
+using Senparc.Scf.Core.Models;
 using System;
 
 namespace Senparc.Core.Models
 {
-    public partial class FeedBack : BaseModel
+    [Serializable]
+    public partial class FeedBack : EntityBase<int>
     {
-        public int Id { get; set; }
-
         public int AccountId { get; set; }
 
         public string Content { get; set; }
-
-        public DateTime AddTime { get; set; }
 
         /// <summary>
         /// 用户

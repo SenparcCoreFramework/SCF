@@ -1,22 +1,18 @@
 ﻿using Senparc.Core.Enums;
+using Senparc.Scf.Core.Models;
 using System;
 using System.Collections.Generic;
 
 namespace Senparc.Core.Models
 {
     [Serializable]
-    public partial class Account : BaseModel
+    public partial class Account : EntityBase<int>
     {
         public Account()
         {
             PointsLogs = new List<PointsLog>();
         }
 
-        public int Id
-        {
-            get;
-            set;
-        }
         public string UserName
         {
             get;
@@ -121,11 +117,6 @@ namespace Senparc.Core.Models
         public int WeixinSignTimes { get; set; }
         public string WeixinUnionId { get; set; }
       
-        public DateTime AddTime
-        {
-            get;
-            set;
-        }
         public string WeixinOpenId
         {
             get;

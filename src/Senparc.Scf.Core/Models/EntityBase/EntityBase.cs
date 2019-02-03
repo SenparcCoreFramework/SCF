@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Senparc.Scf.Core.Models
 {
-    public class EntityBase : IEntityBase
+    /// <summary>
+    /// 数据库实体基类
+    /// </summary>
+    [Serializable]
+    public partial class EntityBase : IEntityBase
     {
         /// <summary>
         /// 是否软删除
@@ -21,7 +25,12 @@ namespace Senparc.Scf.Core.Models
         public DateTimeOffset UpdateTime { get; set; }
     }
 
-    public class EntityBase<TKey> : EntityBase, IEntityBase<TKey>
+    /// <summary>
+    /// 带单一主键的数据库实体基类
+    /// </summary>
+    /// <typeparam name="TKey"></typeparam>
+    [Serializable]
+    public partial class EntityBase<TKey> : EntityBase, IEntityBase<TKey>
     {
         /// <summary>
         /// 主键
