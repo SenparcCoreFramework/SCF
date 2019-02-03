@@ -350,7 +350,6 @@ namespace Senparc.Core.Models
         [AutoSetCache]
         public string Note { get; set; }
 
-
         [AutoSetCache]
         public System.DateTime ThisLoginTime { get; set; }
 
@@ -390,61 +389,6 @@ namespace Senparc.Core.Models
 
     }
 
-    /// <summary>
-    /// 应用版本信息
-    /// </summary>
-    [Serializable]
-    public class AppVersion
-    {
-        public int Main { get; set; }
-
-        public int Sub { get; set; }
-
-        public int Fix { get; set; }
-
-        public AppVersion(int main, int sub, int fix)
-        {
-            Main = main;
-            Sub = sub;
-            Fix = fix;
-        }
-
-        /// <summary>
-        /// 返回指定格式的版本号
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return $"{Main}.{Sub}.{Fix}";
-        }
-
-        /// <summary>
-        /// 比较当前版本是否大于或等于appVersion
-        /// </summary>
-        /// <param name="appVersion"></param>
-        /// <returns></returns>
-        public bool IsGreatEqualThan(AppVersion appVersion)
-        {
-            if (appVersion == null)
-            {
-                return false; //无法比较
-            }
-
-            if (Main < appVersion.Main)
-            {
-                return false;
-            }
-            if (Main == appVersion.Main && Sub < appVersion.Sub)
-            {
-                return false;
-            }
-            if (Main == appVersion.Main && Sub == appVersion.Sub && Fix < appVersion.Fix)
-            {
-                return false;
-            }
-            return true;
-        }
-    }
 
     #endregion
 
