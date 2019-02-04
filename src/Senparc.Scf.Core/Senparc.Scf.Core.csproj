@@ -8,6 +8,6 @@
     <PackageReference Include="Senparc.CO2NET" Version="0.5.2" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utility\" />
+    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
   </ItemGroup>
 </Project>

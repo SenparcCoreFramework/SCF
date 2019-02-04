@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Extensions;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Utility;
 using Senparc.Weixin;
 

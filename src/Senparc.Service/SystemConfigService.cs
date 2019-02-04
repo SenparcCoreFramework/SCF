@@ -1,6 +1,6 @@
 using System;
 using Senparc.Core.Models;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Repository;
 using Senparc.Core.Cache;
 using Senparc.Utility;

@@ -5,7 +5,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Utility;
 using Senparc.Weixin.HttpUtility;
 

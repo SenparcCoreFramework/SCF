@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Senparc.CO2NET.Cache;
 using Senparc.Core.Cache.BaseCache;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Core.Cache

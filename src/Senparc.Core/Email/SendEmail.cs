@@ -12,7 +12,7 @@ namespace Senparc.Core.Email
     using Senparc.Core.Enums;
     using Senparc.Core.Cache;
     using Senparc.Core.Utility;
-    using Senparc.Log;
+    using Senparc.Scf.Log;
     using System.IO;
     using Senparc.CO2NET.Extensions;
 

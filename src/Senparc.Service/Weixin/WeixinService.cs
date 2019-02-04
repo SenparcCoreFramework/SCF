@@ -3,7 +3,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Cache;
 using Senparc.Core.Models.WeixinTemplate;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Utility;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;

@@ -1,6 +1,6 @@
 ﻿using log4net;
 
-namespace Senparc.Log
+namespace Senparc.Scf.Log
 {
     public static partial class LogUtility
     {

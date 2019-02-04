@@ -15,7 +15,7 @@ using Senparc.Core.Enums;
 using Senparc.Core.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Repository;
 using Senparc.Service.OperationQueue;
 using Senparc.Utility;

@@ -1,7 +1,7 @@
 ﻿using Senparc.Core.Cache;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using System;
 using System.Collections.Generic;
 

@@ -9,7 +9,7 @@ namespace Senparc.Threads
 {
     using Senparc.Core.Cache;
     using Senparc.Core.Extensions;
-    using Senparc.Log;
+    using Senparc.Scf.Log;
 
     /// <summary>
     /// 自动发送邮件类

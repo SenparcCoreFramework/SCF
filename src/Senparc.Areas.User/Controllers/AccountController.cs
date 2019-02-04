@@ -8,7 +8,7 @@ using Senparc.Core.Enums;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.File;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Mvc.Filter;
 using Senparc.Service;
 using Senparc.Utility;

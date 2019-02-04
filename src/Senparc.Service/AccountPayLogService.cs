@@ -1,7 +1,7 @@
 ﻿using Senparc.CO2NET;
 using Senparc.Core.Enums;
 using Senparc.Core.Models;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.Repository;
 using System;
 

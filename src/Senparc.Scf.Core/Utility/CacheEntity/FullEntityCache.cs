@@ -1,7 +1,8 @@
 ﻿using Senparc.Scf.Log;
+using Senparc.Scf.Log;
 using System;
 
-namespace Senparc.Core.Utility
+namespace Senparc.Scf.Core.Utility
 {
     public static class FullEntityCache
     {

@@ -1,6 +1,6 @@
 ﻿using Senparc.CO2NET;
 using Senparc.Core.Cache;
-using Senparc.Log;
+using Senparc.Scf.Log;
 using Senparc.NeuChar.Entities;
 using Senparc.Service;
 using Senparc.Weixin.MP.Entities;
