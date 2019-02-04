@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Senparc.Core.Extensions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using System.IO;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Utility;
 
 namespace Senparc.Scf.Core.Cache
 {

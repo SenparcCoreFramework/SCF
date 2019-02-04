@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 
 
 namespace Senparc.Scf.Core.Cache

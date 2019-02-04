@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Senparc.Core.Exceptions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Exceptions;
+using Senparc.Scf.Core.Models;
 
 namespace Senparc.Scf.Core.Cache
 {

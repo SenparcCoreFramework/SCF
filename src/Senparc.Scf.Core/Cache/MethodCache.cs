@@ -1,6 +1,6 @@
 ﻿using System;
 using Senparc.CO2NET.Cache;
-using Senparc.Core.Cache.BaseCache;
+using Senparc.Scf.Core.Cache.BaseCache;
 
 namespace Senparc.Scf.Core.Cache
 {

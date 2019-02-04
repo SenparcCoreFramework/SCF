@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Cache.Lock;
+﻿using Senparc.Scf.Core.Cache.Lock;
 using System;
 using System.Collections.Generic;
 using Senparc.CO2NET.Cache;

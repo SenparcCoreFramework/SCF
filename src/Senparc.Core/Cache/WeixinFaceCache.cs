@@ -3,6 +3,7 @@ using System.Reflection;
 using Senparc.Core.Weixin;
 using System;
 using System.Collections.Generic;
+using Senparc.Scf.Core.Cache;
 
 namespace Senparc.Core.Cache
 {
@@ -10,6 +11,9 @@ namespace Senparc.Core.Cache
     //{
     //}
 
+    /// <summary>
+    /// 微信表情缓存
+    /// </summary>
     public class WeixinFaceCache : BaseCache<List<KeyValuePair<string, WeixinFace>>>/*, IWeixinFaceCache*/
     {
         public const string CACHE_KEY = "WeixinFaceCache";
@@ -35,7 +39,7 @@ namespace Senparc.Core.Cache
                 if (dna != null)
                 {
                     var description = dna.Description;
-                    data.Add(new KeyValuePair<string, WeixinFace>(description, (WeixinFace)Enum.Parse(enumType,name)));
+                    data.Add(new KeyValuePair<string, WeixinFace>(description, (WeixinFace)Enum.Parse(enumType, name)));
                 }
             }
 

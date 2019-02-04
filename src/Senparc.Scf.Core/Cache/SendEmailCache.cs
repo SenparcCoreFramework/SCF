@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Senparc.Core.Models;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Utility;
 
 namespace Senparc.Scf.Core.Cache
 {

@@ -1,5 +1,5 @@
 ﻿using Senparc.CO2NET.Extensions;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 
 namespace Senparc.Scf.Core.Email
 {

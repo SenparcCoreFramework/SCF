@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Config;
+﻿using Senparc.Scf.Core.Config;
 using StackExchange.Redis;
 
 namespace Senparc.Scf.Core.Cache.BaseCache.Redis

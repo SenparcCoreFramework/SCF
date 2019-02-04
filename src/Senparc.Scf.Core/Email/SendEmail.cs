@@ -6,12 +6,12 @@ using System.Reflection;
 
 namespace Senparc.Scf.Core.Email
 {
-    using Senparc.Core.Models;
-    using Senparc.Core.Config;
-    using Senparc.Core.Extensions;
-    using Senparc.Core.Enums;
-    using Senparc.Core.Cache;
-    using Senparc.Core.Utility;
+    using Senparc.Scf.Core.Models;
+    using Senparc.Scf.Core.Config;
+    using Senparc.Scf.Core.Extensions;
+    using Senparc.Scf.Core.Enums;
+    using Senparc.Scf.Core.Cache;
+    using Senparc.Scf.Core.Utility;
     using Senparc.Scf.Log;
     using System.IO;
     using Senparc.CO2NET.Extensions;
