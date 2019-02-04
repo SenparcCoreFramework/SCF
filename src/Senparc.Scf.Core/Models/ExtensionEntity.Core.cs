@@ -1,13 +1,12 @@
 ﻿using Senparc.CO2NET.Extensions;
-using Senparc.Core.Enums;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 //using WURFL;
 
-namespace Senparc.Core.Models
+namespace Senparc.Scf.Core.Models
 {
     #region 全局
 
