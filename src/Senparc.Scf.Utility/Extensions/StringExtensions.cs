@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Html;
 using Senparc.CO2NET.Extensions;
 
-namespace Senparc.Core.Extensions
+namespace Senparc.Scf.Core.Extensions
 {
     public static class StringExtensions
     {

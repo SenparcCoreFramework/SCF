@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Senparc.SMS
+namespace Senparc.Scf.SMS
 {
     public interface IReplyMessage
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public interface IBaseService<T> : IBaseServiceData where T : class, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IBaseService<T> : IBaseServiceData where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         IBaseRepository<T> BaseRepository { get; set; }
 

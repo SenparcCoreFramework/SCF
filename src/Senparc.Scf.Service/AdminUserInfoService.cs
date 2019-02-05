@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
 using System;

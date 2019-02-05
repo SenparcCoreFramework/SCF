@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
+using Senparc.Core.Cache;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Models.WeixinTemplate;
 using Senparc.Scf.Log;

@@ -23,7 +23,7 @@ namespace Senparc.Scf.Core.Utility
         private const string COOKIE_NAME_PREFIX = "senparccheckcodeverify_";
         private string _cookieName;
         private HttpContext _httpContext;
-        private IMemoryCache _cache;
+        private IMemoryCache _cache;//TODO: _cache需要赋值
         private string _checkCodeSalt = "_senparccheckcode";
         private Dictionary<string, string> checkedCodeCollection
         {

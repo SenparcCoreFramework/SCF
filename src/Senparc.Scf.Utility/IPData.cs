@@ -2,7 +2,7 @@
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Utility;
 using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Scf.Utility

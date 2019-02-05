@@ -1,4 +1,4 @@
-﻿namespace Senparc.Core.Extensions
+﻿namespace Senparc.Scf.Core.Extensions
 {
     public static class IntegerExtensions
     {

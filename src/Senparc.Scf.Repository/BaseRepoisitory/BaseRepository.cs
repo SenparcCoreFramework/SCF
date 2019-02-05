@@ -2,8 +2,6 @@
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Utility;
-using Senparc.Scf.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +53,7 @@ namespace Senparc.Scf.Repository
         public virtual PagedList<T> GetObjectList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, int pageIndex, int pageCount, string[] includes = null)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
-            int skipCount = Extensions.GetSkipRecord(pageIndex, pageCount);
+            int skipCount = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
             int totalCount = -1;
             List<T> result = null;
             //var query = BaseDB.BaseDataContext.CreateQuery<T>(sql).Includes(includes).OrderBy(orderBy, orderingType);//.Includes(includes);
@@ -112,7 +110,7 @@ namespace Senparc.Scf.Repository
 
         public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, int pageIndex, int pageCount, string[] includes = null)
         {
-            int skipCount = Extensions.GetSkipRecord(pageIndex, pageCount);
+            int skipCount = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
             int totalCount = -1;
             List<T> result = null;
             IQueryable<T> resultList = BaseDB.BaseDataContext

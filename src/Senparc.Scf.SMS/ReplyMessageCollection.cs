@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Senparc.SMS
+namespace Senparc.Scf.SMS
 {
     public class ReplyMessageCollection
     {

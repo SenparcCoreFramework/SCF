@@ -3,7 +3,7 @@ using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
 using System;
 
-namespace Senparc.SMS.Tests
+namespace Senparc.Scf.SMS.Tests
 {
     [TestClass]
     public class SmsPlatform_JunMeiTest : BaseSMSTest

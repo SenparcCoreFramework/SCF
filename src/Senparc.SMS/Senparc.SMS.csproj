@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.SMS\Senparc.Scf.SMS.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using log4net;
 using log4net.Config;
 
-namespace Senparc.SMS.Tests
+namespace Senparc.Scf.SMS.Tests
 {
     public class BaseSMSTest
     {

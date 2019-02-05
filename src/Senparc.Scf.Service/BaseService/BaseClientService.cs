@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
 
 namespace Senparc.Scf.Service
 {
-    public interface IBaseClientService<T> : IBaseService<T> where T : class, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IBaseClientService<T> : IBaseService<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         IBaseClientRepository<T> BaseClientRepository { get; }
 
@@ -15,7 +16,7 @@ namespace Senparc.Scf.Service
     }
 
 
-    public class BaseClientService<T> : BaseService<T>, IBaseClientService<T> where T : class, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class BaseClientService<T> : BaseService<T>, IBaseClientService<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         public IBaseClientRepository<T> BaseClientRepository
         {

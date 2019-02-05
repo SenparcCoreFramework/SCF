@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace Senparc.SMS
+namespace Senparc.Scf.SMS
 {
     public interface ISmsPlatform
     {

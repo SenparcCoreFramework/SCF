@@ -1,6 +1,5 @@
 ﻿using Senparc.CO2NET;
 using Senparc.Scf.Core.Models;
-using Senparc.Scf.Core.Models;
 using Senparc.Scf.Utility;
 
 namespace Senparc.Scf.Repository

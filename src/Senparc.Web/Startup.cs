@@ -19,7 +19,7 @@ using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Mvc.Filter;
-using Senparc.Repository;
+using Senparc.Scf.Repository;
 using Senparc.Service;
 using Senparc.SMS;
 using Senparc.Web.Hubs;

@@ -28,7 +28,7 @@ namespace Senparc.Scf.Core.Cache
         {
             base.TimeOut = 1440;
             xmlCtx = new XmlDataContext();//TODO:注入
-            //filePath = Server.GetMapPath("~/APP_Data/SendEmail.config");//context.Server.MapPath("~/APP_Data/SendEmail.config");
+            //filePath = ServerUtility.ContentRootMapPath("~/APP_Data/SendEmail.config");//context.Server.MapPath("~/APP_Data/SendEmail.config");
             //HttpContext.Current.Response.Write(filePath);
         }
 

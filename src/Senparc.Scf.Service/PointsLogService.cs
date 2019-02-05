@@ -5,7 +5,6 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
 using System;
-using Senparc.Scf.Core.Cache;
 
 namespace Senparc.Scf.Service
 {

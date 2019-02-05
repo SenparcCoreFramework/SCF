@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Scf.Utility;
 using Senparc.Weixin.HttpUtility;
