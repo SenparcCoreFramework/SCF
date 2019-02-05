@@ -80,6 +80,10 @@ namespace Senparc.Web
                 //options.Filters.Add<HttpGlobalExceptionFilter>();
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddRazorPagesOptions(options =>
+            {
+                options.AllowAreas = true;//Ö§³Ö Area
+            })
             .AddXmlSerializerFormatters()
             .AddJsonOptions(options =>
             {

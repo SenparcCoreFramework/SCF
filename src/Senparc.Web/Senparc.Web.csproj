@@ -5,6 +5,13 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Pages\Shared.Old\**" />
+    <Content Remove="Areas\Admin\Pages\Shared.Old\**" />
+    <EmbeddedResource Remove="Areas\Admin\Pages\Shared.Old\**" />
+    <None Remove="Areas\Admin\Pages\Shared.Old\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
@@ -49,6 +56,12 @@
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
     <ProjectReference Include="..\Senparc.Web.UI\Senparc.Web.UI.csproj" />
     <ProjectReference Include="..\Senparc.Areas.User\Senparc.Areas.User.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Admin\Pages\Shared\_HeaderPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 

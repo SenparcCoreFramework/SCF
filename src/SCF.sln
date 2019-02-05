@@ -64,15 +64,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Mvc.UI", "Senpa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Core", "Senparc.Scf.Core\Senparc.Scf.Core.csproj", "{AB5A4906-7E58-4D1B-BA46-E7DCE40FD310}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Repository", "Senparc.Scf.Repository\Senparc.Scf.Repository.csproj", "{9715307C-A38E-416C-B9A3-EF0F39837A1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Repository", "Senparc.Scf.Repository\Senparc.Scf.Repository.csproj", "{9715307C-A38E-416C-B9A3-EF0F39837A1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Log", "Senparc.Scf.Log\Senparc.Scf.Log.csproj", "{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Log", "Senparc.Scf.Log\Senparc.Scf.Log.csproj", "{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Utility", "Senparc.Scf.Utility\Senparc.Scf.Utility.csproj", "{49853A70-AE13-481D-9A98-72DE029717C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Utility", "Senparc.Scf.Utility\Senparc.Scf.Utility.csproj", "{49853A70-AE13-481D-9A98-72DE029717C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Service", "Senparc.Scf.Service\Senparc.Scf.Service.csproj", "{05EA51B5-9C9D-457F-A69E-9ACB218D7AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Service", "Senparc.Scf.Service\Senparc.Scf.Service.csproj", "{05EA51B5-9C9D-457F-A69E-9ACB218D7AA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.SMS", "Senparc.Scf.SMS\Senparc.Scf.SMS.csproj", "{D67659FE-8708-4913-9A56-BE8ECB838405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.SMS", "Senparc.Scf.SMS\Senparc.Scf.SMS.csproj", "{D67659FE-8708-4913-9A56-BE8ECB838405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
