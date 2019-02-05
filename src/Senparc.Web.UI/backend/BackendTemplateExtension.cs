@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
 using Senparc.Core.Models.VD;
 using System.Text;

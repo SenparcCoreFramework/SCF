@@ -1,5 +1,5 @@
 ﻿using Senparc.Core.Models.VD;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Html;
 

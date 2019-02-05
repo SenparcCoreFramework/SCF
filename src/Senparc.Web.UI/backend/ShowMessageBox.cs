@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 
 namespace System.Web.Mvc
 {

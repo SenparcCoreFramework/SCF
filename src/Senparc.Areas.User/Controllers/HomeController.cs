@@ -9,7 +9,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Core.Cache;
 using Senparc.Core.Config;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Log;
 using Senparc.Mvc;
 using Senparc.Mvc.Filter;

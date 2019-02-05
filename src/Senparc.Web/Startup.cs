@@ -17,7 +17,7 @@ using Senparc.Core;
 using Senparc.Core.Cache;
 using Senparc.Core.Config;
 using Senparc.Core.Extensions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Mvc.Filter;
 using Senparc.Repository;

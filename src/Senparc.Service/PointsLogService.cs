@@ -1,10 +1,11 @@
 ﻿using Senparc.CO2NET;
 using Senparc.Core.Cache;
-using Senparc.Core.Enums;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Repository;
 using System;
+using Senparc.Scf.Core.Cache;
 
 namespace Senparc.Service
 {

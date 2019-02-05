@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
 using System;
 

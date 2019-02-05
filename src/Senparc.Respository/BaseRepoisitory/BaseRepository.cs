@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Scf.Core.Models;
 using System;

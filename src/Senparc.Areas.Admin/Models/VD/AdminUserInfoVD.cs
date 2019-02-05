@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Models;
+﻿using Senparc.Scf.Core.Models;
 using System;
 
 namespace Senparc.Areas.Admin.Models.VD

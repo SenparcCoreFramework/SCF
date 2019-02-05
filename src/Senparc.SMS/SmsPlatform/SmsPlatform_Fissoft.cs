@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Enums;
+﻿using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
 using System;
 using System.Collections.Generic;

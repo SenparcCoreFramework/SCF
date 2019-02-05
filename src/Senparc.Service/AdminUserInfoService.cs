@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Senparc.Core.Extensions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Repository;

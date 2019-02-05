@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Utility;
 using System.Text;
 

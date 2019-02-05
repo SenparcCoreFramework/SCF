@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.Core.Cache;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 
 namespace Senparc.Web.Pages
 {

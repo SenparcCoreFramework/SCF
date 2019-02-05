@@ -1,5 +1,5 @@
 ﻿using Senparc.CO2NET;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Models;
 using Senparc.Utility;
 

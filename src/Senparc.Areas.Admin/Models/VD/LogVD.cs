@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 
 namespace Senparc.Areas.Admin.Models.VD
 {

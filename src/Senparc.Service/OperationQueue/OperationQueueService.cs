@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Utility;

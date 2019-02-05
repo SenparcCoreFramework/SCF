@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Senparc.Areas.User.Models.VD;
-using Senparc.Core.Enums;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Mvc.Filter;
 using Senparc.Service;

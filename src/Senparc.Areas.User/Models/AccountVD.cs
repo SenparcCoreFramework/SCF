@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Models;
+﻿using Senparc.Scf.Core.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

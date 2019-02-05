@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Areas.Admin.Models.VD;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Enums;
-using Senparc.Core.Models;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
 using Senparc.Mvc.Filter;
 using Senparc.Office;
 using Senparc.Service;

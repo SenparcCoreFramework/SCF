@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using Senparc.Core.Config;
 using Senparc.Core.Email;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 
 namespace Senparc.Threads
 {

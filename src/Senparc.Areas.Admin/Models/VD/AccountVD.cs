@@ -1,5 +1,5 @@
-﻿using Senparc.Core.Enums;
-using Senparc.Core.Models;
+﻿using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Senparc.Areas.Admin.Models.VD
