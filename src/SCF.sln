@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Repository", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Log", "Senparc.Scf.Log\Senparc.Scf.Log.csproj", "{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Scf.Utility", "Senparc.Scf.Utility\Senparc.Scf.Utility.csproj", "{49853A70-AE13-481D-9A98-72DE029717C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +174,10 @@ Global
 		{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49853A70-AE13-481D-9A98-72DE029717C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49853A70-AE13-481D-9A98-72DE029717C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49853A70-AE13-481D-9A98-72DE029717C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49853A70-AE13-481D-9A98-72DE029717C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +202,7 @@ Global
 		{AB5A4906-7E58-4D1B-BA46-E7DCE40FD310} = {20618121-91AE-4EFE-9899-ABCB0ADACE86}
 		{9715307C-A38E-416C-B9A3-EF0F39837A1A} = {20618121-91AE-4EFE-9899-ABCB0ADACE86}
 		{2AF3D7C2-0633-4D15-8E29-5E068F0D2DDA} = {20618121-91AE-4EFE-9899-ABCB0ADACE86}
+		{49853A70-AE13-481D-9A98-72DE029717C9} = {20618121-91AE-4EFE-9899-ABCB0ADACE86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7427A6C9-D522-4B10-B0AC-607D69736B50}
