@@ -17,6 +17,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.Scf.Service;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Areas.User.Controllers
 {
@@ -62,7 +64,7 @@ namespace Senparc.Areas.User.Controllers
                 if (file != null)
                 {
                     headImg = $"/headImgs/headImg_{DateTime.Now.Ticks.ToString()}.{Path.GetExtension(file.FileName)}";
-                    await FileExtension.Upload(file, Server.GetWebMapPath(headImg));
+                    await FileExtension.Upload(file, ServerUtility.ContentRootMapPath(headImg));
                 }
                 _accountService.ChangeBasic(FullAccount.Id, from.RealName, from.Email, headImg);
                 SetMessager(MessageType.success, "修改基本信息成功");

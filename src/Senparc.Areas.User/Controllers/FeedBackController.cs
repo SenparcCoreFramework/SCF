@@ -8,6 +8,7 @@ using Senparc.Service;
 using Senparc.Scf.Utility;
 using System;
 using System.Linq;
+using Senparc.Scf.Service;
 
 namespace Senparc.Areas.User.Controllers
 {
@@ -128,7 +129,7 @@ namespace Senparc.Areas.User.Controllers
             }
             catch (Exception ex)
             {
-                LogUtility.Materia.Error(ex.Message, ex);
+                LogUtility.SystemLogger.Error(ex.Message, ex);
                 return RenderJsonSuccessResult(false, new
                 {
                     Message = $"保存失败【{ex.Message}】"

@@ -5,6 +5,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.Service;
 using Senparc.Weixin.MP.Entities;
 using System;
+using Senparc.Scf.Service;
 
 namespace Senparc.Mvc.Weixin
 {

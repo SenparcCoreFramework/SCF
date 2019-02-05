@@ -28,6 +28,8 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using Senparc.Scf.Service;
+using Senparc.Scf.SMS;
 
 namespace Senparc.Areas.User.Controllers
 {

@@ -50,7 +50,7 @@ namespace Senparc.Areas.Admin.Controllers
                 date = $"{date.Substring(0, 4)}-{date.Substring(4, 2)}-{date.Substring(6, 2)}";
             }
             DateTime logDate = Convert.ToDateTime(date);
-            string logFileDir = Server.GetMapPath($"~/App_Data/Log/Logs_{logDate:yyyyMMdd}/");
+            string logFileDir = ServerUtility.ContentRootMapPath($"~/App_Data/Log/Logs_{logDate:yyyyMMdd}/");
 
             if (!Directory.Exists(logFileDir))
             {
@@ -131,7 +131,7 @@ namespace Senparc.Areas.Admin.Controllers
                 date = $"{date.Substring(0, 4)}-{date.Substring(4, 2)}-{date.Substring(6, 2)}";
             }
             DateTime logDate = Convert.ToDateTime(date);
-            string logFileDir = Server.GetMapPath($"~/App_Data/Log/Logs_{logDate:yyyyMMdd}/");
+            string logFileDir = ServerUtility.ContentRootMapPath($"~/App_Data/Log/Logs_{logDate:yyyyMMdd}/");
             WebLog log = new WebLog();
             if (!Directory.Exists(logFileDir))
             {
