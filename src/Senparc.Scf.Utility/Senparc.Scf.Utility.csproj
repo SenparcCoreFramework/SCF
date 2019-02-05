@@ -10,4 +10,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Senparc.Weixin" Version="6.3.4.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
+  </ItemGroup>
 </Project>
