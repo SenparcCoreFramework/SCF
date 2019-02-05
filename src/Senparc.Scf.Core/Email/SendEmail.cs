@@ -296,7 +296,7 @@ namespace Senparc.Scf.Core.Email
             if (usingEmailTemplate)
             {
                 //读取模板
-                using (var srEmailTemplate = new StreamReader(Server.GetMapPath("~/App_Data/Template/EmailTemplete.htm"), Encoding.UTF8))
+                using (var srEmailTemplate = new StreamReader(CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/Template/EmailTemplete.htm"), Encoding.UTF8))
                 {
                     string emailTemplate = srEmailTemplate.ReadToEnd();
                     this.InsertTemplateValue(ref emailTemplate, "body", body);

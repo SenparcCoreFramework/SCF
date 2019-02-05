@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Log;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 using Senparc.Weixin;
 
 namespace Senparc.Mvc.Filter

@@ -18,7 +18,7 @@ using Senparc.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Repository;
 using Senparc.Service.OperationQueue;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using System;

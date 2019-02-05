@@ -11,7 +11,7 @@ using Senparc.File;
 using Senparc.Scf.Log;
 using Senparc.Mvc.Filter;
 using Senparc.Service;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 using Senparc.Weixin;
 using System;
 using System.Collections.Generic;

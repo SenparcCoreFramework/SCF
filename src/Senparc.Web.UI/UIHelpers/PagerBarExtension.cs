@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 using System.Text;
 
 namespace System.Web.Mvc

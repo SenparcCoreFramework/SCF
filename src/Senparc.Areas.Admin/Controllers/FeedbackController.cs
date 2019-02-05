@@ -5,7 +5,7 @@ using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Mvc.Filter;
 using Senparc.Service;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 
 namespace Senparc.Areas.Admin.Controllers
 {

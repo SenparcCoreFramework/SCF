@@ -20,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Utility\Senparc.Scf.Utility.csproj" />
   </ItemGroup>
 </Project>

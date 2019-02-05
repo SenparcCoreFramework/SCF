@@ -373,7 +373,7 @@ namespace Senparc.Web
 
             app.UseSenparcMvcDI();
 
-            //Senparc.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//网站设置
+            //Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//网站设置
 
             //提供网站根目录
             if (env.ContentRootPath != null)

@@ -4,7 +4,7 @@ using System.Linq;
 using Senparc.CO2NET;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Log;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 
 namespace Senparc.Service.OperationQueue
 {

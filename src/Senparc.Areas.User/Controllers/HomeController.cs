@@ -14,7 +14,7 @@ using Senparc.Scf.Log;
 using Senparc.Mvc;
 using Senparc.Mvc.Filter;
 using Senparc.Service;
-using Senparc.Utility;
+using Senparc.Scf.Utility;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP;

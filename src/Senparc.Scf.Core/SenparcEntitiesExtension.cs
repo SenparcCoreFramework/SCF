@@ -10,14 +10,14 @@ namespace Senparc.Scf.Core
         public static IServiceCollection AddSenparcEntitiesDI(this IServiceCollection services)
         {
 
-            //var connectionString = Senparc.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
+            //var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
             //services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
 
             services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
                 .UseSqlServer(Config.SenparcDatabaseConfigs.ClientConnectionString)
                 .Options));
             //#if DEBUG
-            //            var connectionString = Senparc.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
+            //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
             //            services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
             //#else
             //            services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()

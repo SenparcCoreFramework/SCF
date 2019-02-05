@@ -1,5 +1,4 @@
 ﻿using Senparc.Scf.Log;
-using Senparc.Scf.Log;
 using System;
 
 namespace Senparc.Scf.Core.Utility
