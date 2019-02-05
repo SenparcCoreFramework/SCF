@@ -65,9 +65,9 @@ namespace Senparc.Service
             try
             {
                 //创建目录
-                Log.LogUtility.Weixin.Debug($"DownloadTemplate:path {filePath} serverId={serverId}");
+                LogUtility.Weixin.Debug($"DownloadTemplate:path {filePath} serverId={serverId}");
                 var downloadTemplateImage = DownloadTemplate(serverId, filePath, false);
-                Log.LogUtility.Weixin.Debug("DownloadTemplate:downloadTemplateImage " + downloadTemplateImage);
+                LogUtility.Weixin.Debug("DownloadTemplate:downloadTemplateImage " + downloadTemplateImage);
                 if (!downloadTemplateImage)
                 {
                     downloadTemplateImage = DownloadTemplate(serverId, filePath, true);
@@ -81,7 +81,7 @@ namespace Senparc.Service
             }
             catch (Exception ex)
             {
-                Log.LogUtility.Weixin.Debug("DownloadTemplate exception: " + ex.Message, ex);
+                LogUtility.Weixin.Debug("DownloadTemplate exception: " + ex.Message, ex);
                 return false;
             }
         }
@@ -115,7 +115,7 @@ namespace Senparc.Service
                     byte[] logBuffer = new byte[1024];
                     ms.Read(logBuffer, 0, logBuffer.Length);
                     string str = System.Text.Encoding.Default.GetString(logBuffer);
-                    Senparc.Log.LogUtility.Weixin.InfoFormat("下载失败：{0}。serverId：{1}", str, serverId);
+                    Senparc.Scf.Log.LogUtility.Weixin.InfoFormat("下载失败：{0}。serverId：{1}", str, serverId);
                     return false;
                 }
                 ms.Position = 0;
@@ -128,7 +128,7 @@ namespace Senparc.Service
                     }
                     fs.Flush();
                 }
-                Senparc.Log.LogUtility.Weixin.InfoFormat("下载成功：Path[{0}]", fileName);
+                Senparc.Scf.Log.LogUtility.Weixin.InfoFormat("下载成功：Path[{0}]", fileName);
             }
             return true;
         }

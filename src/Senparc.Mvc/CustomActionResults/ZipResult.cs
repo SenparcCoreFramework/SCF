@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Senparc.Utility.StreamExtensions;
+using Senparc.Scf.Utility.StreamExtensions;
 using System.Net.Http;
 
 namespace Senparc.Mvc.CustomActionResults

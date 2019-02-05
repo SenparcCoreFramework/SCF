@@ -13,7 +13,7 @@ using Senparc.Scf.Log;
 using Senparc.Scf.Utility;
 using System;
 using System.Collections.Generic;
-using BaseVD = Senparc.Core.Scf.Models.VD;
+using BaseVD = Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Mvc.Controllers
 {
