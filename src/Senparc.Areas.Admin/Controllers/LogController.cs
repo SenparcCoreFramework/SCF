@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Areas.Admin.Controllers
 {
@@ -26,8 +27,8 @@ namespace Senparc.Areas.Admin.Controllers
         public ActionResult WebLogList([DefaultValue(1)]int pageIndex)
         {
             int pageCount = 31;
-            int skipRecord = Senparc.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
-            string logFileDir = Server.GetMapPath("~/App_Data/Log/");
+            int skipRecord = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
+            string logFileDir = ServerUtility.ContentRootMapPath("~/App_Data/Log/");
             var dateDirs = Directory.GetDirectories(logFileDir, "Logs_*", SearchOption.TopDirectoryOnly);
 
             Log_WebLogListVD vd = new Log_WebLogListVD()

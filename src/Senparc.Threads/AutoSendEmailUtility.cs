@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Senparc.Scf.Core.Config;
-using Senparc.Core.Email;
+using Senparc.Scf.Core.Email;
 using Senparc.Scf.Core.Enums;
 
 namespace Senparc.Threads
