@@ -1,5 +1,5 @@
 ﻿using Senparc.Scf.Core.Enums;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;

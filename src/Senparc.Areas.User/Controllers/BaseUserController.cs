@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Senparc.Areas.User.Models.VD;
 using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Enums;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Models.VD;
 using Senparc.Mvc.Controllers;

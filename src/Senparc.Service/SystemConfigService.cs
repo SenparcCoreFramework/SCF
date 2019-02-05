@@ -2,7 +2,7 @@ using System;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Repository;
-using Senparc.Core.Cache;
+using Senparc.Scf.Core.Cache;
 using Senparc.Utility;
 using Senparc.CO2NET;
 

@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Cache;
+using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Enums;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Models.VD;
 using Senparc.Scf.Log;
 using Senparc.Utility;
 using System;
 using System.Collections.Generic;
-using BaseVD = Senparc.Core.Models.VD;
+using BaseVD = Senparc.Core.Scf.Models.VD;
 
 namespace Senparc.Mvc.Controllers
 {

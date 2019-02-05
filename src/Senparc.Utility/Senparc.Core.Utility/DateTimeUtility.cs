@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Extensions;
+﻿using Senparc.Scf.Core.Extensions;
 using System;
 
 namespace Senparc.Core.Utility

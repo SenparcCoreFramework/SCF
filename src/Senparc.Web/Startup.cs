@@ -13,10 +13,9 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
-using Senparc.Core;
-using Senparc.Core.Cache;
-using Senparc.Core.Config;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core.Config;
+using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Mvc.Filter;
@@ -39,6 +38,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using Senparc.Scf.Core;
 
 namespace Senparc.Web
 {
@@ -378,8 +378,8 @@ namespace Senparc.Web
             //提供网站根目录
             if (env.ContentRootPath != null)
             {
-                Senparc.Core.Config.SiteConfig.ApplicationPath = env.ContentRootPath;
-                Senparc.Core.Config.SiteConfig.WebRootPath = env.WebRootPath;
+                Senparc.Scf.Core.Config.SiteConfig.ApplicationPath = env.ContentRootPath;
+                Senparc.Scf.Core.Config.SiteConfig.WebRootPath = env.WebRootPath;
             }
 
             #endregion

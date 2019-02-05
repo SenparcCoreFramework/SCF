@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Senparc.Areas.User.Models.VD;
 using Senparc.CO2NET.HttpUtility;
-using Senparc.Core.Config;
+using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;

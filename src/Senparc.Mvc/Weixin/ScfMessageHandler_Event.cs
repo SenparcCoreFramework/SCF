@@ -1,5 +1,5 @@
 ﻿using Senparc.CO2NET;
-using Senparc.Core.Cache;
+using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Log;
 using Senparc.NeuChar.Entities;
 using Senparc.Service;

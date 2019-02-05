@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Log;
 using Senparc.Utility;
 using Senparc.Weixin;

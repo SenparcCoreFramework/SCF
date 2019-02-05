@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Senparc.Core.Config;
+using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
 
 namespace Senparc.Web

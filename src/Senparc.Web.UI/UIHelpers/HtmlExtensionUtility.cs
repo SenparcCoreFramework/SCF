@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using Microsoft.AspNetCore.Routing;
 using Senparc.CO2NET.Extensions;
 

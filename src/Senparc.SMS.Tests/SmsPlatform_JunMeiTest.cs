@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Scf.Core.Enums;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using System;
 
 namespace Senparc.SMS.Tests

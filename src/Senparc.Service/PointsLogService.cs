@@ -1,5 +1,5 @@
 ﻿using Senparc.CO2NET;
-using Senparc.Core.Cache;
+using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;

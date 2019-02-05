@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Senparc.Areas.Admin.Models.VD;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Mvc.Filter;
