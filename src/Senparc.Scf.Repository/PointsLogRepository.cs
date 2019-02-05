@@ -1,6 +1,6 @@
 ﻿using Senparc.Scf.Core.Models;
 
-namespace Senparc.Repository
+namespace Senparc.Scf.Repository
 {
     public interface IPointsLogRepository : IBaseClientRepository<PointsLog>
     {

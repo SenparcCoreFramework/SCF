@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Scf.Core.Models;
 
-namespace Senparc.Repository
+namespace Senparc.Scf.Repository
 {
     public interface IAccountPayLogRepository : IBaseClientRepository<AccountPayLog>
     {

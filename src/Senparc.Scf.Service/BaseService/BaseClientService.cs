@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using Senparc.Repository;
+using Senparc.Scf.Repository;
 
 namespace Senparc.Scf.Service
 {

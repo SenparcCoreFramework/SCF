@@ -4,7 +4,7 @@ using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Core.Utility;
 using Senparc.Scf.Log;
-using Senparc.Repository;
+using Senparc.Scf.Repository;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
