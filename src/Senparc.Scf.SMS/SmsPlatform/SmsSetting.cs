@@ -1,6 +1,4 @@
-﻿using Senparc.Scf.Core.Enums;
-
-namespace Senparc.Scf.SMS
+﻿namespace Senparc.Scf.SMS
 {
     public class SenparcSmsSetting
     {

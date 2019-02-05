@@ -22,7 +22,7 @@ namespace Senparc.Scf.Service.OperationQueue
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                await Get.DownloadAsync(picUrl, stream);
+                await CO2NET.HttpUtility.Get.DownloadAsync(picUrl, stream);
                 using (var fs = new FileStream(Server.GetMapPath("~" + fileName), FileMode.CreateNew))
                 {
                     stream.Seek(0, SeekOrigin.Begin);

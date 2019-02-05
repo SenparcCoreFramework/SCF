@@ -5,7 +5,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
-using Senparc.SMS;
+using Senparc.Scf.SMS;
 using System;
 
 namespace Senparc.Scf.Service

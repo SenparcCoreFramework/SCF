@@ -1,5 +1,4 @@
-﻿using Senparc.Scf.Core.Enums;
-using System;
+﻿using System;
 using System.Text;
 
 namespace Senparc.Scf.SMS

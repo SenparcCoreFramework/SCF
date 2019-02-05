@@ -1,5 +1,4 @@
-﻿using Senparc.Scf.Core.Enums;
-
+﻿
 namespace Senparc.Scf.SMS
 {
     public static class SmsPlatformFactory

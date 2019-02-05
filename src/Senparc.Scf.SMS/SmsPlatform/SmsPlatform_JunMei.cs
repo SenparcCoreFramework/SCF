@@ -1,6 +1,4 @@
-﻿using Senparc.Scf.Core.Enums;
-using Senparc.Scf.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;

@@ -6,13 +6,15 @@ namespace Senparc.Scf.Log
     {
         public static object LogLock = new object();
 
-        public static ILog WebLogger => GetLogger("WebLoggerRepository");
+        public static ILog WebLogger => GetLogger("WebLogger");
         public static ILog Cache => GetLogger("Cache");
-        public static ILog EmailLogger => GetLogger("EmailLoggerRepository");
-        public static ILog SystemLogger => GetLogger("SystemLoggerRepository");
+        public static ILog OperationQueue => GetLogger("OperationQueue");
+        public static ILog EmailLogger => GetLogger("EmailLogger");
+        public static ILog SystemLogger => GetLogger("SystemLogger");
         public static ILog AccountPayLog => GetLogger("AccountPayLog");
-        public static ILog SmsLogger => GetLogger("SmsLoggerRepository");
-        public static ILog Account => GetLogger("AccountRepository");
+        public static ILog SmsLogger => GetLogger("SmsLogger");
+        public static ILog Account => GetLogger("Account");
+        public static ILog AdminUserInfo => GetLogger("AdminUserInfo");
         public static ILog WeixinOAuth => GetLogger("WeixinOAuth");
         public static ILog TrackPageLoadPerformance => GetLogger("TrackPageLoadPerformance");
 
