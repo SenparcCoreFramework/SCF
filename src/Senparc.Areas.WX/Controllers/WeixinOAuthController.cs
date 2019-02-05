@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Service;
 using Senparc.Service;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;

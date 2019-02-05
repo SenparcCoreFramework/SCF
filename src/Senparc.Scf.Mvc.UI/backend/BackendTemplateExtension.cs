@@ -6,7 +6,7 @@ using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models.VD;
 using System.Text;
 
-namespace Senparc.Web.UI
+namespace Senparc.Scf.Mvc.UI
 {
     public static class BackendTemplateExtension
     {

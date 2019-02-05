@@ -2,7 +2,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Senparc.Web.UI
+namespace Senparc.Scf.Mvc.UI
 {
     public class ContentBox : IDisposable
     {

@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SectionAuthority\" />
+    <Compile Remove="SectionAuthority\**" />
+    <EmbeddedResource Remove="SectionAuthority\**" />
+    <None Remove="SectionAuthority\**" />
   </ItemGroup>
 
   <ItemGroup>

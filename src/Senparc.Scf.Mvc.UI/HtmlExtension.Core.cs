@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Utility;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Senparc.Web.UI
+namespace Senparc.Scf.Mvc.UI
 {
     public  static partial class HtmlExtension
     {
