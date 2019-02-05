@@ -6,7 +6,7 @@ using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Utility;
 using Senparc.CO2NET;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     //public interface ISystemConfigService : IBaseClientService<SystemConfig>
     //{

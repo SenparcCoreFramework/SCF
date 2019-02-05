@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using Senparc.Repository;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public interface IBaseClientService<T> : IBaseService<T> where T : class, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
     {

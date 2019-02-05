@@ -1,6 +1,6 @@
 ﻿using Senparc.Repository;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public interface IBaseServiceData
     {

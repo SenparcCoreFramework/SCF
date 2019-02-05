@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public class AccountService : BaseClientService<Account> /*, UserService*/
     {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public class BaseService<T> : BaseServiceData, IBaseService<T> where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {

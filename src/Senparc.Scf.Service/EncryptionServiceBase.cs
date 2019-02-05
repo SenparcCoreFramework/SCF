@@ -1,6 +1,6 @@
 ﻿using Senparc.Core.Utility;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public partial interface IEncryptionServiceBase //: IBaseServiceData
     {

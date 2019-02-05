@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     /// <summary>
     /// 临时开放BaseDataContext.Configuration.AutoDetectChangesEnabled属性，用于大批量更新数据的环境，结束后还原到false状态。

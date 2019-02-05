@@ -9,7 +9,7 @@ using Senparc.Scf.Log;
 using Senparc.Scf.Utility;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Service.OperationQueue
+namespace Senparc.Scf.Service.OperationQueue
 {
     public class OperationQueueService
     {

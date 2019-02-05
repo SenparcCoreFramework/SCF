@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public class AdminUserInfoService : BaseClientService<AdminUserInfo>
     {

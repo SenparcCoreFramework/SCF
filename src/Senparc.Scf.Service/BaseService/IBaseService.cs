@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public interface IBaseService<T> : IBaseServiceData where T : class, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {

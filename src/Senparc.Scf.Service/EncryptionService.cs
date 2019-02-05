@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     //public partial interface IEncryptionService : IEncryptionServiceBase
     //{

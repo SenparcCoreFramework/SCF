@@ -7,7 +7,7 @@ using Senparc.Repository;
 using System;
 using Senparc.Scf.Core.Cache;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public class PointsLogService : BaseClientService<PointsLog>
     {

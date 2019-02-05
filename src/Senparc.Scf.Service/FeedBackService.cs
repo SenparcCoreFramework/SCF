@@ -4,7 +4,7 @@ using Senparc.Scf.Log;
 using Senparc.Repository;
 using System;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public class FeedBackService : BaseClientService<FeedBack>
     {

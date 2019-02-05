@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Senparc.Service
+namespace Senparc.Scf.Service
 {
     public static class AutoDetectChangeContextExtension
     {
