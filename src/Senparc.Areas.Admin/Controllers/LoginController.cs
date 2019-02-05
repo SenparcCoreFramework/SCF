@@ -6,11 +6,11 @@ namespace Senparc.Areas.Admin.Controllers
 {
     using System.Collections.Generic;
     using Models.VD;
-    using Core.Models;
+    using Senparc.Scf.Core.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Core.Extensions;
-    using Service;
+    using Senparc.Scf.Core.Extensions;
     using Senparc.CO2NET.Extensions;
+    using Senparc.Scf.Service;
 
     [AllowAnonymous]
     public class LoginController : BaseAdminController
@@ -68,7 +68,7 @@ namespace Senparc.Areas.Admin.Controllers
             {
                 vdForm.MessagerList = new List<Messager>
                 {
-                    new Messager(Core.Enums.MessageType.danger, errorMsg)
+                    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
                 };
                 return View(vdForm);
             }

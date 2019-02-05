@@ -21,7 +21,7 @@ using Senparc.Core.Utility;
 using Senparc.Mvc.Filter;
 using Senparc.Scf.Repository;
 using Senparc.Service;
-using Senparc.SMS;
+using Senparc.Scf.SMS;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.Redis;
@@ -39,6 +39,8 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using Senparc.Scf.Core;
+using Senparc.Scf.Service;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Web
 {
@@ -280,7 +282,7 @@ namespace Senparc.Web
                     componentAppId =>
                     {
 
-                        var dir = Path.Combine(Server.GetMapPath("~/App_Data/OpenTicket"));
+                        var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -300,7 +302,7 @@ namespace Senparc.Web
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -323,7 +325,7 @@ namespace Senparc.Web
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);

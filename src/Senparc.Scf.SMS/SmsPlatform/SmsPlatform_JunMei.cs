@@ -1,5 +1,7 @@
 ﻿using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Log;
+using Senparc.Scf.SMS;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -58,14 +60,14 @@ namespace Senparc.Scf.SMS
                     if (message.ToUpper() == "OK")
                     {
                         smsResult = SmsResult.成功;
-                        Log.LogUtility.SmsLogger.Info($"发送短信成功：{content}，号码：{number}。状态：{status}（{message}）。发送通道：JunMei");
+                        LogUtility.SmsLogger.Info($"发送短信成功：{content}，号码：{number}。状态：{status}（{message}）。发送通道：JunMei");
                     }
                     Thread.Sleep(200);
                 }
             }
             catch (Exception)
             {
-                Log.LogUtility.SmsLogger.Error($"发送短信失败：{content}，号码：{number}。发送通道：JunMei");
+                LogUtility.SmsLogger.Error($"发送短信失败：{content}，号码：{number}。发送通道：JunMei");
             }
             return smsResult;
         }

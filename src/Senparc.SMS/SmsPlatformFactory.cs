@@ -1,5 +1,5 @@
 ﻿
-using Senparc.Scf.SMS;
+using Senparc.SMS;
 
 namespace Senparc.Scf.SMS
 {
