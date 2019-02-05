@@ -18,14 +18,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.5.1.1" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.0.2" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.5.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.2" />
     <PackageReference Include="Senparc.WebSocket" Version="0.7.1.6" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.0.1" />
-    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.2.3.3" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.4.0.2" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.1.2.2" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.3.4.2" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.1" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.2.5" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.4.3" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.1.4" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.3.7" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 

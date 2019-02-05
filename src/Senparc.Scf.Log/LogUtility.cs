@@ -17,6 +17,7 @@ namespace Senparc.Scf.Log
         public static ILog AdminUserInfo => GetLogger("AdminUserInfo");
         public static ILog WeixinOAuth => GetLogger("WeixinOAuth");
         public static ILog TrackPageLoadPerformance => GetLogger("TrackPageLoadPerformance");
+        public static ILog Weixin => GetLogger("Weixin");
 
 
         public static int Int { get; set; }
