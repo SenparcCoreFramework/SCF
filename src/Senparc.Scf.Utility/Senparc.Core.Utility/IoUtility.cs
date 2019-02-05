@@ -1,4 +1,4 @@
-﻿namespace Senparc.Core.Utility
+﻿namespace Senparc.Scf.Core.Utility
 {
     public class IoUtility
     {

@@ -1,6 +1,6 @@
 ﻿//using System.Management;
 
-namespace Senparc.Core.Utility
+namespace Senparc.Scf.Core.Utility
 {
     public class W3wp
     {

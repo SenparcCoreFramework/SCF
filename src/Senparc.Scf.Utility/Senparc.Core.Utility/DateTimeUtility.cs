@@ -1,7 +1,7 @@
 ﻿using Senparc.Scf.Core.Extensions;
 using System;
 
-namespace Senparc.Core.Utility
+namespace Senparc.Scf.Core.Utility
 {
     public static class DateTimeUtility
     {

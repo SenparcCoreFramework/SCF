@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Core.Utility
+namespace Senparc.Scf.Core.Utility
 {
     /// <summary>
     /// MD5 加密

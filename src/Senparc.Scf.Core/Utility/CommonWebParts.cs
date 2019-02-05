@@ -51,24 +51,6 @@ namespace Senparc.Scf.Core.Utility
 
 
         /// <summary>
-        /// 转换对象为json格式
-        /// </summary>
-        /// <param name="datasource"></param>
-        /// <returns></returns>
-        public static string ToJson(object datasource)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                DataContractJsonSerializer s = new DataContractJsonSerializer(datasource.GetType());
-                s.WriteObject(ms, datasource);
-
-                ms.Seek(0, SeekOrigin.Begin);
-
-                return Encoding.UTF8.GetString(ms.ToArray());
-            }
-        }
-
-        /// <summary>
         /// 获取Form值，Handler用
         /// </summary>
         /// <param name="key">Form键</param>
@@ -77,18 +59,6 @@ namespace Senparc.Scf.Core.Utility
         public static string GetFormValue(string key, HttpContext context)
         {
             return context.Request.Form[key].ToString();
-        }
-
-
-        /// <summary>
-        /// 获取翻页时跳过的记录数
-        /// </summary>
-        /// <param name="pageIndex">当前页码</param>
-        /// <param name="pageCount">每页记录数</param>
-        /// <returns></returns>
-        public static int GetSkipRecord(int pageIndex, int pageCount)
-        {
-            return (pageIndex - 1) * pageCount;
         }
 
 

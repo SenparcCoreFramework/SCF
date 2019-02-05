@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Core.Utility
+namespace Senparc.Scf.Core.Utility
 {
     public class DesUtility
     {

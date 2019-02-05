@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Senparc.Core.Utility
+namespace Senparc.Scf.Core.Utility
 {
     public static class Extensions
     {
