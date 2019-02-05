@@ -71,7 +71,7 @@ namespace Senparc.Scf.Core.Cache
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetContainerProperty(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
             var result = base.SetProperty(ref storage, value, propertyName);
             return result;

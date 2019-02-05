@@ -25,7 +25,7 @@ namespace Senparc.Scf.Core.Models
             PageIndex = pageIndex;
             PageCount = pageCount;
             TotalCount = totalCount < 0 ? list.Count : totalCount;
-            SkipCount = skipCount ?? Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
+            SkipCount = skipCount ?? Senparc.Scf.Core.Extensions.GetSkipRecord(pageIndex, pageCount);
         }
 
         public int PageIndex { get; set; }

@@ -7,6 +7,7 @@ namespace Senparc.Scf.Log
         public static object LogLock = new object();
 
         public static ILog WebLogger => GetLogger("WebLoggerRepository");
+        public static ILog Cache => GetLogger("Cache");
         public static ILog EmailLogger => GetLogger("EmailLoggerRepository");
         public static ILog SystemLogger => GetLogger("SystemLoggerRepository");
         public static ILog AccountPayLog => GetLogger("AccountPayLog");
