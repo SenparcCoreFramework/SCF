@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Areas.Admin.Models.VD
 {

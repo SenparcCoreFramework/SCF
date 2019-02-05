@@ -8,7 +8,7 @@ using Senparc.Core.Cache;
 using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 using Senparc.Scf.Log;
 using Senparc.Utility;
 using System;

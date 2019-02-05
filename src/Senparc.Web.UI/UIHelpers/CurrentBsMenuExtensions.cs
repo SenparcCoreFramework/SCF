@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace System.Web.Mvc
 {

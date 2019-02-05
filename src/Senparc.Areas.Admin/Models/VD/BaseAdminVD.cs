@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Routing;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Areas.Admin.Models.VD
 {

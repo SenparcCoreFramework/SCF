@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Service
 {
-    public class BaseService<T> : BaseServiceData, IBaseService<T> where T : class, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class BaseService<T> : BaseServiceData, IBaseService<T> where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         public IBaseRepository<T> BaseRepository { get; set; }
 

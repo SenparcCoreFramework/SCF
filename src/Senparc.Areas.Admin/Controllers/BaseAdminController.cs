@@ -8,7 +8,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 using System.Collections.Generic;
 using System.Net;
 

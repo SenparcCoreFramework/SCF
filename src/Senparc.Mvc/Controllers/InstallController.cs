@@ -1,6 +1,6 @@
 ﻿using Senparc.Service;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Mvc.Controllers
 {

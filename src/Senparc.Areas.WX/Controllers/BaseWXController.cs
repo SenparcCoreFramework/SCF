@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Areas.WX.Controllers
 {

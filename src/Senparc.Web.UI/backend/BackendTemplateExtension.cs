@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Senparc.Scf.Core.Enums;
 using Senparc.Core.Extensions;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 using System.Text;
 
 namespace Senparc.Web.UI
