@@ -18,7 +18,7 @@ namespace Senparc.Areas.Admin
     {
 
 
-        public void OnGet()
+        public virtual void OnGet()
         {
 
         }

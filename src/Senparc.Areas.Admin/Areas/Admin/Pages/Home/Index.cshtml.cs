@@ -9,8 +9,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages.Home
 {
     public class IndexModel : BaseAdminPageModel
     {
-        public void OnGet()
+        public override void OnGet()
         {
+            base.OnGet();
         }
     }
 }
