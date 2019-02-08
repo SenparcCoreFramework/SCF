@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Senparc.Web.Areas.Admin.Pages.Home
+namespace Senparc.Areas.Admin.Areas.Admin.Pages.Home
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BaseAdminPageModel
     {
         public void OnGet()
         {

@@ -16,6 +16,11 @@ namespace Senparc.Areas.Admin
 
     public class BaseAdminPageModel : PageModelBase, IBaseAdminPageModel
     {
-     
+
+
+        public void OnGet()
+        {
+
+        }
     }
 }
