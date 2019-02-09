@@ -11,25 +11,25 @@ namespace Senparc.Scf.Core.Areas
     /// <summary>
     /// 对所有扩展 Area 进行注册
     /// </summary>
-    public class AreaRegister
+    public static class AreaRegister
     {
-        public bool RegisterAreasFinished { get; set; }
+        public static bool RegisterAreasFinished { get; set; }
 
-        public IMvcBuilder RegisterAllAreas(IMvcBuilder builder)
+        public static IMvcBuilder AddScfAreas(this IMvcBuilder builder)
         {
             //遍历所有程序集进行注册
 
             var dt1 = SystemTime.Now;
 
             var cacheStragegy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
-            using (cacheStragegy.BeginCacheLock("Senparc.Scf.Core.Areas.AreaRegister", "Senparc.Scf.Core.Areas"))
+            using (cacheStragegy.BeginCacheLock("Senparc.Scf.Core.Areas.AreaRegister", "RegisterScfAreas"))
             {
                 if (RegisterAreasFinished == true)
                 {
                     return builder;
                 }
 
-                //查找所有扩展缓存
+                //查找所有扩展缓存B
                 var scanTypesCount = 0;
 
                 var assembiles = AppDomain.CurrentDomain.GetAssemblies();

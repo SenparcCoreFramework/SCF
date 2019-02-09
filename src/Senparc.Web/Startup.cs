@@ -41,6 +41,7 @@ using System.Threading.Tasks;
 using Senparc.Scf.Core;
 using Senparc.Scf.Service;
 using Senparc.CO2NET.Utilities;
+using Senparc.Scf.Core.Areas;
 
 namespace Senparc.Web
 {
@@ -84,6 +85,7 @@ namespace Senparc.Web
             {
                 options.AllowAreas = true;//支持 Area
             })
+            .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
             .AddXmlSerializerFormatters()
             .AddJsonOptions(options =>
             {
@@ -124,6 +126,7 @@ namespace Senparc.Web
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 443;
             });
+
 
             //注册 Repository 和 Service
             services
