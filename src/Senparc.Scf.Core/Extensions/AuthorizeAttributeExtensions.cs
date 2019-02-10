@@ -2,6 +2,9 @@
 
 namespace Senparc.Scf.Core.Extensions
 {
+
+    //TODO： 独立到各个模块中
+
     public class AdminAuthorizeAttribute : AuthorizeAttribute
     {
         public const string AuthenticationScheme = "SenparcAdminAuthorizeScheme";

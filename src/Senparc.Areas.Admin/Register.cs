@@ -28,15 +28,14 @@ namespace Senparc.Areas.Admin
                 {
                     options.AddPolicy("AdminOnly", policy =>
                     {
-                        //policy.RequireClaim("AdminMember");
-                        policy.RequireClaim("AdminMembers");
+                        policy.RequireClaim("AdminMember");
                     });
                 });
 
             builder.AddRazorPagesOptions(options =>
             {
-                options.Conventions.AuthorizePage("/Admin", "AdminOnly");//必须登录
-                options.Conventions.AllowAnonymousToPage("/Admin/Login");//允许匿名
+                options.Conventions.AuthorizePage("/", "AdminOnly");//必须登录
+                options.Conventions.AllowAnonymousToPage("/Login");//允许匿名
                 //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
             });
 

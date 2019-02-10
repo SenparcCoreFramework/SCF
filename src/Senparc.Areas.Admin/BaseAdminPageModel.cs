@@ -1,4 +1,6 @@
-﻿using Senparc.Core.Models.VD;
+﻿using Microsoft.AspNetCore.Authorization;
+using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Models.VD;
 using System;
@@ -14,6 +16,7 @@ namespace Senparc.Areas.Admin
 
     }
 
+    [AdminAuthorize("AdminOnly")]
     public class BaseAdminPageModel : PageModelBase, IBaseAdminPageModel
     {
 
