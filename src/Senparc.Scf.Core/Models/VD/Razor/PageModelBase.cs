@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Scf.Core.Models.VD
 {
@@ -46,5 +48,16 @@ namespace Senparc.Scf.Core.Models.VD
         public DateTime PageStartTime { get; set; }
 
         public DateTime PageEndTime { get; set; }
+
+        /// <summary>
+        /// 检查是否在特定 Scheme 下已登录
+        /// </summary>
+        /// <param name="authenticationScheme">Scheme 名称</param>
+        /// <returns></returns>
+        public async Task<bool> CheckLoginedAsync(string authenticationScheme)
+        {
+            var authenticate = await HttpContext.AuthenticateAsync(authenticationScheme);
+            return authenticate.Succeeded;
+        }
     }
 }

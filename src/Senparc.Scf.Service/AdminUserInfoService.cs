@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
@@ -58,11 +59,11 @@ namespace Senparc.Scf.Service
             return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
         }
 
-        public void Logout()
+        public async Task Logout()
         {
             try
             {
-                _contextAccessor.Value.HttpContext.SignOutAsync(AdminAuthorizeAttribute.AuthenticationScheme);
+                await _contextAccessor.Value.HttpContext.SignOutAsync(SiteConfig.ScfAdminAuthorizeScheme);
             }
             catch (Exception ex)
             {
@@ -79,7 +80,7 @@ namespace Senparc.Scf.Service
                 new Claim(ClaimTypes.Name, userName),
                 new Claim("AdminMember", "", ClaimValueTypes.String)
             };
-            var identity = new ClaimsIdentity(AdminAuthorizeAttribute.AuthenticationScheme);
+            var identity = new ClaimsIdentity(SiteConfig.ScfAdminAuthorizeScheme);
             identity.AddClaims(claims);
             var authProperties = new AuthenticationProperties
             {
@@ -89,7 +90,7 @@ namespace Senparc.Scf.Service
             };
 
             Logout(); //退出登录
-            _contextAccessor.Value.HttpContext.SignInAsync(AdminAuthorizeAttribute.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
+            _contextAccessor.Value.HttpContext.SignInAsync(SiteConfig.ScfAdminAuthorizeScheme, new ClaimsPrincipal(identity), authProperties);
 
             #endregion
         }

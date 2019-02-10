@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.Areas.Admin.Filters;
 using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Extensions;

@@ -1,25 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Senparc.Areas.Admin.Filters;
 using Senparc.CO2NET.Extensions;
-using Senparc.Scf.Core.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
     [AllowAnonymous]
     public class LoginModel : BaseAdminPageModel
     {
+        [BindProperty]
         [Required(ErrorMessage = "请输入用户名")]
         public string Name { get; set; }
 
+        [BindProperty]
         [Required(ErrorMessage = "请输入密码")]
         public string Password { get; set; }
 
@@ -38,12 +38,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         }
 
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             //是否已经登录
-            var authenticate = await HttpContext.AuthenticateAsync(AdminAuthorizeAttribute.AuthenticationScheme);
+            var logined = await base.CheckLoginedAsync(AdminAuthorizeAttribute.AuthenticationScheme);//判断登录
 
-            if (authenticate.Succeeded)
+            if (logined)
             {
                 if (ReturnUrl.IsNullOrEmpty())
                 {
@@ -57,7 +57,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return null;
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             }
             string errorMsg = null;
 
-            var userInfo = _userInfoService.GetUserInfo(this.Name);
+            var userInfo = await _userInfoService.GetUserInfo(this.Name);
             if (userInfo == null)
             {
                 errorMsg = "账号或密码错误！错误代码：101。";
@@ -89,6 +89,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return RedirectToPage("/Home/Index");
             }
             return Redirect(this.ReturnUrl.UrlDecode());
+        }
+
+        public async Task<IActionResult> OnGetLogoutAsync()
+        {
+            SenparcTrace.SendCustomLog("管理员退出登录", $"用户名：{base.UserName}");
+            await _userInfoService.Logout();
+            return RedirectToPage("Index");
         }
     }
 }

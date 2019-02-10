@@ -105,7 +105,7 @@ namespace Senparc.Scf.Core.Config
         //public readonly static string VERSION = "1.3.2";
         //public const string GLOBAL_PASSWORD_SALT = "senparc@20131113";
 
-        public const string VERSION = "2.0.1";
+        public const string VERSION = "0.0.1";
         public static string SenparcConfigDirctory = "~/App_Data/DataBase/";
         public const string AntiForgeryTokenSalt = "SOUIDEA__SENPARC";
         public const string WEIXIN_USER_AVATAR_KEY = "SENPARC_"; //将取前8位
@@ -152,5 +152,14 @@ namespace Senparc.Scf.Core.Config
 
         //异步线程
         public static Dictionary<string, Thread> AsynThread = new Dictionary<string, Thread>(); //后台运行线程
+
+        /// <summary>
+        /// Admin 管理员的 Cookie 登录 Scheme
+        /// </summary>
+        public readonly static string ScfAdminAuthorizeScheme = "ScfAdminAuthorizeScheme";
+        /// <summary>
+        /// User 管理员的 Cookie 登录 Scheme
+        /// </summary>
+        public readonly static string ScfUserAuthorizeScheme = "ScfUserAuthorizeScheme";
     }
 }
