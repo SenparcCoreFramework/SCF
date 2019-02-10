@@ -15,14 +15,15 @@ namespace Senparc.Scf.Core.Areas
     {
         public static bool RegisterAreasFinished { get; set; }
 
+        public static object AddScfAreasLock = new object();
+
         public static IMvcBuilder AddScfAreas(this IMvcBuilder builder)
         {
             //遍历所有程序集进行注册
 
             var dt1 = SystemTime.Now;
 
-            var cacheStragegy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
-            using (cacheStragegy.BeginCacheLock("Senparc.Scf.Core.Areas.AreaRegister", "RegisterScfAreas"))
+            lock (AddScfAreasLock)
             {
                 if (RegisterAreasFinished == true)
                 {
