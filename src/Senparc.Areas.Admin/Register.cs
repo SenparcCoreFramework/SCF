@@ -20,7 +20,7 @@ namespace Senparc.Areas.Admin
             });
 
             //鉴权配置
-
+            //添加基于Cookie的权限验证：https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
             builder.Services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(AdminAuthorizeAttribute.AuthenticationScheme, options =>

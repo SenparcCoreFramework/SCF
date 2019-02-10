@@ -76,6 +76,7 @@ namespace Senparc.Web
             });
 
 
+            //TODO：整合到单一模块中
             services.AddMvc(options =>
             {
                 //options.Filters.Add<HttpGlobalExceptionFilter>();
@@ -101,6 +102,7 @@ namespace Senparc.Web
             //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
             ;
 
+            //支持 Session
             services.AddSession();
             //解决中文进行编码问题
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
@@ -109,7 +111,7 @@ namespace Senparc.Web
 
             //注册 SignalR
             services.AddSignalR();
-            //注册Lazy
+            //注册 Lazy<T>
             services.AddTransient(typeof(Lazy<>));
 
             //var cache = services.BuildServiceProvider().GetService<IMemoryCache>();//测试成功
@@ -147,39 +149,12 @@ namespace Senparc.Web
                 .AddTransient<WeixinService>()
                 .AddScoped<SmsRecordService>();
 
-            //添加SenparcCoreSetting配置文件（内容可以根据需要对应修改）
+            //添加 SenparcCoreSetting 配置文件（内容可以根据需要对应修改）
             //注册数据库客户端连接
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            //添加基于Cookie的权限验证：https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(AdminAuthorizeAttribute.AuthenticationScheme, options =>
-                {
-                    options.AccessDeniedPath = "/Admin/Account/Forbidden/";
-                    options.LoginPath = "/Admin/Login/Index";
-                    options.Cookie.HttpOnly = false;
-                })
-                .AddCookie(UserAuthorizeAttribute.AuthenticationScheme, options =>
-                {
-                    options.AccessDeniedPath = "/User/Account/Forbidden/";
-                    options.LoginPath = "/User/Home/Login";
-                    options.Cookie.HttpOnly = false;
-                });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminOnly", policy =>
-                {
-                    policy.RequireClaim("AdminMember");
-                });
-                options.AddPolicy("UserOnly", policy =>
-                {
-                    policy.RequireClaim("UserMember");
-                });
-                options.AddPolicy("UserAnonymous", policy =>
-                {
-                    policy.RequireClaim("UserMember");
-                });
-            });
+            //Senparc.CO2NET 全局注册（必须）
+            services.AddSenparcGlobalServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
