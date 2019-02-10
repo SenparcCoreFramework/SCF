@@ -28,7 +28,8 @@ namespace Senparc.Areas.Admin
                 {
                     options.AddPolicy("AdminOnly", policy =>
                     {
-                        policy.RequireClaim("AdminMember");
+                        //policy.RequireClaim("AdminMember");
+                        policy.RequireClaim("AdminMembers");
                     });
                 });
 
