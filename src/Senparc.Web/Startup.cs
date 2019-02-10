@@ -129,6 +129,22 @@ namespace Senparc.Web
                 options.HttpsPort = 443;
             });
 
+            services.AddAuthorization(options =>
+            {
+                //options.AddPolicy("AdminOnly", policy =>
+                //{
+                //    policy.RequireClaim("AdminMember");
+                //});
+                //options.AddPolicy("UserOnly", policy =>
+                //{
+                //    policy.RequireClaim("UserMember");
+                //});
+                options.AddPolicy("UserAnonymous", policy =>
+                {
+                    policy.RequireClaim("UserMember");
+                });
+            });
+
 
             //×¢²á Repository ºÍ Service
             services

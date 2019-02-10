@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Extensions;
 using System;
@@ -12,13 +13,6 @@ namespace Senparc.Areas.Admin
     {
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {
-            builder.AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AuthorizePage("/Admin", "AdminOnly");//必须登录
-                options.Conventions.AllowAnonymousToPage("/Admin/Login");//允许匿名
-                //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
-            });
-
             //鉴权配置
             //添加基于Cookie的权限验证：https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
             builder.Services
@@ -37,6 +31,16 @@ namespace Senparc.Areas.Admin
                         policy.RequireClaim("AdminMember");
                     });
                 });
+
+            builder.AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AuthorizePage("/Admin", "AdminOnly");//必须登录
+                options.Conventions.AllowAnonymousToPage("/Admin/Login");//允许匿名
+                //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
+            });
+
+            SenparcTrace.SendCustomLog("系统启动", "完成 Area:Admin 注册");
+           
             return builder;
         }
     }
