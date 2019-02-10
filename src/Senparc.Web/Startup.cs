@@ -56,13 +56,11 @@ namespace Senparc.Web
             services.AddSenparcGlobalServices(Configuration) //Senparc.CO2NET 全局注册
                     .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册
 
-
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 443;
             });
-
 
 
             ////注册 Repository 和 Service
@@ -86,7 +84,8 @@ namespace Senparc.Web
             //添加 SenparcCoreSetting 配置文件（内容可以根据需要对应修改）
             //注册数据库客户端连接
 
-            services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);//添加（注册） Scf 服务
+            //添加（注册） Scf 服务（重要，必须！）
+            services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
