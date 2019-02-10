@@ -123,5 +123,8 @@ namespace Senparc.Scf.Service
                 DeleteObject(list[i]);
             }
         }
+
+        //TODO: 提供异步版本
+
     }
 }

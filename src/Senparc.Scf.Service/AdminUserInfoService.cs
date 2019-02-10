@@ -8,6 +8,7 @@ using Senparc.Scf.Repository;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
@@ -31,7 +32,7 @@ namespace Senparc.Scf.Service
             return GetObject(z => z.Id != id && z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase)) != null;
         }
 
-        public AdminUserInfo GetUserInfo(string userName)
+        public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
             return GetObject(z => z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase));
         }

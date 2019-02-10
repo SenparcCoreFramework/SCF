@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
@@ -28,7 +30,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public string ReturnUrl { get; set; }
 
 
-        public new async Task<IActionResult> OnGet()
+
+        private readonly AdminUserInfoService _userInfoService;
+        public LoginModel(AdminUserInfoService userInfoService)
+        {
+            this._userInfoService = userInfoService;
+        }
+
+
+        public async Task<IActionResult> OnGet()
         {
             // «∑Ò“—æ≠µ«¬º
             var authenticate = await HttpContext.AuthenticateAsync(AdminAuthorizeAttribute.AuthenticationScheme);
@@ -45,6 +55,40 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             IsLogined = this.HttpContext.User.Identity.IsAuthenticated;
 
             return null;
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return null;
+            }
+            string errorMsg = null;
+
+            var userInfo = _userInfoService.GetUserInfo(this.Name);
+            if (userInfo == null)
+            {
+                errorMsg = "’À∫≈ªÚ√‹¬Î¥ÌŒÛ£°¥ÌŒÛ¥˙¬Î£∫101°£";
+            }
+            else if (_userInfoService.TryLogin(this.Name, this.Password, true) == null)
+            {
+                errorMsg = "’À∫≈ªÚ√‹¬Î¥ÌŒÛ£°¥ÌŒÛ¥˙¬Î£∫102°£";
+            }
+
+            if (!errorMsg.IsNullOrEmpty() || !ModelState.IsValid)
+            {
+                this.MessagerList = new List<Messager>
+                {
+                    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
+                };
+                return null;
+            }
+
+            if (this.ReturnUrl.IsNullOrEmpty())
+            {
+                return RedirectToPage("/Home/Index");
+            }
+            return Redirect(this.ReturnUrl.UrlDecode());
         }
     }
 }
