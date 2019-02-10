@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Trace;
+using Senparc.Scf.Core.AssembleScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,52 +18,33 @@ namespace Senparc.Scf.Core.Areas
 
         public static object AddScfAreasLock = new object();
 
+        /// <summary>
+        /// 自动注册所有 Area
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static IMvcBuilder AddScfAreas(this IMvcBuilder builder)
         {
-            //遍历所有程序集进行注册
-
-            var dt1 = SystemTime.Now;
-
-            lock (AddScfAreasLock)
+            AssembleScanHelper.AddAssembleScanItem(assembly =>
             {
-                if (RegisterAreasFinished == true)
+                try
                 {
-                    return builder;
-                }
+                    var areaRegisterTypes = assembly.GetTypes()
+                                .Where(z => z.GetInterface("IAreaRegister") != null)
+                                .ToArray();
 
-                //查找所有扩展缓存B
-                var scanTypesCount = 0;
-
-                var assembiles = AppDomain.CurrentDomain.GetAssemblies();
-
-                foreach (var assembly in assembiles)
-                {
-                    try
+                    foreach (var registerType in areaRegisterTypes)
                     {
-                        scanTypesCount++;
-                        var areaRegisterTypes = assembly.GetTypes()
-                                    .Where(z => z.GetInterface("IAreaRegister") != null)
-                                    .ToArray();
-
-                        foreach (var registerType in areaRegisterTypes)
-                        {
-                            var register = Activator.CreateInstance(registerType, true) as IAreaRegister;
-                            register.AuthorizeConfig(builder);//进行注册
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        SenparcTrace.SendCustomLog("RegisterAllAreas() 自动扫描程序集报告（非程序异常）：" + assembly.FullName, ex.ToString());
+                        var register = Activator.CreateInstance(registerType, true) as IAreaRegister;
+                        register.AuthorizeConfig(builder);//进行注册
                     }
                 }
-
-                RegisterAreasFinished = true;
-
-                var dt2 = SystemTime.Now;
-                Console.WriteLine($"RegisterAllAreas 用时：{(dt2 - dt1).TotalMilliseconds}ms");
-
-                return builder;
-            }
+                catch (Exception ex)
+                {
+                    SenparcTrace.SendCustomLog("AddScfAreas() 自动扫描程序集报告（非程序异常）：" + assembly.FullName, ex.ToString());
+                }
+            }, false);
+            return builder;
         }
     }
 }

@@ -3,6 +3,7 @@ using log4net.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +12,9 @@ using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET.Utilities;
-using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core;
 using Senparc.Scf.Core.Config;
-using Senparc.Scf.Core.Models;
-using Senparc.Scf.Repository;
-using Senparc.Scf.Service;
 using Senparc.Scf.SMS;
-using Senparc.Service;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.Redis;
@@ -31,8 +28,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Scf.Core.Exntesions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Senparc.Web
 {
@@ -70,29 +65,28 @@ namespace Senparc.Web
 
 
 
-            //注册 Repository 和 Service
-            services
-                .AddScoped<FullSystemConfigCache>()//TODO：根据接口自动添加
-                .AddSingleton<PhoneCheckCodeCache>()
-                .AddSingleton<QrCodeRegCache>()
-                .AddSingleton<OAuthCodeCache>()
-                .AddScoped<FullAccountCache>()
-                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-                .AddScoped<SystemConfigRepository>().AddScoped<SystemConfigService>()
-                .AddScoped<AccountRepository>().AddScoped<AccountService>()
-                .AddScoped<AdminUserInfoRepository>().AddScoped<AdminUserInfoService>()
-                .AddScoped<FeedBackRepository>().AddScoped<FeedBackService>()
-                .AddScoped<PointsLogRepository>().AddScoped<PointsLogService>()
-                .AddScoped<AccountPayLogRepository>().AddScoped<AccountPayLogService>()
-                .AddTransient<EncryptionService>()
-                .AddTransient<WeixinService>()
-                .AddScoped<SmsRecordService>();
+            ////注册 Repository 和 Service
+            //services
+            //    .AddScoped<FullSystemConfigCache>()//TODO：根据接口自动添加
+            //    .AddSingleton<PhoneCheckCodeCache>()
+            //    .AddSingleton<QrCodeRegCache>()
+            //    .AddSingleton<OAuthCodeCache>()
+            //    .AddScoped<FullAccountCache>()
+            //    .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+            //    .AddScoped<SystemConfigRepository>().AddScoped<SystemConfigService>()
+            //    .AddScoped<AccountRepository>().AddScoped<AccountService>()
+            //    .AddScoped<AdminUserInfoRepository>().AddScoped<AdminUserInfoService>()
+            //    .AddScoped<FeedBackRepository>().AddScoped<FeedBackService>()
+            //    .AddScoped<PointsLogRepository>().AddScoped<PointsLogService>()
+            //    .AddScoped<AccountPayLogRepository>().AddScoped<AccountPayLogService>()
+            //    .AddTransient<EncryptionService>()
+            //    .AddTransient<WeixinService>()
+            //    .AddScoped<SmsRecordService>();
 
             //添加 SenparcCoreSetting 配置文件（内容可以根据需要对应修改）
             //注册数据库客户端连接
-            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
 
-            services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);
+            services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);//添加（注册） Scf 服务
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
