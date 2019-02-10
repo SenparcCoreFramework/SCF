@@ -1,4 +1,6 @@
 ﻿using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Core.DI;
+using Senparc.Scf.Core.Enums;
 using System;
 
 namespace Senparc.Scf.Core.Cache
@@ -53,6 +55,7 @@ namespace Senparc.Scf.Core.Cache
 
     }
 
+    [AutoDIType(DILifecycleType.Singleton)]
     public class MobileLoginCodeCache : BaseStringDictionaryCache<MobileLoginCode>, IMobileLoginCodeCache
     {
         public MobileLoginCodeCache()

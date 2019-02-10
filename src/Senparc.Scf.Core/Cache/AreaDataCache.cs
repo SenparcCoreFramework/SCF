@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Senparc.Scf.Core.DI;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 
 
@@ -7,6 +9,7 @@ namespace Senparc.Scf.Core.Cache
     /// <summary>
     /// 省数据缓存（来自XML文件中）。不要直接使用此方法，使用Common.AreaData获取。
     /// </summary>
+    [AutoDIType(DILifecycleType.Singleton)]
     public class AreaDataCache_Province : BaseCache<List<AreaXML_Provinces>>
     {
         public const string CACHE_KEY = "AreaDataCache:Province";

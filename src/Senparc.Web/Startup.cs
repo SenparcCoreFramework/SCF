@@ -1,27 +1,23 @@
 using log4net;
 using log4net.Config;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET.Utilities;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Config;
-using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
-using Senparc.Core.Utility;
-using Senparc.Mvc.Filter;
 using Senparc.Scf.Repository;
-using Senparc.Service;
+using Senparc.Scf.Service;
 using Senparc.Scf.SMS;
+using Senparc.Service;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.Redis;
@@ -31,17 +27,12 @@ using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.TenPay;
-using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
 using System.Threading.Tasks;
-using Senparc.Scf.Core;
-using Senparc.Scf.Service;
-using Senparc.CO2NET.Utilities;
-using Senparc.Scf.Core.Areas;
+using Senparc.Scf.Core.Exntesions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Senparc.Web
 {
@@ -61,89 +52,22 @@ namespace Senparc.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //如果运行在IIS中，需要添加IIS配置
-            //https://docs.microsoft.com/zh-cn/aspnet/core/host-and-deploy/iis/index?view=aspnetcore-2.1&tabs=aspnetcore2x#supported-operating-systems
-            //services.Configure<IISOptions>(options =>
-            //{
-            //    options.ForwardClientCertificate = false;
-            //});
-
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-
-            //TODO：整合到单一模块中
-            services.AddMvc(options =>
-            {
-                //options.Filters.Add<HttpGlobalExceptionFilter>();
-            })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddRazorPagesOptions(options =>
-            {
-                options.AllowAreas = true;//支持 Area
-            })
-            .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
-            .AddXmlSerializerFormatters()
-            .AddJsonOptions(options =>
-            {
-                //忽略循环引用
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                //不使用驼峰样式的key
-                //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                //设置时间格式
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
-            })
-            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
-            //.AddSessionStateTempDataProvider()
-            //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
-            ;
-
-            //支持 Session
-            services.AddSession();
-            //解决中文进行编码问题
-            services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
-            //使用内存缓存
-            services.AddMemoryCache();
-
-            //注册 SignalR
-            services.AddSignalR();
-            //注册 Lazy<T>
-            services.AddTransient(typeof(Lazy<>));
-
             //var cache = services.BuildServiceProvider().GetService<IMemoryCache>();//测试成功
-            services.Configure<SenparcCoreSetting>(Configuration.GetSection("SenparcCoreSetting"))
+            services
                 .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
-                .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))
-                //.AddSenparcDI() //全局注册 SenparcDI
-                //.AddSenparcMvcDI() //TODO：需要和AddSenparcDI()进行合并
-                .AddSenparcEntitiesDI(); //SQL Server设置
+                .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))//TODO：让SMS模块进行注册
+                ;
+
             services.AddSenparcGlobalServices(Configuration) //Senparc.CO2NET 全局注册
                     .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册
+
+
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 443;
             });
 
-            services.AddAuthorization(options =>
-            {
-                //options.AddPolicy("AdminOnly", policy =>
-                //{
-                //    policy.RequireClaim("AdminMember");
-                //});
-                //options.AddPolicy("UserOnly", policy =>
-                //{
-                //    policy.RequireClaim("UserMember");
-                //});
-                options.AddPolicy("UserAnonymous", policy =>
-                {
-                    policy.RequireClaim("UserMember");
-                });
-            });
 
 
             //注册 Repository 和 Service
@@ -160,7 +84,6 @@ namespace Senparc.Web
                 .AddScoped<FeedBackRepository>().AddScoped<FeedBackService>()
                 .AddScoped<PointsLogRepository>().AddScoped<PointsLogService>()
                 .AddScoped<AccountPayLogRepository>().AddScoped<AccountPayLogService>()
-
                 .AddTransient<EncryptionService>()
                 .AddTransient<WeixinService>()
                 .AddScoped<SmsRecordService>();
@@ -169,8 +92,7 @@ namespace Senparc.Web
             //注册数据库客户端连接
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
 
-            //Senparc.CO2NET 全局注册（必须）
-            services.AddSenparcGlobalServices(Configuration);
+            services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

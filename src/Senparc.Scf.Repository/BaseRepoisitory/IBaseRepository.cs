@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Enums;
+﻿using Senparc.Scf.Core.DI;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using System;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Repository
 {
-    public interface IBaseRepository<T> : IBaseData where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IBaseRepository<T> : IBaseData, IAutoDI where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         bool IsInsert(T obj);
 

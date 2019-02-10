@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using Senparc.Scf.Core.DI;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Exceptions;
 using Senparc.Scf.Core.Models;
 
@@ -9,6 +11,7 @@ namespace Senparc.Scf.Core.Cache
 
     //}
 
+    [AutoDIType(DILifecycleType.Singleton)]
     public class FullSystemConfigCache : BaseCache<FullSystemConfig>/*, IFullSystemConfigCache*/
     {
         public const string CACHE_KEY = "FullSystemConfigCache";

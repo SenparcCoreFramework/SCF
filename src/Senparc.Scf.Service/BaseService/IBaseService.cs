@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Enums;
+﻿using Senparc.Scf.Core.DI;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public interface IBaseService<T> : IBaseServiceData where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IBaseService<T> : IBaseServiceData,IAutoDI where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         IBaseRepository<T> BaseRepository { get; set; }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Senparc.Scf.Core.DI;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 
@@ -16,6 +18,7 @@ namespace Senparc.Scf.Core.Cache
         void DeleteEmail(List<int> ids);
     }
 
+    [AutoDIType(DILifecycleType.Singleton)]
     public class SendEmailCache : BaseCache<List<AutoSendEmail>>, ISendEmailCache
     {
         public const string CACHE_KEY = "SendEmailCache";

@@ -23,8 +23,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         [Required(ErrorMessage = "请输入密码")]
         public string Password { get; set; }
 
-        public bool IsLogined { get; set; }
-
         //绑定参数
         [BindProperty]
         public string ReturnUrl { get; set; }
@@ -51,8 +49,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 }
                 return Redirect(ReturnUrl.UrlDecode());
             }
-
-            IsLogined = this.HttpContext.User.Identity.IsAuthenticated;
 
             return null;
         }

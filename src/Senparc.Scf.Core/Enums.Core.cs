@@ -14,6 +14,16 @@
         };
     }
 
+    /// <summary>
+    /// 依赖注入的生命周期
+    /// </summary>
+    public enum DILifecycleType
+    {
+        Scoped,
+        Singleton,
+        Transient
+    }
+
     public enum MessageType
     {
         danger,

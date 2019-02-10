@@ -1,8 +1,10 @@
 ﻿using System;
 using Senparc.CO2NET.Cache;
+using Senparc.Scf.Core.DI;
+
 namespace Senparc.Scf.Core.Cache
 {
-    public interface IBaseCache<T>
+    public interface IBaseCache<T> : IAutoDI
        where T : class, new()
     {
         IBaseObjectCacheStrategy Cache { get; set; }

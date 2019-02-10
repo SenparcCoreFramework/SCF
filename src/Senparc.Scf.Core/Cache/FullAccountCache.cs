@@ -8,7 +8,10 @@ namespace Senparc.Scf.Core.Cache
 {
     using Models;
     using Senparc.CO2NET.Extensions;
+    using Senparc.Scf.Core.DI;
+    using Senparc.Scf.Core.Enums;
 
+    [AutoDIType(DILifecycleType.Singleton)]
     public class FullAccountCache : BaseStringDictionaryCache<FullAccount, Account> //, IFullAccountCache
     {
         /// <summary>
