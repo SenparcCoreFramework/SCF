@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Senparc.Areas.Admin.Pages
 {
-    public class Page1Model : PageModel
+    public class IndexModel : BaseAdminPageModel
     {
         public IActionResult OnGet()
         {
-            return RedirectToPage("/Home/Index");
+            return null;
+            //return RedirectToPage("/Home/Index");
         }
     }
 }

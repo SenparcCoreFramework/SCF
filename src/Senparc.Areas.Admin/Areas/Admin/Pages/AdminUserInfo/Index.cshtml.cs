@@ -27,7 +27,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             var seh = new SenparcExpressionHelper<AdminUserInfo>();
             var where = seh.BuildWhereExpression();
-
             var admins = _adminUserInfoService.GetObjectList(PageIndex, 20, where, z => z.Id, OrderingType.Descending);
             AdminUserInfoList = admins;
             return null;

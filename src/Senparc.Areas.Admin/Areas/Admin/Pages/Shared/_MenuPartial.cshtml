@@ -30,13 +30,13 @@
                 @*<h3>菜单</h3>*@
                 <ul class="nav side-menu">
                     <li class="@Html.CurrentMenu("Home")">
-                        <a asp-action="Index" asp-controller="Home">
+                        <a asp-page="/Index">
                             <i class="fa fa-home"></i>
                             首页
                         </a>
                     </li>
                     <li class="@Html.CurrentMenu("AdminUserInfo")">
-                        <a asp-page="/AdminUserInfo">
+                        <a asp-page="/AdminUserInfo/Index">
                             <i class="fa fa-user"></i>
                             管理员管理
                         </a>
