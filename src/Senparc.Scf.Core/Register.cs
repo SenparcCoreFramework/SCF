@@ -67,7 +67,7 @@ namespace Senparc.Scf.Core
             //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
             ;
 
-
+                       
             //支持 Session
             services.AddSession();
             //解决中文进行编码问题
@@ -98,6 +98,9 @@ namespace Senparc.Scf.Core
                     policy.RequireClaim("UserMember");
                 });
             });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
         }
