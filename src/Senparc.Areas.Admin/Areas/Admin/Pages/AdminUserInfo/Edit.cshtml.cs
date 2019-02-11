@@ -65,12 +65,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _adminUserInfoService = adminUserInfoService;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
-            bool isEdit = Id > 0;
+            bool isEdit = id > 0;
             if (isEdit)
             {
-                var userInfo = _adminUserInfoService.GetAdminUserInfo(Id);
+                var userInfo = _adminUserInfoService.GetAdminUserInfo(id);
                 if (userInfo == null)
                 {
                     throw new Exception("信息不存在！");//TODO:临时
@@ -83,5 +83,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             IsEdit = isEdit;
             return Page();
         }
+
+
     }
 }

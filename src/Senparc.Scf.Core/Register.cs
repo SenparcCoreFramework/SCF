@@ -50,6 +50,7 @@ namespace Senparc.Scf.Core
             .AddRazorPagesOptions(options =>
             {
                 options.AllowAreas = true;//支持 Area
+                //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             })
             .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
             .AddXmlSerializerFormatters()
