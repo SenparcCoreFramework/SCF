@@ -83,8 +83,11 @@ namespace Senparc.Scf.Core
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"))
                 .AddSenparcEntitiesDI(); //SQL Server设置
 
+
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
+            //已经添加完所有程序集自动扫描的委托，立即执行扫描（必须）
+            AssembleScanHelper.RunScan();
 
 
             //注册 User 登录策略
@@ -108,37 +111,43 @@ namespace Senparc.Scf.Core
             AssembleScanHelper.AddAssembleScanItem(assembly =>
             {
                 var areaRegisterTypes = assembly.GetTypes() //.GetExportedTypes()
-                               .Where(z => z.GetInterface("IAutoDI") != null)
+                               .Where(z => !z.IsAbstract && !z.IsInterface && z.GetInterface("IAutoDI") != null)
                                .ToArray();
 
                 DILifecycleType dILifecycleType = DILifecycleType.Scoped;
 
                 foreach (var registerType in areaRegisterTypes)
                 {
-                    //判断特性标签
-                    var attrs = System.Attribute.GetCustomAttributes(registerType, false).Where(z => z is AutoDITypeAttribute);
-                    if (attrs.Count() > 0)
+                    try
                     {
-                        var attr = attrs.First() as AutoDITypeAttribute;
-                        dILifecycleType = attr.DILifecycleType;//使用指定的方式
-                    }
+                        //判断特性标签
+                        var attrs = System.Attribute.GetCustomAttributes(registerType, false).Where(z => z is AutoDITypeAttribute);
+                        if (attrs.Count() > 0)
+                        {
+                            var attr = attrs.First() as AutoDITypeAttribute;
+                            dILifecycleType = attr.DILifecycleType;//使用指定的方式
+                        }
 
-                    //针对不同的类型进行不同生命周期的 DI 设置
-                    switch (dILifecycleType)
+                        //针对不同的类型进行不同生命周期的 DI 设置
+                        switch (dILifecycleType)
+                        {
+                            case DILifecycleType.Scoped:
+                                services.AddScoped(registerType);
+                                break;
+                            case DILifecycleType.Singleton:
+                                services.AddSingleton(registerType);
+                                break;
+                            case DILifecycleType.Transient:
+                                services.AddTransient(registerType);
+                                break;
+                            default:
+                                throw new NotImplementedException($"未处理此 DILifecycleType 类型：{dILifecycleType.ToString()}");
+                        }
+                    }
+                    catch (Exception ex)
                     {
-                        case DILifecycleType.Scoped:
-                            services.AddScoped(registerType);
-                            break;
-                        case DILifecycleType.Singleton:
-                            services.AddSingleton(registerType);
-                            break;
-                        case DILifecycleType.Transient:
-                            services.AddTransient(registerType);
-                            break;
-                        default:
-                            throw new NotImplementedException($"未处理此 DILifecycleType 类型：{dILifecycleType.ToString()}");
+                        SenparcTrace.BaseExceptionLog(ex);
                     }
-
                 }
             }, false);
 

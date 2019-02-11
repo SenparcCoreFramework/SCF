@@ -35,7 +35,7 @@ namespace Senparc.Scf.Core.AssembleScan
         /// 执行扫描
         /// </summary>
         public static void RunScan()
-        {
+      {
             var dt1 = SystemTime.Now;
 
             lock (_scanLock)
