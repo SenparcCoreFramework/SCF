@@ -22,7 +22,7 @@
                 <span>Welcome,</span>
                 <h2>@Model.UserName</h2>
             </div>
-        </div>
+        </div>=
         <!-- /menu profile quick info -->
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="@Html.CurrentMenu("AdminUserInfo")">
-                        <a asp-action="Index" asp-controller="AdminUserInfo">
+                        <a asp-page="/AdminUserInfo">
                             <i class="fa fa-user"></i>
                             管理员管理
                         </a>

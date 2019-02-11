@@ -68,7 +68,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.Service", "Senp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Scf.SMS", "Senparc.Scf.SMS\Senparc.Scf.SMS.csproj", "{D67659FE-8708-4913-9A56-BE8ECB838405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Areas.Admin", "Senparc.Areas.Admin\Senparc.Areas.Admin.csproj", "{346475E8-6E39-4AA9-896F-893DC47AD3D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.Admin", "Senparc.Areas.Admin\Senparc.Areas.Admin.csproj", "{346475E8-6E39-4AA9-896F-893DC47AD3D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.Admin.OldMvc", "Senparc.Areas.Admin.OldMvc\Senparc.Areas.Admin.OldMvc.csproj", "{CB82789B-6166-4D0E-8F3A-1E34E8B2ECEF}"
 EndProject
