@@ -34,15 +34,15 @@
                                 用户名 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input asp-for="UserName" class="form-control col-md-7 col-xs-12" data-validate-length="1,20" placeholder="请输入用户名" required="required" type="text">
-                                <span asp-validation-for="UserName" class="text-danger"></span>
+                                <input asp-for="AdminUserInfo.UserName" class="form-control col-md-7 col-xs-12" data-validate-length="1,20" placeholder="请输入用户名" required="required" type="text">
+                                <span asp-validation-for="AdminUserInfo.UserName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="item form-group">
                             <label for="password" class="control-label col-md-3">密码</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input asp-for="Password" type="password" name="password" data-validate-length="5,12" class="form-control col-md-7 col-xs-12" placeholder="请输入密码" required="required">
-                                <span asp-validation-for="Password" class="text-danger"></span>
+                                <input asp-for="AdminUserInfo.Password" type="password" name="password" data-validate-length="5,12" class="form-control col-md-7 col-xs-12" placeholder="请输入密码" required="required">
+                                <span asp-validation-for="AdminUserInfo.Password" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -56,7 +56,10 @@
                                 备注
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea id="textarea" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
+                                <input asp-for="AdminUserInfo.Note" type="text" name="note" class="form-control col-md-7 col-xs-12" placeholder="请输入备注信息" multiple="multiple">
+                                <span asp-validation-for="AdminUserInfo.Note" class="text-danger"></span>
+
+                                @*<textarea id="textarea" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>*@
                             </div>
                         </div>
                         <div class="ln_solid"></div>

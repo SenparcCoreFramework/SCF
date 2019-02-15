@@ -9,12 +9,14 @@ namespace Senparc.Scf.Core.Models
     /// <summary>
     /// AdminUserInfo 创建和更新
     /// </summary>
-    public interface ICreateUpdate_AdminUserInfoDto : IDtoBase
+    public class CreateUpdate_AdminUserInfoDto
     {
         [Required]
         [StringLength(20)]
-        string UserName { get; set; }
+        public string UserName { get; set; }
         [Required]
-        string Password { get; set; }
+        public string Password { get; set; }
+
+        public string Note { get; set; }
     }
 }
