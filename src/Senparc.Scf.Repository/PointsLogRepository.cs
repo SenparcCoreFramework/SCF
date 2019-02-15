@@ -2,11 +2,11 @@
 
 namespace Senparc.Scf.Repository
 {
-    public interface IPointsLogRepository : IBaseClientRepository<PointsLog>
+    public interface IPointsLogRepository : IClientRepositoryBase<PointsLog>
     {
     }
 
-    public class PointsLogRepository : BaseClientRepository<PointsLog>, IPointsLogRepository
+    public class PointsLogRepository : ClientRepositoryBase<PointsLog>, IPointsLogRepository
     {
 
     }

@@ -6,7 +6,7 @@ using System;
 
 namespace Senparc.Scf.Service
 {
-    public class FeedBackService : BaseClientService<FeedBack>
+    public class FeedBackService : ClientServiceBase<FeedBack>
     {
         public FeedBackService(FeedBackRepository repo)
             : base(repo)

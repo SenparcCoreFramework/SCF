@@ -9,7 +9,7 @@ namespace Senparc.Scf.Service
        /// </summary>
        /// <param name="serviceData"></param>
        /// <returns></returns>
-       public static AutoDetectChangeContextWrap InstanceAutoDetectChangeContextWrap(this IBaseServiceData serviceData)
+       public static AutoDetectChangeContextWrap InstanceAutoDetectChangeContextWrap(this IServiceDataBase serviceData)
        {
            return new AutoDetectChangeContextWrap(serviceData);
        }

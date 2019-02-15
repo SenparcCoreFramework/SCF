@@ -2,11 +2,11 @@
 
 namespace Senparc.Scf.Repository
 {
-    public interface IFeedBackRepository : IBaseClientRepository<FeedBack>
+    public interface IFeedBackRepository : IClientRepositoryBase<FeedBack>
     {
     }
 
-    public class FeedBackRepository : BaseClientRepository<FeedBack>, IFeedBackRepository
+    public class FeedBackRepository : ClientRepositoryBase<FeedBack>, IFeedBackRepository
     {
     }
 }

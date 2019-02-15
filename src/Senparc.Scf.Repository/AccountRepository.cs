@@ -2,11 +2,11 @@
 
 namespace Senparc.Scf.Repository
 {
-    public interface IAccountRepository : IBaseClientRepository<Account>
+    public interface IAccountRepository : IClientRepositoryBase<Account>
     {
     }
 
-    public class AccountRepository : BaseClientRepository<Account>, IAccountRepository
+    public class AccountRepository : ClientRepositoryBase<Account>, IAccountRepository
     {
 
     }

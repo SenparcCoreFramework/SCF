@@ -2,7 +2,7 @@
 
 namespace Senparc.Scf.Repository
 {
-    public interface IBaseData
+    public interface IDataBase
     {
         ISqlBaseFinanceData BaseDB { get; set; }
 
@@ -10,11 +10,11 @@ namespace Senparc.Scf.Repository
     }
 
 
-    public class BaseData : IBaseData
+    public class DataBase : IDataBase
     {
         public ISqlBaseFinanceData BaseDB { get; set; }
 
-        public BaseData(ISqlBaseFinanceData baseDB)
+        public DataBase(ISqlBaseFinanceData baseDB)
         {
             BaseDB = baseDB;
         }

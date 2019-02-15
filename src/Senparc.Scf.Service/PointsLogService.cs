@@ -8,7 +8,7 @@ using System;
 
 namespace Senparc.Scf.Service
 {
-    public class PointsLogService : BaseClientService<PointsLog>
+    public class PointsLogService : ClientServiceBase<PointsLog>
     {
         public PointsLogService(PointsLogRepository pointsLogRepo)
             : base(pointsLogRepo)

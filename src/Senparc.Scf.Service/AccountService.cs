@@ -28,7 +28,7 @@ using System.Security.Claims;
 
 namespace Senparc.Scf.Service
 {
-    public class AccountService : BaseClientService<Account> /*, UserService*/
+    public class AccountService : ClientServiceBase<Account> /*, UserService*/
     {
         private readonly Lazy<IHttpContextAccessor> _httpContextAccessor;
         private string GetSalt => DateTime.Now.Ticks.ToString();

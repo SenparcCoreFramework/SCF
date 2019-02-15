@@ -17,7 +17,7 @@ namespace Senparc.Scf.Service
     //    void RecycleAppPool();
     //}
 
-    public class SystemConfigService : BaseClientService<SystemConfig>/*, ISystemConfigService*/
+    public class SystemConfigService : ClientServiceBase<SystemConfig>/*, ISystemConfigService*/
     {
         public SystemConfigService(SystemConfigRepository systemConfigRepo)
             : base(systemConfigRepo)

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public class AdminUserInfoService : BaseClientService<AdminUserInfo>
+    public class AdminUserInfoService : ClientServiceBase<AdminUserInfo>
     {
 
         private readonly Lazy<IHttpContextAccessor> _contextAccessor;

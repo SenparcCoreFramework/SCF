@@ -6,11 +6,11 @@ using Senparc.Scf.Core.Models;
 
 namespace Senparc.Scf.Repository
 {
-    public interface IAccountPayLogRepository : IBaseClientRepository<AccountPayLog>
+    public interface IAccountPayLogRepository : IClientRepositoryBase<AccountPayLog>
     {
     }
 
-    public class AccountPayLogRepository : BaseClientRepository<AccountPayLog>, IAccountPayLogRepository
+    public class AccountPayLogRepository : ClientRepositoryBase<AccountPayLog>, IAccountPayLogRepository
     {
 
     }

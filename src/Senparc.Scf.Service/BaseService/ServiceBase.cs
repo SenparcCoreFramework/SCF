@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public class BaseService<T> : BaseServiceData, IBaseService<T> where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class ServiceBase<T> : ServiceDataBase, IServiceBase<T> where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
-        public IBaseRepository<T> BaseRepository { get; set; }
+        public IRepositoryBase<T> BaseRepository { get; set; }
 
-        public BaseService(IBaseRepository<T> repo)
+        public ServiceBase(IRepositoryBase<T> repo)
             : base(repo)
         {
             BaseRepository = repo;

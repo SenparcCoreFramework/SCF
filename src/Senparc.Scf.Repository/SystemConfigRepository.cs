@@ -2,11 +2,11 @@
 
 namespace Senparc.Scf.Repository
 {
-    public interface ISystemConfigRepository : IBaseClientRepository<SystemConfig>
+    public interface ISystemConfigRepository : IClientRepositoryBase<SystemConfig>
     {
     }
 
-    public class SystemConfigRepository : BaseClientRepository<SystemConfig>, ISystemConfigRepository
+    public class SystemConfigRepository : ClientRepositoryBase<SystemConfig>, ISystemConfigRepository
     {
 
     }

@@ -7,11 +7,11 @@ namespace Senparc.Scf.Service
     /// </summary>
     public class AutoDetectChangeContextWrap : IDisposable
     {
-        public IBaseServiceData ServiceData { get; set; }
+        public IServiceDataBase ServiceData { get; set; }
         //private ISqlBaseFinanceData _sqlFinanceData;
 
 
-        public AutoDetectChangeContextWrap(IBaseServiceData serviceData)
+        public AutoDetectChangeContextWrap(IServiceDataBase serviceData)
         {
             //_service = service;
             //_service.BaseRepository.BaseDB.BaseDataContext.Configuration.AutoDetectChangesEnabled = true;

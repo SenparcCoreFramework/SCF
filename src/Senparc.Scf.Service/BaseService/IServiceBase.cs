@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public interface IBaseService<T> : IBaseServiceData,IAutoDI where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IServiceBase<T> : IServiceDataBase,IAutoDI where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
-        IBaseRepository<T> BaseRepository { get; set; }
+        IRepositoryBase<T> BaseRepository { get; set; }
 
         bool IsInsert(T obj);
 

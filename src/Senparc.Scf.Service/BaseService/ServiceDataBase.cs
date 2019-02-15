@@ -2,18 +2,18 @@
 
 namespace Senparc.Scf.Service
 {
-    public interface IBaseServiceData
+    public interface IServiceDataBase
     {
-        IBaseData BaseData { get; set; }
+        IDataBase BaseData { get; set; }
         void CloseConnection();
     }
 
 
-    public class BaseServiceData : IBaseServiceData
+    public class ServiceDataBase : IServiceDataBase
     {
-        public IBaseData BaseData { get; set; }
+        public IDataBase BaseData { get; set; }
 
-        public BaseServiceData(IBaseData baseData)
+        public ServiceDataBase(IDataBase baseData)
         {
             BaseData = baseData;
         }

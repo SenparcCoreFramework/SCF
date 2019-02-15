@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Repository
 {
-    public class BaseRepository<T> : BaseData, IBaseRepository<T> where T : EntityBase, new() //global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class RepositoryBase<T> : DataBase, IRepositoryBase<T> where T : EntityBase, new() //global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         protected string _entitySetName;
 
-        public BaseRepository() :
+        public RepositoryBase() :
             this(null)
         {
         }
 
-        public BaseRepository(ISqlBaseFinanceData db) :
+        public RepositoryBase(ISqlBaseFinanceData db) :
             base(db)
         {
             //System.Web.HttpContext.Current.Response.Write("-"+this.GetType().Name + "<br />");

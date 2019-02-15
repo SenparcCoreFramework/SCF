@@ -2,11 +2,11 @@
 
 namespace Senparc.Scf.Repository
 {
-    public interface IAdminUserInfoRepository : IBaseClientRepository<AdminUserInfo>
+    public interface IAdminUserInfoRepository : IClientRepositoryBase<AdminUserInfo>
     {
     }
 
-    public class AdminUserInfoRepository : BaseClientRepository<AdminUserInfo>, IAdminUserInfoRepository
+    public class AdminUserInfoRepository : ClientRepositoryBase<AdminUserInfo>, IAdminUserInfoRepository
     {
 
     }

@@ -4,9 +4,9 @@ using Senparc.Scf.Repository;
 
 namespace Senparc.Scf.Service
 {
-    public interface IBaseClientService<T> : IBaseService<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IClientServiceBase<T> : IServiceBase<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
     {
-        IBaseClientRepository<T> BaseClientRepository { get; }
+        IClientRepositoryBase<T> BaseClientRepository { get; }
 
         /// <summary>
         /// 开启事物
@@ -16,17 +16,17 @@ namespace Senparc.Scf.Service
     }
 
 
-    public class BaseClientService<T> : BaseService<T>, IBaseClientService<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class ClientServiceBase<T> : ServiceBase<T>, IClientServiceBase<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
     {
-        public IBaseClientRepository<T> BaseClientRepository
+        public IClientRepositoryBase<T> BaseClientRepository
         {
             get
             {
-                return BaseRepository as IBaseClientRepository<T>;
+                return BaseRepository as IClientRepositoryBase<T>;
             }
         }
 
-        public BaseClientService(IBaseClientRepository<T> repo)
+        public ClientServiceBase(IClientRepositoryBase<T> repo)
             : base(repo)
         {
         }

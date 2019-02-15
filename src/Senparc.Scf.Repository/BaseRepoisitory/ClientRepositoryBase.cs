@@ -4,12 +4,12 @@ using Senparc.Scf.Utility;
 
 namespace Senparc.Scf.Repository
 {
-    public interface IBaseClientRepository<T> : IBaseRepository<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IClientRepositoryBase<T> : IRepositoryBase<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         ISqlClientFinanceData DB { get; }
     }
 
-    public class BaseClientRepository<T> : BaseRepository<T>, IBaseClientRepository<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class ClientRepositoryBase<T> : RepositoryBase<T>, IClientRepositoryBase<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         public ISqlClientFinanceData DB
         {
@@ -19,8 +19,8 @@ namespace Senparc.Scf.Repository
             }
         }
 
-        public BaseClientRepository() : this(null) { }
-        public BaseClientRepository(ISqlClientFinanceData db)
+        public ClientRepositoryBase() : this(null) { }
+        public ClientRepositoryBase(ISqlClientFinanceData db)
         {
             //System.Web.HttpContext.Current.Response.Write("-"+this.GetType().Name + "<br />");
 
