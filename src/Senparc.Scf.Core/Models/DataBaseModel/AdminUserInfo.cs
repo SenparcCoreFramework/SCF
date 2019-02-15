@@ -4,7 +4,7 @@ using System;
 namespace Senparc.Scf.Core.Models
 {
     [Serializable]
-    public partial class AdminUserInfo: EntityBase<int>
+    public partial class AdminUserInfo : EntityBase<int>, ICreateUpdate_AdminUserInfoDto
     {
         public string UserName { get; set; }
         public string Password { get; set; }
