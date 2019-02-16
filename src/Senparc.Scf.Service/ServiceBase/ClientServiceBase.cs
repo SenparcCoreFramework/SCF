@@ -22,7 +22,7 @@ namespace Senparc.Scf.Service
         {
             get
             {
-                return BaseRepository as IClientRepositoryBase<T>;
+                return RepositoryBase as IClientRepositoryBase<T>;
             }
         }
 

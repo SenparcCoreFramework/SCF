@@ -10,29 +10,29 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public class ServiceBase<T> : ServiceDataBase, IServiceBase<T> where T : EntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class ServiceBase<T> : ServiceDataBase, IServiceBase<T> where T : class, IEntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
-        public IRepositoryBase<T> BaseRepository { get; set; }
+        public IRepositoryBase<T> RepositoryBase { get; set; }
 
         public ServiceBase(IRepositoryBase<T> repo)
             : base(repo)
         {
-            BaseRepository = repo;
+            RepositoryBase = repo;
         }
 
         public virtual bool IsInsert(T obj)
         {
-            return BaseRepository.IsInsert(obj);
+            return RepositoryBase.IsInsert(obj);
         }
 
         public T GetObject(Expression<Func<T, bool>> where, string[] includes = null)
         {
-            return BaseRepository.GetFirstOrDefaultObject(where, includes);
+            return RepositoryBase.GetFirstOrDefaultObject(where, includes);
         }
 
         public T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
-            return BaseRepository.GetFirstOrDefaultObject(where, orderBy, orderingType, includes);
+            return RepositoryBase.GetFirstOrDefaultObject(where, orderBy, orderingType, includes);
         }
 
         public PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
@@ -53,7 +53,7 @@ namespace Senparc.Scf.Service
         /// <returns></returns>
         public virtual PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
-            return BaseRepository.GetObjectList(where, orderBy, orderingType, pageIndex, pageCount, includes);
+            return RepositoryBase.GetObjectList(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
 
 
@@ -70,17 +70,17 @@ namespace Senparc.Scf.Service
         /// <returns></returns>
         public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
-            return await BaseRepository.GetObjectListAsync(where, orderBy, orderingType, pageIndex, pageCount, includes);
+            return await RepositoryBase.GetObjectListAsync(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
 
         public virtual int GetCount(Expression<Func<T, bool>> where, string[] includes = null)
         {
-            return BaseRepository.ObjectCount(where, includes);
+            return RepositoryBase.ObjectCount(where, includes);
         }
 
         public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum, string[] includes = null)
         {
-            return BaseRepository.GetSum(where, sum, includes);
+            return RepositoryBase.GetSum(where, sum, includes);
         }
 
         /// <summary>
@@ -91,17 +91,17 @@ namespace Senparc.Scf.Service
         {
             if (!IsInsert(obj))
             {
-                BaseRepository.BaseDB.BaseDataContext.Entry(obj).State = EntityState.Modified;
+                RepositoryBase.BaseDB.BaseDataContext.Entry(obj).State = EntityState.Modified;
             }
         }
 
         public virtual void SaveObject(T obj)
         {
-            if (BaseRepository.BaseDB.ManualDetectChangeObject)
+            if (RepositoryBase.BaseDB.ManualDetectChangeObject)
             {
                 TryDetectChange(obj);
             }
-            BaseRepository.Save(obj);
+            RepositoryBase.Save(obj);
         }
 
         public virtual void DeleteObject(Expression<Func<T, bool>> predicate)
@@ -112,7 +112,7 @@ namespace Senparc.Scf.Service
 
         public virtual void DeleteObject(T obj)
         {
-            BaseRepository.Delete(obj);
+            RepositoryBase.Delete(obj);
         }
 
         public virtual void DeleteAll(IEnumerable<T> objects)

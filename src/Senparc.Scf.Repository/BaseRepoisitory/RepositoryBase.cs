@@ -36,8 +36,10 @@ namespace Senparc.Scf.Repository
         public virtual bool IsInsert(T obj)
         {
             var entry = BaseDB.BaseDataContext.Entry(obj);
-            return entry.State == EntityState.Added || entry.State == EntityState.Detached; //TODO:EF5 验证正确性
+            return entry.State == EntityState.Added || entry.State == EntityState.Detached; //TODO:EF5、Core 验证正确性
             //return obj.EntityKey == null || obj.EntityKey.EntityKeyValues == null;
+
+            //entry.IsKeySet
         }
 
         public virtual IQueryable<T> GeAll<TK>(Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
