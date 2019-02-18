@@ -61,7 +61,7 @@ namespace Senparc.Core.Utility
         /// <returns></returns>
         private string GetMapPath(string path)
         {
-            return ServerUtility.ContentRootMapPath(path);//path.Replace("~/", HttpRuntime.AppDomainAppPath);// _context.Server.MapPath(path);
+            return ServerUtility.ContentRootMapPath(path);
             //return Server.GetMapPath(path);//path.Replace("~/", HttpRuntime.AppDomainAppPath);// _context.Server.MapPath(path);
         }
 
