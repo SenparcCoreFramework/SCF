@@ -1,4 +1,5 @@
 ﻿using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Utilities;
 using Senparc.Core.Extensions;
 using Senparc.Core.Models;
 using System;
@@ -60,7 +61,8 @@ namespace Senparc.Core.Utility
         /// <returns></returns>
         private string GetMapPath(string path)
         {
-            return Server.GetMapPath(path);//path.Replace("~/", HttpRuntime.AppDomainAppPath);// _context.Server.MapPath(path);
+            return ServerUtility.ContentRootMapPath(path);//path.Replace("~/", HttpRuntime.AppDomainAppPath);// _context.Server.MapPath(path);
+            //return Server.GetMapPath(path);//path.Replace("~/", HttpRuntime.AppDomainAppPath);// _context.Server.MapPath(path);
         }
 
         /// <summary>

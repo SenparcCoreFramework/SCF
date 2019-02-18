@@ -1,4 +1,5 @@
-﻿using Senparc.Core.Enums;
+﻿using Senparc.CO2NET.Utilities;
+using Senparc.Core.Enums;
 using Senparc.Core.Models;
 using Senparc.Core.Utility;
 using System;
@@ -15,12 +16,12 @@ namespace Senparc.Core.Config
 
         private static XElement GetXElement(string path)
         {
-            return XElement.Load(Server.GetMapPath(path));
+            return XElement.Load(GetMapPath(path));
         }
 
         private static string GetMapPath(string path)
         {
-            return Server.GetMapPath(path);
+            return ServerUtility.ContentRootMapPath(path);
         }
 
         #region Email
