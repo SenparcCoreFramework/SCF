@@ -20,8 +20,9 @@ namespace Senparc.Web
     {
         public SenparcEntities CreateDbContext(string[] args)
         {
+            //修复 https://github.com/SenparcCoreFramework/SCF/issues/13 发现的问题（在非Web环境下无法得到网站根目录路径）
             IRegisterService register = RegisterService.Start(new SenparcSetting());
-            CO2NET.Config.RootDictionaryPath = Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\");
+            CO2NET.Config.RootDictionaryPath = Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\"); //
 
             var builder = new DbContextOptionsBuilder<SenparcEntities>();
             builder.UseSqlServer(SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"));
