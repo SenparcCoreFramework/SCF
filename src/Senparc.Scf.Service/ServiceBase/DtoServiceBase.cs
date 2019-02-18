@@ -1,9 +1,14 @@
-﻿using Senparc.Scf.Core.Dto;
+﻿using Microsoft.EntityFrameworkCore;
+using Senparc.Scf.Core.Dto;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service.ServiceBase
 {
@@ -18,24 +23,22 @@ namespace Senparc.Scf.Service.ServiceBase
         }
 
 
-        public virtual bool IsInsert(TEntityInsertObj obj)
+        public virtual bool IsInsert(TEntity obj)
         {
-            var entity = MapToEntity(obj);
-
             return RepositoryBase.IsInsert(obj);
         }
 
-        public T GetObject(Expression<Func<T, bool>> where, string[] includes = null)
+        public TEntity GetObject(Expression<Func<TEntity, bool>> where, string[] includes = null)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, includes);
         }
 
-        public T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public TEntity GetObject<TK>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, orderBy, orderingType, includes);
         }
 
-        public PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public PagedList<TEntity> GetFullList<TK>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
             return this.GetObjectList(0, 0, where, orderBy, orderingType, includes);
         }
@@ -51,7 +54,7 @@ namespace Senparc.Scf.Service.ServiceBase
         /// <param name="orderingType">正序|倒叙</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public virtual PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual PagedList<TEntity> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
             return RepositoryBase.GetObjectList(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
@@ -68,17 +71,17 @@ namespace Senparc.Scf.Service.ServiceBase
         /// <param name="orderingType">正序|倒叙</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual async Task<PagedList<TEntity>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
             return await RepositoryBase.GetObjectListAsync(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
 
-        public virtual int GetCount(Expression<Func<T, bool>> where, string[] includes = null)
+        public virtual int GetCount(Expression<Func<TEntity, bool>> where, string[] includes = null)
         {
             return RepositoryBase.ObjectCount(where, includes);
         }
 
-        public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum, string[] includes = null)
+        public virtual decimal GetSum(Expression<Func<TEntity, bool>> where, Func<TEntity, decimal> sum, string[] includes = null)
         {
             return RepositoryBase.GetSum(where, sum, includes);
         }
@@ -87,7 +90,7 @@ namespace Senparc.Scf.Service.ServiceBase
         /// 强制将实体设置为Modified状态
         /// </summary>
         /// <param name="obj"></param>
-        public virtual void TryDetectChange(T obj)
+        public virtual void TryDetectChange(TEntity obj)
         {
             if (!IsInsert(obj))
             {
@@ -95,7 +98,7 @@ namespace Senparc.Scf.Service.ServiceBase
             }
         }
 
-        public virtual void SaveObject(T obj)
+        public virtual void SaveObject(TEntity obj)
         {
             if (RepositoryBase.BaseDB.ManualDetectChangeObject)
             {
@@ -104,18 +107,18 @@ namespace Senparc.Scf.Service.ServiceBase
             RepositoryBase.Save(obj);
         }
 
-        public virtual void DeleteObject(Expression<Func<T, bool>> predicate)
+        public virtual void DeleteObject(Expression<Func<TEntity, bool>> predicate)
         {
-            T obj = GetObject(predicate);
+            TEntity obj = GetObject(predicate);
             DeleteObject(obj);
         }
 
-        public virtual void DeleteObject(T obj)
+        public virtual void DeleteObject(TEntity obj)
         {
             RepositoryBase.Delete(obj);
         }
 
-        public virtual void DeleteAll(IEnumerable<T> objects)
+        public virtual void DeleteAll(IEnumerable<TEntity> objects)
         {
             var list = objects.ToList();
             for (int i = 0; i < list.Count; i++)

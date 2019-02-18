@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Repository
 {
-    public interface IRepositoryBase<T> : IDataBase, IAutoDI where T : IEntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IRepositoryBase<T> : IDataBase, IAutoDI where T : class, IEntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         bool IsInsert(T obj);
 
