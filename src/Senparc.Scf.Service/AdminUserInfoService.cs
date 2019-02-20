@@ -134,31 +134,15 @@ namespace Senparc.Scf.Service
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        public AdminUserInfo Init(out string userName, out string password)
+        public AdminUserInfo Init()
         {
             var oldAdminUserInfo = GetObject(z => true);
             if (oldAdminUserInfo != null)
             {
-                userName = null;
-                password = null;
                 return null;
             }
 
-            var salt = DateTime.Now.Ticks.ToString();
-            userName = $"SenparcCoreAdmin{new Random().Next(100).ToString("00")}";
-            password = Guid.NewGuid().ToString("n").Substring(0, 8);
-
-            var adminUserInfo = new AdminUserInfo()
-            {
-                UserName = userName,
-                Password = GetPassword(password, salt, false),
-                PasswordSalt = salt,
-                Note = "初始化数据",
-                AddTime = DateTime.Now,
-                ThisLoginTime = DateTime.Now,
-                LastLoginTime = DateTime.Now,
-            };
-
+            var adminUserInfo = new AdminUserInfo(null, null, null, null, null, "初始化数据");
             SaveObject(adminUserInfo);
             return adminUserInfo;
         }

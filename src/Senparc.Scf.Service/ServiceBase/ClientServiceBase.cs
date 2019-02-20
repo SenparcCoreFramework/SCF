@@ -4,7 +4,7 @@ using Senparc.Scf.Repository;
 
 namespace Senparc.Scf.Service
 {
-    public interface IClientServiceBase<T> : IServiceBase<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IClientServiceBase<T> : IServiceBase<T> where T : EntityBase//global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         IClientRepositoryBase<T> BaseClientRepository { get; }
 
@@ -16,7 +16,7 @@ namespace Senparc.Scf.Service
     }
 
 
-    public class ClientServiceBase<T> : ServiceBase<T>, IClientServiceBase<T> where T : EntityBase, new()//global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class ClientServiceBase<T> : ServiceBase<T>, IClientServiceBase<T> where T : EntityBase//global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         public IClientRepositoryBase<T> BaseClientRepository
         {

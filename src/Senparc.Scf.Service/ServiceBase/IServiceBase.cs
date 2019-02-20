@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Service
 {
-    public interface IServiceBase<T> : IServiceDataBase, IAutoDI where T : class, IEntityBase, new()// global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IServiceBase<T> : IServiceDataBase, IAutoDI where T : class, IEntityBase// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         IRepositoryBase<T> RepositoryBase { get; set; }
 

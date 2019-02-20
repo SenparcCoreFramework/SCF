@@ -37,5 +37,14 @@ namespace Senparc.Scf.Core.Models
         /// </summary>
         [Key]
         public TKey Id { get; set; }
+
+        /// <summary>
+        /// 更新最后更新时间
+        /// </summary>
+        /// <param name="time"></param>
+        protected void SetUpdateTime(DateTime? time = null)
+        {
+            LastUpdateTime = time ?? SystemTime.Now.LocalDateTime;
+        }
     }
 }

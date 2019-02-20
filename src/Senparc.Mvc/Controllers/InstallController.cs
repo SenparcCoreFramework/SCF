@@ -16,7 +16,7 @@ namespace Senparc.Mvc.Controllers
         }
         public IActionResult Index()
         {
-            var adminUserInfo = _accountInfoService.Init(out string userName, out string password);
+            var adminUserInfo = _accountInfoService.Init();
 
             _systemConfigService.Init();
 
@@ -27,8 +27,8 @@ namespace Senparc.Mvc.Controllers
 
             var vd = new Install_IndexVD()
             {
-                AdminUserName = userName,
-                AdminPassword = password
+                AdminUserName = adminUserInfo.UserName,
+                AdminPassword = adminUserInfo.Password
             };
             return View(vd);
         }

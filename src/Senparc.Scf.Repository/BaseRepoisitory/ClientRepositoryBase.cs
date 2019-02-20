@@ -4,12 +4,12 @@ using Senparc.Scf.Utility;
 
 namespace Senparc.Scf.Repository
 {
-    public interface IClientRepositoryBase<T> : IRepositoryBase<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
+    public interface IClientRepositoryBase<T> : IRepositoryBase<T> where T : EntityBase // global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         ISqlClientFinanceData DB { get; }
     }
 
-    public class ClientRepositoryBase<T> : RepositoryBase<T>, IClientRepositoryBase<T> where T : EntityBase, new() // global::System.Data.Objects.DataClasses.EntityObject, new()
+    public class ClientRepositoryBase<T> : RepositoryBase<T>, IClientRepositoryBase<T> where T : EntityBase // global::System.Data.Objects.DataClasses.EntityObject, new()
     {
         public ISqlClientFinanceData DB
         {

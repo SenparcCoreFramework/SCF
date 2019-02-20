@@ -8,7 +8,7 @@ namespace Senparc.Scf.Repository
 
     public class SystemConfigRepository : ClientRepositoryBase<SystemConfig>, ISystemConfigRepository
     {
-
+        
     }
 }
 
