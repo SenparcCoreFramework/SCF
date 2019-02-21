@@ -22,7 +22,7 @@ namespace Senparc.Web.Pages
 
         public void OnGet()
         {
-            //FullSystemConfig = _fullSystemConfigCache.Data;
+          
         }
     }
 }
