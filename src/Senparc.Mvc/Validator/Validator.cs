@@ -4,6 +4,7 @@ using Senparc.Core.Utility;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Scf.Core.Utility;
+using Senparc.Scf.Core.Models;
 
 namespace Senparc.Mvc
 {
@@ -17,7 +18,7 @@ namespace Senparc.Mvc
         public bool IsValid { get; set; }
         public string HtmlName { get; set; }
         public ModelStateDictionary ModelState { get; set; }
-        public Controller Controller { get; set; }
+        public IValidatorEnvironment ValidatorEnvironment { get; set; }
 
         //public List<string> ErrorList
         //{
@@ -29,13 +30,13 @@ namespace Senparc.Mvc
         //    }
         //}
 
-        public ValidatorContainer(Controller controller, T validatorObject, string valueName, string htmlName)
+        public ValidatorContainer(IValidatorEnvironment validatorEnvironment, T validatorEnvironmentObject, string valueName, string htmlName)
         {
-            ValidatorObject = validatorObject;
+            ValidatorObject = validatorEnvironmentObject;
             ValueName = valueName;
             HtmlName = htmlName;
-            ModelState = controller.ModelState;
-            Controller = controller;
+            ModelState = validatorEnvironment.ModelState;
+            ValidatorEnvironment = validatorEnvironment;
             IsValid = true;
             //ErrorList = new List<string>();
         }
@@ -53,30 +54,30 @@ namespace Senparc.Mvc
 
     public static class ValidatorExtension
     {
-        public static ValidatorContainer<T> Validator<T>(this Controller controller, T validatorObject, string valueName, string htmlName)
+        public static ValidatorContainer<T> Validator<T>(this IValidatorEnvironment validatorEnvironment, T validatorEnvironmentObject, string valueName, string htmlName)
         {
-            return Validator<T>(controller, validatorObject, valueName, htmlName, null);
+            return Validator<T>(validatorEnvironment, validatorEnvironmentObject, valueName, htmlName, null);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="validatorObject"></param>
+        /// <param name="validatorEnvironment"></param>
+        /// <param name="validatorEnvironmentObject"></param>
         /// <param name="valueName"></param>
         /// <param name="htmlName"></param>
         /// <param name="nullOrEmptyable">是否允许为null或为空。输入null默认为不判断。首尾连续空格将被过滤（.Trim()）</param>
         /// <returns></returns>
-        public static ValidatorContainer<T> Validator<T>(this Controller controller, T validatorObject, string valueName, string htmlName, bool? nullOrEmptyable = null)
+        public static ValidatorContainer<T> Validator<T>(this IValidatorEnvironment validatorEnvironment, T validatorEnvironmentObject, string valueName, string htmlName, bool? nullOrEmptyable = null)
         {
-            if (controller.ModelState[htmlName] != null
-                && controller.ModelState[htmlName].Errors.Count > 0)
+            if (validatorEnvironment.ModelState[htmlName] != null
+                && validatorEnvironment.ModelState[htmlName].Errors.Count > 0)
             {
                 //移除原有的ModelState中的"The value '' is invalid."错误
                 //TODO:可以使用Resource自行配置
-                controller.ModelState[htmlName].Errors.Clear();
+                validatorEnvironment.ModelState[htmlName].Errors.Clear();
             }
-            if (nullOrEmptyable != null && (validatorObject == null || string.IsNullOrEmpty(validatorObject.ToString().Trim())))
+            if (nullOrEmptyable != null && (validatorEnvironmentObject == null || string.IsNullOrEmpty(validatorEnvironmentObject.ToString().Trim())))
             {
                 if (nullOrEmptyable == true)//可为空
                 {
@@ -84,13 +85,13 @@ namespace Senparc.Mvc
                 }
                 else//不可为空
                 {
-                    var container = new ValidatorContainer<T>(controller, validatorObject, valueName, htmlName);
+                    var container = new ValidatorContainer<T>(validatorEnvironment, validatorEnvironmentObject, valueName, htmlName);
                     return container.NotNullOrEmpty(true);
                 }
             }
             else
             {
-                return new ValidatorContainer<T>(controller, validatorObject, valueName, htmlName);//不判断是否为空
+                return new ValidatorContainer<T>(validatorEnvironment, validatorEnvironmentObject, valueName, htmlName);//不判断是否为空
             }
         }
 
@@ -553,7 +554,7 @@ namespace Senparc.Mvc
                 }
             }
 
-            CheckCodeHandle checkCodeHandle = new CheckCodeHandle(checkCodeKind, container.Controller.HttpContext);
+            CheckCodeHandle checkCodeHandle = new CheckCodeHandle(checkCodeKind, container.ValidatorEnvironment.HttpContext);
             if (!checkCodeHandle.ValidateCheckCode(container.ValidatorObject.ToString()))
             {
                 container.AddError("请输入正确的验证码");

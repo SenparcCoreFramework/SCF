@@ -20,7 +20,7 @@ namespace Senparc.Mvc.Controllers
     //[RequireHttps]
     //[SenparcHandleError]
     [UserAuthorize("UserAnonymous")]
-    public class BaseController : Controller, IResultFilter
+    public class BaseController : Controller, IResultFilter, IValidatorEnvironment
     {
         //private ISystemConfigService _systemConfigService;
         protected FullSystemConfig _fullSystemConfig;

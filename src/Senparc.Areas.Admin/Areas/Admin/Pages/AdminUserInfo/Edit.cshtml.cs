@@ -20,7 +20,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public bool IsEdit { get; set; }
 
         [BindProperty]
-        public CreateUpdate_AdminUserInfoDto AdminUserInfo { get; set; }
+        public AdminUserInfo AdminUserInfo { get; set; }
+        //public CreateUpdate_AdminUserInfoDto AdminUserInfo { get; set; }
 
         private readonly AdminUserInfoService _adminUserInfoService;
 
@@ -41,8 +42,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     throw new Exception("信息不存在！");//TODO:临时
                     return RenderError("信息不存在！");
                 }
-                AdminUserInfo.UserName = userInfo.UserName;
-                AdminUserInfo.Note = userInfo.Note;
+                //AdminUserInfo.UserName = userInfo.UserName;
+                //AdminUserInfo.Note = userInfo.Note;
                 Id = userInfo.Id;
             }
             IsEdit = isEdit;
@@ -52,18 +53,18 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public IActionResult OnPost(int id)
         {
             bool isEdit = id > 0;
-            //this.Validator(model.UserName, "用户名", "UserName", false)
-            //    .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(model.Id, z), "用户名已存在！", true);
+            this.Validator(AdminUserInfo.UserName, "用户名", "UserName", false)
+                .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(model.Id, z), "用户名已存在！", true);
 
-            //if (!isEdit || !model.Password.IsNullOrEmpty())
-            //{
-            //    this.Validator(model.Password, "密码", "Password", false).MinLength(6);
-            //}
+            if (!isEdit || !AdminUserInfo.Password.IsNullOrEmpty())
+            {
+                this.Validator(AdminUserInfo.Password, "密码", "Password", false).MinLength(6);
+            }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             //AdminUserInfo userInfo = null;
             //if (isEdit)

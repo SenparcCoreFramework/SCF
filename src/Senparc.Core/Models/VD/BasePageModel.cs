@@ -1,11 +1,12 @@
-﻿using Senparc.Scf.Core.Models.VD;
+﻿using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Models.VD;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Senparc.Core.Models.VD
 {
-    public interface IBasePageModel
+    public interface IBasePageModel: IValidatorEnvironment
     { }
 
     /// <summary>
