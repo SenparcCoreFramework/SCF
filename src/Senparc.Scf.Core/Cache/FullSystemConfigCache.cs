@@ -58,7 +58,7 @@ namespace Senparc.Scf.Core.Cache
                         portSetting = ":" + port;//添加端口
                     }
 
-                    hostName = $"{scheme}{host}{portSetting}";
+                    hostName = $"{scheme}://{host}{portSetting}";
 
                 }
                 catch

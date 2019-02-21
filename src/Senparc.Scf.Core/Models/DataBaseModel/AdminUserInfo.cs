@@ -23,9 +23,9 @@ namespace Senparc.Scf.Core.Models
 
         public AdminUserInfo(string userName, string password, string realName, string phone, string note)
         {
-            UserName = userName?? GenerateUserName();
+            UserName = userName ?? GenerateUserName();
             PasswordSalt = GeneratePasswordSalt();//生成密码盐
-            Password = GetPassword(password, PasswordSalt, true);//生成密码
+            Password = GetMD5Password(password ?? GeneratePassword(), PasswordSalt, true);//生成密码
             RealName = realName;
             Phone = phone;
             Note = note;
@@ -38,16 +38,6 @@ namespace Senparc.Scf.Core.Models
             //TODO：用户名及密码合规性验证
         }
 
-        private string GetPassword(string password, string salt, bool isMD5Password)
-        {
-            string md5 = password.ToUpper().Replace("-", "");
-            if (!isMD5Password)
-            {
-                md5 = MD5.GetMD5Code(password, "").Replace("-", ""); //原始MD5
-            }
-            return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
-        }
-
         /// <summary>
         /// 生成用户名
         /// </summary>
@@ -58,6 +48,15 @@ namespace Senparc.Scf.Core.Models
         }
 
         /// <summary>
+        /// 生成随机密码
+        /// </summary>
+        /// <returns></returns>
+        public string GeneratePassword()
+        {
+            return Guid.NewGuid().ToString("n").Substring(0, 8);
+        }
+
+        /// <summary>
         /// 生成密码盐
         /// </summary>
         /// <returns></returns>
@@ -65,6 +64,24 @@ namespace Senparc.Scf.Core.Models
         {
             return DateTime.Now.Ticks.ToString();
         }
+
+        /// <summary>
+        /// 获取加盐后的 MD5 密码
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
+        /// <param name="isMD5Password"></param>
+        /// <returns></returns>
+        public string GetMD5Password(string password, string salt, bool isMD5Password)
+        {
+            string md5 = password.ToUpper().Replace("-", "");
+            if (!isMD5Password)
+            {
+                md5 = MD5.GetMD5Code(password, "").Replace("-", ""); //原始MD5
+            }
+            return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
+        }
+
 
         public void UpdateObject(string userName, string password)
         {

@@ -9,7 +9,7 @@ using Senparc.Scf.Service;
 
 namespace Senparc.Web.Pages.Install
 {
-    public class IndexModel : BasePageModel
+    public class IndexModel : PageModel //不使用基类，因为无法通过已安装程序自动检测
     {
 
         private readonly AdminUserInfoService _accountInfoService;
@@ -26,9 +26,10 @@ namespace Senparc.Web.Pages.Install
 
         public void OnGet()
         {
-            var adminUserInfo = _accountInfoService.Init();
+            _systemConfigService.Init();//初始化系统信息
 
-            _systemConfigService.Init();
+            var adminUserInfo = _accountInfoService.Init();//初始化管理员信息
+
 
             if (adminUserInfo == null)
             {
