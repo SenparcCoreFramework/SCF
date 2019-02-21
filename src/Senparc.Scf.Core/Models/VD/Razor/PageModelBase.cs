@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Routing;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Enums;
 using System;
 using System.Collections.Generic;
@@ -51,6 +54,15 @@ namespace Senparc.Scf.Core.Models.VD
 
         public DateTime PageEndTime { get; set; }
 
+        public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
+        {
+            //获取缓存系统信息
+            var fullSystemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
+            FullSystemConfig = fullSystemConfigCache.Data;
+
+            base.OnPageHandlerSelected(context);
+        }
+
         /// <summary>
         /// 检查是否在特定 Scheme 下已登录
         /// </summary>
@@ -66,5 +78,7 @@ namespace Senparc.Scf.Core.Models.VD
         {
             TempData["Messager"] = new Messager(messageType, messageText).ToJson();
         }
+
+
     }
 }
