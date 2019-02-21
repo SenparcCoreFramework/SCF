@@ -8,7 +8,17 @@ SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包
 > <br>
 > Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
-SCF 将提供完善的项目自动生成服务（参考 [WeChatSampleBuilder](http://sdk.weixin.senparc.com/Home/WeChatSampleBuilder)），为开发者提供项目定制生成服务。
+SCF 除了会为大家提供完善的框架代码，还会：
+
+1. 提供完善的项目自动生成服务（参考 [WeChatSampleBuilder](http://sdk.weixin.senparc.com/Home/WeChatSampleBuilder)），为开发者提供项目定制生成服务。
+
+2. 提供丰富的应用示例，例如[微信](https://github.com/JeffreySu/WeiXinMPSDK)、[跨平台应用平台](https://www.neuchar.com/)对接，等等。
+
+3. 提供完善的示例代码和文档。
+
+4. 提供博客和视频教程（也欢迎开发者参与或发起）。
+
+5. 提供交流社区，包括但不仅限于[问答网站](https://weixin.senparc.com/QA)、QQ群、微信群、直播群。
 
 ## 环境要求
 
