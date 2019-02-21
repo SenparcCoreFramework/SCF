@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Senparc.Core.Utility;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Core.Models;
 
-namespace Senparc.Mvc
+namespace Senparc.Scf.Core.Validator
 {
     public class ValidatorContainer<T>
     {
