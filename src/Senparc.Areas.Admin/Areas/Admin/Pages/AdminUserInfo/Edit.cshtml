@@ -41,14 +41,14 @@
                         <div class="item form-group">
                             <label for="password" class="control-label col-md-3">密码</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input asp-for="AdminUserInfo.Password" type="password" name="password" data-validate-length="5,12" class="form-control col-md-7 col-xs-12" placeholder="请输入密码" required="required">
+                                <input asp-for="AdminUserInfo.Password" type="password" name="password" data-validate-length="5,12" class="form-control col-md-7 col-xs-12" placeholder="请输入密码">
                                 <span asp-validation-for="AdminUserInfo.Password" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="item form-group">
                             <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">再次确认密码</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" placeholder="请再次输入密码" required="required">
+                                <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" placeholder="请再次输入密码">
                             </div>
                         </div>
                         <div class="item form-group">

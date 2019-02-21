@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Models;
+﻿using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 using System;
 
@@ -13,7 +14,6 @@ namespace Senparc.Scf.Core.Models
         public string RealName { get; private set; }
         public string Phone { get; private set; }
         public string Note { get; private set; }
-        public DateTime AddTime { get; }
         public DateTime ThisLoginTime { get; private set; }
         public string ThisLoginIp { get; private set; }
         public DateTime LastLoginTime { get; private set; }
@@ -21,10 +21,10 @@ namespace Senparc.Scf.Core.Models
 
         private AdminUserInfo() { }
 
-        public AdminUserInfo(string userName, string password, string passwordSalt, string realName, string phone, string note)
+        public AdminUserInfo(string userName, string password, string realName, string phone, string note)
         {
             UserName = userName?? GenerateUserName();
-            PasswordSalt = passwordSalt ?? GeneratePasswordSalt();//生成密码盐
+            PasswordSalt = GeneratePasswordSalt();//生成密码盐
             Password = GetPassword(password, PasswordSalt, true);//生成密码
             RealName = realName;
             Phone = phone;
@@ -69,7 +69,10 @@ namespace Senparc.Scf.Core.Models
         public void UpdateObject(string userName, string password)
         {
             UserName = userName;
-            Password = password;
+            if (!password.IsNullOrEmpty())
+            {
+                Password = password;
+            }
             base.SetUpdateTime();
         }
     }

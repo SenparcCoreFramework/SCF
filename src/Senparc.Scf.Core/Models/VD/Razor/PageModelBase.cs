@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Routing;
+using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Scf.Core.Models.VD
 {
-    public interface IPageModelBase : IBaseVD
+    public interface IPageModelBase : IBaseVD, IValidatorEnvironment
     {
         new RouteData RouteData { get; set; }
     }
@@ -58,6 +60,11 @@ namespace Senparc.Scf.Core.Models.VD
         {
             var authenticate = await HttpContext.AuthenticateAsync(authenticationScheme);
             return authenticate.Succeeded;
+        }
+
+        public void SetMessager(MessageType messageType, string messageText, bool showClose = true)
+        {
+            TempData["Messager"] = new Messager(messageType, messageText).ToJson();
         }
     }
 }

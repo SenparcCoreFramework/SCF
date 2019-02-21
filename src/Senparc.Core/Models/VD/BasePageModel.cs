@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Senparc.Core.Models.VD
 {
-    public interface IBasePageModel: IValidatorEnvironment
+    public interface IBasePageModel : IPageModelBase
     { }
 
     /// <summary>

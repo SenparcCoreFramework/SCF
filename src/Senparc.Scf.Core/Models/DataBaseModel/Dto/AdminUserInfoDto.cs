@@ -9,14 +9,20 @@ namespace Senparc.Scf.Core.Models
     /// <summary>
     /// AdminUserInfo 创建和更新
     /// </summary>
-    public class CreateUpdate_AdminUserInfoDto
+    public class AdminUserInfoDto
     {
-        [Required]
-        [StringLength(20)]
+        public string Id { get; set; }
         public string UserName { get; set; }
-        [Required]
         public string Password { get; set; }
 
         public string Note { get; set; }
+    }
+
+    public class CreateOrUpdate_AdminUserInfoDto : AdminUserInfoDto
+    {
+        [Required]
+        [StringLength(20)]
+        new public string UserName { get; set; }
+        new public string Password { get; set; }
     }
 }

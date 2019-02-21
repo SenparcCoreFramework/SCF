@@ -4,23 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Validator;
 using Senparc.Scf.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
-    public class AdminUserInfo_EditModel : BaseAdminPageModel
+    public class AdminUserInfo_EditModel : BaseAdminPageModel, IValidatorEnvironment
     {
         /// <summary>
         /// Id
         /// </summary>
         [BindProperty]
         public int Id { get; set; }
- 
+
         public bool IsEdit { get; set; }
 
+
         [BindProperty]
-        public AdminUserInfo AdminUserInfo { get; set; }
+        public CreateOrUpdate_AdminUserInfoDto AdminUserInfo { get; set; } = new CreateOrUpdate_AdminUserInfoDto();
         //public CreateUpdate_AdminUserInfoDto AdminUserInfo { get; set; }
 
         private readonly AdminUserInfoService _adminUserInfoService;
@@ -42,63 +46,59 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     throw new Exception("信息不存在！");//TODO:临时
                     return RenderError("信息不存在！");
                 }
-                //AdminUserInfo.UserName = userInfo.UserName;
-                //AdminUserInfo.Note = userInfo.Note;
+                AdminUserInfo.UserName = userInfo.UserName;
+                AdminUserInfo.Note = userInfo.Note;
                 Id = userInfo.Id;
             }
             IsEdit = isEdit;
             return Page();
         }
 
-        public IActionResult OnPost(int id)
+        public IActionResult OnPost()
         {
-            bool isEdit = id > 0;
+            bool isEdit = Id > 0;
             this.Validator(AdminUserInfo.UserName, "用户名", "UserName", false)
-                .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(model.Id, z), "用户名已存在！", true);
-
-            if (!isEdit || !AdminUserInfo.Password.IsNullOrEmpty())
+                .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(Id, z), "用户名已存在！", true);
+            if (!isEdit )
+            {
+                if (!AdminUserInfo.Password.IsNullOrEmpty())
+                {
+                    this.Validator(AdminUserInfo.Password, "密码", "Password", false).MinLength(6);
+                }
+            }
+            else
             {
                 this.Validator(AdminUserInfo.Password, "密码", "Password", false).MinLength(6);
             }
+
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            //AdminUserInfo userInfo = null;
-            //if (isEdit)
-            //{
-            //    userInfo = _adminUserInfoService.GetAdminUserInfo(model.Id);
-            //    if (userInfo == null)
-            //    {
-            //        return RenderError("信息不存在！");
-            //    }
-            //}
-            //else
-            //{
-            //    var passwordSalt = DateTime.Now.Ticks.ToString();
-            //    userInfo = new AdminUserInfo()
-            //    {
-            //        PasswordSalt = passwordSalt,
-            //        LastLoginTime = DateTime.Now,
-            //        ThisLoginTime = DateTime.Now,
-            //        AddTime = DateTime.Now,
-            //    };
-            //}
+            AdminUserInfo userInfo = null;
+            if (isEdit)
+            {
+                userInfo = _adminUserInfoService.GetAdminUserInfo(Id);
+                if (userInfo == null)
+                {
+                    return RenderError("信息不存在！");
+                }
 
-            //if (!model.Password.IsNullOrEmpty())
-            //{
-            //    userInfo.Password = this._adminUserInfoService.GetPassword(model.Password, userInfo.PasswordSalt, false);//生成密码
-            //}
+                userInfo.UpdateObject(AdminUserInfo.UserName, AdminUserInfo.Password);
+            }
+            else
+            {
+                var passwordSalt = DateTime.Now.Ticks.ToString();
+                userInfo = new AdminUserInfo(AdminUserInfo.UserName, AdminUserInfo.Password, null, null, AdminUserInfo.Note);
+            }
 
             //await this.TryUpdateModelAsync(userInfo, "", z => z.Note, z => z.UserName);
-            //this._adminUserInfoService.SaveObject(userInfo);
+            this._adminUserInfoService.SaveObject(userInfo);
 
-            //base.SetMessager(MessageType.success, $"{(isEdit ? "修改" : "新增")}成功！");
-            //return RedirectToAction("Index");
-
-            return Page();
+            base.SetMessager(MessageType.success, $"{(isEdit ? "修改" : "新增")}成功！");
+            return RedirectToPage("./Index");
         }
     }
 }

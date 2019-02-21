@@ -142,7 +142,7 @@ namespace Senparc.Scf.Service
                 return null;
             }
 
-            var adminUserInfo = new AdminUserInfo(null, null, null, null, null, "初始化数据");
+            var adminUserInfo = new AdminUserInfo(null, null, null, null, "初始化数据");
             SaveObject(adminUserInfo);
             return adminUserInfo;
         }
