@@ -26,7 +26,7 @@ namespace Senparc.Web.Pages.Install
 
         public void OnGet()
         {
-            var adminUserInfo = _accountInfoService.Init(out string userName, out string password);
+            var adminUserInfo = _accountInfoService.Init();
 
             _systemConfigService.Init();
 
@@ -38,8 +38,8 @@ namespace Senparc.Web.Pages.Install
             }
             else
             {
-                AdminUserName = userName;
-                AdminPassword = password;
+                AdminUserName = adminUserInfo.UserName;
+                AdminPassword = adminUserInfo.Password;
             }
         }
     }
