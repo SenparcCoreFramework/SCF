@@ -86,13 +86,18 @@ namespace Senparc.Scf.Core.Models
         }
 
 
-        public void UpdateObject(string userName, string password)
+        public void UpdateObject(CreateOrUpdate_AdminUserInfoDto objDto)
         {
-            UserName = userName;
-            if (!password.IsNullOrEmpty())
+            UserName = objDto.UserName;
+            if (!objDto.Password.IsNullOrEmpty())
             {
-                Password = password;
+                Password = objDto.Password;
             }
+
+            RealName = objDto.RealName;
+            Phone = objDto.Phone;
+            Note = objDto.Note;
+
             base.SetUpdateTime();
         }
     }

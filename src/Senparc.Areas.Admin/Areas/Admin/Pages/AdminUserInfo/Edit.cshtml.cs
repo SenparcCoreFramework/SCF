@@ -86,7 +86,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     return RenderError("信息不存在！");
                 }
 
-                userInfo.UpdateObject(AdminUserInfo.UserName, AdminUserInfo.Password);
+                userInfo.UpdateObject(AdminUserInfo);
             }
             else
             {

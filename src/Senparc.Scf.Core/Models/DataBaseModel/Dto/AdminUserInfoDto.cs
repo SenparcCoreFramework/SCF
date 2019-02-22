@@ -16,6 +16,10 @@ namespace Senparc.Scf.Core.Models
         public string Password { get; set; }
 
         public string Note { get; set; }
+
+        public string RealName { get; set; }
+
+        public string Phone { get; set; }
     }
 
     public class CreateOrUpdate_AdminUserInfoDto : AdminUserInfoDto
@@ -24,5 +28,7 @@ namespace Senparc.Scf.Core.Models
         [StringLength(20)]
         new public string UserName { get; set; }
         new public string Password { get; set; }
+
+        
     }
 }
