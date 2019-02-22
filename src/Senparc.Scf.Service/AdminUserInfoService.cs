@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Extensions;
@@ -120,9 +121,39 @@ namespace Senparc.Scf.Service
             }
         }
 
-        public AdminUserInfo GetAdminUserInfo(int id, string[] includes = null)
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
+        /// <param name="objDto"></param>
+        public void CreateAdminUserInfo(CreateOrUpdate_AdminUserInfoDto objDto)
         {
-            return GetObject(z => z.Id == id, includes: includes);
+            string userName = objDto.UserName;
+            string password = objDto.Password;
+            var obj = new AdminUserInfo(ref userName, ref password, null, null, objDto.Note);
+            SaveObject(obj);
+        }
+
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="objDto"></param>
+        public void UpdateAdminUserInfo(CreateOrUpdate_AdminUserInfoDto objDto)
+        {
+            var obj = this.GetObject(z => z.Id == objDto.Id);
+            if (obj== null)
+            {
+                throw new Exception("用户信息不存在！");
+            }
+            obj.UpdateObject(objDto);
+            SaveObject(obj);
+        }
+
+
+        public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id, string[] includes = null)
+        {
+            var obj = GetObject(z => z.Id == id, includes: includes);
+            var objDto = Mapper.Map<CreateOrUpdate_AdminUserInfoDto>(obj);
+            return objDto;
         }
 
         public List<AdminUserInfo> GetAdminUserInfo(List<int> ids, string[] includes = null)

@@ -33,7 +33,7 @@ namespace Senparc.Web.Pages.Install
             if (adminUserInfo == null)
             {
                 base.Response.StatusCode = 404;
-                return;
+                return; 
                 //return new StatusCodeResult(404);
             }
             else

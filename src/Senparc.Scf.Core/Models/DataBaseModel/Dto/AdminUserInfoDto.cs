@@ -11,7 +11,7 @@ namespace Senparc.Scf.Core.Models
     /// </summary>
     public class AdminUserInfoDto
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
 
@@ -28,7 +28,5 @@ namespace Senparc.Scf.Core.Models
         [StringLength(20)]
         new public string UserName { get; set; }
         new public string Password { get; set; }
-
-        
     }
 }
