@@ -22,10 +22,7 @@ namespace Senparc.Scf.Service
             : base(repo)
         {
             RepositoryBase = repo;
-            if (mapper == null)
-            {
-                Mapper = SenparcDI.GetService<IMapper>();//确保 Mapper 有值
-            }
+            Mapper = mapper == null ? SenparcDI.GetService<IMapper>() : mapper;//确保 Mapper 中有值
         }
 
         public virtual bool IsInsert(T obj)
