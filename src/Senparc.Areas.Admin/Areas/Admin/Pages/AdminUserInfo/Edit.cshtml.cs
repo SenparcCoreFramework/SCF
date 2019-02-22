@@ -59,7 +59,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             bool isEdit = Id > 0;
             this.Validator(AdminUserInfo.UserName, "用户名", "UserName", false)
                 .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(Id, z), "用户名已存在！", true);
-            if (!isEdit )
+            if (!isEdit)
             {
                 if (!AdminUserInfo.Password.IsNullOrEmpty())
                 {
@@ -90,8 +90,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             }
             else
             {
-                var passwordSalt = DateTime.Now.Ticks.ToString();
-                userInfo = new AdminUserInfo(AdminUserInfo.UserName, AdminUserInfo.Password, null, null, AdminUserInfo.Note);
+                string userName = AdminUserInfo.UserName;
+                string password = AdminUserInfo.Password;
+                userInfo = new AdminUserInfo(ref userName, ref password, null, null, AdminUserInfo.Note);
             }
 
             //await this.TryUpdateModelAsync(userInfo, "", z => z.Note, z => z.UserName);

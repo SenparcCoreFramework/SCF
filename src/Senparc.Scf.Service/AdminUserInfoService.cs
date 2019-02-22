@@ -134,15 +134,17 @@ namespace Senparc.Scf.Service
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        public AdminUserInfo Init()
+        public AdminUserInfo Init(out string userName, out string password)
         {
+            userName = null;
+            password = null;
+
             var oldAdminUserInfo = GetObject(z => true);
             if (oldAdminUserInfo != null)
             {
                 return null;
             }
-
-            var adminUserInfo = new AdminUserInfo(null, null, null, null, "初始化数据");
+            var adminUserInfo = new AdminUserInfo(ref userName, ref password, null, null, "初始化数据");
             SaveObject(adminUserInfo);
             return adminUserInfo;
         }

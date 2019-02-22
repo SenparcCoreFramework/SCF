@@ -53,7 +53,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return null;
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(/*[Required]string name,string password*/)
         {
             if (!ModelState.IsValid)
             {

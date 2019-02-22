@@ -21,11 +21,14 @@ namespace Senparc.Scf.Core.Models
 
         private AdminUserInfo() { }
 
-        public AdminUserInfo(string userName, string password, string realName, string phone, string note)
+        public AdminUserInfo(ref string userName,ref string password, string realName, string phone, string note)
         {
-            UserName = userName ?? GenerateUserName();
+            userName = userName ?? GenerateUserName();//记录用户名
+            password = password ?? GeneratePassword();//记录明文密码
+
+            UserName = userName;
             PasswordSalt = GeneratePasswordSalt();//生成密码盐
-            Password = GetMD5Password(password ?? GeneratePassword(), PasswordSalt, true);//生成密码
+            Password = GetMD5Password(password, PasswordSalt, false);//生成密码
             RealName = realName;
             Phone = phone;
             Note = note;

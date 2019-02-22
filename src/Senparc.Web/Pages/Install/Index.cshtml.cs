@@ -28,8 +28,7 @@ namespace Senparc.Web.Pages.Install
         {
             _systemConfigService.Init();//初始化系统信息
 
-            var adminUserInfo = _accountInfoService.Init();//初始化管理员信息
-
+            var adminUserInfo = _accountInfoService.Init(out string userName, out string password);//初始化管理员信息
 
             if (adminUserInfo == null)
             {
@@ -39,8 +38,8 @@ namespace Senparc.Web.Pages.Install
             }
             else
             {
-                AdminUserName = adminUserInfo.UserName;
-                AdminPassword = adminUserInfo.Password;
+                AdminUserName = userName;
+                AdminPassword = password;//这里不可以使用 adminUserInfo.Password，因为此参数已经是加密信息
             }
         }
     }
