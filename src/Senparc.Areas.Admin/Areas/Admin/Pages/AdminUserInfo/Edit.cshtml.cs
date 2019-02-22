@@ -44,7 +44,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 if (userInfo == null)
                 {
                     throw new Exception("信息不存在！");//TODO:临时
-                    return RenderError("信息不存在！");
+                    //return RenderError("信息不存在！");
                 }
                 AdminUserInfo.UserName = userInfo.UserName;
                 AdminUserInfo.Note = userInfo.Note;
@@ -61,16 +61,16 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 .IsFalse(z => this._adminUserInfoService.CheckUserNameExisted(Id, z), "用户名已存在！", true);
             if (!isEdit)
             {
+
+                this.Validator(AdminUserInfo.Password, "密码", "Password", false).MinLength(6);
+            }
+            else
+            {
                 if (!AdminUserInfo.Password.IsNullOrEmpty())
                 {
                     this.Validator(AdminUserInfo.Password, "密码", "Password", false).MinLength(6);
                 }
             }
-            else
-            {
-                this.Validator(AdminUserInfo.Password, "密码", "Password", false).MinLength(6);
-            }
-
 
             if (!ModelState.IsValid)
             {
