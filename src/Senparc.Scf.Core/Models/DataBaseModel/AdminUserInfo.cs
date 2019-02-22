@@ -21,7 +21,7 @@ namespace Senparc.Scf.Core.Models
 
         private AdminUserInfo() { }
 
-        public AdminUserInfo(ref string userName,ref string password, string realName, string phone, string note)
+        public AdminUserInfo(ref string userName, ref string password, string realName, string phone, string note)
         {
             userName = userName ?? GenerateUserName();//记录用户名
             password = password ?? GeneratePassword();//记录明文密码
@@ -91,7 +91,7 @@ namespace Senparc.Scf.Core.Models
             UserName = objDto.UserName;
             if (!objDto.Password.IsNullOrEmpty())
             {
-                Password = objDto.Password;
+                Password = GetMD5Password(objDto.Password, this.PasswordSalt, false);
             }
 
             RealName = objDto.RealName;
