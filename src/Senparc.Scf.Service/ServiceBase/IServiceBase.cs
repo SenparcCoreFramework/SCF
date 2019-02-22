@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.DI;
+﻿using AutoMapper;
+using Senparc.Scf.Core.DI;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
@@ -11,6 +12,8 @@ namespace Senparc.Scf.Service
 {
     public interface IServiceBase<T> : IServiceDataBase, IAutoDI where T : class, IEntityBase// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
+        IMapper Mapper { get; set; } //TODO: add in to Wapper
+
         IRepositoryBase<T> RepositoryBase { get; set; }
 
         bool IsInsert(T obj);

@@ -16,6 +16,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using AutoMapper;
+using Senparc.CO2NET.RegisterServices;
 
 namespace Senparc.Scf.Core
 {
@@ -68,7 +70,11 @@ namespace Senparc.Scf.Core
             //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
             ;
 
-                       
+            //services.AddSenparcGlobalServices(configuration);//Senparc.CO2NET 全局注册    //已经在startup.cs中注册
+
+            //支持 AutoMapper
+            services.AddAutoMapper();
+
             //支持 Session
             services.AddSession();
             //解决中文进行编码问题

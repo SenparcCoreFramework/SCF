@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Senparc.CO2NET;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
@@ -12,12 +14,18 @@ namespace Senparc.Scf.Service
 {
     public class ServiceBase<T> : ServiceDataBase, IServiceBase<T> where T : class, IEntityBase// global::System.Data.Objects.DataClasses.EntityObject, new()
     {
+        public IMapper Mapper { get; set; } //TODO: add in to Wapper
+
         public IRepositoryBase<T> RepositoryBase { get; set; }
 
-        public ServiceBase(IRepositoryBase<T> repo)
+        public ServiceBase(IRepositoryBase<T> repo, IMapper mapper = null)
             : base(repo)
         {
             RepositoryBase = repo;
+            if (mapper == null)
+            {
+                Mapper = SenparcDI.GetService<IMapper>();//确保 Mapper 有值
+            }
         }
 
         public virtual bool IsInsert(T obj)

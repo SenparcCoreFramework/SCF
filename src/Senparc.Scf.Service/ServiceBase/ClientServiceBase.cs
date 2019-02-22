@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Storage;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
 
@@ -26,8 +27,8 @@ namespace Senparc.Scf.Service
             }
         }
 
-        public ClientServiceBase(IClientRepositoryBase<T> repo)
-            : base(repo)
+        public ClientServiceBase(IClientRepositoryBase<T> repo, IMapper mapper = null)
+            : base(repo, mapper)
         {
         }
 
