@@ -152,6 +152,8 @@ namespace Senparc.Scf.Service
         public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id, string[] includes = null)
         {
             var obj = GetObject(z => z.Id == id, includes: includes);
+
+            Mapper.Initialize(z => z.CreateMap<CreateOrUpdate_AdminUserInfoDto, AdminUserInfo>());
             var objDto = Mapper.Map<CreateOrUpdate_AdminUserInfoDto>(obj);
             return objDto;
         }
