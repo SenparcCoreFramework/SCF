@@ -18,8 +18,8 @@ namespace Senparc.Scf.Service
     {
 
         private readonly Lazy<IHttpContextAccessor> _contextAccessor;
-        public AdminUserInfoService(AdminUserInfoRepository repository, Lazy<IHttpContextAccessor> httpContextAccessor,IMapper mapper) 
-            : base(repository,mapper)
+        public AdminUserInfoService(AdminUserInfoRepository repository, Lazy<IHttpContextAccessor> httpContextAccessor, IMapper mapper)
+            : base(repository, mapper)
         {
             _contextAccessor = httpContextAccessor;
         }
@@ -141,7 +141,7 @@ namespace Senparc.Scf.Service
         public void UpdateAdminUserInfo(CreateOrUpdate_AdminUserInfoDto objDto)
         {
             var obj = this.GetObject(z => z.Id == objDto.Id);
-            if (obj== null)
+            if (obj == null)
             {
                 throw new Exception("用户信息不存在！");
             }
@@ -153,10 +153,6 @@ namespace Senparc.Scf.Service
         {
             var obj = GetObject(z => z.Id == id, includes: includes);
 
-            if (base.Mapper == null)
-            {
-                throw new Exception("Mapper is null");
-            }
             var objDto = base.Mapper.Map<CreateOrUpdate_AdminUserInfoDto>(obj);
 
             return objDto;

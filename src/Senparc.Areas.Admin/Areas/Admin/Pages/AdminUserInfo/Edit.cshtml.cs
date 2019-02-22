@@ -76,6 +76,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             if (IsEdit)
             {
+                AdminUserInfo.Id = Id;
                 _adminUserInfoService.UpdateAdminUserInfo(AdminUserInfo);
             }
             else
