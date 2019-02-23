@@ -14,7 +14,9 @@
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
     @*本地*@
     <environment include="Development">
-
+        <!-- 引入样式 element-ui@2.5.4-->
+        <link rel="stylesheet" href="~/js/element-ui_2.5.4/theme/index.css">
+        <link rel="stylesheet" href="~/css/Admin/Shared/_Layout.css">
         <!-- Bootstrap -->
         <link href="~/bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -30,7 +32,7 @@
         <!-- Sweetalert -->
         <link href="~/bower_components/bootstrap-sweetalert/dist/sweetalert.css" rel="stylesheet" />
         <!-- Custom Theme Style -->
-        <link href="~/bower_components/gentelella/build/css/custom.css" rel="stylesheet">
+        <link href="~/bower_components/gentelella/build/css/custom.min.css" rel="stylesheet">
         <!--Public Pagebar-->
         <link href="~/css/Admin/base/pagecss.css" rel="stylesheet" />
         <!--Base CustomStyle-->
@@ -64,53 +66,31 @@
     @RenderSection("Style", false)
 
 </head>
-<body class="nav-md">
-    @RenderSection("modal", false)
-    <div class="container body">
-        <div class="main_container">
-            <!-- sidebar-->
-            <partial name="_MenuPartial" model="@Model" />
-
-            <!-- top navbar-->
+<body>
+    <div id="app">
+        <el-container class="wrapper">
+            <!-- header -->
             <partial name="_HeaderPartial" />
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div>
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>
-                                @ViewData["Title"]
-                                <small> @RenderSection("explanations", false)</small>
-                            </h3>
-                            <ol class="breadcrumb">
-                                @RenderSection("breadcrumbs", false)
-                            </ol>
-                        </div>
-                        <div class="title_right">
-                            @RenderSection("filter", false)
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    @RenderBody()
-                </div>
-            </div>
-
-            <!-- /page content -->
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    &copy; @DateTime.Now.Year -  <a href="http://wwww.senparc.com">苏州盛派网络科技有限公司</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
+            <el-container>
+                <!-- sidebar-->
+                <partial name="_MenuPartial" model="@Model" />
+                @RenderSection("breadcrumbs", false)
+                <el-container>
+                    <el-main>@RenderBody()</el-main>
+                    @*<el-footer>
+                        &copy; @DateTime.Now.Year -  <a href="http://wwww.senparc.com" class="link-unstyle" target="_blank">苏州盛派网络科技有限公司</a>
+                    </el-footer>*@
+                </el-container>
+            </el-container>
+        </el-container>
     </div>
     @*本地*@
     <environment include="Development">
-        <!-- jQuery -->
-        <script src="~/bower_components/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+        <script src="~/bower_components/jquery/dist/jquery.js"></script>
+        <script src="~/bower_components/vue/dist/vue.js"></script>
+        <!-- 引入组件库 element-ui@2.5.4-->
+        <script src="~/js/element-ui_2.5.4/index.js"></script>
+        <script src="~/js/base.js"></script>
         <!-- Bootstrap -->
         <script src="~/bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -128,7 +108,6 @@
         <script src="~/bower_components/gentelella/vendors/validator/validator.js"></script>
         <!-- Custom Theme Scripts -->
         <script src="~/js/gentelella-custom/custom.js"></script>
-        <script src="~/js/base.js"></script>
 
     </environment>
     @*线上*@
@@ -151,7 +130,7 @@
         <!-- validator -->
         <script src="~/bower_components/gentelella/vendors/validator/validator.js"></script>
         <!-- Custom Theme Scripts -->
-        <script src="~/js/gentelella-custom/custom.min.js"></script>
+        <script src="~/js/gentelella-custom/custom.js"></script>
         <script src="~/js/base.js"></script>
 
     </environment>
@@ -164,6 +143,23 @@
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         });
+        var Main = {
+            data() {
+                return {
+                    isCollapse: false
+                };
+            },
+            methods: {
+                handleOpen(key, keyPath) {
+                    console.log(key, keyPath);
+                },
+                handleClose(key, keyPath) {
+                    console.log(key, keyPath);
+                }
+            }
+        }
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
     </script>
     @RenderSection("scripts", false)
     @Html.RenderMessageBox()

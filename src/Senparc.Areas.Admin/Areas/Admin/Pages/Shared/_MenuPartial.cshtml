@@ -1,62 +1,42 @@
 @model Senparc.Areas.Admin.BaseAdminPageModel
 
-<div class="col-md-3 left_col">
-    <div class="left_col scroll-view">
-        <div class="navbar nav_title hidden-small">
-            @*<a href="/Home/Index" class="site_title">
-                    <img src="~/images/Admin/base/head/logo_230x55.png" class="hidden-small" />
-                    <img src="~/images/Admin/base/head/logo_70x55.png" class="hidden-lg" />
-                </a>*@
-            <a href="index.html" class="site_title">
-                <img src="~/images/Admin/base/head/logo_230x55.png" />
-            </a>
-        </div>
+<el-aside class="menu" width="250px">
+    <el-menu class="el-menu-vertical-demo" @@open="handleOpen" @@close="handleClose"
+             text-color="#333"
+             active-text-color="#6f17e3"
+             default-active="@Html.CurrentMenu("AdminUserInfo")"
+             :collapse="isCollapse">
+        <!--多级菜单-->
+        @*<el-submenu index="1">
+                <template slot="title">
 
-        <div class="clearfix"></div>
-        <!-- menu profile quick info -->
-        <div class="profile clearfix">
-            <div class="profile_pic">
-                <img src="~/images/Admin/base/head/logo_128x128.png" class="img-circle profile_img" style="background-color:transparent" />
-            </div>
-            <div class="profile_info" style="padding: 25px 0px 10px;">
-                <span>Welcome,</span>
-                <h2>@Model.UserName</h2>
-            </div>
-        </div>
-        <!-- /menu profile quick info -->
-        <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section">
-                @*<h3>菜单</h3>*@
-                <ul class="nav side-menu">
-                    <li class="@Html.CurrentMenu("Home")">
-                        <a asp-page="/Index">
-                            <i class="fa fa-home"></i>
-                            首页
-                        </a>
-                    </li>
-                    <li class="@Html.CurrentMenu("AdminUserInfo")">
-                        <a asp-page="/AdminUserInfo/Index">
-                            <i class="fa fa-user"></i>
-                            管理员管理
-                        </a>
-                    </li>
-                    <li class="@Html.CurrentMenu("Account")">
-                        <a asp-action="Index" asp-controller="Account">
-                            <i class="fa fa-users"></i>
-                            用户管理
-                        </a>
-                    </li>
-                    <li class="@Html.CurrentMenu("Feedback")">
-                        <a asp-action="Index" asp-controller="Feedback">
-                            <i class="fa fa-envelope"></i>
-                            用户反馈
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /sidebar menu -->
-    </div>
-</div>
-<!-- /menu footer buttons -->
+                    <i class="el-icon-location"></i>
+                    <span>导航一</span>
+                </template>
+                <el-menu-item-group>
+                    <template slot="title">
+                        分组一
+                    </template>
+                    <el-menu-item index="1-1">选项1</el-menu-item>
+                    <el-menu-item index="1-2">选项2</el-menu-item>
+                </el-menu-item-group>
+            </el-submenu>*@
+        <el-menu-item index="@Html.CurrentMenu("Home")">
+            <a asp-page="/Index">
+                <i class="el-icon-menu"></i>
+                <span slot="title">
+                    首页
+                </span>
+            </a>
+        </el-menu-item>
+        <el-menu-item index="@Html.CurrentMenu("AdminUserInfo")">
+            <a asp-page="/AdminUserInfo/Index" class="link-unstyle">
+                <i class="el-icon-menu"></i>
+                <span slot="title">
+                    管理员管理
+                </span>
+            </a>
+        </el-menu-item>
+    </el-menu>
+</el-aside>
+
