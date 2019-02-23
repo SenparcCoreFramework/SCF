@@ -31,5 +31,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             AdminUserInfoList = admins;
             return null;
         }
+
+        public IActionResult OnPost(int[] ids)
+        {
+            foreach (var id in ids)
+            {
+                _adminUserInfoService.DeleteObject(id);
+            }
+
+            return RedirectToPage("./Index");
+        }
     }
 }

@@ -182,6 +182,16 @@ namespace Senparc.Scf.Service
             return adminUserInfo;
         }
 
+        public void DeleteObject(int id)
+        {
+            var obj = GetObject(z => z.Id == id);
+            if (obj == null)
+            {
+                throw new Exception("用户信息不存在！");
+            }
+            DeleteObject(obj);
+        }
+
         public override void SaveObject(AdminUserInfo obj)
         {
             var isInsert = base.IsInsert(obj);
