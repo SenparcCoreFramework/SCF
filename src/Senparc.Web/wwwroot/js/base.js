@@ -1,3 +1,4 @@
+
 /**
  * 全局提示框
  * @param {string} type  提示类型
