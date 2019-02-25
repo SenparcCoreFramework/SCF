@@ -45,7 +45,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 if (ReturnUrl.IsNullOrEmpty())
                 {
-                    return RedirectToPage("/Home/Index");
+                    return RedirectToPage("/Index");
                 }
                 return Redirect(ReturnUrl.UrlDecode());
             }
@@ -82,7 +82,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             if (this.ReturnUrl.IsNullOrEmpty())
             {
-                return RedirectToPage("/Home/Index");
+                return RedirectToPage("/Index");
             }
             return Redirect(this.ReturnUrl.UrlDecode());
         }
