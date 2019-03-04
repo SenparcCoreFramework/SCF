@@ -2,70 +2,17 @@
 @model Senparc.Areas.Admin.Areas.Admin.Pages.AdminUserInfo_IndexModel
 @{
 }
+
+
+@using System.Web.Mvc
 @{
     ViewData["Title"] = "管理员管理";
 }
 @section breadcrumbs{
 
 }
-@section scripts{
-    <script src="/js/Admin/Pages/AdminUserInfo/Index.js"></script>
-    <script>
-    
-        $(function () {
-            vm.list =@Html.Raw(Model.AdminUserInfoList.Select(z => new
-             {
-                 z.Id,
-                 z.UserName,
-                 z.Note,
-                 AddTime = z.AddTime.ToString("yyyy-MM-dd")
-             }).ToJson());
-            });
-    </script>
-}
-<el-table :data="list"
-          ref="multipleTable"
-          tooltip-effect="dark"
-          style="width: 100%"
-          @@selection-change="handleSelectionChange">
-    <el-table-column type="selection"
-                     width="55">
-    </el-table-column>
-    <el-table-column prop="AddTime"
-                     label="日期"
-                     width="180">
-    </el-table-column>
-    <el-table-column prop="UserName"
-                     label="用户名"
-                     width="180">
-    </el-table-column>
-    <el-table-column prop="Note"
-                     label="备注"
-                     width="180">
-    </el-table-column>
-    <el-table-column prop="AddTime"
-                     label="添加时间">
-    </el-table-column>
-    <el-table-column prop="address"
-                     label="操作">
-        <template slot-scope="scope">
-            <el-button size="mini"
-                       @@click="handleEdit(scope.row)"><i class="el-icon-edit"></i></el-button>
-        </template>
-    </el-table-column>
-</el-table>
-<div style="text-align:center;margin-top:10px;">
-    <el-pagination @@size-hange="handleSizeChange"
-                   @@current-change="handleCurrentChange"
-                   :current-page="currentPage4"
-                   :page-sizes="[100, 200, 300, 400]"
-                   :page-size="100"
-                   layout="total, sizes, prev, pager, next, jumper"
-                   :total="400">
-    </el-pagination>
-</div>
+<div class="row">
 
-@*<div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="pull-left">
@@ -79,6 +26,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="x_content">
+                @*<p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>*@
                 <div class="table-responsive">
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
@@ -134,4 +82,4 @@
         </div>
     </div>
 </div>
-<form method="post" asp-page-handler="Delete" id="deleteForm"></form>*@
+<form method="post" asp-page-handler="Delete" id="deleteForm"></form>

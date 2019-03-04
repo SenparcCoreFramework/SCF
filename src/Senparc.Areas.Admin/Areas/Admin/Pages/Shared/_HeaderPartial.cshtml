@@ -1,11 +1,19 @@
 @model Senparc.Areas.Admin.BaseAdminPageModel
-<el-header>
-    <img class="header-logo" src="~/images/Shared/SCFLogo/logo_70x55.png" />
-    <ul class="header-operations clearfix">
-        <li>
-            <a title="退出登录" class="link-unstyle" style="color:#fff" asp-page="/Login" asp-page-handler="Logout">
-                退出登录
-            </a>
-        </li>
-    </ul>
-</el-header>
+<!-- top navigation -->
+<div class="top_nav">
+    <div class="nav_menu">
+        <nav>
+            <div class="nav toggle">
+                <a href="javascript:;" id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a data-toggle="tooltip" data-placement="left" title="退出登录" asp-page="/Login" asp-page-handler="Logout">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- /top navigation -->
