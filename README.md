@@ -20,6 +20,10 @@ SCF 除了会为大家提供完善的框架代码，还会：
 
 5. 提供交流社区，包括但不仅限于[问答网站](https://weixin.senparc.com/QA)、QQ群、微信群、直播群。
 
+## QQ 技术交流群
+
+<img src="https://sdk.weixin.senparc.com/images/QQ_Group_Avatar/SCF/QQ-Group.jpg" width="380" />
+
 ## 环境要求
 
 - Visual Studio 2017 15.7 版本以上或 VS Code 最新版本
