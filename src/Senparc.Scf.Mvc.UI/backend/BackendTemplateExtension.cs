@@ -64,7 +64,7 @@ namespace Senparc.Scf.Mvc.UI
                 sb.Append("$(function(){");
                 foreach (var item in model.MessagerList)
                 {
-                    sb.Append($"baseAlert('{item.MessageType}','{item.MessageText}');");
+                    sb.Append($"base.alert('{item.MessageType}','{item.MessageText}');");
                 }
                 sb.Append("});");
                 sb.Append("</script>");

@@ -1,14 +1,6 @@
 @model Senparc.Areas.Admin.BaseAdminPageModel
 <el-header>
     <img class="header-logo" src="~/images/Shared/SCFLogo/logo_70x55.png" />
-    <el-radio-group v-model="isCollapse" class="menu-toggle-Collapse" title="展开/收起菜单">
-        <el-radio-button :label="false" v-show="!isCollapse">
-            <i class="el-icon-d-arrow-right"></i>
-        </el-radio-button>
-        <el-radio-button :label="true" v-show="isCollapse">
-            <i class="el-icon-d-arrow-left"></i>
-        </el-radio-button>
-    </el-radio-group>
     <ul class="header-operations clearfix">
         <li>
             <a title="退出登录" class="link-unstyle" style="color:#fff" asp-page="/Login" asp-page-handler="Logout">

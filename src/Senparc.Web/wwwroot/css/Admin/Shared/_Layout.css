@@ -1,4 +1,8 @@
-﻿* {
+﻿[v-cloak] {
+    display: none;
+}
+
+* {
     padding: 0;
     margin: 0;
 }
@@ -61,7 +65,6 @@ body {
     .menu a:focus {
         text-decoration: none;
         color: #6f17e3;
-      
     }
 
     .menu a {
@@ -79,4 +82,9 @@ a.link-unstyle:hover,
 a.link-unstyle:active,
 a.link-unstyle:focus {
     text-decoration: none;
+}
+
+.query-form {
+    margin-top: 20px;
+    padding-top: 25px;
 }

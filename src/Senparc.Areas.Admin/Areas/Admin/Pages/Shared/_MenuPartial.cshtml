@@ -1,11 +1,10 @@
 @model Senparc.Areas.Admin.BaseAdminPageModel
 
-<el-aside class="menu" width="250px">
-    <el-menu class="el-menu-vertical-demo" @@open="handleOpen" @@close="handleClose"
+<el-aside class="menu">
+    <el-menu class="el-menu-vertical-demo" 
              text-color="#333"
              active-text-color="#6f17e3"
-             default-active="@Html.CurrentMenu("AdminUserInfo")"
-             :collapse="isCollapse">
+             default-active="@Html.CurrentMenu("AdminUserInfo")">
         <!--多级菜单-->
         @*<el-submenu index="1">
                 <template slot="title">
