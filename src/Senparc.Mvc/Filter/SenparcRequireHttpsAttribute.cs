@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Senparc.Core.Config;
+using Senparc.Scf.Core.Config;
 
 namespace Senparc.Mvc.Filter
 {

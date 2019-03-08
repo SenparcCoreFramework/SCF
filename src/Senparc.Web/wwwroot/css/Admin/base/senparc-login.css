@@ -95,7 +95,7 @@ body {
         color: #1382f0;
         padding: 40px 0 30px;
         font-size: 26px;
-        text-align:center;
+        text-align: center;
     }
 
 
@@ -183,13 +183,23 @@ body {
 .login-ICP {
     text-align: center;
     bottom: 22px;
-    color: #333;
+    color: #FFF;
     width: 100%;
     margin-top: 20px;
 }
+
+    .login-ICP a {
+        color: #1382f0;
+    }
+
+    .login-ICP a:hover {
+       text-decoration:none;
+    }
+
 .bg-white {
     background-color: #fff !important;
 }
+
 .login-container .loginbox .loginbox-social {
     padding: 0 10px 10px;
     text-align: center;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 using System.Net;
 
 namespace Senparc.Mvc.Filter

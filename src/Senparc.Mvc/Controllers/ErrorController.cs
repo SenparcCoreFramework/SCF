@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Models.VD;
+﻿using Senparc.Scf.Core.Models.VD;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Senparc.Mvc.Controllers

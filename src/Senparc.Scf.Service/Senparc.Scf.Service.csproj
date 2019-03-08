@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Repository\Senparc.Scf.Repository.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.SMS\Senparc.Scf.SMS.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Utility\Senparc.Scf.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

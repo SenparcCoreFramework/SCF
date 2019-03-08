@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-using Senparc.Core.Config;
-using Senparc.Core.Email;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Config;
+using Senparc.Scf.Core.Email;
+using Senparc.Scf.Core.Enums;
 
 namespace Senparc.Threads
 {
-    using Senparc.Core.Cache;
-    using Senparc.Core.Extensions;
-    using Senparc.Log;
+    using Senparc.Scf.Core.Cache;
+    using Senparc.Scf.Core.Extensions;
+    using Senparc.Scf.Log;
 
     /// <summary>
     /// 自动发送邮件类

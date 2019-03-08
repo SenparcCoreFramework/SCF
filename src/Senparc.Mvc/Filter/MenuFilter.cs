@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Mvc.Filter
 {

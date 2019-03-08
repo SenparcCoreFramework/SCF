@@ -1,0 +1,90 @@
+﻿[v-cloak] {
+    display: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000;
+    height: 100%;
+}
+
+.wrapper {
+    height: 100%;
+}
+/*header -begin*/
+.el-header {
+    height: 80px;
+    background: -webkit-linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* Firefox 3.6 - 15 */
+    background: linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* 标准的语法（必须放在最后） */
+    color: #fff;
+}
+
+.header-logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.el-header .menu-toggle-Collapse .el-radio-button__inner {
+    color: #fff;
+    background-color: transparent;
+    border: 0;
+}
+
+.header-operations {
+    display: inline-block;
+    float: right;
+    height: 100%;
+}
+
+    .header-operations li {
+        color: #fff;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 10px;
+        margin: 0 10px;
+        line-height: 60px;
+        cursor: pointer;
+    }
+/*header -end*/
+/*menu -begin*/
+.menu {
+    height: 100%;
+}
+
+    .menu a:hover,
+    .menu a:active,
+    .menu a:focus {
+        text-decoration: none;
+        color: #6f17e3;
+    }
+
+    .menu a {
+        text-decoration: none;
+        display: inherit;
+        height: 100%;
+    }
+
+
+.link-unstyle {
+    text-decoration: none;
+}
+
+a.link-unstyle:hover,
+a.link-unstyle:active,
+a.link-unstyle:focus {
+    text-decoration: none;
+}
+
+.query-form {
+    margin-top: 20px;
+    padding-top: 25px;
+}

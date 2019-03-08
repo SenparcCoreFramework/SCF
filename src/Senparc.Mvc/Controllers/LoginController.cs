@@ -1,5 +1,6 @@
 ﻿using Senparc.Service;
-using Senparc.Core.Cache;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Service;
 
 namespace Senparc.Mvc.Controllers
 {

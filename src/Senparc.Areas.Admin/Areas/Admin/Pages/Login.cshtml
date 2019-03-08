@@ -1,0 +1,69 @@
+﻿@page
+@model Senparc.Areas.Admin.Areas.Admin.Pages.LoginModel
+@{
+}
+@{
+    ViewData["Title"] = "登录";
+    Layout = "_Empty";
+}
+
+@section HeaderContent{
+    <style>
+        body {
+            background: #94a1ae;
+        }
+    </style>
+}
+
+<link href="~/css/Admin/base/senparc-login.css" rel="stylesheet" />
+<div class="content">
+    <div class="login-container animated fadeIn logoBox ">
+        <div class="login-inner-box">
+            <span class="logoImg">
+                <img src="~/images/logo-login-scf.png" width="173" />
+            </span>
+            <form asp-action="Index" asp-controller="Login" method="post">
+                <div class="form-control" style="position:absolute;left:-9999px;">
+                    <input type="text" name="oldName" value="" />
+                    <input type="password" name="oldPassword" value="" />
+                </div>
+                <div class="loginbox bg-white logoBg">
+                    <div class="loginbox-title">管理员登录</div>
+                    <div class="loginbox-textbox">
+                        <div class="form-group">
+                            <input type="text" asp-for="Name" placeholder="用户名" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="loginbox-textbox">
+                        <div class="form-group">
+                            <input type="password" asp-for="Password" placeholder="密码" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*@if (Model.ShowCheckCode)
+                        {
+                            <div class="loginbox-textbox">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(z => z.CheckCode, new { @class = "form-control input-sm", @placeholder = "验证码" })
+                                    <span class="input-group-btn" id="checkCodeWrap">
+                                        <img class="img-checkcode" alt="验证码，不区分大小写" id="refreshCode" src="@Url.Action("GenerateCode", "Home", new { kind = CheckCodeKind.Login, area = "" })">
+                                    </span>
+                                </div>
+                            </div>
+                        }*@
+                    <div class="loginbox-textbox">
+                        <div class="form-group">
+                            <button class="btn btn-primary form-control" type="submit">登录</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            @*技术支持*@
+            <div class="login-ICP">
+                技术支持：<a href="http://www.senparc.com/" target="_blank" title="点击进入官网">苏州盛派网络科技有限公司</a>
+            </div>
+        </div>
+    </div>
+</div>

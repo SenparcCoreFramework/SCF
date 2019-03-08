@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Utilities;
 using Senparc.Core.Utility;
 using Senparc.Mvc.Weixin;
 using Senparc.Weixin.Entities;
@@ -75,7 +76,7 @@ namespace Senparc.Mvc.Controllers
             {
                 #region 记录 Request 日志
 
-                var logPath = Server.GetMapPath(string.Format("~/logs/mp/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+                var logPath = ServerUtility.ContentRootMapPath(string.Format("~/logs/mp/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
                 if (!Directory.Exists(logPath))
                 {
                     Directory.CreateDirectory(logPath);
@@ -131,7 +132,7 @@ namespace Senparc.Mvc.Controllers
                 #region 异常处理
                 SenparcTrace.Log($"MessageHandler错误：{ex.Message}");
 
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

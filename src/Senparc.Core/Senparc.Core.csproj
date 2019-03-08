@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
@@ -11,26 +11,23 @@
       </ReferencePath>
     </ItemGroup>
   </Target>
-
-  <ItemGroup>
-    <Compile Remove="Models\DataBaseModel\Mapping\AccountTypeConfigurationMapping.cs" />
-  </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Senparc.Weixin" Version="6.2.0" />
-    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.2.3" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.3.1.1" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.5.0" />
+    <PackageReference Include="Senparc.Weixin" Version="6.3.8.2" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.3.3" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.6.11" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
 

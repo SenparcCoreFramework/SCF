@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Senparc.Core.Area;
+using Senparc.Scf.Core.Area;
 
 namespace Senparc.Mvc.Controllers
 {

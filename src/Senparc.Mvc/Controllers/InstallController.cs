@@ -1,6 +1,7 @@
 ﻿using Senparc.Service;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
+using Senparc.Scf.Service;
 
 namespace Senparc.Mvc.Controllers
 {
@@ -27,7 +28,7 @@ namespace Senparc.Mvc.Controllers
             var vd = new Install_IndexVD()
             {
                 AdminUserName = userName,
-                AdminPassword = password
+                AdminPassword = password//这里不可以使用 adminUserInfo.Password，因为此参数已经是加密信息
             };
             return View(vd);
         }

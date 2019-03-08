@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Core.Utility;
 using Senparc.Mvc.CustomActionResults;
+using Senparc.Scf.Core.Utility;
 
 namespace Senparc.Mvc
 {

@@ -2,24 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Cache;
-using Senparc.Core.Enums;
-using Senparc.Core.Extensions;
-using Senparc.Core.Models;
-using Senparc.Core.Models.VD;
-using Senparc.Log;
-using Senparc.Utility;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Models.VD;
+using Senparc.Scf.Log;
+using Senparc.Scf.Utility;
 using System;
 using System.Collections.Generic;
-using BaseVD = Senparc.Core.Models.VD;
+using BaseVD = Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Mvc.Controllers
 {
     //[RequireHttps]
     //[SenparcHandleError]
     [UserAuthorize("UserAnonymous")]
-    public class BaseController : Controller, IResultFilter
+    public class BaseController : Controller, IResultFilter, IValidatorEnvironment
     {
         //private ISystemConfigService _systemConfigService;
         protected FullSystemConfig _fullSystemConfig;
@@ -34,35 +35,42 @@ namespace Senparc.Mvc.Controllers
 
         public string UserName => User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
-        public bool IsAdmin => base.HttpContext.Session.GetString("AdminLogin") as string == "1" &&
-                       FullAccount != null;
+        public bool IsAdmin => base.HttpContext.Session.GetString("AdminLogin") as string == "1" && FullAccount != null;
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            TempData["Messager"] = TempData["Messager"];
-            var fullSystemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
-            _fullSystemConfig = fullSystemConfigCache.Data;
-
-            var fullAccountCache = SenparcDI.GetService<FullAccountCache>();
-            if (this.UserName != null)
+            try
             {
-                FullAccount = fullAccountCache.GetObject(this.UserName);
-                if (FullAccount != null)
-                {
-                    //...
+                TempData["Messager"] = TempData["Messager"];
+                var fullSystemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
+                _fullSystemConfig = fullSystemConfigCache.Data;
 
-                }
-                else
+                var fullAccountCache = SenparcDI.GetService<FullAccountCache>();
+                if (this.UserName != null)
                 {
-                    //用户不存在，发生严重异常
-                    LogUtility.Account.Error($"发生严重错误，用户已登录，但缓存及数据库中不存在：{this.UserName}");
+                    FullAccount = fullAccountCache.GetObject(this.UserName);
+                    if (FullAccount != null)
+                    {
+                        //...
+
+                    }
+                    else
+                    {
+                        //用户不存在，发生严重异常
+                        LogUtility.Account.Error($"发生严重错误，用户已登录，但缓存及数据库中不存在：{this.UserName}");
+                    }
                 }
+
+                FullAccount = FullAccount ?? new FullAccount();
+                FullAccount.LastActiveTime = DateTime.Now;
+
+                base.OnActionExecuting(context);
+            }
+            catch (Exception ex)
+            {
+                context.Result = RenderError(ex.Message, ex);
             }
 
-            FullAccount = FullAccount ?? new FullAccount();
-            FullAccount.LastActiveTime = DateTime.Now;
-
-            base.OnActionExecuting(context);
         }
 
         public void OnResultExecuting(ResultExecutingContext context)
@@ -176,7 +184,7 @@ namespace Senparc.Mvc.Controllers
         }
 
         [NonAction]
-        public virtual ActionResult RenderError(string message)
+        public virtual ActionResult RenderError(string message, Exception ex = null)
         {
             //保留原有的controller和action信息
             ViewData["FakeControllerName"] = RouteData.Values["controller"] as string;
@@ -184,6 +192,8 @@ namespace Senparc.Mvc.Controllers
 
             return View("Error", new Error_ExceptionVD
             {
+                Message = message,
+                Exception = ex
             });
         }
 
