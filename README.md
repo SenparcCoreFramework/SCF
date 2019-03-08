@@ -71,21 +71,21 @@ Done.
 
  <img src="http://image.mlkj.ymstudio.xyz/bower%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
 
-  3.4 如未安装bower,则在命令提示符中运行指令，安装 bower:
+  3.4 如未安装 bower,则在命令提示符中运行指令，安装 bower:
   
  > `npm install -g bower`
 
-    安装完成后，进入Senparc.Web/wwwroot 目录中  
+  3.5 安装完成后，使用 [文件资源管理器](https://baike.baidu.com/item/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8/1951545?fr=aladdin) 进入 Senparc.Web/wwwroot 目录中  
 
-    执行命令：  
+  执行命令以下，初始化 bower 依赖，一直回车到完成：  
 
-  >      `bower init` 初始化 bower 依赖，一直回车到完成  
+> `bower init` 
 
 <img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />  
 
-    紧接着执行命令：  
+  3.6 紧接着执行命令，安装项目样式、js 等依赖，这个执行过程会比较长，请耐心等待... 直到安装完成：  
 
-        `bower install gentelella` 安装项目样式、js 等依赖，这个执行过程会比较长，请耐心等待... 直到安装完成  
+> `bower install gentelella`  
 
 <img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
 
