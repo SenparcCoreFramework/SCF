@@ -61,29 +61,31 @@ Done.
 
  3. 还原样式包  
 
- 检查当前系统中node是否安装：node -v  
-
- 检查当前系统中npm是否安装：npm -v  
+  3.1 检查当前系统中node是否安装：`node -v`
+ 
+  3.2 检查当前系统中npm是否安装：`npm -v`
 
  <img src="http://image.mlkj.ymstudio.xyz/node&npm.png" />  
 
- 检查当前系统中bower是否安装：bower help  
+  3.3 检查当前系统中bower是否安装：`bower help` 
 
  <img src="http://image.mlkj.ymstudio.xyz/bower%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
 
-    如未安装bower,则在命令提示符中运行指令:npm install -g bower  安装bower  
+  3.4 如未安装bower,则在命令提示符中运行指令，安装 bower:
+  
+ > `npm install -g bower`
 
     安装完成后，进入Senparc.Web/wwwroot 目录中  
 
     执行命令：  
 
-        bower init 初始化bower依赖，一直回车到完成  
+  >      `bower init` 初始化 bower 依赖，一直回车到完成  
 
 <img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />  
 
     紧接着执行命令：  
 
-        bower install gentelella 安装项目样式,js等依赖，这个执行过程会比较长，请耐心等待...直到安装完成  
+        `bower install gentelella` 安装项目样式、js 等依赖，这个执行过程会比较长，请耐心等待... 直到安装完成  
 
 <img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
 
