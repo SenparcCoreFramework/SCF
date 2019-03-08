@@ -79,14 +79,14 @@ Done.
 
         bower init 初始化bower依赖，一直回车到完成  
 
-        <img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />  
+<img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />  
 
     紧接着执行命令：  
 
         bower install gentelella 安装项目样式,js等依赖，这个执行过程会比较长，请耐心等待...直到安装完成  
 
-        <img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
-        
+<img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
+
 
  4. 完成后，保存页面上显示的账号和密码，根据提示进入管理员后台。
 
