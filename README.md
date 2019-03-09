@@ -59,12 +59,52 @@ Done.
  
 <img src="https://weixin.senparc.com/images/SCF/Install/03.png" />
 
- 3. 完成后，保存页面上显示的账号和密码，根据提示进入管理员后台。
+
+
+ 4. 完成后，保存页面上显示的账号和密码，根据提示进入管理员后台。
 
 
 <img src="https://weixin.senparc.com/images/SCF/Install/04.png" />
 
 
-## 待办事项：
+### （备用）第四步：还原样式包
 
- [ ] 前端包管理器要从Bower切换为LibMan
+如果登录及管理员后台页面样式缺失，则需要进行这一步，否则可以忽略。
+
+1. 检查当前系统中node是否安装：`node -v`
+ 
+2. 检查当前系统中npm是否安装：`npm -v`
+
+ <img src="http://image.mlkj.ymstudio.xyz/node&npm.png" />  
+
+3. 检查当前系统中bower是否安装：`bower help` 
+
+ <img src="http://image.mlkj.ymstudio.xyz/bower%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
+
+4. 如未安装 bower,则在命令提示符中运行指令，安装 bower:
+  
+ > `npm install -g bower`
+
+5. 安装完成后，使用命令行进入 `Senparc.Web/wwwroot` 目录中，执行以下命令，初始化 bower 依赖，一直回车到完成：  
+
+> `bower init` 
+
+<img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />  
+
+6. 紧接着执行命令，安装项目样式、js 等依赖，这个执行过程会比较长，请耐心等待... 直到安装完成：  
+
+> `bower install gentelella`  
+
+<img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
+
+7. 完成。
+
+## 待办事项：
+- [ ] 前端包管理器要从Bower切换为LibMan
+- [ ] 完善 DDD 实践
+- [ ] 定制命名空间
+- [ ] 发布官网及在线 Demo
+- [ ] 发布定制模板生成器（在线）
+ - [ ] 可定制命名空间
+ - [ ] 可定制默认加载模块
+
