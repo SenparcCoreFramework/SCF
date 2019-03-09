@@ -1,18 +1,25 @@
-if (typeof vm === 'undefined' || !vm._isMounted) {
-    var vm = new Vue({
-        el: "#app"
-    });
-}
 var base = {
     alert: function (type, message, title, position, onClose, onClick) {//type:success/warning/info/error;position: top-right/top-left/bottom-right/bottom-left
-        vm.$notify({
-            title: title ? title : '提示',
-            dangerouslyUseHTMLString: true,
-            message: message ? message : '此处应有提示消息！',
-            position: position ? position : 'top-right',
-            type: type ? type : 'success',
-            onClose: typeof onClose === 'function' ? null : onClose,
-            onClick: typeof onClick === 'function' ? null : onClick
+        new PNotify({
+            title: "PNotify",
+            type: "info",
+            text: "Welcome. Try hovering over me. You can click things behind me, because I'm non-blocking.",
+            nonblock: {
+                nonblock: true
+            },
+            addclass: 'dark',
+            styling: 'bootstrap3',
+            hide: true,
+            before_close: function (PNotify) {
+                PNotify.update({
+                    title: PNotify.options.title + " - Enjoy your Stay",
+                    before_close: null
+                });
+
+                PNotify.queueRemove();
+
+                return false;
+            }
         });
     },
     showLoading: function (text, target, spinner, background) {
