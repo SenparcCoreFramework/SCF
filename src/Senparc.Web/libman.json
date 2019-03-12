@@ -51,7 +51,35 @@
     {
       "library": "element-ui@2.6.1",
       "destination": "wwwroot/lib/element-ui"
+    },
+    //gentelella“˝”√
+    {
+      "library": "font-awesome@5.7.2",
+      "destination": "wwwroot/lib/font-awesome"
+    },
+    {
+      "library": "fastclick@1.0.6",
+      "destination": "wwwroot/lib/fastclick"
+    },
+    {
+      "library": "nprogress@0.2.0",
+      "destination": "wwwroot/lib/nprogress"
+    },
+    {
+      "library": "iCheck@1.0.2",
+      "destination": "wwwroot/lib/iCheck"
+    },
+    {
+      "library": "pnotify@3.2.1",
+      "destination": "wwwroot/lib/pnotify"
+    },
+    {
+      "library": "bootstrap-sweetalert@1.0.1",
+      "destination": "wwwroot/lib/bootstrap-sweetalert"
+    },
+    {
+      "library": "bootstrap-sweetalert@1.0.1",
+      "destination": "wwwroot/lib/bootstrap-sweetalert"
     }
-
   ]
 }
