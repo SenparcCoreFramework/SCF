@@ -2,13 +2,31 @@
 
 # SCF - SenparcCoreFramework
 
+> 当前快速更新分支：[Developer-RazorPage-DDD-bs](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD-bs)
+
+> 我们欢迎第三方开源组件提供自己的解决方案，我们将会测试并集成到 SCF 中。
+
 SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包含了基础的缓存、数据库、模型、验证及配套管理后台，模块化，具有高度的可扩展性。
 
 > 说明：SCF 由盛派（Senparc）团队经过多年优化迭代的自用系统底层框架 SenparcCore 整理而来，经历了 .NET 3.5/4.5 众多系统的实战检验，并最终移植到 .NET Core，目前已在多个 .NET Core 系统中稳定运行，在将其转型为开源项目的过程中，需要进行一系列的重构、注释完善和兼容性升级，目前尚处于雏形阶段，希望大家多提意见，我们会争取在最短的时间内优化并发布第一个试用版（Preview1）。感谢大家一直以来的支持！<br>
 > <br>
 > Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
-SCF 将提供完善的项目自动生成服务（参考 [WeChatSampleBuilder](http://sdk.weixin.senparc.com/Home/WeChatSampleBuilder)），为开发者提供项目定制生成服务。
+SCF 除了会为大家提供完善的框架代码，还会：
+
+1. 提供完善的项目自动生成服务（参考 [WeChatSampleBuilder](http://sdk.weixin.senparc.com/Home/WeChatSampleBuilder)），为开发者提供项目定制生成服务。
+
+2. 提供丰富的应用示例，例如[微信](https://github.com/JeffreySu/WeiXinMPSDK)、[跨平台应用平台](https://www.neuchar.com/)对接，等等。
+
+3. 提供完善的示例代码和文档。
+
+4. 提供博客和视频教程（也欢迎开发者参与或发起）。
+
+5. 提供交流社区，包括但不仅限于[问答网站](https://weixin.senparc.com/QA)、[QQ群](#qq-技术交流群)、微信群、直播群。
+
+## QQ 技术交流群
+
+<img src="https://sdk.weixin.senparc.com/images/QQ_Group_Avatar/SCF/QQ-Group.jpg" width="380" />
 
 ## 环境要求
 
