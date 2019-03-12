@@ -74,12 +74,21 @@
       "destination": "wwwroot/lib/pnotify"
     },
     {
+      "library": "pnotify.buttons",
+      "destination": "wwwroot/lib/pnotify.buttons"
+    },
+
+    {
       "library": "bootstrap-sweetalert@1.0.1",
       "destination": "wwwroot/lib/bootstrap-sweetalert"
     },
     {
-      "library": "bootstrap-sweetalert@1.0.1",
-      "destination": "wwwroot/lib/bootstrap-sweetalert"
+      "library": "validator@10.11.0",
+      "destination": "wwwroot/lib/validator"
+    },
+    {
+      "library": "font-awesome",
+      "destination": "wwwroot/lib/font-awesome"
     }
   ]
 }
