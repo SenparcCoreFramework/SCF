@@ -47,6 +47,10 @@
     {
       "library": "gentelella@1.4.0",
       "destination": "wwwroot/lib/gentelella"
+    },
+    {
+      "library": "element-ui@2.6.1",
+      "destination": "wwwroot/lib/element-ui"
     }
 
   ]
