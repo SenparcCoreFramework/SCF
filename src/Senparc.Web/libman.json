@@ -48,5 +48,6 @@
       "library": "gentelella@1.4.0",
       "destination": "wwwroot/lib/gentelella"
     }
+
   ]
 }
