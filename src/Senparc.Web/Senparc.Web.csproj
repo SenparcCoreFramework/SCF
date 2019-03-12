@@ -33,6 +33,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.animate.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.animate.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.buttons.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.buttons.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.callbacks.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.callbacks.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.confirm.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.confirm.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.desktop.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.desktop.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.history.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.history.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.mobile.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.mobile.js.map" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.nonblock.js" />
+    <None Include="wwwroot\lib.outside\pnotify\pnotify.nonblock.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Senparc.Areas.Admin\Senparc.Areas.Admin.csproj" />
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
