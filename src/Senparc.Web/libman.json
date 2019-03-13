@@ -88,7 +88,8 @@
     },
     {
       "library": "popper.js@1.14.7",
-      "destination": "wwwroot/lib/popper"
+      "destination": "wwwroot/lib/bootstrap/js/src/",
+      "files": [ "popper.js" ]
     }
   ]
 }
