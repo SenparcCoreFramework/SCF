@@ -293,7 +293,7 @@ if (typeof NProgress != 'undefined') {
     });
 
     $(window).load(function () {
-        NProgress.done();
+        //NProgress.done();
     });
 }
 

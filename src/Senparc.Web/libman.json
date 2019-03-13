@@ -86,10 +86,14 @@
       "library": "validator@10.11.0",
       "destination": "wwwroot/lib/validator"
     },
+    //{
+    //  "library": "popper.js@1.14.7",
+    //  "destination": "wwwroot/lib/bootstrap/js/src/",
+    //  "files": [ "popper.js", "popper.min.js" ]
+    //},
     {
       "library": "popper.js@1.14.7",
-      "destination": "wwwroot/lib/bootstrap/js/src/",
-      "files": [ "popper.js" ]
+      "destination": "wwwroot/lib/popper"
     }
   ]
 }

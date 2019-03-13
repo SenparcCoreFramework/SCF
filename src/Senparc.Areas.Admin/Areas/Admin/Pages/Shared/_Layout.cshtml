@@ -111,7 +111,7 @@
     <environment include="Development">
         <!-- jQuery -->
         <script src="~/lib/jquery/jquery.min.js"></script>
-        @*<script src="~/lib/popper/popper.js"></script>*@
+        <script src="~/lib/popper/umd/popper.js"></script>
         <!-- Bootstrap -->
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -122,7 +122,7 @@
         <script src="~/lib/iCheck/icheck.min.js"></script>
         <!-- PNotify -->
         <script src="~/lib/pnotify/pnotify.js"></script>
-        <script src="~/lib/pnotify/pnotify.buttons.js"></script>
+        <script src="~/lib.outside/pnotify/pnotify.buttons.js"></script>
         <!-- Sweetalert -->
         <script src="~/lib/bootstrap-sweetalert/sweetalert.min.js"></script>
         <!-- validator -->
@@ -136,7 +136,8 @@
     <environment exclude="Development">
         <!-- jQuery -->
         <script src="~/lib/jquery/jquery.min.js"></script>
-        @*<script src="~/lib/popper/popper.min.js"></script>*@
+        <!-- popper.js https://github.com/FezVrasta/popper.js/issues/429#issuecomment-340678752 -->
+        <script src="~/lib/popper/umd/popper.js"></script>
         <!-- Bootstrap -->
         <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -147,7 +148,7 @@
         <script src="~/lib/iCheck/icheck.min.js"></script>
         <!-- PNotify -->
         <script src="~/lib/pnotify/pnotify.js"></script>
-        <script src="~/lib/pnotify/pnotify.buttons.js"></script>
+        <script src="~/lib.outside/pnotify/pnotify.buttons.js"></script>
         <!-- Sweetalert -->
         <script src="~/lib/bootstrap-sweetalert/sweetalert.min.js"></script>
         <!-- validator -->
