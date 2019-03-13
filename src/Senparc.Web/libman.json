@@ -73,10 +73,10 @@
       "library": "pnotify@3.2.1",
       "destination": "wwwroot/lib/pnotify"
     },
-    {
-      "library": "pnotify.buttons",
-      "destination": "wwwroot/lib/pnotify.buttons"
-    },
+    //{
+    //  "library": "pnotify.buttons",
+    //  "destination": "wwwroot/lib/pnotify.buttons"
+    //},
 
     {
       "library": "bootstrap-sweetalert@1.0.1",
@@ -87,8 +87,8 @@
       "destination": "wwwroot/lib/validator"
     },
     {
-      "library": "font-awesome",
-      "destination": "wwwroot/lib/font-awesome"
+      "library": "popper.js@1.14.7",
+      "destination": "wwwroot/lib/popper"
     }
   ]
 }
