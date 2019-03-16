@@ -25,9 +25,9 @@ namespace Senparc.Scf.Core.Models.VD
 
         public MetaCollection MetaCollection { get; set; }
 
-        public string UserName { get; set; }
+        public string UserName => User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; }//TODO:进行判断
 
         public new RouteData RouteData { get => base.RouteData; set => throw new NotImplementedException(); }
 
@@ -59,6 +59,8 @@ namespace Senparc.Scf.Core.Models.VD
             //获取缓存系统信息
             var fullSystemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
             FullSystemConfig = fullSystemConfigCache.Data;
+
+
 
             base.OnPageHandlerSelected(context);
         }

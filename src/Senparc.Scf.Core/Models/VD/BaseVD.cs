@@ -6,7 +6,7 @@ namespace Senparc.Scf.Core.Models.VD
 {
     public interface IBaseUiVD
     {
-        string UserName { get; set; }
+        string UserName { get; }
 
         bool IsAdmin { get; set; }
 
@@ -38,7 +38,7 @@ namespace Senparc.Scf.Core.Models.VD
 
         public MetaCollection MetaCollection { get; set; }
 
-        public string UserName { get; set; }
+        public string UserName { get; }
 
         public bool IsAdmin { get; set; }
 
