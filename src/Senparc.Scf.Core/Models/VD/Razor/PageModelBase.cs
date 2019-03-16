@@ -25,7 +25,7 @@ namespace Senparc.Scf.Core.Models.VD
 
         public MetaCollection MetaCollection { get; set; }
 
-        public string UserName => User.Identity.IsAuthenticated ? User.Identity.Name : null;
+        public string UserName { get; set; }
 
         public bool IsAdmin { get; set; }//TODO:进行判断
 
@@ -50,9 +50,14 @@ namespace Senparc.Scf.Core.Models.VD
 
         public FullAccount FullAccount { get; set; }
 
-        public DateTime PageStartTime { get; set; }
+        public DateTimeOffset PageStartTime { get; set; }
 
-        public DateTime PageEndTime { get; set; }
+        public DateTimeOffset PageEndTime { get; set; }
+
+        public PageModelBase()
+        {
+            PageStartTime = SystemTime.Now;
+        }
 
         public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
         {
@@ -60,9 +65,16 @@ namespace Senparc.Scf.Core.Models.VD
             var fullSystemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
             FullSystemConfig = fullSystemConfigCache.Data;
 
-
+            UserName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
 
             base.OnPageHandlerSelected(context);
+        }
+
+        public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
+        {
+            PageEndTime = SystemTime.Now;
+
+            base.OnPageHandlerExecuted(context);
         }
 
         /// <summary>

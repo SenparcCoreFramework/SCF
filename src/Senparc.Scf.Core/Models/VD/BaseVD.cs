@@ -6,7 +6,7 @@ namespace Senparc.Scf.Core.Models.VD
 {
     public interface IBaseUiVD
     {
-        string UserName { get; }
+        string UserName { get; set; }
 
         bool IsAdmin { get; set; }
 
@@ -16,9 +16,9 @@ namespace Senparc.Scf.Core.Models.VD
 
         MetaCollection MetaCollection { get; set; }
 
-        DateTime PageStartTime { get; set; }
+        DateTimeOffset PageStartTime { get; set; }
 
-        DateTime PageEndTime { get; set; }
+        DateTimeOffset PageEndTime { get; set; }
     }
 
 
@@ -38,7 +38,7 @@ namespace Senparc.Scf.Core.Models.VD
 
         public MetaCollection MetaCollection { get; set; }
 
-        public string UserName { get; }
+        public string UserName { get; set; }
 
         public bool IsAdmin { get; set; }
 
@@ -50,9 +50,9 @@ namespace Senparc.Scf.Core.Models.VD
 
         public FullAccount FullAccount { get; set; }
 
-        public DateTime PageStartTime { get; set; }
+        public DateTimeOffset PageStartTime { get; set; }
 
-        public DateTime PageEndTime { get; set; }
+        public DateTimeOffset PageEndTime { get; set; }
     }
 
 

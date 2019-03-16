@@ -101,6 +101,7 @@
             <footer>
                 <div class="pull-right">
                     &copy; @DateTime.Now.Year -  <a href="http://wwww.senparc.com">苏州盛派网络科技有限公司</a>
+                    | 页面执行时间：@((Model.PageEndTime-Model.PageStartTime).TotalMilliseconds)ms
                 </div>
                 <div class="clearfix"></div>
             </footer>
