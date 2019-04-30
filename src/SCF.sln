@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2011
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4D53646F-67EE-430A-8B50-9600CFACF434}"
 EndProject
@@ -49,8 +49,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetSources", "NugetSources", "{B2B84E12-606C-45FE-8376-D947C29FEDA9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web", "Senparc.Web\Senparc.Web.csproj", "{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web.OldMvc", "Senparc.Web.OldMvc\Senparc.Web.OldMvc.csproj", "{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.SCF-Packages-Readonly", "1.SCF-Packages-Readonly", "{20618121-91AE-4EFE-9899-ABCB0ADACE86}"
 EndProject
@@ -142,9 +140,6 @@ Global
 		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F3C7D09-7FA4-41B5-9E91-945DB61DEB48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B254D784-FC0B-4BF5-917E-5AEFF680EDBE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{353775C5-4979-48FF-B4C6-90C54D923AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
