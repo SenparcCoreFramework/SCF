@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="0.6.1-preview1" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.7.0-preview3" />
   </ItemGroup>
 
   <ItemGroup>
