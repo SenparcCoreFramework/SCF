@@ -53,7 +53,7 @@ namespace Senparc.Web
                 .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))//TODO：让SMS模块进行注册
                 ;
 
-           
+
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
@@ -174,8 +174,8 @@ namespace Senparc.Web
             #region 注册第三方平台
 
                 .RegisterOpenComponent(senparcWeixinSetting.Value,
-                    //getComponentVerifyTicketFunc
-                    componentAppId =>
+                  //getComponentVerifyTicketFunc
+                  async componentAppId =>
                     {
 
                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
@@ -189,14 +189,14 @@ namespace Senparc.Web
                         {
                             using (var sr = new StreamReader(fs))
                             {
-                                var ticket = sr.ReadToEnd();
+                                var ticket = await sr.ReadToEndAsync();
                                 return ticket;
                             }
                         }
                     },
 
-                     //getAuthorizerRefreshTokenFunc
-                     (componentAppId, auhtorizerId) =>
+                   //getAuthorizerRefreshTokenFunc
+                   async (componentAppId, auhtorizerId) =>
                      {
                          var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))

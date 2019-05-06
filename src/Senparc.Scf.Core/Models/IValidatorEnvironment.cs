@@ -14,7 +14,7 @@ namespace Senparc.Scf.Core.Models
         /// <summary>
         /// Controller 及 PageModel 中的 ModelState 对象
         /// </summary>
-        ModelStateDictionary ModelState { get;  }
+        ModelStateDictionary ModelState { get; }
 
         /// <summary>
         /// HttpContext
