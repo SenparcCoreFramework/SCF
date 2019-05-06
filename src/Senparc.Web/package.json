@@ -7,6 +7,7 @@
     "gulp": "^3.9.0",
     "gulp-typescript": "^5.0.1",
     "typescript": "^3.4.5",
-    "gentelella": "1.4.0"
+    "gentelella": "1.4.0",
+    "bootstrap-sweetalert": "1.0.1"
   }
 }
