@@ -8,6 +8,7 @@
     "gulp-typescript": "^5.0.1",
     "typescript": "^3.4.5",
     "gentelella": "1.4.0",
-    "bootstrap-sweetalert": "1.0.1"
+    "bootstrap-sweetalert": "1.0.1",
+    "merge-stream": "1.0.1"
   }
 }

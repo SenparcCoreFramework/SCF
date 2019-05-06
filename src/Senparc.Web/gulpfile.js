@@ -33,7 +33,7 @@ var merge = require('merge-stream');
 var webpackages = {
     "requirejs": { "bin/*": "bin/" }
     // ...
-}
+};
 
 //gulp.task("dist_lib", function () {
 //    var streams = [];
