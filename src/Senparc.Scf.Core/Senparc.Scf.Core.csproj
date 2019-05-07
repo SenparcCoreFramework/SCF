@@ -13,12 +13,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Senparc.CO2NET" Version="0.7.0-preview3" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.7.1-preview3" />
 
-    <PackageReference Include="Senparc.Weixin" Version="6.4.1.2-preview3" />
-    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.3.5.1-preview1" />
+    <PackageReference Include="Senparc.Weixin" Version="6.4.2-preview3" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.3.5.1-preview3" />
     <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.5.1-preview1" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.1.2-preview3" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.2-preview3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
