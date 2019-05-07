@@ -1,28 +1,6 @@
 ﻿namespace Senparc.Scf.Core.Enums
 {
-    public static class Enums
-    {
-        public static readonly string[] DayOfWeekString = new[]
-        {
-            "星期日",
-            "星期一",
-            "星期二",
-            "星期三",
-            "星期四",
-            "星期五",
-            "星期六"
-        };
-    }
-
-    /// <summary>
-    /// 依赖注入的生命周期
-    /// </summary>
-    public enum DILifecycleType
-    {
-        Scoped,
-        Singleton,
-        Transient
-    }
+   
 
     public enum MessageType
     {
