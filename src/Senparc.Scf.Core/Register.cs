@@ -18,6 +18,7 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using AutoMapper;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET;
 
 namespace Senparc.Scf.Core
 {

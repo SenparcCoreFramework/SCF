@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
     <PackageReference Include="Senparc.NeuChar" Version="0.6.6-preview3" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.1.2-preview3" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.2-preview3" />
     <PackageReference Include="Senparc.Weixin.Open" Version="4.5.0.2-preview3" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.4.2.2-preview3" />
   </ItemGroup>

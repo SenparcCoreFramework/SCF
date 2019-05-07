@@ -1,4 +1,5 @@
-﻿using Senparc.CO2NET.Extensions;
+﻿using Senparc.CO2NET;
+using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Core.DI;
 using Senparc.Scf.Core.Enums;
 using System;

@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Enums;
+﻿using Senparc.CO2NET;
+using Senparc.Scf.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
