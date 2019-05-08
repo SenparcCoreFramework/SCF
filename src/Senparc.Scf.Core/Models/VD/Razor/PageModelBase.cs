@@ -54,6 +54,13 @@ namespace Senparc.Scf.Core.Models.VD
 
         public DateTime PageEndTime { get; set; }
 
+        //protected void SetupTraceInfo()
+        //{
+        //    ViewData["TraceIdent"] = HttpContext.TraceIdentifier;
+        //    //ViewData["NumLogs"] = HttpRequestLog.GetHttpRequestLog(HttpContext.TraceIdentifier).RequestLogs.Count;
+        //}
+
+
         public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
         {
             //获取缓存系统信息
