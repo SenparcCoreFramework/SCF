@@ -2,7 +2,7 @@
 
 # SCF - SenparcCoreFramework
 
-> 当前快速更新分支：[Developer-RazorPage-DDD-bs](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD-bs)
+> 当前快速更新分支：[Developer-RazorPage-DDD](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD)
 
 > 我们欢迎第三方开源组件提供自己的解决方案，我们将会测试并集成到 SCF 中。
 
