@@ -19,7 +19,7 @@ namespace Senparc.Core.Cache
     public class FullSystemConfigCache : BaseCache<FullSystemConfig>/*, IFullSystemConfigCache*/
     {
         public const string CACHE_KEY = "FullSystemConfigCache";
-        private ISqlClientFinanceData _dataContext => base._db.BaseDataContext as ISqlClientFinanceData;
+        private ISqlClientFinanceData _dataContext => base._db as ISqlClientFinanceData;
 
         public FullSystemConfigCache(ISqlClientFinanceData db)
             : base(CACHE_KEY, db)

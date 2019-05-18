@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Senparc.CO2NET;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
@@ -24,6 +25,9 @@ namespace Senparc.Scf.Repository
         {
             //System.Web.HttpContext.Current.Response.Write("-"+this.GetType().Name + "<br />");
             //DB = db ?? ObjectFactory.GetInstance<ISqlClientFinanceData>();//如果没有定义，取默认数据库
+
+            base.BaseDB = db ?? SenparcDI.GetService<ISqlBaseFinanceData>();// ObjectFactory.GetInstance<ISqlClientFinanceData>();
+
             var keys = EntitySetKeys.GetEntitySetKeys(db.GetType());
             _entitySetName = keys[typeof(T)];
         }

@@ -6,6 +6,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
+using Senparc.Service;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;

@@ -1,4 +1,6 @@
-﻿using Senparc.Scf.Core.Models;
+﻿using Senparc.Core.Models;
+using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Models.VD;
 using System;
 

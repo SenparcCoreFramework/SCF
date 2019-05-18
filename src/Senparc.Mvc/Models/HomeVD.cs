@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Models.VD;
+﻿using Senparc.Core.Models.VD;
+using Senparc.Scf.Core.Models.VD;
 
 namespace Senparc.Mvc.Models.VD
 {

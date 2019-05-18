@@ -24,7 +24,7 @@ namespace Senparc.Core.Cache
         public const string CACHE_KEY = "FullAccountCache";
         private const int timeout = 1440;
 
-        private ISqlClientFinanceData _dataContext => base._db.BaseDataContext as ISqlClientFinanceData;
+        private ISqlClientFinanceData _dataContext => base._db as ISqlClientFinanceData;
 
         /// <summary>
         /// 根据判断条件获取User

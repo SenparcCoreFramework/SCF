@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.Core.Models.VD;
-using Senparc.Scf.Service;
+using Senparc.Service;
 
 namespace Senparc.Web.Pages.Install
 {

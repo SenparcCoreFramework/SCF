@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
+using Senparc.Core.Cache;
+using Senparc.Core.Models;
+using Senparc.Core.Models.VD;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
@@ -75,9 +78,9 @@ namespace Senparc.Mvc.Controllers
 
         public void OnResultExecuting(ResultExecutingContext context)
         {
-            if (ViewData.Model is BaseVD.IBaseVD)
+            if (ViewData.Model is IBaseVD)
             {
-                var vd = ViewData.Model as BaseVD.IBaseVD;
+                var vd = ViewData.Model as IBaseVD;
                 vd.UserName = this.UserName;
                 vd.IsAdmin = this.IsAdmin;
                 vd.FullAccount = this.FullAccount;

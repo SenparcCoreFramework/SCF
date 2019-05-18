@@ -20,11 +20,11 @@ namespace Senparc.Scf.Repository
         }
 
         public ClientRepositoryBase() : this(null) { }
+
         public ClientRepositoryBase(ISqlBaseFinanceData db)
         {
             //System.Web.HttpContext.Current.Response.Write("-"+this.GetType().Name + "<br />");
 
-            base.BaseDB = db ?? SenparcDI.GetService<ISqlBaseFinanceData>();// ObjectFactory.GetInstance<ISqlClientFinanceData>();
 
 
             var keys = EntitySetKeys.GetEntitySetKeys(db.GetType());
