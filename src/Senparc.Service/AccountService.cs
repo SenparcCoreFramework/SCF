@@ -20,7 +20,6 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
-using Senparc.Scf.Service.OperationQueue;
 using Senparc.Scf.Utility;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
@@ -29,6 +28,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
 using Senparc.Scf.Service;
+using Senparc.Service.OperationQueue;
 
 namespace Senparc.Service
 {
@@ -433,7 +433,7 @@ namespace Senparc.Service
                 LogUtility.SystemLogger.Debug($"进行异步头像更新：{userInfo.headimgurl}");
 
                 //异步下载图片
-                var operationQueue = new Scf.Service.OperationQueue.OperationQueue();
+                var operationQueue = new OperationQueue.OperationQueue();
                 operationQueue.Add($"{account.Id}-{DateTime.Now.Ticks.ToString()}", OperationQueueType.更新用户头像, new List<object>() { account.Id, userInfo.headimgurl });
 
                 return account;
@@ -455,7 +455,7 @@ namespace Senparc.Service
             LogUtility.SystemLogger.Debug($"进行异步头像更新：{userInfo.headimgurl}");
 
             //异步下载图片
-            var operationQueue = new Scf.Service.OperationQueue.OperationQueue();
+            var operationQueue = new OperationQueue.OperationQueue();
             operationQueue.Add($"{account.Id}-{DateTime.Now.Ticks.ToString()}", OperationQueueType.更新用户头像, new List<object>() { account.Id, userInfo.headimgurl });
 
             return account;
