@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
+using Senparc.Scf.Service;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     public interface IClientServiceBase<T> : IServiceBase<T> where T : EntityBase//global::System.Data.Objects.DataClasses.EntityObject, new()
     {

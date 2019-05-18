@@ -3,13 +3,15 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
+using Senparc.Core.Models;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Log;
 using Senparc.Scf.Utility;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Scf.Service;
 
-namespace Senparc.Scf.Service.OperationQueue
+namespace Senparc.Service.OperationQueue
 {
     public class OperationQueueService
     {

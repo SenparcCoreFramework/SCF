@@ -1,11 +1,13 @@
 ﻿using Senparc.CO2NET;
+using Senparc.Core.Models;
+using Senparc.Repository;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
 using System;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
 
     public class AccountPayLogService : ClientServiceBase<AccountPayLog>

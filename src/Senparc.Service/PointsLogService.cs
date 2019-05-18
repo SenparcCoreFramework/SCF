@@ -1,12 +1,16 @@
 ﻿using Senparc.CO2NET;
+using Senparc.Core.Cache;
+using Senparc.Core.Models;
+using Senparc.Repository;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
+using Senparc.Scf.Service;
 using System;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     public class PointsLogService : ClientServiceBase<PointsLog>
     {

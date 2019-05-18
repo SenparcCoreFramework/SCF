@@ -5,8 +5,11 @@ using Senparc.Scf.Repository;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Utility;
 using Senparc.CO2NET;
+using Senparc.Core.Models;
+using Senparc.Repository;
+using Senparc.Core.Cache;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     //public interface ISystemConfigService : IBaseClientService<SystemConfig>
     //{

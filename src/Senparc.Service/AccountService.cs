@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Core.Cache;
+using Senparc.Core.Models;
+using Senparc.Repository;
 using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Enums;
@@ -25,8 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
+using Senparc.Scf.Service;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     public class AccountService : ClientServiceBase<Account> /*, UserService*/
     {
@@ -165,7 +169,7 @@ namespace Senparc.Scf.Service
             }
             catch (Exception ex)
             {
-                Log.LogUtility.Account.Error("退出登录失败。", ex);
+                Scf.Log.LogUtility.Account.Error("退出登录失败。", ex);
             }
         }
 
@@ -429,7 +433,7 @@ namespace Senparc.Scf.Service
                 LogUtility.SystemLogger.Debug($"进行异步头像更新：{userInfo.headimgurl}");
 
                 //异步下载图片
-                var operationQueue = new OperationQueue.OperationQueue();
+                var operationQueue = new Scf.Service.OperationQueue.OperationQueue();
                 operationQueue.Add($"{account.Id}-{DateTime.Now.Ticks.ToString()}", OperationQueueType.更新用户头像, new List<object>() { account.Id, userInfo.headimgurl });
 
                 return account;
@@ -451,7 +455,7 @@ namespace Senparc.Scf.Service
             LogUtility.SystemLogger.Debug($"进行异步头像更新：{userInfo.headimgurl}");
 
             //异步下载图片
-            var operationQueue = new OperationQueue.OperationQueue();
+            var operationQueue = new Scf.Service.OperationQueue.OperationQueue();
             operationQueue.Add($"{account.Id}-{DateTime.Now.Ticks.ToString()}", OperationQueueType.更新用户头像, new List<object>() { account.Id, userInfo.headimgurl });
 
             return account;

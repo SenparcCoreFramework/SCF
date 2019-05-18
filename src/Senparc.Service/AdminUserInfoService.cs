@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Senparc.Core.Models;
+using Senparc.Repository;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
@@ -12,7 +14,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     public class AdminUserInfoService : ClientServiceBase<AdminUserInfo>
     {
@@ -160,7 +162,7 @@ namespace Senparc.Scf.Service
 
         public List<AdminUserInfo> GetAdminUserInfo(List<int> ids, string[] includes = null)
         {
-            return GetFullList(z => ids.Contains(z.Id), z => z.Id, Core.Enums.OrderingType.Ascending, includes: includes);
+            return GetFullList(z => ids.Contains(z.Id), z => z.Id, Scf.Core.Enums.OrderingType.Ascending, includes: includes);
         }
 
         /// <summary>

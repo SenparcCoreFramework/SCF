@@ -1,10 +1,9 @@
-using Senparc.Scf.Core.Enums;
-using Senparc.Scf.Core.Models;
-using Senparc.Scf.Log;
-using Senparc.Scf.Repository;
 using System;
+using Senparc.Core.Models;
+using Senparc.Repository;
+using Senparc.Scf.Log;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     public class FeedBackService : ClientServiceBase<FeedBack>
     {

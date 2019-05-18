@@ -8,7 +8,7 @@ using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.SMS;
 using System;
 
-namespace Senparc.Scf.Service
+namespace Senparc.Service
 {
     public class SmsRecordService
     {
