@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.Scf.Core.Models;
+using System;
 
 namespace Senparc.Scf.Core.Models.VD
 {

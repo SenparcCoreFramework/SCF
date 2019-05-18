@@ -24,7 +24,8 @@ namespace Senparc.Scf.Repository
         {
             //System.Web.HttpContext.Current.Response.Write("-"+this.GetType().Name + "<br />");
             //DB = db ?? ObjectFactory.GetInstance<ISqlClientFinanceData>();//如果没有定义，取默认数据库
-            _entitySetName = EntitySetKeys.Keys[typeof(T)];
+            var keys = EntitySetKeys.GetEntitySetKeys(db.GetType());
+            _entitySetName = keys[typeof(T)];
         }
 
         //public BaseRepository() { }

@@ -1,6 +1,7 @@
-﻿using Senparc.Scf.Core.Models;
+﻿using Senparc.Core.Models;
+using Senparc.Scf.Repository;
 
-namespace Senparc.Scf.Repository
+namespace Senparc.Repository
 {
     public interface IAccountRepository : IClientRepositoryBase<Account>
     {

@@ -9,7 +9,16 @@ namespace Senparc.Scf.Core.Models
     /// </summary>
     public static class EntitySetKeys
     {
-        public static EntitySetKeysDictionary Keys = new EntitySetKeysDictionary();
+        private static EntitySetKeysDictionary Keys = new EntitySetKeysDictionary();
+
+        internal static List<Type> DbContextStore { get; set; } = new List<Type>();
+
+        internal static object DbContextStoreLock = new object();
+
+        public static EntitySetKeysDictionary GetEntitySetKeys(Type tryLoadDbContextType)
+        {
+            return Keys.GetKeys(tryLoadDbContextType);
+        }
     }
 
 
@@ -18,28 +27,46 @@ namespace Senparc.Scf.Core.Models
     /// </summary>
     public class EntitySetKeysDictionary : Dictionary<Type, string>
     {
-        public EntitySetKeysDictionary()
+        public EntitySetKeysDictionary GetKeys(Type tryLoadDbContextType)
         {
-            //初始化的时候从ORM中自动读取实体集名称及实体类别名称
-            var clientProperties = typeof(Models.SenparcEntities).GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+            //if (tryLoadDbContextType)
+            //{
+            //}
+            //TODO:判断必须是是DbContext类型
 
-            var properities = new List<PropertyInfo>();
-            properities.AddRange(clientProperties);
-
-            foreach (var prop in properities)
+            lock (EntitySetKeys.DbContextStoreLock)
             {
-                try
+
+                if (EntitySetKeys.DbContextStore.Contains(tryLoadDbContextType))
                 {
-                    //ObjectQuery，ObjectSet for EF4，DbSet for EF Code First
-                    if (prop.PropertyType.Name.IndexOf("DbSet") != -1 && prop.PropertyType.GetGenericArguments().Length > 0)
+                    return this;
+                }
+
+
+
+                //初始化的时候从ORM中自动读取实体集名称及实体类别名称
+                var clientProperties = tryLoadDbContextType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+
+                var properities = new List<PropertyInfo>();
+                properities.AddRange(clientProperties);
+
+                foreach (var prop in properities)
+                {
+                    try
                     {
-                        this[prop.PropertyType.GetGenericArguments()[0]] = prop.Name;//获取第一个泛型
+                        //ObjectQuery，ObjectSet for EF4，DbSet for EF Code First
+                        if (prop.PropertyType.Name.IndexOf("DbSet") != -1 && prop.PropertyType.GetGenericArguments().Length > 0)
+                        {
+                            this[prop.PropertyType.GetGenericArguments()[0]] = prop.Name;//获取第一个泛型
+                        }
+                    }
+                    catch
+                    {
                     }
                 }
-                catch
-                {
-                }
             }
+
+            return this;
         }
 
         public new string this[Type entityType]

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Scf.Core.Models;
+﻿using Senparc.Core.Models;
+using Senparc.Scf.Repository;
 
-namespace Senparc.Scf.Repository
+
+namespace Senparc.Repository
 {
     public interface IAccountPayLogRepository : IClientRepositoryBase<AccountPayLog>
     {
