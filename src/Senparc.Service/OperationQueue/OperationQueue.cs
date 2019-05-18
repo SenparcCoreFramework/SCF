@@ -6,7 +6,7 @@ using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Log;
 using Senparc.Scf.Utility;
 
-namespace Senparc.Scf.Service.OperationQueue
+namespace Senparc.Service.OperationQueue
 {
     public enum OperationQueueType
     {

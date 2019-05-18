@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Senparc.Service.OperationQueue;
+using System;
 using System.Collections.Generic;
 
-namespace Senparc.Scf.Service.OperationQueue
+namespace Senparc.Service.OperationQueue
 {
     /// <summary>
     /// 操作列队项
