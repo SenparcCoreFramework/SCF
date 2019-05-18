@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     public class PointsLogConfigurationMapping : IEntityTypeConfiguration<PointsLog>
     {

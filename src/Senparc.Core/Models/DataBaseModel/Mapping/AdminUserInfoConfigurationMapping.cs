@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     public class AdminUserInfoConfigurationMapping : IEntityTypeConfiguration<AdminUserInfo>
     {

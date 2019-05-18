@@ -1,9 +1,10 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Senparc.CO2NET;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Utility;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     public interface ISqlClientFinanceData : ISqlBaseFinanceData
     {

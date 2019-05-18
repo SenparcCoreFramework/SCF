@@ -1,12 +1,14 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET;
+using Senparc.Core.Models;
+using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.DI;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Exceptions;
 using Senparc.Scf.Core.Models;
 
-namespace Senparc.Scf.Core.Cache
+namespace Senparc.Core.Cache
 {
     //public interface IFullSystemConfigCache : IBaseCache<FullSystemConfig>
     //{
@@ -17,6 +19,7 @@ namespace Senparc.Scf.Core.Cache
     public class FullSystemConfigCache : BaseCache<FullSystemConfig>/*, IFullSystemConfigCache*/
     {
         public const string CACHE_KEY = "FullSystemConfigCache";
+        private ISqlClientFinanceData _dataContext => base._db.BaseDataContext as ISqlClientFinanceData;
 
         public FullSystemConfigCache(ISqlClientFinanceData db)
             : base(CACHE_KEY, db)
@@ -26,7 +29,7 @@ namespace Senparc.Scf.Core.Cache
 
         public override FullSystemConfig Update()
         {
-            var systemConfig = base._db.DataContext.SystemConfigs.FirstOrDefault();
+            var systemConfig = _dataContext.DataContext.SystemConfigs.FirstOrDefault();
             FullSystemConfig fullSystemConfig = null;
             if (systemConfig != null)
             {

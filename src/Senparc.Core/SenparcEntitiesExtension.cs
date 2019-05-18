@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET;
-using Senparc.Scf.Core.Models;
+using Senparc.Core.Models;
 
-namespace Senparc.Scf.Core
+namespace Senparc.Core
 {
     public static class SenparcEntitiesExtension
     {
@@ -14,7 +14,7 @@ namespace Senparc.Scf.Core
             //services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
 
             services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-                .UseSqlServer(Config.SenparcDatabaseConfigs.ClientConnectionString)
+                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString)
                 .Options));
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;

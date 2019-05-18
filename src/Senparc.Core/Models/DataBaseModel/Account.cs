@@ -3,7 +3,7 @@ using Senparc.Scf.Core.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     [Serializable]
     public partial class Account : EntityBase<int>

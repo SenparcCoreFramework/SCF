@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Senparc.Scf.Core.Cache
+namespace Senparc.Core.Cache
 {
     using Models;
     using Senparc.CO2NET;
     using Senparc.CO2NET.Extensions;
+    using Senparc.Scf.Core.Cache;
     using Senparc.Scf.Core.DI;
     using Senparc.Scf.Core.Enums;
 
@@ -23,6 +24,8 @@ namespace Senparc.Scf.Core.Cache
         public const string CACHE_KEY = "FullAccountCache";
         private const int timeout = 1440;
 
+        private ISqlClientFinanceData _dataContext => base._db.BaseDataContext as ISqlClientFinanceData;
+
         /// <summary>
         /// 根据判断条件获取User
         /// </summary>
@@ -30,7 +33,7 @@ namespace Senparc.Scf.Core.Cache
         /// <returns></returns>
         private Account GetAccount(Expression<Func<Account, bool>> where)
         {
-            var account = base._db.DataContext.Accounts
+            var account = _dataContext.DataContext.Accounts
                 .FirstOrDefault(where);
             return account;
         }

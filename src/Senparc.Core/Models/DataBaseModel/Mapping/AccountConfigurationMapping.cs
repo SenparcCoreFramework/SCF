@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Senparc.Scf.Core.Enums;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     public class AccountConfigurationMapping : IEntityTypeConfiguration<Account>
     {

@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Reflection;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     using Microsoft.EntityFrameworkCore;
     using Senparc.Scf.Core.Models;
 
-    public partial class SenparcEntities : DbContext
+    public partial class SenparcEntities : DbContext, ISenparcEntities
     {
         public SenparcEntities(DbContextOptions<SenparcEntities> dbContextOptions) : base(dbContextOptions)
         {

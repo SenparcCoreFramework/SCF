@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     /// <summary>
     /// AdminUserInfo 创建和更新

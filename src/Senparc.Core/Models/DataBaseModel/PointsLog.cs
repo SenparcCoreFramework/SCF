@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     [Serializable]
     public partial class PointsLog : EntityBase<int>

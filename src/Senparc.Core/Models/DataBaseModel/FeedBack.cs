@@ -2,7 +2,7 @@
 using Senparc.Scf.Core.Models;
 using System;
 
-namespace Senparc.Scf.Core.Models
+namespace Senparc.Core.Models
 {
     [Serializable]
     public partial class FeedBack : EntityBase<int>

@@ -20,7 +20,7 @@ namespace Senparc.Scf.Core.Cache
 
         public delegate void UpdateWithBataBase(T obj);
 
-        protected ISqlClientFinanceData _db;
+        protected ISqlBaseFinanceData _db;
 
         protected string CacheKey;
         private T _data;
@@ -46,11 +46,11 @@ namespace Senparc.Scf.Core.Cache
             : this(cacheKey, null)
         { }
 
-        public BaseCache(string cacheKey, ISqlClientFinanceData db)
+        public BaseCache(string cacheKey, ISqlBaseFinanceData db)
         {
             CacheKey = cacheKey;
 
-            _db = db ?? SenparcDI.GetService<ISqlClientFinanceData>(); //
+            _db = db ?? SenparcDI.GetService<ISqlBaseFinanceData>(); //
             if (TimeOut == 0)
             {
                 TimeOut = 1440;
