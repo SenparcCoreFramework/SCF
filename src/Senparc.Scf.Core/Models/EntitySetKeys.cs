@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -36,12 +37,16 @@ namespace Senparc.Scf.Core.Models
 
             lock (EntitySetKeys.DbContextStoreLock)
             {
+                if (!tryLoadDbContextType.IsSubclassOf(typeof(DbContext) ))
+                {
+                    throw new ArgumentException($"{nameof(tryLoadDbContextType)}不是 DbContext 的子类！", nameof(tryLoadDbContextType));
+                }
 
                 if (EntitySetKeys.DbContextStore.Contains(tryLoadDbContextType))
                 {
                     return this;
                 }
-
+                EntitySetKeys.DbContextStore.Add(tryLoadDbContextType);
 
 
                 //初始化的时候从ORM中自动读取实体集名称及实体类别名称
