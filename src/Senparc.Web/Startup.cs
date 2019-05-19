@@ -55,11 +55,13 @@ namespace Senparc.Web
                 ;
 
 
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 443;
-            });
+            //启用以下代码强制使用 https 访问
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 443;
+            //});
+
 
             //添加 SenparcCoreSetting 配置文件（内容可以根据需要对应修改）
             //注册数据库客户端连接
