@@ -87,7 +87,6 @@ namespace Senparc.Scf.Core.Utility
             XElement xml = this.GetXElement(GetXmlFullApplicationPath(entityName));
             List<TEntity> results = new List<TEntity>();
 
-            var props = typeof(TEntity).GetProperties();
             foreach (var x in xml.Elements(entityName))
             {
                 TEntity result = ConvertXmlToEntity<TEntity>(x);
