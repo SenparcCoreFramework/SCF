@@ -8,7 +8,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.Weixin" Version="6.4.2-preview3" />
+    <PackageReference Include="Senparc.Weixin" Version="6.4.6-preview1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
