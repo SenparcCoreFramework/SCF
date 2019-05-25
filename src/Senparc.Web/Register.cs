@@ -21,8 +21,9 @@ using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET;
 using Senparc.Core.Models;
 using Senparc.Scf.Core;
+using Senparc.Core;
 
-namespace Senparc.Core
+namespace Senparc.Web
 {
     /// <summary>
     /// 全局注册
