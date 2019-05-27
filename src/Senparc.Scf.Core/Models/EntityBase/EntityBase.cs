@@ -44,6 +44,10 @@ namespace Senparc.Scf.Core.Models
         /// <param name="time"></param>
         protected void SetUpdateTime(DateTime? time = null)
         {
+            if (AddTime == DateTime.MinValue)
+            {
+                AddTime = SystemTime.Now.LocalDateTime;//通常在添加的时候发生
+            }
             LastUpdateTime = time ?? SystemTime.Now.LocalDateTime;
         }
     }
