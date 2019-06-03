@@ -15,10 +15,10 @@
     </PackageReference>
     <PackageReference Include="Senparc.CO2NET" Version="0.8.1-preview1" />
 
-    <PackageReference Include="Senparc.Weixin" Version="6.4.6-preview1" />
+    <PackageReference Include="Senparc.Weixin" Version="6.4.7-preview1" />
     <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.3.7-preview1" />
     <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.7-preview1" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.6-preview1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.7.3-preview1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
