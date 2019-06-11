@@ -28,7 +28,7 @@ namespace Senparc.Scf.Repository
 
             base.BaseDB = db ?? SenparcDI.GetService<ISqlBaseFinanceData>();// ObjectFactory.GetInstance<ISqlClientFinanceData>();
 
-            var keys = EntitySetKeys.GetEntitySetKeys(base.BaseDB.BaseDataContext.GetType());
+            EntitySetKeysDictionary keys = EntitySetKeys.GetEntitySetKeys(base.BaseDB.BaseDataContext.GetType());
             _entitySetName = keys[typeof(T)];
         }
 
@@ -40,7 +40,7 @@ namespace Senparc.Scf.Repository
 
         public virtual bool IsInsert(T obj)
         {
-            var entry = BaseDB.BaseDataContext.Entry(obj);
+            Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<T> entry = BaseDB.BaseDataContext.Entry(obj);
             return entry.State == EntityState.Added || entry.State == EntityState.Detached; //TODO:EF5、Core 验证正确性
             //return obj.EntityKey == null || obj.EntityKey.EntityKeyValues == null;
 
@@ -193,7 +193,7 @@ namespace Senparc.Scf.Repository
         {
             string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             int count = 0;
-            var query = BaseDB.BaseDataContext
+            IQueryable<T> query = BaseDB.BaseDataContext
                  .Set<T>()
                  //.CreateQuery<T>(sql)
                  .Includes(includes);
@@ -216,7 +216,7 @@ namespace Senparc.Scf.Repository
         public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum, string[] includes = null)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
-            var result = BaseDB.BaseDataContext
+            decimal result = BaseDB.BaseDataContext
                  .Set<T>()
                  //.CreateQuery<T>(sql)
                  .Includes(includes).Where(where).Sum(sum);
@@ -295,5 +295,109 @@ namespace Senparc.Scf.Repository
         //}
 
         #endregion
+
+        public virtual async Task SaveChangesAsync()
+        {
+            await BaseDB.BaseDataContext.SaveChangesAsync();//TODO: SaveOptions.
+        }
+
+        public virtual async Task SaveAsync(T obj)
+        {
+            if (this.IsInsert(obj))
+            {
+                obj.AddTime = obj.LastUpdateTime = SystemTime.Now.LocalDateTime;
+                await this.AddAsync(obj);
+            }
+            else
+            {
+                obj.LastUpdateTime = SystemTime.Now.LocalDateTime;
+                await this.UpdateAsync(obj);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        public async Task<T> GetFirstOrDefaultObjectAsync(Expression<Func<T, bool>> where, string[] includes = null)
+        {
+            return await BaseDB.BaseDataContext
+                 .Set<T>()
+                 //.CreateQuery<T>(sql)
+                 .Includes(includes).FirstOrDefaultAsync(where);
+        }
+
+        public virtual async Task AddAsync(T obj)
+        {
+            BaseDB.BaseDataContext.Set<T>().Add(obj);
+            await this.SaveChangesAsync();
+        }
+
+        public virtual async Task UpdateAsync(T obj)
+        {
+            //_db.DataContext.ApplyPropertyChanges(_entitySetName, obj);
+            await this.SaveChangesAsync();
+        }
+        
+
+        /// <summary>
+        /// 删除对象
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="softDelete">是否使用软删除</param>
+        public virtual async Task DeleteAsync(T obj, bool softDelete = false)
+        {
+            if (softDelete)
+            {
+                obj.Flag = true;//软删除
+            }
+            else
+            {
+                BaseDB.BaseDataContext.Set<T>().Remove(obj);//硬删除
+            }
+            await this.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <param name="softDelete"></param>
+        /// <returns></returns>
+        public virtual async Task DeleteAllAsync(IEnumerable<T> objs, bool softDelete = false)
+        {
+            foreach (var obj in objs)
+            {
+                if (softDelete)
+                {
+                    obj.Flag = true;//软删除
+                }
+                else
+                {
+                    BaseDB.BaseDataContext.Set<T>().Remove(obj);//硬删除
+                }
+            }
+            await this.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// 批量添加, 待优化
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <param name="softDelete"></param>
+        /// <returns></returns>
+        public virtual async Task AddAllAsync(IEnumerable<T> objs)
+        {
+            //foreach (var obj in objs)
+            //{
+            //    //BaseDB.BaseDataContext.Set<T>().(obj);//硬删除
+            //}
+            BaseDB.BaseDataContext.Set<T>().AddRange(objs);
+            await this.SaveChangesAsync();
+        }
     }
 }

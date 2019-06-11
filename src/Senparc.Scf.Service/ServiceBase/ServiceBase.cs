@@ -130,6 +130,35 @@ namespace Senparc.Scf.Service
         }
 
         //TODO: 提供异步版本
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        public async Task<T> GetObjectAsync(Expression<Func<T, bool>> where, string[] includes = null)
+        {
+            return await RepositoryBase.GetFirstOrDefaultObjectAsync(where, includes);
+        }
 
+        public async Task SaveObjectAsync(T obj)
+        {
+            if (RepositoryBase.BaseDB.ManualDetectChangeObject)
+            {
+                TryDetectChange(obj);
+            }
+            await RepositoryBase.SaveAsync(obj);
+        }
+
+        public virtual async Task DeleteObjectAsync(Expression<Func<T, bool>> predicate)
+        {
+            T obj = await GetObjectAsync(predicate);
+            await DeleteObjectAsync(obj);
+        }
+
+        public virtual async Task DeleteObjectAsync(T obj)
+        {
+            await RepositoryBase.DeleteAsync(obj, true);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -49,5 +50,46 @@ namespace Senparc.Scf.Repository
         void Delete(T obj, bool softDelete = false);
 
         void SaveChanges();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        Task SaveAsync(T obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="softDelete"></param>
+        /// <returns></returns>
+        Task DeleteAsync(T obj, bool softDelete = false);
+
+        Task SaveChangesAsync();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        Task<T> GetFirstOrDefaultObjectAsync(Expression<Func<T, bool>> where, string[] includes = null);
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <param name="softDelete"></param>
+        /// <returns></returns>
+        Task DeleteAllAsync(IEnumerable<T> objs, bool softDelete = false);
+
+        /// <summary>
+        /// 批量添加
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <param name="softDelete"></param>
+        /// <returns></returns>
+        Task AddAllAsync(IEnumerable<T> objs);
     }
 }

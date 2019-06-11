@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 //using Jillzhang.GifUtility;
 
@@ -6,7 +7,94 @@ namespace Senparc.ImageUtility
 {
     public partial class ImageHelper
     {
+        const string ThumbnailPrefix = "thumbnail";
 
+        /// <summary>
+        /// You must create a delegate and pass a reference to the delegate as the callback parameter, but the delegate is not used.
+        /// </summary>
+        /// <remarks>https://docs.microsoft.com/en-us/dotnet/api/system.drawing.image.getthumbnailimage?view=netcore-2.2</remarks>
+        /// <returns></returns>
+        private static bool GetThumbnailImageCallBack()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceFilePath"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="isLocked"></param>
+        /// <param name="outputPath"></param>
+        /// <param name="isoldfilename"></param>
+        /// <param name="isDel"></param>
+        /// <returns></returns>
+        public static string GetThumbnail(Stream sourceStream, string orignalFullFileName, int width, int height, bool isLocked, string outputPath, bool isoldfilename, bool isDel)
+        {
+            int outputWidth;
+            int outputHeight;
+            string thumbnailFileName;
+            string thumbnailFileNameWithoutExtension;
+            string thumbnailPath;
+            using (Image image = Bitmap.FromStream(sourceStream))
+            {
+                if (isLocked)
+                {
+                    if (image.Width > width)
+                    {
+                        outputWidth = width;
+                        outputHeight = (image.Height * width) / image.Width;
+                    }
+                    else
+                    {
+                        outputWidth = image.Width;
+                        outputHeight = image.Height;
+                    }
+                }
+                else
+                {
+                    outputWidth = width;
+                    outputHeight = height;
+                }
+                using (Image thumbnail = image.GetThumbnailImage(outputWidth, outputHeight, GetThumbnailImageCallBack, IntPtr.Zero))
+                {
+                    if (isoldfilename)
+                    {
+                        thumbnailFileNameWithoutExtension = $"{System.IO.Path.GetFileNameWithoutExtension(orignalFullFileName)}_{ThumbnailPrefix}";
+                    }
+                    else
+                    {
+                        thumbnailFileNameWithoutExtension = $"{DateTime.Now.Ticks}{Guid.NewGuid().ToString("n").Substring(0, 8)}_{ThumbnailPrefix}";
+                    }
+                    thumbnailFileName = $"{thumbnailFileNameWithoutExtension}{System.IO.Path.GetExtension(orignalFullFileName)}";
+
+                    thumbnailPath = System.IO.Path.Combine(outputPath, thumbnailFileName);
+                    thumbnail.Save(thumbnailPath, System.Drawing.Imaging.ImageFormat.Png);
+                }
+            }
+            if (isDel && System.IO.File.Exists(orignalFullFileName))
+            {
+                System.IO.File.Delete(orignalFullFileName);
+            }
+            return thumbnailFileName;
+        }
+
+        public static string GetThumbnail(string sourceFilePath, int width, int height, bool isLocked, string outputPath, bool isoldfilename, bool isDel)
+        {
+            using (FileStream fs = new FileStream(sourceFilePath, FileMode.Open))
+            {
+                return GetThumbnail(fs, sourceFilePath, width, height, isLocked, outputPath, isoldfilename, isDel);
+            }
+        }
+
+        //public static string GetThumbnail(IFormFile formFile, int width, int height, bool isLocked, string outputPath, bool isoldfilename, bool isDel)
+        //{
+        //    using (Stream stream = formFile.OpenReadStream())
+        //    {
+        //        return GetThumbnail(stream, formFile.FileName, width, height, isLocked, outputPath, isoldfilename, isDel);
+        //    }
+        //}
         //public static bool GetThumbnail(string sourceFilePath, int width, int height, bool isLocked, string outputPath, bool isoldfilename, bool isDel)
         //{
         //    string outputFilePath;
