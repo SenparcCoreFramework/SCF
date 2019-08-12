@@ -40,5 +40,9 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0-preview1-final" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cache\RedisProvider\" />
+  </ItemGroup>
+
 
 </Project>

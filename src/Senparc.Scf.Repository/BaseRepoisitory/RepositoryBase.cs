@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Senparc.CO2NET;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
+using Senparc.Scf.Utility.ExpressionExtension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -340,7 +342,7 @@ namespace Senparc.Scf.Repository
             //_db.DataContext.ApplyPropertyChanges(_entitySetName, obj);
             await this.SaveChangesAsync();
         }
-        
+
 
         /// <summary>
         /// 删除对象
@@ -398,6 +400,91 @@ namespace Senparc.Scf.Repository
             //}
             BaseDB.BaseDataContext.Set<T>().AddRange(objs);
             await this.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// 动态排序
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="OrderbyField">xxx DESC, bbb ASC</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        public virtual async Task<PagedList<T>> GetObjectListAsync(Expression<Func<T, bool>> where, string OrderbyField, int pageIndex, int pageCount, string[] includes = null)
+        {
+            int skipCount = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
+            int totalCount = -1;
+            List<T> result = null;
+            IQueryable<T> resultList = BaseDB.BaseDataContext
+                                               .Set<T>()
+                                               .Includes(includes)
+                                               .Where(where);
+            if (pageCount > 0 && pageIndex > 0)
+            {
+                resultList = resultList.Skip(skipCount).Take(pageCount);
+                totalCount = this.ObjectCount(where, null);
+            }
+            else
+            {
+                resultList = resultList.OrderByExtension(OrderbyField);
+            }
+
+            result = await resultList.ToListAsync();
+
+            PagedList<T> list = new PagedList<T>(result, pageIndex, pageCount, totalCount, skipCount);
+            return list;
+        }
+
+        public async Task SaveObjectListAsync(IEnumerable<T> objs)
+        {
+            if (!objs.Any())
+            {
+                return;
+            }
+            ICollection<T> addList = new List<T>();
+            foreach (var item in objs)
+            {
+                if (this.IsInsert(item))
+                {
+                    addList.Add(item);
+                }
+                else
+                {
+                    BaseDB.BaseDataContext.Entry<T>(item).State = EntityState.Modified;
+                }
+            }
+
+            BaseDB.BaseDataContext.Set<T>().AddRange(addList);
+            await this.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public IDbContextTransaction BeginTransaction()
+        {
+            return BaseDB.BaseDataContext.Database.BeginTransaction();
+        }
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await BaseDB.BaseDataContext.Database.BeginTransactionAsync();
+        }
+
+        /// <summary>
+        /// 回滚事物
+        /// </summary>
+        /// <returns></returns>
+        public void RollbackTransaction()
+        {
+            BaseDB.BaseDataContext.Database.RollbackTransaction();
         }
     }
 }

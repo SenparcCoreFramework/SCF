@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.DI;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using Senparc.Scf.Core.DI;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using System;
@@ -91,5 +92,43 @@ namespace Senparc.Scf.Repository
         /// <param name="softDelete"></param>
         /// <returns></returns>
         Task AddAllAsync(IEnumerable<T> objs);
+
+        /// <summary>
+        /// 动态字段排序
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="OrderbyField">xxx desc, bbb asc</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        Task<PagedList<T>> GetObjectListAsync(Expression<Func<T, bool>> where, string OrderbyField, int pageIndex, int pageCount, string[] includes = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        Task SaveObjectListAsync(IEnumerable<T> objs);
+
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <returns></returns>
+        Task<IDbContextTransaction> BeginTransactionAsync();
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        IDbContextTransaction BeginTransaction();
+
+        /// <summary>
+        /// 回滚事务
+        /// </summary>
+        /// <returns></returns>
+        void RollbackTransaction();
+
+
     }
 }

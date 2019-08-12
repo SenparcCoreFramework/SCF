@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Senparc.CO2NET;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
@@ -159,6 +160,63 @@ namespace Senparc.Scf.Service
         public virtual async Task DeleteObjectAsync(T obj)
         {
             await RepositoryBase.DeleteAsync(obj, true);
+        }
+
+        public virtual async Task DeleteAllAsync(Expression<Func<T, bool>> where, bool softDelete = false)
+        {
+            var list = await GetFullListAsync(where);
+            await RepositoryBase.DeleteAllAsync(list, softDelete);
+        }
+
+        public virtual async Task DeleteAllAsync(IEnumerable<T> objects, bool softDelete = false)
+        {
+            await RepositoryBase.DeleteAllAsync(objects, softDelete);
+        }
+
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <typeparam name="TK"></typeparam>
+        /// <param name="where"></param>
+        /// <param name="orderField">xxx desc, yyy asc</param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        public async Task<PagedList<T>> GetFullListAsync(Expression<Func<T, bool>> where, string orderField = null, string[] includes = null)
+        {
+            return await RepositoryBase.GetObjectListAsync(where, orderField, 0, 0, includes);
+        }
+
+        public async Task SaveObjectListAsync(IEnumerable<T> objs)
+        {
+            await RepositoryBase.SaveObjectListAsync(objs);
+        }
+
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await RepositoryBase.BeginTransactionAsync();
+        }
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public IDbContextTransaction BeginTransaction()
+        {
+            return RepositoryBase.BeginTransaction();
+        }
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public void RollbackTransaction()
+        {
+            RepositoryBase.RollbackTransaction();
         }
     }
 }

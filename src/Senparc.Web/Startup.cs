@@ -69,6 +69,8 @@ namespace Senparc.Web
             //添加（注册） Scf 服务（重要，必须！）
             services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);
 
+            services.AddSingleton<Core.Cache.RedisProvider.IRedisProvider, Core.Cache.RedisProvider.StackExchangeRedisProvider>();
+
             services.AddSenparcGlobalServices(Configuration) //Senparc.CO2NET 全局注册
                    .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册
 

@@ -31,15 +31,7 @@ namespace Senparc.Service
         public ClientServiceBase(IClientRepositoryBase<T> repo, IMapper mapper = null)
             : base(repo, mapper)
         {
-        }
 
-        /// <summary>
-        /// 开启事物
-        /// </summary>
-        /// <returns></returns>
-        public IDbContextTransaction BeginTransaction()
-        {
-            return BaseData.BaseDB.BaseDataContext.Database.BeginTransaction();
         }
     }
 }
