@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Routing;
@@ -88,6 +89,26 @@ namespace Senparc.Core.Models.VD
             TempData["Messager"] = new Messager(messageType, messageText).ToJson();
         }
 
+        public IActionResult Ok<T>(T data, bool succed = true, string msg = "操作成功!")
+        {
+            AjaxReturnModel<T> returnModel = new AjaxReturnModel<T>(data);
+            returnModel.Success = succed;
+            returnModel.Msg = msg;
+            return new JsonResult(returnModel);
+        }
 
+        public IActionResult Ok(bool isSuccess)
+        {
+            if (!isSuccess)
+            {
+                return new JsonResult(new AjaxReturnModel() { Success = isSuccess, Msg = "操作失败!" });
+            }
+            return new JsonResult(new AjaxReturnModel() { Success = isSuccess, Msg = "操作成功" });
+        }
+
+        public IActionResult Ok(object data)
+        {
+            return new OkObjectResult(data);
+        }
     }
 }

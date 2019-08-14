@@ -29,7 +29,32 @@
             <div class="menu_section">
                 @*<h3>菜单</h3>*@
                 <ul class="nav side-menu">
-                    <li class="@Html.CurrentMenu("Home")">
+                    <li>
+                        <a href="~/Admin/Index">首页</a>
+                    </li>
+                    <li>
+                        <a>
+                            系统管理
+                        </a>
+                        <ul class="nav child_menu">
+                            <li>
+                                <a href="~/Admin/AdminUserInfo/Index">
+                                    管理员管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/Role/Index">
+                                    角色管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/Menu/Edit">
+                                    菜单管理
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @*<li class="@Html.CurrentMenu("Home")">
                         <a asp-page="/Index">
                             <i class="fa fa-home"></i>
                             首页
@@ -52,7 +77,7 @@
                             <i class="fa fa-envelope"></i>
                             用户反馈
                         </a>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>

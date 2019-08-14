@@ -1,5 +1,6 @@
 ﻿@model Senparc.Areas.Admin.BaseAdminPageModel
 @{
+    <!--内容页-->
 }
 
 <!DOCTYPE html>
@@ -67,45 +68,7 @@
 <body class="nav-md">
     @RenderSection("modal", false)
     <div class="container body">
-        <div class="main_container">
-            <!-- sidebar-->
-            <partial name="_MenuPartial" model="@Model" />
-
-            <!-- top navbar-->
-            <partial name="_HeaderPartial" />
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div>
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>
-                                @ViewData["Title"]
-                                <small> @RenderSection("explanations", false)</small>
-                            </h3>
-                            <ol class="breadcrumb">
-                                @RenderSection("breadcrumbs", false)
-                            </ol>
-                        </div>
-                        <div class="title_right">
-                            @RenderSection("filter", false)
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    @RenderBody()
-                </div>
-            </div>
-
-            <!-- /page content -->
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    &copy; @DateTime.Now.Year -  <a href="http://wwww.senparc.com">苏州盛派网络科技有限公司</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
+        @RenderBody()
     </div>
     @*本地*@
     <environment include="Development">

@@ -17,8 +17,17 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         private readonly AdminUserInfoService _adminUserInfoService;
         public PagedList<AdminUserInfo> AdminUserInfoList { get; set; }
 
-        [BindProperty]
-        public int PageIndex { get; set; }
+        /// <summary>
+        /// 属性绑定，支持GET
+        /// </summary>
+        [BindProperty(SupportsGet = true)]
+        public int PageIndex { get; set; } = 1;
+
+        /// <summary>
+        /// 排序方法
+        /// </summary>
+        [BindProperty(SupportsGet = true)]
+        public string OrderField { get; set; } = "AddTime Desc,Id";
 
         public AdminUserInfo_IndexModel(AdminUserInfoService adminUserInfoService)
         {
@@ -29,7 +38,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             var seh = new SenparcExpressionHelper<AdminUserInfo>();
             var where = seh.BuildWhereExpression();
-            var admins = _adminUserInfoService.GetObjectList(PageIndex, 20, where, z => z.Id, OrderingType.Descending);
+            var admins = await _adminUserInfoService.GetObjectListAsync(PageIndex, 20, where, OrderField);
             AdminUserInfoList = admins;
             return null;
         }

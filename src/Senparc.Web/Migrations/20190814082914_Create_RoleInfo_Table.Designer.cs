@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Senparc.Core.Models;
 
 namespace Senparc.Web.Migrations
 {
     [DbContext(typeof(SenparcEntities))]
-    partial class SenparcEntitiesModelSnapshot : ModelSnapshot
+    [Migration("20190814082914_Create_RoleInfo_Table")]
+    partial class Create_RoleInfo_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace Senparc.Web.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Address");
-
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
 
                     b.Property<decimal>("Balance");
 
@@ -97,9 +96,6 @@ namespace Senparc.Web.Migrations
                     b.Property<string>("RealName")
                         .HasMaxLength(100);
 
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
-
                     b.Property<byte>("Sex");
 
                     b.Property<string>("ThisLoginIp")
@@ -139,9 +135,6 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<DateTime>("CompleteTime")
                         .HasColumnType("datetime");
 
@@ -178,9 +171,6 @@ namespace Senparc.Web.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
-
                     b.Property<byte>("Status");
 
                     b.Property<decimal>("TotalPrice")
@@ -210,9 +200,6 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<bool>("Flag");
 
                     b.Property<string>("LastLoginIp")
@@ -241,9 +228,6 @@ namespace Senparc.Web.Migrations
                     b.Property<string>("RealName")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
-
                     b.Property<string>("ThisLoginIp")
                         .HasColumnName("ThisLoginIP")
                         .HasMaxLength(20)
@@ -267,9 +251,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("AddTime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<string>("ButtonName")
                         .IsRequired()
                         .HasMaxLength(50);
@@ -283,9 +264,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("OpearMark")
                         .HasMaxLength(50);
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.Property<string>("Url")
                         .HasMaxLength(350);
@@ -303,9 +281,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("AddTime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<bool>("Flag");
 
                     b.Property<string>("Icon")
@@ -319,9 +294,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("ParentId")
                         .HasMaxLength(50);
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.Property<int>("Sort");
 
@@ -343,9 +315,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("AddTime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<bool>("Flag");
 
                     b.Property<bool>("IsMenu");
@@ -354,9 +323,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("PermissionId")
                         .HasMaxLength(50);
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.Property<string>("RoleCode")
                         .HasMaxLength(20);
@@ -377,17 +343,11 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("AddTime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<bool>("Enabled");
 
                     b.Property<bool>("Flag");
 
                     b.Property<DateTime>("LastUpdateTime");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.Property<string>("RoleCode")
                         .HasMaxLength(20);
@@ -410,15 +370,9 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("AddTime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<bool>("Flag");
 
                     b.Property<DateTime>("LastUpdateTime");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.Property<string>("RoleCode")
                         .HasMaxLength(20);
@@ -442,17 +396,11 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<string>("Content");
 
                     b.Property<bool>("Flag");
 
                     b.Property<DateTime>("LastUpdateTime");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.HasKey("Id");
 
@@ -474,9 +422,6 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<decimal>("AfterPoints")
                         .HasColumnType("decimal(18, 2)");
 
@@ -491,9 +436,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<decimal>("Points")
                         .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.HasKey("Id");
 
@@ -512,9 +454,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("AddTime");
 
-                    b.Property<string>("AdminRemark")
-                        .HasMaxLength(300);
-
                     b.Property<bool>("Flag");
 
                     b.Property<DateTime>("LastUpdateTime");
@@ -524,9 +463,6 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("MchKey")
                         .HasColumnType("varchar(300)");
-
-                    b.Property<string>("Remark")
-                        .HasMaxLength(300);
 
                     b.Property<string>("SystemName")
                         .IsRequired()

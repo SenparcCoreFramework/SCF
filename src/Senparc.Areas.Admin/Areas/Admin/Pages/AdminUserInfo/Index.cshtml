@@ -60,7 +60,10 @@
                                     <td class=" "> @item.AddTime.ToString("yyyy-MM-dd HH:mm")</td>
                                     <td class=" ">
                                         <a asp-page="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-info">
-                                            <em class="fa fa-pencil-square-o"></em>
+                                            <em class="fa fa-pencil-square-o">编辑</em>
+                                        </a>
+                                        <a asp-page="AuthorizationPage" asp-route-accountId="@item.Id" title="设置角色" class="btn-xs btn btn-info">
+                                            <em class="fa fa-gear">设置角色</em>
                                         </a>
                                     </td>
                                 </tr>

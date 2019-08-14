@@ -22,6 +22,7 @@ using Senparc.CO2NET;
 using Senparc.Core.Models;
 using Senparc.Scf.Core;
 using Senparc.Core;
+using Senparc.Respository;
 
 namespace Senparc.Web
 {
@@ -77,7 +78,7 @@ namespace Senparc.Web
             //services.AddSenparcGlobalServices(configuration);//Senparc.CO2NET 全局注册    //已经在startup.cs中注册
 
             //支持 AutoMapper
-            services.AddAutoMapper();
+            services.AddAutoMapper(_ => _.AddProfile<Core.AutoMapProfile.AutoMapperConfigs>());
 
             //支持 Session
             services.AddSession();
@@ -115,6 +116,8 @@ namespace Senparc.Web
 
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
+            services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
         }
 
     }

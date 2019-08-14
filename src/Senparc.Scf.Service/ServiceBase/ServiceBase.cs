@@ -47,14 +47,14 @@ namespace Senparc.Scf.Service
         }
 
         /// <summary>
-        /// 获取分页数据
+        /// 
         /// </summary>
         /// <typeparam name="TK"></typeparam>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageCount">每页数量</param>
-        /// <param name="where">条件</param>
-        /// <param name="orderBy">排序字段</param>
-        /// <param name="orderingType">正序|倒叙</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageCount"></param>
+        /// <param name="where"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="orderingType"></param>
         /// <param name="includes"></param>
         /// <returns></returns>
         public virtual PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
@@ -62,6 +62,19 @@ namespace Senparc.Scf.Service
             return RepositoryBase.GetObjectList(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
 
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageCount">每页数量</param>
+        /// <param name="where">条件</param>
+        /// <param name="orderBy">排序字段 eg.(xxx desc, bbb aec),默认升序</param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
+        public virtual async Task<PagedList<T>> GetObjectListAsync(int pageIndex, int pageCount, Expression<Func<T, bool>> where, string orderBy, string[] includes = null)
+        {
+            return await RepositoryBase.GetObjectListAsync(where, orderBy, pageIndex, pageCount, includes);
+        }
 
         /// <summary>
         /// 获取分页数据

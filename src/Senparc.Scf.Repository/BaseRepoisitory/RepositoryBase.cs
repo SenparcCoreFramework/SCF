@@ -421,14 +421,11 @@ namespace Senparc.Scf.Repository
                                                .Set<T>()
                                                .Includes(includes)
                                                .Where(where);
+            resultList = resultList.OrderByExtension(OrderbyField);
             if (pageCount > 0 && pageIndex > 0)
             {
                 resultList = resultList.Skip(skipCount).Take(pageCount);
                 totalCount = this.ObjectCount(where, null);
-            }
-            else
-            {
-                resultList = resultList.OrderByExtension(OrderbyField);
             }
 
             result = await resultList.ToListAsync();

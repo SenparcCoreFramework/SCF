@@ -4,6 +4,7 @@ using System.Reflection;
 namespace Senparc.Core.Models
 {
     using Microsoft.EntityFrameworkCore;
+    using Senparc.Core.Models.DataBaseModel;
     using Senparc.Scf.Core.Models;
 
     public partial class SenparcEntities : DbContext, ISenparcEntities
@@ -11,6 +12,35 @@ namespace Senparc.Core.Models
         public SenparcEntities(DbContextOptions<SenparcEntities> dbContextOptions) : base(dbContextOptions)
         {
         }
+
+        #region 系统表
+
+        /// <summary>
+        /// 菜单
+        /// </summary>
+        public DbSet<SysMenu> SysMenus { get; set; }
+
+        /// <summary>
+        /// 菜单下面的按钮
+        /// </summary>
+        public DbSet<SysButton> SysButtons { get; set; }
+
+        /// <summary>
+        /// 系统角色
+        /// </summary>
+        public DbSet<SysRole> SysRoles { get; set; }
+
+        /// <summary>
+        /// 角色菜单表
+        /// </summary>
+        public DbSet<SysPermission> SysPermission { get; set; }
+
+
+        /// <summary>
+        /// 角色人员表
+        /// </summary>
+        public DbSet<SysRoleAdminUserInfo> SysRoleAdminUserInfos { get; set; }
+
 
         public virtual DbSet<Account> Accounts { get; set; }
 
@@ -22,7 +52,8 @@ namespace Senparc.Core.Models
 
         public virtual DbSet<PointsLog> PointsLogs { get; set; }
 
-        public virtual DbSet<AccountPayLog> AccountPayLogs { get; set; }
+        public virtual DbSet<AccountPayLog> AccountPayLogs { get; set; } 
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

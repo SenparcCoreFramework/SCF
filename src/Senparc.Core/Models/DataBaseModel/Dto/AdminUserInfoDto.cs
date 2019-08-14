@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Dto;
+﻿using Senparc.Core.Models.DataBaseModel;
+using Senparc.Scf.Core.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ namespace Senparc.Core.Models
     /// <summary>
     /// AdminUserInfo 创建和更新
     /// </summary>
-    public class AdminUserInfoDto
+    public class AdminUserInfoDto : BaseDto
     {
         public int Id { get; set; }
         public string UserName { get; set; }
