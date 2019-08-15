@@ -115,13 +115,27 @@ namespace Senparc.Scf.Repository
         /// 开启事务
         /// </summary>
         /// <returns></returns>
-        Task<IDbContextTransaction> BeginTransactionAsync();
+        Task BeginTransactionAsync();
+
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <param name="isolationLevel"></param>
+        /// <returns></returns>
+        Task BeginTransactionAsync(System.Data.IsolationLevel isolationLevel);
 
         /// <summary>
         /// 开启事物
         /// </summary>
         /// <returns></returns>
-        IDbContextTransaction BeginTransaction();
+        void BeginTransaction();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isolationLevel"></param>
+        /// <returns></returns>
+        void BeginTransaction(System.Data.IsolationLevel isolationLevel);
 
         /// <summary>
         /// 回滚事务

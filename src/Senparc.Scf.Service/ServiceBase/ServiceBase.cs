@@ -209,9 +209,9 @@ namespace Senparc.Scf.Service
         /// 开启事务
         /// </summary>
         /// <returns></returns>
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        public async Task BeginTransactionAsync()
         {
-            return await RepositoryBase.BeginTransactionAsync();
+            await RepositoryBase.BeginTransactionAsync();
         }
 
         /// <summary>
@@ -237,21 +237,21 @@ namespace Senparc.Scf.Service
         /// 开启事务
         /// </summary>
         /// <returns></returns>
-        public IDbContextTransaction BeginTransaction()
+        public void BeginTransaction()
         {
-            return RepositoryBase.BeginTransaction();
+            RepositoryBase.BeginTransaction();
         }
 
         /// <summary>
         /// 开启事务
         /// </summary>
         /// <returns></returns>
-        public void BeginTransaction(Action action, Action<Exception> rollbackAction = null)
+        public void BeginTransaction(Action body, Action<Exception> rollbackAction = null)
         {
             BeginTransaction();
             try
             {
-                action();
+                body();
                 CommitTransaction();
             }
             catch (Exception ex)
@@ -267,12 +267,12 @@ namespace Senparc.Scf.Service
         /// 开启事务, 此方法回自动提交事务，失败则回滚
         /// </summary>
         /// <returns></returns>
-        public async Task BeginTransactionAsync(Func<Task> action, Action<Exception> rollbackAction = null)
+        public async Task BeginTransactionAsync(Func<Task> body, Action<Exception> rollbackAction = null)
         {
             await BeginTransactionAsync();
             try
             {
-                await action();
+                await body();
                 CommitTransaction();
             }
             catch (Exception ex)

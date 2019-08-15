@@ -461,18 +461,36 @@ namespace Senparc.Scf.Repository
         /// 开启事物
         /// </summary>
         /// <returns></returns>
-        public IDbContextTransaction BeginTransaction()
+        public void BeginTransaction()
         {
-            return BaseDB.BaseDataContext.Database.BeginTransaction();
+            BaseDB.BaseDataContext.Database.BeginTransaction();
         }
 
         /// <summary>
         /// 开启事物
         /// </summary>
         /// <returns></returns>
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        public void BeginTransaction(System.Data.IsolationLevel isolationLevel)
         {
-            return await BaseDB.BaseDataContext.Database.BeginTransactionAsync();
+            BaseDB.BaseDataContext.Database.BeginTransaction();
+        }
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public async Task BeginTransactionAsync()
+        {
+            await BaseDB.BaseDataContext.Database.BeginTransactionAsync();
+        }
+
+        /// <summary>
+        /// 开启事物
+        /// </summary>
+        /// <returns></returns>
+        public async Task BeginTransactionAsync(System.Data.IsolationLevel isolationLevel)
+        {
+            await BaseDB.BaseDataContext.Database.BeginTransactionAsync(isolationLevel);
         }
 
         /// <summary>
