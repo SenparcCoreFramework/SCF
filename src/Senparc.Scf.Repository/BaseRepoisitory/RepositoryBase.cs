@@ -483,5 +483,13 @@ namespace Senparc.Scf.Repository
         {
             BaseDB.BaseDataContext.Database.RollbackTransaction();
         }
+
+        /// <summary>
+        /// 提交事务
+        /// </summary>
+        public void CommitTransaction()
+        {
+            BaseDB.BaseDataContext.Database.CommitTransaction();
+        }
     }
 }

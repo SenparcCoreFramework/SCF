@@ -206,7 +206,7 @@ namespace Senparc.Scf.Service
 
 
         /// <summary>
-        /// 开启事物
+        /// 开启事务
         /// </summary>
         /// <returns></returns>
         public async Task<IDbContextTransaction> BeginTransactionAsync()
@@ -215,7 +215,26 @@ namespace Senparc.Scf.Service
         }
 
         /// <summary>
-        /// 开启事物
+        /// 开启事务, 此方法回自动提交事务，失败则回滚
+        /// </summary>
+        /// <returns></returns>
+        public async Task BeginTransactionAsync(Action action)
+        {
+            await RepositoryBase.BeginTransactionAsync();
+            try
+            {
+                action();
+                CommitTransaction();
+            }
+            catch (Exception)
+            {
+                RollbackTransaction();
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 开启事务
         /// </summary>
         /// <returns></returns>
         public IDbContextTransaction BeginTransaction()
@@ -224,12 +243,62 @@ namespace Senparc.Scf.Service
         }
 
         /// <summary>
-        /// 开启事物
+        /// 开启事务
+        /// </summary>
+        /// <returns></returns>
+        public void BeginTransaction(Action action, Action<Exception> rollbackAction = null)
+        {
+            BeginTransaction();
+            try
+            {
+                action();
+                CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                rollbackAction?.Invoke(ex);
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// 开启事务, 此方法回自动提交事务，失败则回滚
+        /// </summary>
+        /// <returns></returns>
+        public async Task BeginTransactionAsync(Func<Task> action, Action<Exception> rollbackAction = null)
+        {
+            await BeginTransactionAsync();
+            try
+            {
+                await action();
+                CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                rollbackAction?.Invoke(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 回滚事务
         /// </summary>
         /// <returns></returns>
         public void RollbackTransaction()
         {
             RepositoryBase.RollbackTransaction();
+        }
+
+        /// <summary>
+        /// 提交事务
+        /// </summary>
+        /// <returns></returns>
+        public void CommitTransaction()
+        {
+            RepositoryBase.CommitTransaction();
         }
     }
 }

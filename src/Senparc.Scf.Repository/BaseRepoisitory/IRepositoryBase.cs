@@ -129,6 +129,9 @@ namespace Senparc.Scf.Repository
         /// <returns></returns>
         void RollbackTransaction();
 
-
+        /// <summary>
+        /// 提交事务
+        /// </summary>
+        void CommitTransaction();
     }
 }

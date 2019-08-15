@@ -37,8 +37,7 @@ namespace Senparc.Service
 
             IEnumerable<SysRoleAdminUserInfo> sysRoleAdmins = await GetFullListAsync(_ => _.AccountId == accountId);
 
-            var tran = await BeginTransactionAsync();
-            try
+            await BeginTransactionAsync(async () => 
             {
                 if (sysRoleAdmins.Any())
                 {
@@ -48,13 +47,7 @@ namespace Senparc.Service
                 {
                     await SaveObjectListAsync(sysRoleAdminUserInfos);
                 }
-                tran.Commit();
-            }
-            catch (Exception)
-            {
-                tran.Rollback();
-                throw;
-            }
+            });
         }
     }
 }
