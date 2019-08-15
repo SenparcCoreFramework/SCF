@@ -30,7 +30,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             //SysRoleAdminUserInfoService sysRoleAdminUserInfoService = _serviceProvider.GetService<SysRoleAdminUserInfoService>();
 
             IEnumerable<SysRole> sysRoles = await sysRoleService.GetFullListAsync(_ => true);
-            IEnumerable<SysRoleAdminUserInfo> sysRoleAdminUserInfos = await sysRoleAdminUserInfoService.GetFullListAsync(_ => true);
+            IEnumerable<SysRoleAdminUserInfo> sysRoleAdminUserInfos = await sysRoleAdminUserInfoService.GetFullListAsync(_ => _.AccountId == accountId);
 
             IEnumerable<SysRoleAdminUserInfoDto> dto = from _ in sysRoles
                                                        join __ in sysRoleAdminUserInfos
