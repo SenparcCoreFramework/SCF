@@ -24,7 +24,7 @@ namespace Senparc.Service
 
         public AccountPayLog CreateOrder(FullAccount fullAccount, string orderNumber, string ip, decimal totalFee, string description, decimal getPoints, AccountPayLog_PayType payType)
         {
-            var accountPayLog = new AccountPayLog()
+            AccountPayLog accountPayLog = new AccountPayLog()
             {
                 OrderNumber = orderNumber, //Add的时候会自动生成
                 AddTime = DateTime.Now,
@@ -62,30 +62,37 @@ namespace Senparc.Service
             {
                 return;
             }
-            try
+            //try
+            //{
+            AccountService accountService = SenparcDI.GetService<AccountService>();
+            Account account = accountService.GetObject(z => z.Id == accountPayLog.AccountId);
+            BeginTransaction(() =>
             {
-                var accountService = SenparcDI.GetService<AccountService>();
-                var account = accountService.GetObject(z => z.Id == accountPayLog.AccountId);
-                using (var transcation = BeginTransaction())
-                {
-                    accountPayLog.Status = (int)AccountPayLog_Status.已支付;
-                    accountPayLog.CompleteTime = DateTime.Now;
-                    account.Points += accountPayLog.PayMoney;
-                    accountService.SaveObject(account);
-                    SaveObject(accountPayLog);
-                    transcation.Commit();
-                }
-            }
-            catch (Exception ex)
+                accountPayLog.Status = (int)AccountPayLog_Status.已支付;
+                accountPayLog.CompleteTime = DateTime.Now;
+                account.Points += accountPayLog.PayMoney;
+                accountService.SaveObject(account);
+                SaveObject(accountPayLog);
+            }, ex =>
             {
                 LogUtility.AccountPayLog.Error($"支付完成，发生错误：{ex.Message}", ex);
-                throw new Exception($"支付回调失败【{ex.Message}】");
-            }
+            });
+            //using (var transcation = BeginTransaction())
+            //{
+
+            //    transcation.Commit();
+            //}
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw new Exception($"支付回调失败【{ex.Message}】");
+            //}
         }
 
         public override void SaveObject(AccountPayLog obj)
         {
-            var isInsert = base.IsInsert(obj);
+            bool isInsert = base.IsInsert(obj);
             base.SaveObject(obj);
             LogUtility.WebLogger.InfoFormat("AccountPayLog{2}：{0}（ID：{1}，当前状态：{3}）", obj.OrderNumber, obj.Id,
                 isInsert ? "新增" : "编辑", (AccountPayLog_Status)obj.Status);

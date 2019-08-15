@@ -279,9 +279,54 @@ namespace Senparc.Scf.Service
             {
                 RollbackTransaction();
                 rollbackAction?.Invoke(ex);
-                throw;
+                throw ex;
             }
         }
+
+
+        /// <summary>
+        /// 开启事务, 此方法会自动提交事务，失败则回滚
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="rollbackAction">处理一个异常并抛出自定义的异常</param>
+        /// <returns></returns>
+        public async Task BeginTransactionAsync(Func<Task> body, Func<Exception, Exception> rollbackAction)
+        {
+            await BeginTransactionAsync();
+            try
+            {
+                await body();
+                CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw rollbackAction?.Invoke(ex) ?? ex;
+            }
+        }
+
+
+        /// <summary>
+        /// 开启事务, 此方法会自动提交事务，失败则回滚
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="rollbackAction">处理一个异常并抛出自定义的异常</param>
+        /// <returns></returns>
+        public async Task BeginTransactionAsync(Func<Task> bodyAsync, Func<Exception, Task<Exception>> rollbackActionAsync)
+        {
+            await BeginTransactionAsync();
+            try
+            {
+                await bodyAsync();
+                CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw await rollbackActionAsync?.Invoke(ex) ?? ex;
+            }
+        }
+
 
         /// <summary>
         /// 回滚事务

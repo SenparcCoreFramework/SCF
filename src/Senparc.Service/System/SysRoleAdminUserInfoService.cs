@@ -47,6 +47,9 @@ namespace Senparc.Service
                 {
                     await SaveObjectListAsync(sysRoleAdminUserInfos);
                 }
+            }, ex => 
+            {
+                return new NotSupportedException("不支持");
             });
         }
     }

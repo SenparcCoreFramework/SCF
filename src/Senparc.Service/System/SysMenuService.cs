@@ -101,22 +101,14 @@ namespace Senparc.Service
                 }
                 sysButtons.Add(sysButton);
             }
-            var transation = await BeginTransactionAsync();
-            try
+            await BeginTransactionAsync(async () => 
             {
-                //await _sysButtonService.DeleteButtonsByMenuId(menu.Id);
                 if (sysButtons.Any())
                 {
                     await _sysButtonService.SaveObjectListAsync(sysButtons);
                 }
                 await SaveObjectAsync(menu);
-                transation.Commit();
-            }
-            catch (Exception)
-            {
-                transation.Rollback();
-                throw;
-            }
+            });
             await GetMenuDtoByCacheAsync(true);
         }
 

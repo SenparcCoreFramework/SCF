@@ -14,7 +14,7 @@ namespace Senparc.Service
         /// 开启事物
         /// </summary>
         /// <returns></returns>
-        IDbContextTransaction BeginTransaction();
+        //IDbContextTransaction BeginTransaction();
     }
 
 

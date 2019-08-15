@@ -107,20 +107,13 @@ namespace Senparc.Service
                 sysRoleMenus.Add(sysPermission);
             }
 
-            var dbtran = await BeginTransactionAsync();
-            try
+            await BeginTransactionAsync(async () => 
             {
                 IEnumerable<SysPermission> entitis = await GetFullListAsync(_ => _.RoleId == sysMenuDto.FirstOrDefault().RoleId);
                 await DeleteAllAsync(entitis);
                 await SaveObjectListAsync(sysRoleMenus);
                 await DbToCacheAsync();//暂时
-                dbtran.Commit();
-            }
-            catch (Exception ex)
-            {
-                dbtran.Rollback();
-                throw;
-            }
+            });
         }
     }
 }
