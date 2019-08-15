@@ -1,5 +1,9 @@
 @model Senparc.Areas.Admin.BaseAdminPageModel
-
+@inject Senparc.Service.SysMenuService _sysMenuService
+@addTagHelper *, Senparc.Areas.Admin
+@{
+    var sysMenuDtos = _sysMenuService.GetMenuTreeDtoByCacheAsync();
+}
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title hidden-small">
@@ -55,29 +59,29 @@
                         </ul>
                     </li>
                     @*<li class="@Html.CurrentMenu("Home")">
-                        <a asp-page="/Index">
-                            <i class="fa fa-home"></i>
-                            首页
-                        </a>
-                    </li>
-                    <li class="@Html.CurrentMenu("AdminUserInfo")">
-                        <a asp-page="/AdminUserInfo/Index">
-                            <i class="fa fa-user"></i>
-                            管理员管理
-                        </a>
-                    </li>
-                    <li class="@Html.CurrentMenu("Account")">
-                        <a asp-action="Index" asp-controller="Account">
-                            <i class="fa fa-users"></i>
-                            用户管理
-                        </a>
-                    </li>
-                    <li class="@Html.CurrentMenu("Feedback")">
-                        <a asp-action="Index" asp-controller="Feedback">
-                            <i class="fa fa-envelope"></i>
-                            用户反馈
-                        </a>
-                    </li>*@
+                            <a asp-page="/Index">
+                                <i class="fa fa-home"></i>
+                                首页
+                            </a>
+                        </li>
+                        <li class="@Html.CurrentMenu("AdminUserInfo")">
+                            <a asp-page="/AdminUserInfo/Index">
+                                <i class="fa fa-user"></i>
+                                管理员管理
+                            </a>
+                        </li>
+                        <li class="@Html.CurrentMenu("Account")">
+                            <a asp-action="Index" asp-controller="Account">
+                                <i class="fa fa-users"></i>
+                                用户管理
+                            </a>
+                        </li>
+                        <li class="@Html.CurrentMenu("Feedback")">
+                            <a asp-action="Index" asp-controller="Feedback">
+                                <i class="fa fa-envelope"></i>
+                                用户反馈
+                            </a>
+                        </li>*@
                 </ul>
             </div>
         </div>

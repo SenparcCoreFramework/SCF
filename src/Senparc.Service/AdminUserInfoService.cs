@@ -75,13 +75,14 @@ namespace Senparc.Service
             }
         }
 
-        public virtual void Login(string userName, bool rememberMe)
+        public virtual void Login(AdminUserInfo userInfo, bool rememberMe)
         {
             #region 使用 .net core 的方法写入 cookie 验证信息
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.Name, userInfo.UserName),
+                new Claim(ClaimTypes.NameIdentifier, userInfo.Id.ToString(), ClaimValueTypes.Integer),
                 new Claim("AdminMember", "", ClaimValueTypes.String)
             };
             var identity = new ClaimsIdentity(SiteConfig.ScfAdminAuthorizeScheme);
@@ -115,7 +116,7 @@ namespace Senparc.Service
             AdminUserInfo userInfo = GetUserInfo(userNameOrEmail, password);
             if (userInfo != null)
             {
-                Login(userInfo.UserName, rememberMe);
+                Login(userInfo, rememberMe);
                 return userInfo;
             }
             else

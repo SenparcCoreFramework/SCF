@@ -15,6 +15,11 @@ namespace Senparc.Areas.Admin
     public class BaseAdminPageModel : PageModelBase, IBaseAdminPageModel
     {
 
+        /// <summary>
+        /// 存储相关用户信息
+        /// </summary>
+        public Core.AdminWorkContext AdminWorkContext { get; set; }
+
         public virtual IActionResult RenderError(string message)
         {
             //保留原有的controller和action信息
