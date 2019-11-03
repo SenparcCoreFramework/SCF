@@ -13,10 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.4-preview1" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.7.7.3-preview1" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.5.4.1-preview1" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.4.5-preview1" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.9.102" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.102.1-preview2" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.7.102.1" />
   </ItemGroup>
 
   <ItemGroup>
