@@ -100,6 +100,14 @@ namespace Senparc.Web
                 RequestPath = new PathString("/node_modules")
             });
 
+            app.Use(async (context, next) =>
+            {
+                var hubContext = context.RequestServices
+                                        .GetRequiredService<IHubContext<MyHub>>();
+                //...
+            });
+
+
 
             app.UseCookiePolicy();
 
