@@ -51,15 +51,11 @@ var base = {
                 },
                 //contentType: 'application/json;',
                 success: function (json) {
-                    if (json.success) {
-                        resolve(json.data);
-                    } else {
-                        reject(json);
-                        base.swal.alert(json.msg);
-                    }
+                    resolve(json.data);
                 },
                 error: function (xhr, errorType, errormsg) {
                     //swal.close();
+                    reject(errormsg);
                     base.swal.alert('请求发生错误');
                 },
                 complete: function () {
@@ -85,19 +81,11 @@ var base = {
                 type: 'GET',
                 data: params,
                 success: function (json) {
-                    if (json.success) {
-                        resolve(json.data);
-                    }
-                    else {
-                        reject(json.result);
-                        if (isShowErrorMsg === undefined) {
-                            base.swal.alert(json.msg);
-                        }
-                    }
+                    resolve(json.data);
                 },
                 error: function (xhr, errorType, error) {
                     base.swal.alert('请求发生错误，请稍后重试！');
-                    reject();
+                    reject(error);
                 },
                 complete: function () {
 
