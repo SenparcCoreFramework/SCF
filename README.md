@@ -93,11 +93,11 @@ Done.
  
 2. 检查当前系统中npm是否安装：`npm -v`
 
- <img src="http://image.mlkj.ymstudio.xyz/node&npm.png" />  
+ <!-- <img src="http://image.mlkj.ymstudio.xyz/node&npm.png" />  -->
 
 3. 检查当前系统中bower是否安装：`bower help` 
 
- <img src="http://image.mlkj.ymstudio.xyz/bower%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
+  <!-- <img src="http://image.mlkj.ymstudio.xyz/bower%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />    -->
 
 4. 如未安装 bower,则在命令提示符中运行指令，安装 bower:
   
@@ -107,13 +107,13 @@ Done.
 
 > `bower init` 
 
-<img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />  
+ <!-- <img src="http://image.mlkj.ymstudio.xyz/bower-init.png" />    -->
 
 6. 紧接着执行命令，安装项目样式、js 等依赖，这个执行过程会比较长，请耐心等待... 直到安装完成：  
 
 > `bower install gentelella`  
 
-<img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />  
+ <!-- <img src="http://image.mlkj.ymstudio.xyz/gentelella%E5%BA%93%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" />    -->
 
 7. 完成。
 
