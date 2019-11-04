@@ -43,8 +43,6 @@ async function save() {
             roleCode: ele.roleCode
         });
     });
-
-    //debugger;
     let respnseData = await base.post('/Admin/Role/Permission', { sysMenuDto: array });
     await base.swal.alert('保存成功！', 'success');
     window.location.href = '/Admin/Role/Index';

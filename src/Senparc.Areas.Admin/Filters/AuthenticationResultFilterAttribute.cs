@@ -32,13 +32,22 @@ namespace Senparc.Areas.Admin.Filters
 
         public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
+            //context.ActionDescriptor.FilterDescriptors
             var authenticateResult = await context.HttpContext.AuthenticateAsync(AdminAuthorizeAttribute.AuthenticationScheme);
             if (authenticateResult.Succeeded && !context.Filters.Any(_ => _ is AllowAnonymousFilter))
             {
                 BaseAdminPageModel adminPageModel = context.Controller as BaseAdminPageModel;
                 //adminPageModel.SysMenuDtos = await _sysMenuService.GetMenuTreeDtoByCacheAsync();
                 adminPageModel.AdminWorkContext = _adminWorkContextProvider.GetAdminWorkContext();
-                bool hasRight = await _sysPermissionService.HasPermissionAsync(context.HttpContext.Request.Path.Value);
+
+                bool hasPageRoute = context.RouteData.Values.TryGetValue("page", out object page);
+                bool hasAreaRoute = context.RouteData.Values.TryGetValue("area", out object area);
+                bool hasRight = hasPageRoute && hasAreaRoute;
+                if (hasRight)
+                {
+                    hasRight = await _sysPermissionService.HasPermissionAsync(string.Concat("/", area, page));
+                }
+
                 if (!hasRight && !(adminPageModel is Pages.IndexModel))
                 {
                     IActionResult actionResult = new Microsoft.AspNetCore.Mvc.RedirectResult("/Admin/Forbidden");

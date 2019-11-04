@@ -12,6 +12,14 @@ namespace Senparc.Core.Models.DataBaseModel
 
         public bool IsMenu { get; set; }
 
+        /// <summary>
+        /// 角色代码
+        /// </summary>
         public string RoleCode { get; set; }
+
+        /// <summary>
+        /// 资源（按钮）代码
+        /// </summary>
+        public string ResourceCode { get; set; }
     }
 }

@@ -132,7 +132,7 @@ async function submit() {
         buttons.push(button);
     });
     //debugger;
-    let response = await base.postAsync('/Admin/Menu/Edit', formData);
+    let response = await base.post('/Admin/Menu/Edit', formData);
     await base.swal.alert('保存成功!', 'success');
 }
 
@@ -153,7 +153,7 @@ async function deleteButton() {
     let buttonId = $this.parents('.buttonContainer').find('input[data-attribute-name="Id"]').val();
     
     if (buttonId.length > 0) {
-        await base.postAsync('/Admin/Menu/Edit?handler=deleteButton', { buttonId: buttonId });
+        await base.post('/Admin/Menu/Edit?handler=deleteButton', { buttonId: buttonId });
     }
 
     $this.parents('.buttonContainer').remove();

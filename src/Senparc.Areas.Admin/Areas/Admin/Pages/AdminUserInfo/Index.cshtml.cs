@@ -34,6 +34,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _adminUserInfoService = adminUserInfoService;
         }
 
+        [Filters.CustomerResourceFilter("Add")]
         public async Task<IActionResult> OnGetAsync()
         {
             var seh = new SenparcExpressionHelper<AdminUserInfo>();
