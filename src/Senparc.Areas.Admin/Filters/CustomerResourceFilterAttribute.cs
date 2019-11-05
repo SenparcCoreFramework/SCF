@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Senparc.Areas.Admin.Filters
 {
@@ -8,14 +9,10 @@ namespace Senparc.Areas.Admin.Filters
     {
         public string ResourceCode { get; set; }
 
-        public CustomerResourceFilterAttribute()
-        {
-
-        }
-
         public CustomerResourceFilterAttribute(string resuouceCode)
         {
             ResourceCode = resuouceCode;
         }
+
     }
 }
