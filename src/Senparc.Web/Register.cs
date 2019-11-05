@@ -49,26 +49,31 @@ namespace Senparc.Web
             });
 
 
-            services.AddMvc(options =>
-            {
-                //options.Filters.Add<HttpGlobalExceptionFilter>();
-            })
-            .SetCompatibilityVersion(compatibilityVersion)
-            .AddRazorPagesOptions(options =>
-            {
-                options.AllowAreas = true;//支持 Area
-                //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
-            })
+            //services.AddMvc(options =>
+            //{
+            //    //options.Filters.Add<HttpGlobalExceptionFilter>();
+            //})
+            //.SetCompatibilityVersion(compatibilityVersion)
+            //.AddRazorPagesOptions(options =>
+            //{
+            //    //options.AllowAreas = true;//支持 Area
+            //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
+            //})
+
+
+            services.AddRazorPages()
+
+
             .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
             .AddXmlSerializerFormatters()
             .AddJsonOptions(options =>
             {
                 //忽略循环引用
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 //不使用驼峰样式的key
                 //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 //设置时间格式
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+                //options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
             })
             //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
             //.AddSessionStateTempDataProvider()
@@ -95,7 +100,6 @@ namespace Senparc.Web
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"))
                 .AddSenparcEntitiesDI(); //SQL Server设置
 
-
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
             //已经添加完所有程序集自动扫描的委托，立即执行扫描（必须）
@@ -111,8 +115,7 @@ namespace Senparc.Web
                 });
             });
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddHttpContextAccessor();
 
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));

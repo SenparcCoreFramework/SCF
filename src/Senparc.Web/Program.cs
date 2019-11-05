@@ -14,7 +14,8 @@ namespace Senparc.Web
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var build = CreateWebHostBuilder(args).Build();
+            build.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

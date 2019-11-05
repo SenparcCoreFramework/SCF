@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Senparc.Service
 {
@@ -39,7 +40,8 @@ namespace Senparc.Service
 
         public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
-            return GetObject(z => z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            var obj = GetObject(z => z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            return obj;
         }
 
         public AdminUserInfo GetUserInfo(string userName, string password)

@@ -23,7 +23,7 @@ namespace Senparc.Scf.Service
             : base(repo)
         {
             RepositoryBase = repo;
-            Mapper = mapper == null ? SenparcDI.GetService<IMapper>() : mapper;//确保 Mapper 中有值
+            Mapper = mapper ?? SenparcDI.GetService<IMapper>();//确保 Mapper 中有值
         }
 
         public virtual bool IsInsert(T obj)
@@ -31,17 +31,17 @@ namespace Senparc.Scf.Service
             return RepositoryBase.IsInsert(obj);
         }
 
-        public T GetObject(Expression<Func<T, bool>> where, string[] includes = null)
+        public virtual T GetObject(Expression<Func<T, bool>> where, string[] includes = null)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, includes);
         }
 
-        public T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, orderBy, orderingType, includes);
         }
 
-        public PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
         {
             return this.GetObjectList(0, 0, where, orderBy, orderingType, includes);
         }

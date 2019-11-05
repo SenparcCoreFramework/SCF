@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
     <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
     <PackageReference Include="Senparc.WebSocket" Version="0.9.102" />
@@ -26,7 +26,7 @@
     <PackageReference Include="Senparc.Weixin.Open" Version="4.7.102.1-preview2" />
     <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.102" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.7.102.1" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
