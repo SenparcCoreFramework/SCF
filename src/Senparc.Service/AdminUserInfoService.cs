@@ -154,7 +154,7 @@ namespace Senparc.Service
             SaveObject(obj);
         }
 
-        public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id, string[] includes = null)
+        public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id,params string[] includes)
         {
             var obj = GetObject(z => z.Id == id, includes: includes);
 
@@ -163,7 +163,7 @@ namespace Senparc.Service
             return objDto;
         }
 
-        public List<AdminUserInfo> GetAdminUserInfo(List<int> ids, string[] includes = null)
+        public List<AdminUserInfo> GetAdminUserInfo(List<int> ids,params string[] includes)
         {
             return GetFullList(z => ids.Contains(z.Id), z => z.Id, Scf.Core.Enums.OrderingType.Ascending, includes: includes);
         }

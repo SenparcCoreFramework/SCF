@@ -28,17 +28,17 @@ namespace Senparc.Scf.Service.ServiceBase
             return RepositoryBase.IsInsert(obj);
         }
 
-        public override TEntity GetObject(Expression<Func<TEntity, bool>> where, string[] includes = null)
+        public override TEntity GetObject(Expression<Func<TEntity, bool>> where,params string[] includes)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, includes);
         }
 
-        public override TEntity GetObject<TK>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public override TEntity GetObject<TK>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, orderBy, orderingType, includes);
         }
 
-        public override PagedList<TEntity> GetFullList<TK>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public override PagedList<TEntity> GetFullList<TK>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return this.GetObjectList(0, 0, where, orderBy, orderingType, includes);
         }
@@ -54,7 +54,7 @@ namespace Senparc.Scf.Service.ServiceBase
         /// <param name="orderingType">正序|倒叙</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public override PagedList<TEntity> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public override PagedList<TEntity> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return RepositoryBase.GetObjectList(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
@@ -71,17 +71,17 @@ namespace Senparc.Scf.Service.ServiceBase
         /// <param name="orderingType">正序|倒叙</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public override async Task<PagedList<TEntity>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public override async Task<PagedList<TEntity>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return await RepositoryBase.GetObjectListAsync(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
 
-        public override int GetCount(Expression<Func<TEntity, bool>> where, string[] includes = null)
+        public override int GetCount(Expression<Func<TEntity, bool>> where,params string[] includes)
         {
             return RepositoryBase.ObjectCount(where, includes);
         }
 
-        public override decimal GetSum(Expression<Func<TEntity, bool>> where, Func<TEntity, decimal> sum, string[] includes = null)
+        public override decimal GetSum(Expression<Func<TEntity, bool>> where, Func<TEntity, decimal> sum,params string[] includes)
         {
             return RepositoryBase.GetSum(where, sum, includes);
         }

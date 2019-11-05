@@ -18,21 +18,21 @@ namespace Senparc.Scf.Service
 
         bool IsInsert(T obj);
 
-        T GetObject(Expression<Func<T, bool>> where, string[] includes = null);
+        T GetObject(Expression<Func<T, bool>> where,params string[] includes);
 
-        T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null);
+        T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes);
 
         Task<PagedList<T>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where,
-            Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null);
+            Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes);
 
 
-        PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null);
+        PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes);
 
-        PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null);
+        PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes);
 
-        int GetCount(Expression<Func<T, bool>> where, string[] includes = null);
+        int GetCount(Expression<Func<T, bool>> where,params string[] includes);
 
-        decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum, string[] includes = null);
+        decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum,params string[] includes);
 
         /// <summary>
         /// 强制将实体设置为Modified状态
