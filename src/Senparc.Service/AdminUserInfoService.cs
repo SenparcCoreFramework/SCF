@@ -40,13 +40,13 @@ namespace Senparc.Service
 
         public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
-            var obj = GetObject(z => z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            var obj = GetObject(z => z.UserName.Equals(userName.Trim()));
             return obj;
         }
 
         public AdminUserInfo GetUserInfo(string userName, string password)
         {
-            AdminUserInfo userInfo = GetObject(z => z.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase), null);
+            AdminUserInfo userInfo = GetObject(z => z.UserName.Equals(userName), null);
             if (userInfo == null)
             {
                 return null;
@@ -104,7 +104,7 @@ namespace Senparc.Service
 
         public bool CheckPassword(string userName, string password)
         {
-            var userInfo = GetObject(z => z.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
+            var userInfo = GetObject(z => z.UserName.Equals(userName));
             if (userInfo == null)
             {
                 return false;
