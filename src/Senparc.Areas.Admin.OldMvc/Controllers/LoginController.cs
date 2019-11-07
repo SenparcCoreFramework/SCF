@@ -40,7 +40,7 @@ namespace Senparc.Areas.Admin.Controllers
                 MessagerList = new List<Messager>(),
                 IsLogined = this.HttpContext.User.Identity.IsAuthenticated,
             };
-
+          
             return View(vd);
         }
 

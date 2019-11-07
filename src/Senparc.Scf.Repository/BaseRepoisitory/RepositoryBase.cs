@@ -49,7 +49,7 @@ namespace Senparc.Scf.Repository
             //entry.IsKeySet
         }
 
-        public virtual IQueryable<T> GeAll<TK>(Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual IQueryable<T> GeAll<TK>(Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             return BaseDB.BaseDataContext.Set<T>()
@@ -59,7 +59,7 @@ namespace Senparc.Scf.Repository
                         .OrderBy(orderBy, orderingType).AsQueryable();
         }
 
-        public virtual PagedList<T> GetObjectList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, int pageIndex, int pageCount, string[] includes = null)
+        public virtual PagedList<T> GetObjectList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, int pageIndex, int pageCount,params string[] includes)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             int skipCount = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
@@ -117,7 +117,7 @@ namespace Senparc.Scf.Repository
 
 
 
-        public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, int pageIndex, int pageCount, string[] includes = null)
+        public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, int pageIndex, int pageCount,params string[] includes)
         {
             int skipCount = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
             int totalCount = -1;
@@ -143,7 +143,7 @@ namespace Senparc.Scf.Repository
 
 
 
-        public virtual T GetFirstOrDefaultObject(Expression<Func<T, bool>> where, string[] includes = null)
+        public virtual T GetFirstOrDefaultObject(Expression<Func<T, bool>> where,params string[] includes)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             return BaseDB.BaseDataContext
@@ -152,7 +152,7 @@ namespace Senparc.Scf.Repository
                  .Includes(includes).FirstOrDefault(where);
         }
 
-        public virtual T GetFirstOrDefaultObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual T GetFirstOrDefaultObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             return BaseDB.BaseDataContext
@@ -181,7 +181,7 @@ namespace Senparc.Scf.Repository
             return obj;
         }
 
-        //public virtual T GetObjectByGuid(Guid guid, string[] includes = null)
+        //public virtual T GetObjectByGuid(Guid guid,params string[] includes)
         //{
         //    string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
         //    T obj = BaseDB.BaseDataContext
@@ -191,7 +191,7 @@ namespace Senparc.Scf.Repository
         //    return obj;
         //}
 
-        public virtual int ObjectCount(Expression<Func<T, bool>> where, string[] includes = null)
+        public virtual int ObjectCount(Expression<Func<T, bool>> where,params string[] includes)
         {
             string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             int count = 0;
@@ -215,7 +215,7 @@ namespace Senparc.Scf.Repository
             return count;
         }
 
-        public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum, string[] includes = null)
+        public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum,params string[] includes)
         {
             //string sql = string.Format("SELECT VALUE c FROM {0} AS c ", _entitySetName);
             decimal result = BaseDB.BaseDataContext
@@ -323,7 +323,7 @@ namespace Senparc.Scf.Repository
         /// <param name="where"></param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public async Task<T> GetFirstOrDefaultObjectAsync(Expression<Func<T, bool>> where, string[] includes = null)
+        public async Task<T> GetFirstOrDefaultObjectAsync(Expression<Func<T, bool>> where,params string[] includes)
         {
             return await BaseDB.BaseDataContext
                  .Set<T>()
@@ -412,7 +412,7 @@ namespace Senparc.Scf.Repository
         /// <param name="pageCount"></param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public virtual async Task<PagedList<T>> GetObjectListAsync(Expression<Func<T, bool>> where, string OrderbyField, int pageIndex, int pageCount, string[] includes = null)
+        public virtual async Task<PagedList<T>> GetObjectListAsync(Expression<Func<T, bool>> where, string OrderbyField, int pageIndex, int pageCount,params string[] includes)
         {
             int skipCount = Senparc.Scf.Core.Utility.Extensions.GetSkipRecord(pageIndex, pageCount);
             int totalCount = -1;

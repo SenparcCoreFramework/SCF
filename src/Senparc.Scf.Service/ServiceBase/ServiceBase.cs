@@ -23,7 +23,7 @@ namespace Senparc.Scf.Service
             : base(repo)
         {
             RepositoryBase = repo;
-            Mapper = mapper == null ? SenparcDI.GetService<IMapper>() : mapper;//确保 Mapper 中有值
+            Mapper = mapper ?? SenparcDI.GetService<IMapper>();//确保 Mapper 中有值
         }
 
         public virtual bool IsInsert(T obj)
@@ -31,17 +31,17 @@ namespace Senparc.Scf.Service
             return RepositoryBase.IsInsert(obj);
         }
 
-        public T GetObject(Expression<Func<T, bool>> where, string[] includes = null)
+        public virtual T GetObject(Expression<Func<T, bool>> where, params string[] includes)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, includes);
         }
 
-        public T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual T GetObject<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return RepositoryBase.GetFirstOrDefaultObject(where, orderBy, orderingType, includes);
         }
 
-        public PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual PagedList<T> GetFullList<TK>(Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return this.GetObjectList(0, 0, where, orderBy, orderingType, includes);
         }
@@ -57,7 +57,7 @@ namespace Senparc.Scf.Service
         /// <param name="orderingType"></param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public virtual PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual PagedList<T> GetObjectList<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return RepositoryBase.GetObjectList(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
@@ -71,7 +71,7 @@ namespace Senparc.Scf.Service
         /// <param name="orderBy">排序字段 eg.(xxx desc, bbb aec),默认升序</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public virtual async Task<PagedList<T>> GetObjectListAsync(int pageIndex, int pageCount, Expression<Func<T, bool>> where, string orderBy, string[] includes = null)
+        public virtual async Task<PagedList<T>> GetObjectListAsync(int pageIndex, int pageCount, Expression<Func<T, bool>> where, string orderBy,params string[] includes)
         {
             return await RepositoryBase.GetObjectListAsync(where, orderBy, pageIndex, pageCount, includes);
         }
@@ -87,17 +87,17 @@ namespace Senparc.Scf.Service
         /// <param name="orderingType">正序|倒叙</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType, string[] includes = null)
+        public virtual async Task<PagedList<T>> GetObjectListAsync<TK>(int pageIndex, int pageCount, Expression<Func<T, bool>> where, Expression<Func<T, TK>> orderBy, OrderingType orderingType,params string[] includes)
         {
             return await RepositoryBase.GetObjectListAsync(where, orderBy, orderingType, pageIndex, pageCount, includes);
         }
 
-        public virtual int GetCount(Expression<Func<T, bool>> where, string[] includes = null)
+        public virtual int GetCount(Expression<Func<T, bool>> where,params string[] includes)
         {
             return RepositoryBase.ObjectCount(where, includes);
         }
 
-        public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum, string[] includes = null)
+        public virtual decimal GetSum(Expression<Func<T, bool>> where, Func<T, decimal> sum,params string[] includes)
         {
             return RepositoryBase.GetSum(where, sum, includes);
         }
@@ -150,7 +150,7 @@ namespace Senparc.Scf.Service
         /// <param name="where"></param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public async Task<T> GetObjectAsync(Expression<Func<T, bool>> where, string[] includes = null)
+        public async Task<T> GetObjectAsync(Expression<Func<T, bool>> where,params string[] includes)
         {
             return await RepositoryBase.GetFirstOrDefaultObjectAsync(where, includes);
         }
@@ -194,7 +194,7 @@ namespace Senparc.Scf.Service
         /// <param name="orderField">xxx desc, yyy asc</param>
         /// <param name="includes"></param>
         /// <returns></returns>
-        public async Task<PagedList<T>> GetFullListAsync(Expression<Func<T, bool>> where, string orderField = null, string[] includes = null)
+        public async Task<PagedList<T>> GetFullListAsync(Expression<Func<T, bool>> where, string orderField = null,params string[] includes)
         {
             return await RepositoryBase.GetObjectListAsync(where, orderField, 0, 0, includes);
         }

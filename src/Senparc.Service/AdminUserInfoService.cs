@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Senparc.Service
 {
@@ -39,12 +40,13 @@ namespace Senparc.Service
 
         public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
-            return GetObject(z => z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            var obj = GetObject(z => z.UserName.Equals(userName.Trim()));
+            return obj;
         }
 
         public AdminUserInfo GetUserInfo(string userName, string password)
         {
-            AdminUserInfo userInfo = GetObject(z => z.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase), null);
+            AdminUserInfo userInfo = GetObject(z => z.UserName.Equals(userName), null);
             if (userInfo == null)
             {
                 return null;
@@ -102,7 +104,7 @@ namespace Senparc.Service
 
         public bool CheckPassword(string userName, string password)
         {
-            var userInfo = GetObject(z => z.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
+            var userInfo = GetObject(z => z.UserName.Equals(userName));
             if (userInfo == null)
             {
                 return false;
@@ -152,7 +154,7 @@ namespace Senparc.Service
             SaveObject(obj);
         }
 
-        public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id, string[] includes = null)
+        public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id,params string[] includes)
         {
             var obj = GetObject(z => z.Id == id, includes: includes);
 
@@ -161,7 +163,7 @@ namespace Senparc.Service
             return objDto;
         }
 
-        public List<AdminUserInfo> GetAdminUserInfo(List<int> ids, string[] includes = null)
+        public List<AdminUserInfo> GetAdminUserInfo(List<int> ids,params string[] includes)
         {
             return GetFullList(z => ids.Contains(z.Id), z => z.Id, Scf.Core.Enums.OrderingType.Ascending, includes: includes);
         }

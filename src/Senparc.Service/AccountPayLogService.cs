@@ -17,7 +17,7 @@ namespace Senparc.Service
         {
         }
 
-        public AccountPayLog GetByOrderNumber(string orderNumber, string[] includes = null)
+        public AccountPayLog GetByOrderNumber(string orderNumber,params string[] includes)
         {
             return this.GetObject(z => z.OrderNumber == orderNumber, includes);
         }

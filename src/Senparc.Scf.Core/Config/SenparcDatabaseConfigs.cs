@@ -1,8 +1,10 @@
 ﻿using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core.Exceptions;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Log;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Senparc.Scf.Core.Config
@@ -10,18 +12,18 @@ namespace Senparc.Scf.Core.Config
     public static class SenparcDatabaseConfigs
     {
         public const string SENPARC_CONFIG_KEY = "__SENPARC_DATABASE_CONFIG_KEY";
-        public static Dictionary<string, SenparcConfig> Configs
+        public static ConcurrentDictionary<string, SenparcConfig> Configs
         {
             get
             {
-                Func<Dictionary<string, SenparcConfig>> func = () =>
+                Func<ConcurrentDictionary<string, SenparcConfig>> func = () =>
                 {
-                    Dictionary<string, SenparcConfig> configs = new Dictionary<string, SenparcConfig>();
+                    ConcurrentDictionary<string, SenparcConfig> configs = new ConcurrentDictionary<string, SenparcConfig>();
                     try
                     {
                         XmlDataContext xmlCtx = new XmlDataContext(SiteConfig.SenparcConfigDirctory);
                         var list = xmlCtx.GetXmlList<SenparcConfig>();
-                        list.ForEach(z => configs.Add(z.Name, z));
+                        list.ForEach(z => configs[z.Name] = z);
                     }
                     catch (Exception e)
                     {
@@ -44,18 +46,18 @@ namespace Senparc.Scf.Core.Config
         {
             get
             {
-
-                if (SenparcDatabaseConfigs.Configs != null && SenparcDatabaseConfigs.Configs.ContainsKey("Client"))
+                var databaseName = Config.SiteConfig.SenparcCoreSetting.DatabaseName ?? "Client";
+                if (SenparcDatabaseConfigs.Configs != null && SenparcDatabaseConfigs.Configs.ContainsKey(databaseName))
                 {
                     //根据数据库类型不同，区分输出连接字符串。
                     //string provider = "System.Data.SqlClient";
                     //return string.Format(@"metadata=res://*/Models.Sprent.csdl|res://*/Models.Sprent.ssdl|res://*/Models.Sprent.msl;provider={0};provider connection string='{1}';"
                     //    , provider, HandleIdeaConfigs.Config.ConnectionString);
-                    return SenparcDatabaseConfigs.Configs["Client"].ConnectionStringFull;
+                    return SenparcDatabaseConfigs.Configs[databaseName].ConnectionStringFull;
                 }
                 else
                 {
-                    return null;
+                    throw new SCFExceptionBase($"无法找到数据库配置：{databaseName}，请在 SenparcConfig.config 中进行配置");
                 }
             }
         }

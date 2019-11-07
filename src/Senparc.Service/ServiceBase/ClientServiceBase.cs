@@ -10,10 +10,10 @@ namespace Senparc.Service
     {
         IClientRepositoryBase<T> BaseClientRepository { get; }
 
-        /// <summary>
-        /// 开启事物
-        /// </summary>
-        /// <returns></returns>
+        ///// <summary>
+        ///// 开启事物
+        ///// </summary>
+        ///// <returns></returns>
         //IDbContextTransaction BeginTransaction();
     }
 

@@ -10,10 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
-using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET.Utilities;
-using Senparc.Core;
-using Senparc.Scf.Core;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.SMS;
 using Senparc.Web.Hubs;
@@ -29,6 +26,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace Senparc.Web
 {
@@ -67,15 +66,13 @@ namespace Senparc.Web
             //注册数据库客户端连接
 
             //添加（注册） Scf 服务（重要，必须！）
-            services.AddScfServices(Configuration, CompatibilityVersion.Version_2_2);
-
-            services.AddSingleton<Core.Cache.RedisProvider.IRedisProvider, Core.Cache.RedisProvider.StackExchangeRedisProvider>();
+            services.AddScfServices(Configuration, CompatibilityVersion.Version_3_0);
 
             services.AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             IOptions<SenparcSetting> senparcSetting,
             IOptions<SenparcWeixinSetting> senparcWeixinSetting, IHubContext<ReloadPageHub> hubContext)
         {
@@ -89,7 +86,7 @@ namespace Senparc.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
@@ -102,7 +99,12 @@ namespace Senparc.Web
 
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
 
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
@@ -310,7 +312,6 @@ namespace Senparc.Web
             }); //全部运行 
 
             #endregion
-
         }
 
         /// <summary>

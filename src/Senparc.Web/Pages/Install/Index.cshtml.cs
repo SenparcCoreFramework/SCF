@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Senparc.CO2NET.Extensions;
 using Senparc.Core.Models.VD;
 using Senparc.Service;
 
@@ -24,7 +25,7 @@ namespace Senparc.Web.Pages.Install
             _systemConfigService = systemConfigService;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
             _systemConfigService.Init();//初始化系统信息
 
@@ -32,14 +33,17 @@ namespace Senparc.Web.Pages.Install
 
             if (adminUserInfo == null)
             {
+                return new StatusCodeResult(404);
                 base.Response.StatusCode = 404;
-                return; 
+                //return; 
                 //return new StatusCodeResult(404);
             }
             else
             {
                 AdminUserName = userName;
                 AdminPassword = password;//这里不可以使用 adminUserInfo.Password，因为此参数已经是加密信息
+
+                return Page();
             }
         }
     }
