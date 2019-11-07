@@ -44,16 +44,7 @@ namespace Senparc.Core.Models.DataBaseModel
         /// </summary>
         public bool Visible { get; set; }
 
-
-        /// <summary>
-        /// 说明
-        /// </summary>
-        public string Remark { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string AdminRemark { get; set; }
+        public string ResourceCode { get; set; }
     }
 
     /// <summary>

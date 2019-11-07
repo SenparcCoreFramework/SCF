@@ -34,6 +34,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _adminUserInfoService = adminUserInfoService;
         }
 
+        //[Filters.CustomerResourceFilter("Add")]
         public async Task<IActionResult> OnGetAsync()
         {
             var seh = new SenparcExpressionHelper<AdminUserInfo>();
@@ -41,6 +42,11 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var admins = await _adminUserInfoService.GetObjectListAsync(PageIndex, 20, where, OrderField);
             AdminUserInfoList = admins;
             return null;
+        }
+
+        public IActionResult OnPostDemo()
+        {
+            return Ok(null);
         }
 
         public IActionResult OnPost(int[] ids)

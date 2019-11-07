@@ -6,6 +6,8 @@ namespace Senparc.Core.Models
     using Microsoft.EntityFrameworkCore;
     using Senparc.Core.Models.DataBaseModel;
     using Senparc.Scf.Core.Models;
+    using System;
+    using System.Linq.Expressions;
 
     public partial class SenparcEntities : DbContext, ISenparcEntities
     {
@@ -62,6 +64,14 @@ namespace Senparc.Core.Models
             modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
             modelBuilder.ApplyConfiguration(new AccountPayLogConfigurationMapping());
             modelBuilder.ApplyConfiguration(new PointsLogConfigurationMapping());
+
+            var types = modelBuilder.Model.GetEntityTypes().Where(e => typeof(EntityBase).IsAssignableFrom(e.ClrType));
+            foreach (var entityType in types)
+            {
+                SetGlobalQueryMethodInfo
+                        .MakeGenericMethod(entityType.ClrType)
+                        .Invoke(this, new object[] { modelBuilder });
+            }
         }
 
         /// <summary>
@@ -77,7 +87,7 @@ namespace Senparc.Core.Models
         /// <param name="builder"></param>
         public void SetGlobalQuery<T>(ModelBuilder builder) where T : EntityBase
         {
-            builder.Entity<T>().HasQueryFilter(z => z.Flag);
+            builder.Entity<T>().HasQueryFilter(z => !z.Flag);
         }
     }
 }

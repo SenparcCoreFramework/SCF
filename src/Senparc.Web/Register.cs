@@ -114,13 +114,13 @@ namespace Senparc.Web
                     policy.RequireClaim("UserMember");
                 });
             });
-
             services.AddHttpContextAccessor();
-
+            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationResultFilterAttribute));
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
             services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
+            services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
         }
 
     }

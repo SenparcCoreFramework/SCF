@@ -58,7 +58,8 @@ namespace Senparc.Web.Migrations
                     RoleCode = table.Column<string>(maxLength: 20, nullable: true),
                     RoleId = table.Column<string>(maxLength: 50, nullable: true),
                     IsMenu = table.Column<bool>(nullable: false),
-                    PermissionId = table.Column<string>(maxLength: 50, nullable: true)
+                    PermissionId = table.Column<string>(maxLength: 50, nullable: true),
+                    ResourceCode = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -11,6 +11,7 @@ namespace Senparc.Areas.Admin
 
     }
 
+    [ServiceFilter(typeof(AuthenticationResultFilterAttribute))]
     [AdminAuthorize("AdminOnly")]
     public class BaseAdminPageModel : PageModelBase, IBaseAdminPageModel
     {

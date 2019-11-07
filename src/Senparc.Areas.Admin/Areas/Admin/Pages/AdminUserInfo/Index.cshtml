@@ -1,9 +1,6 @@
 ﻿@page "{handler?}"
 @model Senparc.Areas.Admin.Areas.Admin.Pages.AdminUserInfo_IndexModel
-@{
-}
-
-
+@addTagHelper *, Senparc.Areas.Admin
 @using System.Web.Mvc
 @{
     ViewData["Title"] = "管理员管理";
@@ -16,7 +13,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="pull-left">
-                <a asp-page="Edit" asp-route-id="" title="新增" class="btn-sm btn btn-success">
+                <a PermissionCode="Add" asp-page="Edit" asp-route-id="" title="新增" class="btn-sm btn btn-success">
                     <em class="fa fa-plus"></em> &nbsp;<small>新增</small>
                 </a>
                 <label for="deleteBtn" class="btn-sm btn btn-danger" title="删除">

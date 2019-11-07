@@ -23,6 +23,7 @@ namespace Senparc.Core.Models.DataBaseModel
             IsMenu = item.IsMenu;
             PermissionId = item.PermissionId;
             RoleCode = item.RoleCode;
+            ResourceCode = item.ResourceCode;
         }
 
         /// <summary>
@@ -30,6 +31,12 @@ namespace Senparc.Core.Models.DataBaseModel
         /// </summary>
         [MaxLength(20)]
         public string RoleCode { get; set; }
+
+        /// <summary>
+        /// 资源（按钮）代码
+        /// </summary>
+        [MaxLength(20)]
+        public string ResourceCode { get; set; }
 
         /// <summary>
         /// 角色Id
