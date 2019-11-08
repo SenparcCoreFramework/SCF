@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -13,9 +14,9 @@ namespace Senparc.Service
     {
         private readonly SysRoleService _sysRoleService;
 
-        public SysRoleAdminUserInfoService(ClientRepositoryBase<SysRoleAdminUserInfo> repo, SysRoleService sysRoleService, IMapper mapper = null) : base(repo, mapper)
+        public SysRoleAdminUserInfoService(ClientRepositoryBase<SysRoleAdminUserInfo> repo, IServiceProvider serviceProvider) : base(repo, serviceProvider)
         {
-            _sysRoleService = sysRoleService;
+            _sysRoleService = _serviceProvider.GetService<SysRoleService>();
         }
 
         /// <summary>

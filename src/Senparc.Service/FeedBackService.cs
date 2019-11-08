@@ -7,8 +7,8 @@ namespace Senparc.Service
 {
     public class FeedBackService : ClientServiceBase<FeedBack>
     {
-        public FeedBackService(FeedBackRepository repo)
-            : base(repo)
+        public FeedBackService(FeedBackRepository repo, IServiceProvider serviceProvider)
+            : base(repo, serviceProvider)
         {
         }
 

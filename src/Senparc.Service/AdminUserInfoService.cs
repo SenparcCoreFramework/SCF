@@ -21,8 +21,8 @@ namespace Senparc.Service
     {
 
         private readonly Lazy<IHttpContextAccessor> _contextAccessor;
-        public AdminUserInfoService(AdminUserInfoRepository repository, Lazy<IHttpContextAccessor> httpContextAccessor, IMapper mapper)
-            : base(repository, mapper)
+        public AdminUserInfoService(AdminUserInfoRepository repository, Lazy<IHttpContextAccessor> httpContextAccessor, IServiceProvider serviceProvider)
+            : base(repository, serviceProvider)
         {
             _contextAccessor = httpContextAccessor;
         }

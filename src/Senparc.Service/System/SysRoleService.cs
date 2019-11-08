@@ -10,7 +10,7 @@ namespace Senparc.Service
 {
     public class SysRoleService : ClientServiceBase<SysRole>
     {
-        public SysRoleService(ClientRepositoryBase<SysRole> repo, IMapper mapper = null) : base(repo, mapper)
+        public SysRoleService(ClientRepositoryBase<SysRole> repo, IServiceProvider serviceProvider) : base(repo, serviceProvider)
         {
 
         }

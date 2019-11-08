@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
 using Senparc.Scf.Service;
+using System;
 
 namespace Senparc.Service
 {
@@ -28,8 +29,8 @@ namespace Senparc.Service
             }
         }
 
-        public ClientServiceBase(IClientRepositoryBase<T> repo, IMapper mapper = null)
-            : base(repo, mapper)
+        public ClientServiceBase(IClientRepositoryBase<T> repo, IServiceProvider serviceProvider)
+            : base(repo, serviceProvider)
         {
 
         }

@@ -12,8 +12,8 @@ namespace Senparc.Service
 
     public class AccountPayLogService : ClientServiceBase<AccountPayLog>
     {
-        public AccountPayLogService(AccountPayLogRepository accountPayLogRepo)
-            : base(accountPayLogRepo)
+        public AccountPayLogService(AccountPayLogRepository accountPayLogRepo, IServiceProvider serviceProvider)
+            : base(accountPayLogRepo, serviceProvider)
         {
         }
 

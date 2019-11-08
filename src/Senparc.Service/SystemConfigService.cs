@@ -22,8 +22,8 @@ namespace Senparc.Service
 
     public class SystemConfigService : ClientServiceBase<SystemConfig>/*, ISystemConfigService*/
     {
-        public SystemConfigService(SystemConfigRepository systemConfigRepo)
-            : base(systemConfigRepo)
+        public SystemConfigService(SystemConfigRepository systemConfigRepo, IServiceProvider serviceProvider)
+            : base(systemConfigRepo, serviceProvider)
         {
 
         }

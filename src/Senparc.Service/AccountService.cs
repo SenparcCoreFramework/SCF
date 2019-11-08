@@ -37,8 +37,8 @@ namespace Senparc.Service
         private readonly Lazy<IHttpContextAccessor> _httpContextAccessor;
         private string GetSalt => DateTime.Now.Ticks.ToString();
 
-        public AccountService(AccountRepository accountRepo, Lazy<IHttpContextAccessor> httpContextAccessor)
-            : base(accountRepo)
+        public AccountService(AccountRepository accountRepo, Lazy<IHttpContextAccessor> httpContextAccessor, IServiceProvider serviceProvider)
+            : base(accountRepo, serviceProvider)
         {
             _httpContextAccessor = httpContextAccessor;
         }

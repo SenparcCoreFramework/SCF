@@ -14,8 +14,8 @@ namespace Senparc.Service
 {
     public class PointsLogService : ClientServiceBase<PointsLog>
     {
-        public PointsLogService(PointsLogRepository pointsLogRepo)
-            : base(pointsLogRepo)
+        public PointsLogService(PointsLogRepository pointsLogRepo, IServiceProvider serviceProvider)
+            : base(pointsLogRepo, serviceProvider)
         {
 
         }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Scf.Service
 {
@@ -18,12 +19,13 @@ namespace Senparc.Scf.Service
         public IMapper Mapper { get; set; } //TODO: add in to Wapper
 
         public IRepositoryBase<T> RepositoryBase { get; set; }
-
-        public ServiceBase(IRepositoryBase<T> repo, IMapper mapper = null)
+        protected IServiceProvider _serviceProvider;
+        public ServiceBase(IRepositoryBase<T> repo, IServiceProvider serviceProvider)
             : base(repo)
         {
+            _serviceProvider = serviceProvider;
             RepositoryBase = repo;
-            Mapper = mapper ?? SenparcDI.GetService<IMapper>();//确保 Mapper 中有值
+            Mapper = _serviceProvider.GetService<IMapper>();//确保 Mapper 中有值
         }
 
         public virtual bool IsInsert(T obj)

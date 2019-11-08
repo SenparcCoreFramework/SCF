@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -21,12 +22,12 @@ namespace Senparc.Service
         private readonly SysRoleService _sysRoleService;
         private const string PermissionKey = "Permission";
 
-        public SysPermissionService(ClientRepositoryBase<SysPermission> repo, IDistributedCache _distributedCache, Core.WorkContext.Provider.IAdminWorkContextProvider adminWorkContextProvider, SysMenuService _sysMenuService, SysRoleService sysRoleService, IMapper mapper = null) : base(repo, mapper)
+        public SysPermissionService(ClientRepositoryBase<SysPermission> repo, IServiceProvider serviceProvider) : base(repo, serviceProvider)
         {
-            this._distributedCache = _distributedCache;
-            this._sysMenuService = _sysMenuService;
-            this._adminWorkContextProvider = adminWorkContextProvider;
-            this._sysRoleService = sysRoleService;
+            this._distributedCache = _serviceProvider.GetService<IDistributedCache>();
+            this._sysMenuService = _serviceProvider.GetService<SysMenuService>();
+            this._adminWorkContextProvider = _serviceProvider.GetService<IAdminWorkContextProvider>();
+            this._sysRoleService = _serviceProvider.GetService<SysRoleService>();
         }
 
         public async Task<bool> HasPermissionAsync(string url)

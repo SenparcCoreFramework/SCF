@@ -16,8 +16,8 @@ namespace Senparc.Scf.Service.ServiceBase
         where TEntity : class, IEntityBase, new()
         where TEntityDto : IDtoBase
     {
-        public DtoServiceBase(IRepositoryBase<TEntity> repo)
-            : base(repo)
+        public DtoServiceBase(IRepositoryBase<TEntity> repo, IServiceProvider serviceProvider)
+            : base(repo, serviceProvider)
         {
 
         }

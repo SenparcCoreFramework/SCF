@@ -13,7 +13,7 @@ namespace Senparc.Service
     {
         private readonly ISysButtonRespository _iSysButtonRespository;
 
-        public SysButtonService(ISysButtonRespository repo, IMapper mapper = null) : base(repo, mapper)
+        public SysButtonService(ISysButtonRespository repo, IServiceProvider serviceProvider) : base(repo, serviceProvider)
         {
             _iSysButtonRespository = repo;
         }
