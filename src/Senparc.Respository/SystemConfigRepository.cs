@@ -1,14 +1,15 @@
 ﻿using Senparc.Core.Models;
+using Senparc.Scf.Repository;
 
 namespace Senparc.Repository
 {
-    public interface ISystemConfigRepository : IBaseClientRepository<SystemConfig>
+    public interface ISystemConfigRepository : IClientRepositoryBase<SystemConfig>
     {
     }
 
-    public class SystemConfigRepository : BaseClientRepository<SystemConfig>, ISystemConfigRepository
+    public class SystemConfigRepository : ClientRepositoryBase<SystemConfig>, ISystemConfigRepository
     {
-
+        
     }
 }
 

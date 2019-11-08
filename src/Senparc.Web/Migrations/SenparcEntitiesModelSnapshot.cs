@@ -15,7 +15,7 @@ namespace Senparc.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,6 +29,9 @@ namespace Senparc.Web.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Address");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
 
                     b.Property<decimal>("Balance");
 
@@ -53,6 +56,8 @@ namespace Senparc.Web.Migrations
                     b.Property<string>("LastLoginIP");
 
                     b.Property<DateTime>("LastLoginTime");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<DateTime?>("LastWeixinSignInTime");
 
@@ -91,6 +96,9 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("RealName")
                         .HasMaxLength(100);
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
 
                     b.Property<byte>("Sex");
 
@@ -131,6 +139,9 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
                     b.Property<DateTime>("CompleteTime")
                         .HasColumnType("datetime");
 
@@ -141,8 +152,12 @@ namespace Senparc.Web.Migrations
                     b.Property<decimal>("Fee")
                         .HasColumnType("money");
 
+                    b.Property<bool>("Flag");
+
                     b.Property<decimal>("GetPoints")
                         .HasColumnType("money");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -162,6 +177,9 @@ namespace Senparc.Web.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
 
                     b.Property<byte>("Status");
 
@@ -192,6 +210,11 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag");
+
                     b.Property<string>("LastLoginIp")
                         .HasColumnName("LastLoginIP")
                         .HasMaxLength(20)
@@ -199,6 +222,8 @@ namespace Senparc.Web.Migrations
 
                     b.Property<DateTime>("LastLoginTime")
                         .HasColumnType("datetime");
+
+                    b.Property<DateTime>("LastUpdateTime");
 
                     b.Property<string>("Note");
 
@@ -216,6 +241,9 @@ namespace Senparc.Web.Migrations
                     b.Property<string>("RealName")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
+
                     b.Property<string>("ThisLoginIp")
                         .HasColumnName("ThisLoginIP")
                         .HasMaxLength(20)
@@ -232,6 +260,177 @@ namespace Senparc.Web.Migrations
                     b.ToTable("AdminUserInfos");
                 });
 
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysButton", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("ButtonName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
+                    b.Property<string>("MenuId")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("OpearMark")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(350);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysButtons");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysMenu", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastUpdateTime");
+
+                    b.Property<string>("MenuName")
+                        .IsRequired()
+                        .HasMaxLength(150);
+
+                    b.Property<string>("ParentId")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
+
+                    b.Property<int>("Sort");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(350);
+
+                    b.Property<bool>("Visible");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysMenus");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysPermission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<bool>("IsMenu");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
+                    b.Property<string>("PermissionId")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("RoleCode")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("RoleId")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysPermission");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Enabled");
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("RoleCode")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("RoleName")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysRoles");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysRoleAdminUserInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("RoleCode")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("RoleId")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysRoleAdminUserInfos");
+                });
+
             modelBuilder.Entity("Senparc.Core.Models.FeedBack", b =>
                 {
                     b.Property<int>("Id")
@@ -243,9 +442,17 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
                     b.Property<string>("Content");
 
                     b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
 
                     b.HasKey("Id");
 
@@ -267,6 +474,9 @@ namespace Senparc.Web.Migrations
                     b.Property<DateTime>("AddTime")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
                     b.Property<decimal>("AfterPoints")
                         .HasColumnType("decimal(18, 2)");
 
@@ -275,8 +485,15 @@ namespace Senparc.Web.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
                     b.Property<decimal>("Points")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
 
                     b.HasKey("Id");
 
@@ -293,11 +510,23 @@ namespace Senparc.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("AddTime");
+
+                    b.Property<string>("AdminRemark")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag");
+
+                    b.Property<DateTime>("LastUpdateTime");
+
                     b.Property<string>("MchId")
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("MchKey")
                         .HasColumnType("varchar(300)");
+
+                    b.Property<string>("Remark")
+                        .HasMaxLength(300);
 
                     b.Property<string>("SystemName")
                         .IsRequired()

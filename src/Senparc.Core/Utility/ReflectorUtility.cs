@@ -12,6 +12,9 @@ namespace Senparc.Core.Utility
                 case "DateTime":
                     prop.SetValue(obj, DateTime.Parse(value), null);
                     break;
+                case "DateTimeOffset":
+                    prop.SetValue(obj, DateTimeOffset.Parse(value), null);
+                    break;
                 case "Int32":
                     prop.SetValue(obj, int.Parse(value), null);
                     break;

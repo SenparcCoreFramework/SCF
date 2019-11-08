@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Senparc.CO2NET;
-using Senparc.Core.Extensions;
-using Senparc.Log;
-using Senparc.Utility;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Log;
+using Senparc.Scf.Utility;
 
 namespace Senparc.Service.OperationQueue
 {

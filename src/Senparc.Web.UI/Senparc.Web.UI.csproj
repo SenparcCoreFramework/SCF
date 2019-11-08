@@ -1,15 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="SectionAuthority\" />
+    <Compile Remove="SectionAuthority\**" />
+    <EmbeddedResource Remove="SectionAuthority\**" />
+    <None Remove="SectionAuthority\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="0.5.1.1" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
   </ItemGroup>
 
   <ItemGroup>

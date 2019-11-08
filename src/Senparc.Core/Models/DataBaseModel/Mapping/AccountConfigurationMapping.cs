@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Senparc.Core.Enums;
+using Senparc.Scf.Core.Enums;
 
 namespace Senparc.Core.Models
 {

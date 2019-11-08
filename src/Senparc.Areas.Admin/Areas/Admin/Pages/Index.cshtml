@@ -1,0 +1,65 @@
+﻿@page
+@model Senparc.Areas.Admin.Pages.IndexModel
+@{
+    ViewData["Title"] = "管理员后台首页";
+}
+@section scripts {
+    <script src="~/lib/echarts/echarts.js"></script>
+    <script src="~/js/Admin/Pages/Index/Index.js"></script>
+}
+
+<div class="row">
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon">
+                <i class="fa fa-caret-square-o-right"></i>
+            </div>
+            <div class="count">179</div>
+            <h3>今日新订单数量</h3>
+            <p></p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon">
+                <i class="fa fa-comments-o"></i>
+            </div>
+            <div class="count">179</div>
+            <h3>售后订单数量</h3>
+            <p></p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon">
+                <i class="fa fa-sort-amount-desc"></i>
+            </div>
+            <div class="count">179</div>
+            <h3>新发表文章数</h3>
+            <p></p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon">
+                <i class="fa fa-check-square-o"></i>
+            </div>
+            <div class="count">￥119.5</div>
+            <h3>账户余额</h3>
+            <p></p>
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 col-md-6 col-lg-6">
+        <div id="firstChart" style="height:350px;width: 100%">
+
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-md-6 col-lg-6">
+        <div id="secondChart" style="height:350px;width: 100%">
+
+        </div>
+    </div>
+</div>

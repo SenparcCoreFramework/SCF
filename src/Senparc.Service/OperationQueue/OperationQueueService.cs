@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Models;
-using Senparc.Core.Utility;
-using Senparc.Log;
-using Senparc.Utility;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Utility;
+using Senparc.Scf.Log;
+using Senparc.Scf.Utility;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Scf.Service;
 
 namespace Senparc.Service.OperationQueue
 {
@@ -22,7 +24,7 @@ namespace Senparc.Service.OperationQueue
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                await Get.DownloadAsync(picUrl, stream);
+                await CO2NET.HttpUtility.Get.DownloadAsync(picUrl, stream);
                 using (var fs = new FileStream(Server.GetMapPath("~" + fileName), FileMode.CreateNew))
                 {
                     stream.Seek(0, SeekOrigin.Begin);

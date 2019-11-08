@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Senparc.Core.Extensions;
+using Senparc.Scf.Core.Extensions;
 
 namespace Senparc.Mvc.Controllers
 {

@@ -1,12 +1,13 @@
 ﻿using Senparc.Core.Models;
+using Senparc.Scf.Repository;
 
 namespace Senparc.Repository
 {
-    public interface IPointsLogRepository : IBaseClientRepository<PointsLog>
+    public interface IPointsLogRepository : IClientRepositoryBase<PointsLog>
     {
     }
 
-    public class PointsLogRepository : BaseClientRepository<PointsLog>, IPointsLogRepository
+    public class PointsLogRepository : ClientRepositoryBase<PointsLog>, IPointsLogRepository
     {
 
     }

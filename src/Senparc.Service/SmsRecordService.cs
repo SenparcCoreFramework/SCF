@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.Core.Cache;
-using Senparc.Core.Enums;
-using Senparc.Core.Extensions;
-using Senparc.SMS;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.SMS;
 using System;
 
 namespace Senparc.Service

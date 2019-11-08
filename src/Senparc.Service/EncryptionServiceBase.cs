@@ -1,4 +1,4 @@
-﻿using Senparc.Core.Utility;
+﻿using Senparc.Scf.Core.Utility;
 
 namespace Senparc.Service
 {

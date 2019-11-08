@@ -10,31 +10,35 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Core.Cache;
-using Senparc.Core.Config;
-using Senparc.Core.Enums;
-using Senparc.Core.Extensions;
 using Senparc.Core.Models;
-using Senparc.Core.Utility;
-using Senparc.Log;
 using Senparc.Repository;
-using Senparc.Service.OperationQueue;
-using Senparc.Utility;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Core.Config;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Utility;
+using Senparc.Scf.Log;
+using Senparc.Scf.Repository;
+using Senparc.Scf.Utility;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Claims;
+using Senparc.Scf.Service;
+using Senparc.Service.OperationQueue;
 
 namespace Senparc.Service
 {
-    public class AccountService : BaseClientService<Account> /*, UserService*/
+    public class AccountService : ClientServiceBase<Account> /*, UserService*/
     {
         private readonly Lazy<IHttpContextAccessor> _httpContextAccessor;
         private string GetSalt => DateTime.Now.Ticks.ToString();
 
-        public AccountService(AccountRepository accountRepo, Lazy<IHttpContextAccessor> httpContextAccessor)
-            : base(accountRepo)
+        public AccountService(AccountRepository accountRepo, Lazy<IHttpContextAccessor> httpContextAccessor, IServiceProvider serviceProvider)
+            : base(accountRepo, serviceProvider)
         {
             _httpContextAccessor = httpContextAccessor;
         }
@@ -165,7 +169,7 @@ namespace Senparc.Service
             }
             catch (Exception ex)
             {
-                Log.LogUtility.Account.Error("退出登录失败。", ex);
+                Scf.Log.LogUtility.Account.Error("退出登录失败。", ex);
             }
         }
 

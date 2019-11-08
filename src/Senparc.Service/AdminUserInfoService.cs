@@ -1,21 +1,28 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using Senparc.Core.Extensions;
 using Senparc.Core.Models;
-using Senparc.Core.Utility;
-using Senparc.Log;
 using Senparc.Repository;
+using Senparc.Scf.Core.Config;
+using Senparc.Scf.Core.Extensions;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Utility;
+using Senparc.Scf.Log;
+using Senparc.Scf.Repository;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging.Debug;
 
 namespace Senparc.Service
 {
-    public class AdminUserInfoService : BaseClientService<AdminUserInfo>
+    public class AdminUserInfoService : ClientServiceBase<AdminUserInfo>
     {
 
         private readonly Lazy<IHttpContextAccessor> _contextAccessor;
-        public AdminUserInfoService(AdminUserInfoRepository repository, Lazy<IHttpContextAccessor> httpContextAccessor) : base(repository)
+        public AdminUserInfoService(AdminUserInfoRepository repository, Lazy<IHttpContextAccessor> httpContextAccessor, IServiceProvider serviceProvider)
+            : base(repository, serviceProvider)
         {
             _contextAccessor = httpContextAccessor;
         }
@@ -31,14 +38,15 @@ namespace Senparc.Service
             return GetObject(z => z.Id != id && z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase)) != null;
         }
 
-        public AdminUserInfo GetUserInfo(string userName)
+        public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
-            return GetObject(z => z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            var obj = GetObject(z => z.UserName.Equals(userName.Trim()));
+            return obj;
         }
 
         public AdminUserInfo GetUserInfo(string userName, string password)
         {
-            AdminUserInfo userInfo = GetObject(z => z.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase), null);
+            AdminUserInfo userInfo = GetObject(z => z.UserName.Equals(userName), null);
             if (userInfo == null)
             {
                 return null;
@@ -57,11 +65,11 @@ namespace Senparc.Service
             return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
         }
 
-        public void Logout()
+        public async Task Logout()
         {
             try
             {
-                _contextAccessor.Value.HttpContext.SignOutAsync(AdminAuthorizeAttribute.AuthenticationScheme);
+                await _contextAccessor.Value.HttpContext.SignOutAsync(SiteConfig.ScfAdminAuthorizeScheme);
             }
             catch (Exception ex)
             {
@@ -69,16 +77,17 @@ namespace Senparc.Service
             }
         }
 
-        public virtual void Login(string userName, bool rememberMe)
+        public virtual void Login(AdminUserInfo userInfo, bool rememberMe)
         {
             #region 使用 .net core 的方法写入 cookie 验证信息
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.Name, userInfo.UserName),
+                new Claim(ClaimTypes.NameIdentifier, userInfo.Id.ToString(), ClaimValueTypes.Integer),
                 new Claim("AdminMember", "", ClaimValueTypes.String)
             };
-            var identity = new ClaimsIdentity(AdminAuthorizeAttribute.AuthenticationScheme);
+            var identity = new ClaimsIdentity(SiteConfig.ScfAdminAuthorizeScheme);
             identity.AddClaims(claims);
             var authProperties = new AuthenticationProperties
             {
@@ -88,14 +97,14 @@ namespace Senparc.Service
             };
 
             Logout(); //退出登录
-            _contextAccessor.Value.HttpContext.SignInAsync(AdminAuthorizeAttribute.AuthenticationScheme, new ClaimsPrincipal(identity), authProperties);
+            _contextAccessor.Value.HttpContext.SignInAsync(SiteConfig.ScfAdminAuthorizeScheme, new ClaimsPrincipal(identity), authProperties);
 
             #endregion
         }
 
         public bool CheckPassword(string userName, string password)
         {
-            var userInfo = GetObject(z => z.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
+            var userInfo = GetObject(z => z.UserName.Equals(userName));
             if (userInfo == null)
             {
                 return false;
@@ -109,7 +118,7 @@ namespace Senparc.Service
             AdminUserInfo userInfo = GetUserInfo(userNameOrEmail, password);
             if (userInfo != null)
             {
-                Login(userInfo.UserName, rememberMe);
+                Login(userInfo, rememberMe);
                 return userInfo;
             }
             else
@@ -118,14 +127,45 @@ namespace Senparc.Service
             }
         }
 
-        public AdminUserInfo GetAdminUserInfo(int id, string[] includes = null)
+        /// <summary>
+        /// 添加用户信息
+        /// </summary>
+        /// <param name="objDto"></param>
+        public void CreateAdminUserInfo(CreateOrUpdate_AdminUserInfoDto objDto)
         {
-            return GetObject(z => z.Id == id, includes: includes);
+            string userName = objDto.UserName;
+            string password = objDto.Password;
+            var obj = new AdminUserInfo(ref userName, ref password, null, null, objDto.Note);
+            SaveObject(obj);
         }
 
-        public List<AdminUserInfo> GetAdminUserInfo(List<int> ids, string[] includes = null)
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="objDto"></param>
+        public void UpdateAdminUserInfo(CreateOrUpdate_AdminUserInfoDto objDto)
         {
-            return GetFullList(z => ids.Contains(z.Id), z => z.Id, Core.Enums.OrderingType.Ascending, includes: includes);
+            var obj = this.GetObject(z => z.Id == objDto.Id);
+            if (obj == null)
+            {
+                throw new Exception("用户信息不存在！");
+            }
+            obj.UpdateObject(objDto);
+            SaveObject(obj);
+        }
+
+        public CreateOrUpdate_AdminUserInfoDto GetAdminUserInfo(int id,params string[] includes)
+        {
+            var obj = GetObject(z => z.Id == id, includes: includes);
+
+            var objDto = base.Mapper.Map<CreateOrUpdate_AdminUserInfoDto>(obj);
+
+            return objDto;
+        }
+
+        public List<AdminUserInfo> GetAdminUserInfo(List<int> ids,params string[] includes)
+        {
+            return GetFullList(z => ids.Contains(z.Id), z => z.Id, Scf.Core.Enums.OrderingType.Ascending, includes: includes);
         }
 
         /// <summary>
@@ -134,31 +174,27 @@ namespace Senparc.Service
         /// <returns></returns>
         public AdminUserInfo Init(out string userName, out string password)
         {
+            userName = null;
+            password = null;
+
             var oldAdminUserInfo = GetObject(z => true);
             if (oldAdminUserInfo != null)
             {
-                userName = null;
-                password = null;
                 return null;
             }
-
-            var salt = DateTime.Now.Ticks.ToString();
-            userName = $"SenparcCoreAdmin{new Random().Next(100).ToString("00")}";
-            password = Guid.NewGuid().ToString("n").Substring(0, 8);
-
-            var adminUserInfo = new AdminUserInfo()
-            {
-                UserName = userName,
-                Password = GetPassword(password, salt, false),
-                PasswordSalt = salt,
-                Note = "初始化数据",
-                AddTime = DateTime.Now,
-                ThisLoginTime = DateTime.Now,
-                LastLoginTime = DateTime.Now,
-            };
-
+            var adminUserInfo = new AdminUserInfo(ref userName, ref password, null, null, "初始化数据");
             SaveObject(adminUserInfo);
             return adminUserInfo;
+        }
+
+        public void DeleteObject(int id)
+        {
+            var obj = GetObject(z => z.Id == id);
+            if (obj == null)
+            {
+                throw new Exception("用户信息不存在！");
+            }
+            DeleteObject(obj);
         }
 
         public override void SaveObject(AdminUserInfo obj)

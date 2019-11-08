@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Senparc.Scf.Core.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Senparc.Core.Models
 {
     [Serializable]
-    public partial class AccountPayLog
+    public partial class AccountPayLog : EntityBase<int>
     {
         public AccountPayLog()
         {
             this.PointsLogs = new HashSet<PointsLog>();
         }
 
-        public int Id { get; set; }
 
         public int AccountId { get; set; }
 
@@ -22,8 +22,6 @@ namespace Senparc.Core.Models
         public decimal PayMoney { get; set; }
 
         public decimal? UsedPoints { get; set; }
-
-        public System.DateTime AddTime { get; set; }
 
         public System.DateTime CompleteTime { get; set; }
 

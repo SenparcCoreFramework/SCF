@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,16 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.5.1.1" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.0.2" />
-    <PackageReference Include="Senparc.WebSocket" Version="0.7.1.6" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.5.0.1" />
-    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.2.3.3" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.4.0.2" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.1.2.2" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.3.4.2" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
+    <PackageReference Include="Senparc.WebSocket" Version="0.9.102" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.7.102" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.4.102" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.102.1-preview2" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.102" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.7.102.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +34,9 @@
     <ProjectReference Include="..\Senparc.File\Senparc.File.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Service\Senparc.Scf.Service.csproj" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>

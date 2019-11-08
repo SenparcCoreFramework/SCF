@@ -1,10 +1,11 @@
 ﻿using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.MessageContexts;
 
 namespace Senparc.Mvc.Weixin
 {
-    public class ScfMessageContext : MessageContext<IRequestMessageBase, IResponseMessageBase>
+    public class ScfMessageContext : DefaultMpMessageContext
     {
         public ScfMessageContext()
         {

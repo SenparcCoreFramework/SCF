@@ -1,7 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Senparc.CO2NET;
-using Senparc.Utility;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Utility;
 
 namespace Senparc.Core.Models
 {
@@ -39,7 +40,7 @@ namespace Senparc.Core.Models
             {
                 if (dataContext == null)
                 {
-                    var connectionString = Senparc.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
+                    var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
 
                     dataContext = SenparcDI.GetService<SenparcEntities>();
                     //TODO:当前采用注入可以保证HttpContext单例，如果要全局单例，可采用单件模式（需要先解决释放的问题）

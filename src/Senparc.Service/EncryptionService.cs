@@ -1,5 +1,5 @@
 ﻿using Senparc.CO2NET;
-using Senparc.Core.Utility;
+using Senparc.Scf.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

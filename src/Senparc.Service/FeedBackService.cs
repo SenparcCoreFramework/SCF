@@ -1,15 +1,14 @@
-using Senparc.Core.Enums;
-using Senparc.Core.Models;
-using Senparc.Log;
-using Senparc.Repository;
 using System;
+using Senparc.Core.Models;
+using Senparc.Repository;
+using Senparc.Scf.Log;
 
 namespace Senparc.Service
 {
-    public class FeedBackService : BaseClientService<FeedBack>
+    public class FeedBackService : ClientServiceBase<FeedBack>
     {
-        public FeedBackService(FeedBackRepository repo)
-            : base(repo)
+        public FeedBackService(FeedBackRepository repo, IServiceProvider serviceProvider)
+            : base(repo, serviceProvider)
         {
         }
 

@@ -1,10 +1,13 @@
 using System;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Log;
+using Senparc.Scf.Repository;
+using Senparc.Scf.Core.Cache;
+using Senparc.Scf.Utility;
+using Senparc.CO2NET;
 using Senparc.Core.Models;
-using Senparc.Log;
 using Senparc.Repository;
 using Senparc.Core.Cache;
-using Senparc.Utility;
-using Senparc.CO2NET;
 
 namespace Senparc.Service
 {
@@ -17,10 +20,10 @@ namespace Senparc.Service
     //    void RecycleAppPool();
     //}
 
-    public class SystemConfigService : BaseClientService<SystemConfig>/*, ISystemConfigService*/
+    public class SystemConfigService : ClientServiceBase<SystemConfig>/*, ISystemConfigService*/
     {
-        public SystemConfigService(SystemConfigRepository systemConfigRepo)
-            : base(systemConfigRepo)
+        public SystemConfigService(SystemConfigRepository systemConfigRepo, IServiceProvider serviceProvider)
+            : base(systemConfigRepo, serviceProvider)
         {
 
         }

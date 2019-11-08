@@ -1,26 +1,16 @@
-﻿using System;
+﻿using Senparc.Scf.Core.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senparc.Core.Models
 {
     [Serializable]
-    public partial class SystemConfig
+    public partial class SystemConfig : EntityBase<int>
     {
-        [Key]
-        public int Id
-        {
-            get;
-            set;
-        }
-
         [Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string SystemName
-        {
-            get;
-            set;
-        }
+        public string SystemName { get; set; }
 
         [Column(TypeName = "varchar(100)")]
         public string MchId { get; set; }
