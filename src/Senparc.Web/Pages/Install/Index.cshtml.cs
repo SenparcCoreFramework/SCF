@@ -15,20 +15,22 @@ namespace Senparc.Web.Pages.Install
 
         private readonly AdminUserInfoService _accountInfoService;
         private readonly SystemConfigService _systemConfigService;
+        private readonly SysMenuService _sysMenuService;
 
         public string AdminUserName { get; set; }
         public string AdminPassword { get; set; }
 
-        public IndexModel(AdminUserInfoService accountService, SystemConfigService systemConfigService)
+        public IndexModel(AdminUserInfoService accountService, SystemConfigService systemConfigService, SysMenuService sysMenuService)
         {
             _accountInfoService = accountService;
+            _sysMenuService = sysMenuService;
             _systemConfigService = systemConfigService;
         }
 
         public IActionResult OnGet()
         {
             _systemConfigService.Init();//初始化系统信息
-
+            _sysMenuService.Init();
             var adminUserInfo = _accountInfoService.Init(out string userName, out string password);//初始化管理员信息
 
             if (adminUserInfo == null)
