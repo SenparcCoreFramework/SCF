@@ -2,7 +2,7 @@
 
 # SCF - SenparcCoreFramework
 
-> 当前快速更新分支：[Developer-RazorPage-DDD-bs](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD-bs)
+> 当前快速更新分支：[Developer-RazorPage-DDD](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD)
 
 > 我们欢迎第三方开源组件提供自己的解决方案，我们将会测试并集成到 SCF 中。
 
@@ -93,7 +93,7 @@ Done.
  
 2. 检查当前系统中npm是否安装：`npm -v`
 
-  <img src="http://image.milisx.com/node&npm.png" /> 
+ <img src="http://image.milisx.com/node&npm.png" /> 
 
 3. 检查当前系统中bower是否安装：`bower help` 
 
@@ -118,7 +118,7 @@ Done.
 7. 完成。
 
 ## 待办事项：
-- [ ] 前端包管理器要从Bower切换为LibMan
+~~- [ ] 前端包管理器要从Bower切换为LibMan~~
 - [ ] 完善 DDD 实践
 - [ ] 定制命名空间
 - [ ] 发布官网及在线 Demo
