@@ -16,9 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
-    <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
-    <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
+    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
   </ItemGroup>
 
 </Project>

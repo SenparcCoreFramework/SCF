@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
     <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
     <PackageReference Include="Senparc.WebSocket" Version="0.9.102" />
