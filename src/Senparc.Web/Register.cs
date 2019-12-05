@@ -12,11 +12,15 @@ using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET;
 using Senparc.Core.Models;
@@ -31,7 +35,7 @@ namespace Senparc.Web
     /// </summary>
     public static class Register
     {
-        public static void AddScfServices(this IServiceCollection services, IConfiguration configuration, CompatibilityVersion compatibilityVersion)
+        public static void AddScfServices(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env, CompatibilityVersion compatibilityVersion)
         {
             //如果运行在IIS中，需要添加IIS配置
             //https://docs.microsoft.com/zh-cn/aspnet/core/host-and-deploy/iis/index?view=aspnetcore-2.1&tabs=aspnetcore2x#supported-operating-systems
@@ -61,24 +65,37 @@ namespace Senparc.Web
             //})
 
 
-            services.AddRazorPages()
+            var builder = services.AddRazorPages()
+              .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
+              .AddXmlSerializerFormatters()
+              .AddJsonOptions(options =>
+              {
+                  //忽略循环引用
+                  //options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                  //不使用驼峰样式的key
+                  //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                  //设置时间格式
+                  //options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+              })
+              //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
+              //.AddSessionStateTempDataProvider()
+              //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
+              ;
 
 
-            .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
-            .AddXmlSerializerFormatters()
-            .AddJsonOptions(options =>
+#if DEBUG
+            //Razor启用运行时编译，多个项目不需要手动编译。
+            if (env.IsDevelopment())
             {
-                //忽略循环引用
-                //options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                //不使用驼峰样式的key
-                //options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                //设置时间格式
-                //options.SerializerSettings.DateFormatString = "yyyy-MM-dd";
-            })
-            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
-            //.AddSessionStateTempDataProvider()
-            //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
-            ;
+                builder.AddRazorRuntimeCompilation(options =>
+                {
+                    var libraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Areas.Admin"));
+                    options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
+                });
+            }
+
+#endif
+
 
             //services.AddSenparcGlobalServices(configuration);//Senparc.CO2NET 全局注册    //已经在startup.cs中注册
 
