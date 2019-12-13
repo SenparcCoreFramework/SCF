@@ -33,16 +33,17 @@ namespace Senparc.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-
+            this.env = env;
             //读取Log配置文件
             var repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -66,7 +67,7 @@ namespace Senparc.Web
             //注册数据库客户端连接
 
             //添加（注册） Scf 服务（重要，必须！）
-            services.AddScfServices(Configuration, CompatibilityVersion.Version_3_0);
+            services.AddScfServices(Configuration, env, CompatibilityVersion.Version_3_0);
 
             services.AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
         }
@@ -86,7 +87,7 @@ namespace Senparc.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
