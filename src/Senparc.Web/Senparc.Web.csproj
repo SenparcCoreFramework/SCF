@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="package-lock.bak.son" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="package-lock.bak.son" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
     <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
