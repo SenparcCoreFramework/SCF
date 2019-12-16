@@ -8,6 +8,7 @@ using Senparc.CO2NET;
 using Senparc.Core.Models;
 using Senparc.Repository;
 using Senparc.Core.Cache;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -30,13 +31,14 @@ namespace Senparc.Service
 
         public SystemConfig Init()
         {
-           var systemConfig = GetObject(z => true);
-            if (systemConfig!=null)
+            var systemConfig = GetObject(z => true);
+            if (systemConfig != null)
             {
                 return null;
             }
 
-            systemConfig = new SystemConfig() {
+            systemConfig = new SystemConfig()
+            {
                 SystemName = "SCF - Template Project"
             };
 
@@ -52,7 +54,7 @@ namespace Senparc.Service
             base.SaveObject(obj);
 
             //É¾³ý»º´æ
-            var systemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
+            var systemConfigCache = _serviceProvider.GetService<FullSystemConfigCache>();
             systemConfigCache.RemoveCache();
         }
 

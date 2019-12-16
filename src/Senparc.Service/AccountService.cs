@@ -12,15 +12,10 @@ using Senparc.CO2NET.HttpUtility;
 using Senparc.Core.Cache;
 using Senparc.Core.Models;
 using Senparc.Repository;
-using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Config;
-using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
-using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 using Senparc.Scf.Log;
-using Senparc.Scf.Repository;
-using Senparc.Scf.Utility;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using System;
@@ -29,6 +24,7 @@ using System.IO;
 using System.Security.Claims;
 using Senparc.Scf.Service;
 using Senparc.Service.OperationQueue;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -158,7 +154,7 @@ namespace Senparc.Service
         {
             try
             {
-                var fullAccountCache = SenparcDI.GetService<FullAccountCache>();
+                var fullAccountCache = _serviceProvider.GetService<FullAccountCache>();
                 fullAccountCache.ForceLogout(_httpContextAccessor.Value.HttpContext.User.Identity.Name);
 
                 _httpContextAccessor.Value.HttpContext.SignOutAsync(
@@ -484,7 +480,7 @@ namespace Senparc.Service
             LogUtility.WebLogger.InfoFormat("User{2}：{0}（ID：{1}）", obj.UserName, obj.Id, isInsert ? "新增" : "编辑");
 
             //清除缓存
-            var fullUserCache = SenparcDI.GetService<FullAccountCache>();
+            var fullUserCache = _serviceProvider.GetService<FullAccountCache>();
             //示范同步缓存锁
             using (fullUserCache.Cache.BeginCacheLock(FullAccountCache.CACHE_KEY, obj.Id.ToString()))
             {
@@ -499,7 +495,7 @@ namespace Senparc.Service
             LogUtility.WebLogger.Info($"User被删除：{obj.UserName}（ID：{obj.Id}）");
 
             //清除缓存
-            var fullUserCache = SenparcDI.GetService<FullAccountCache>();
+            var fullUserCache = _serviceProvider.GetService<FullAccountCache>();
             fullUserCache.RemoveObject(obj.UserName);
         }
     }

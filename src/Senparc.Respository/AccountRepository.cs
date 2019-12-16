@@ -9,7 +9,10 @@ namespace Senparc.Repository
 
     public class AccountRepository : ClientRepositoryBase<Account>, IAccountRepository
     {
+        public AccountRepository(ISqlClientFinanceData sqlClientFinanceData) : base(sqlClientFinanceData)
+        {
 
+        }
     }
 }
 

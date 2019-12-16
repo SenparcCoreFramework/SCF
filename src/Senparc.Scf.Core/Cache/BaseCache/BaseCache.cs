@@ -50,7 +50,7 @@ namespace Senparc.Scf.Core.Cache
         {
             CacheKey = cacheKey;
 
-            _db = db ?? SenparcDI.GetService<ISqlBaseFinanceData>(); //
+            _db = db;
             if (TimeOut == 0)
             {
                 TimeOut = 1440;

@@ -17,6 +17,7 @@ using Senparc.Scf.Utility;
 using System;
 using System.Collections.Generic;
 using BaseVD = Senparc.Scf.Core.Models.VD;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Mvc.Controllers
 {
@@ -45,10 +46,10 @@ namespace Senparc.Mvc.Controllers
             try
             {
                 TempData["Messager"] = TempData["Messager"];
-                var fullSystemConfigCache = SenparcDI.GetService<FullSystemConfigCache>();
+                var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
                 _fullSystemConfig = fullSystemConfigCache.Data;
 
-                var fullAccountCache = SenparcDI.GetService<FullAccountCache>();
+                var fullAccountCache = context.HttpContext.RequestServices.GetService<FullAccountCache>();
                 if (this.UserName != null)
                 {
                     FullAccount = fullAccountCache.GetObject(this.UserName);

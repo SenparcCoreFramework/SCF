@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET;
 using Senparc.Service;
 using Senparc.CO2NET.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Areas.Admin.Filter
 {
@@ -28,13 +29,13 @@ namespace Senparc.Areas.Admin.Filter
             var result = base.AuthorizeCore(httpContext);// base.AuthorizeCore(httpContext);
             if (result)
             {
-#if !DEBUG
+#if DEBUG
                 var adminSession = httpContext.Session.GetString("AdminLogin") as string;
                 if (adminSession.IsNullOrEmpty())
                 {
                     try
                     {
-                        AccountService accountService = SenparcDI.GetService<AccountService>();
+                        var accountService = httpContext.RequestServices.GetService<AccountService>();
                         accountService.Logout();//强制退出登陆
                     }
                     catch

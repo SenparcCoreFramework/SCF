@@ -19,9 +19,9 @@ namespace Senparc.Scf.Repository
             }
         }
 
-        public ClientRepositoryBase() : this(null) { }
+        //public ClientRepositoryBase() : this(null) { }
 
-        public ClientRepositoryBase(ISqlBaseFinanceData db)
+        public ClientRepositoryBase(ISqlBaseFinanceData db) : base(db)
         {
             //System.Web.HttpContext.Current.Response.Write("-"+this.GetType().Name + "<br />");
             var keys = EntitySetKeys.GetEntitySetKeys(base.BaseDB.BaseDataContext.GetType());

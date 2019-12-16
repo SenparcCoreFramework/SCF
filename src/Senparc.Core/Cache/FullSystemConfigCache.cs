@@ -15,7 +15,7 @@ namespace Senparc.Core.Cache
 
     //}
 
-    [AutoDIType(DILifecycleType.Singleton)]
+    [AutoDIType(DILifecycleType.Scoped)]
     public class FullSystemConfigCache : BaseCache<FullSystemConfig>/*, IFullSystemConfigCache*/
     {
         public const string CACHE_KEY = "FullSystemConfigCache";
@@ -30,7 +30,7 @@ namespace Senparc.Core.Cache
         public override FullSystemConfig Update()
         {
             var systemConfig = _dataContext.DataContext.SystemConfigs.FirstOrDefault();
-            FullSystemConfig fullSystemConfig = null;
+            FullSystemConfig fullSystemConfig;
             if (systemConfig != null)
             {
                 fullSystemConfig = FullSystemConfig.CreateEntity<FullSystemConfig>(systemConfig);

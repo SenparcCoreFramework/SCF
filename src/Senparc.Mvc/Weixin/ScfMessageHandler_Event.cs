@@ -17,6 +17,7 @@ namespace Senparc.Mvc.Weixin
             {
                 if (int.TryParse(requestMessage.EventKey, out int sceneId))
                 {
+                   
                     //临时二维码
                     var qrCodeRegCache = SenparcDI.GetService<QrCodeRegCache>();
                     var qrCodeRegData = qrCodeRegCache.Get(sceneId.ToString());

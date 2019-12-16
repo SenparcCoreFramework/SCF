@@ -9,7 +9,10 @@ namespace Senparc.Repository
 
     public class AdminUserInfoRepository : ClientRepositoryBase<AdminUserInfo>, IAdminUserInfoRepository
     {
+        public AdminUserInfoRepository(ISqlClientFinanceData sqlClientFinanceData) : base(sqlClientFinanceData)
+        {
 
+        }
     }
 }
 

@@ -7,16 +7,19 @@ using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.SMS;
 using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
     public class SmsRecordService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private IServiceProvider _serviceProvider;
         private const string TokenSessionKey = "SendSMS";
-        public SmsRecordService(IHttpContextAccessor httpContextAccessor)
+        public SmsRecordService(IHttpContextAccessor httpContextAccessor, IServiceProvider serviceProvider)
         {
             _httpContextAccessor = httpContextAccessor;
+            _serviceProvider = _serviceProvider;
         }
         /// <summary>
         /// 设置允许发送令牌
@@ -59,7 +62,7 @@ namespace Senparc.Service
             }
 
             //生成并储存验证码
-            var phoneCheckCodeCache = SenparcDI.GetService<PhoneCheckCodeCache>();
+            var phoneCheckCodeCache = _serviceProvider.GetService<PhoneCheckCodeCache>();
             string code = phoneCheckCodeCache.Insert(new PhoneCheckCodeData(phoneNumber), null);
 
             //发送短信
@@ -81,7 +84,7 @@ namespace Senparc.Service
         public SmsResult Send(string ip, string content, string phoneNumber,
             bool addHotLine = true, string postfix = " 客服热线：400-9939-858")
         {
-            var senparcSmsSetting = SenparcDI.GetService<IOptions<SenparcSmsSetting>>();
+            var senparcSmsSetting = _serviceProvider.GetService<IOptions<SenparcSmsSetting>>();
             ISmsPlatform smsPlatform = null;
             SmsResult smsResult = SmsResult.未知错误;
             content = $"【SCF】{content}{postfix}"; //加上签名和后缀
@@ -92,7 +95,7 @@ namespace Senparc.Service
 
         public string GetLastCount()
         {
-            var senparcSmsSetting = SenparcDI.GetService<IOptions<SenparcSmsSetting>>();
+            var senparcSmsSetting = _serviceProvider.GetService<IOptions<SenparcSmsSetting>>();
             var smsPlatform = SmsPlatformFactory.GetSmsPlateform(senparcSmsSetting.Value.SmsAccountCORPID, senparcSmsSetting.Value.SmsAccountName, senparcSmsSetting.Value.SmsAccountPassword, senparcSmsSetting.Value.SmsAccountSubNumber);
             return smsPlatform.GetLastCount();
         }

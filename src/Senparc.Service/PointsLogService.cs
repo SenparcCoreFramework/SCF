@@ -9,6 +9,7 @@ using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
 using Senparc.Scf.Service;
 using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -55,7 +56,7 @@ namespace Senparc.Service
             this.SaveObject(pointsLog);
 
             //删除Account缓存
-            var fullAccountCache = SenparcDI.GetService<FullAccountCache>();
+            var fullAccountCache = _serviceProvider.GetService<FullAccountCache>();
             fullAccountCache.RemoveObject(userName);
         }
 

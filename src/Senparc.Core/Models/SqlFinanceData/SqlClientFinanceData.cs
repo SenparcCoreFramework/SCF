@@ -16,6 +16,12 @@ namespace Senparc.Core.Models
     {
         private SenparcEntities dataContext;
 
+        public SqlClientFinanceData(SenparcEntities senparcEntities)
+        {
+            dataContext = senparcEntities;
+        }
+
+
         public SenparcEntities DataContext
         {
             get
@@ -40,9 +46,9 @@ namespace Senparc.Core.Models
             {
                 if (dataContext == null)
                 {
-                    var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
+                    //var connectionString = Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
 
-                    dataContext = SenparcDI.GetService<SenparcEntities>();
+                    //dataContext = SenparcDI.GetService<SenparcEntities>();
                     //TODO:当前采用注入可以保证HttpContext单例，如果要全局单例，可采用单件模式（需要先解决释放的问题）
                 }
                 //var hashCode = dataContext.GetHashCode();
