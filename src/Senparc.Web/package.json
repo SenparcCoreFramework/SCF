@@ -11,5 +11,11 @@
     "merge-stream": "1.0.1",
     "typescript": "^3.4.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@ztree/ztree_v3": "^3.5.41",
+    "bootstrap-datetimepicker": "0.0.7",
+    "echarts": "^4.5.0",
+    "moment": "^2.24.0",
+    "sweetalert": "^2.1.2"
+  }
 }
