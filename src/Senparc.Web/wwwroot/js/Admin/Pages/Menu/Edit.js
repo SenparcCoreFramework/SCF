@@ -133,6 +133,8 @@ async function submit() {
     });
     //debugger;
     let response = await base.post('/Admin/Menu/Edit', formData);
+    let nodes = treeObj.getSelectedNodes();
+    zTreeOnClick(undefined, undefined, nodes[0]);
     await base.swal.alert('保存成功!', 'success');
 }
 
