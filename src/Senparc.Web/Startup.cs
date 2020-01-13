@@ -362,7 +362,7 @@ namespace Senparc.Web
         private static readonly PhysicalFileProvider _fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
 
         /// <summary>
-        /// 检测我呢见变化
+        /// 检测文件变化
         /// </summary>
         /// <param name="app"></param>
         /// <param name="hubContext"></param>
