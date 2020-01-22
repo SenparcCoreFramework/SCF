@@ -80,7 +80,12 @@ namespace Senparc.Web
               //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-2.1&tabs=aspnetcore2x
               //.AddSessionStateTempDataProvider()
               //忽略JSON序列化过程中的循环引用：https://stackoverflow.com/questions/7397207/json-net-error-self-referencing-loop-detected-for-type
-              ;
+              .AddRazorPagesOptions(options =>
+              {
+                  //自动注册  防止跨站请求伪造（XSRF/CSRF）攻击
+                  options.Conventions.Add(new Core.Conventions.AutoValidateAntiForgeryTokenModelConvention());
+              });
+            ;
 
 
 #if DEBUG
