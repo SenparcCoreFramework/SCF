@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.1.0-beta1"/>
   </ItemGroup>
 
 </Project>
