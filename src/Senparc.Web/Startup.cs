@@ -15,7 +15,7 @@ using Senparc.Scf.Core.Config;
 using Senparc.Scf.SMS;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
-using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Cache.CsRedis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Open;
@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using Senparc.CO2NET.AspNet;
 
 namespace Senparc.Web
 {
@@ -168,7 +169,7 @@ namespace Senparc.Web
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
                     if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
                     {
-                        app.UseSenparcWeixinCacheRedis();
+                        weixinRegister.UseSenparcWeixinCacheCsRedis();
                     }
 
                     #endregion
