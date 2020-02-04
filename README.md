@@ -1,4 +1,4 @@
-<img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" />
+<img src="https://weixin.senparc.com/images/SCF/logo.png" width="300" />
 
 # SCF - SenparcCoreFramework
 
