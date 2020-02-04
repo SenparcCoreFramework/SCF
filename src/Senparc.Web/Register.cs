@@ -126,7 +126,7 @@ namespace Senparc.Web
             services.ScanAssamblesForAutoDI();
             //已经添加完所有程序集自动扫描的委托，立即执行扫描（必须）
             AssembleScanHelper.RunScan();
-            services.AddSingleton<Core.Cache.RedisProvider.IRedisProvider, Core.Cache.RedisProvider.StackExchangeRedisProvider>();
+            //services.AddSingleton<Core.Cache.RedisProvider.IRedisProvider, Core.Cache.RedisProvider.StackExchangeRedisProvider>();
 
             //注册 User 登录策略
             services.AddAuthorization(options =>

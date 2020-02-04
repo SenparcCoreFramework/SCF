@@ -15,10 +15,11 @@
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
     <ProjectReference Include="..\Senparc.Office\Senparc.Office.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.1.0-beta1"/>
-    <PackageReference Include="Senparc.Scf.Log" Version="0.1.0-beta1"/>
-    <PackageReference Include="Senparc.Scf.Service" Version="0.1.0-beta1"/>
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.1.0-beta1"/>
+    <PackageReference Include="Senparc.Scf.Core" Version="0.1.0-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.1.0-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.1.0-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.1.0-beta1" />
+    <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
 
