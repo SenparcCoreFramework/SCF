@@ -18,14 +18,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
-    <PackageReference Include="Senparc.WebSocket" Version="0.9.102" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.7.102" />
-    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.4.102" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.102.1-preview2" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.102" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.7.102.1" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview1" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.1.100-preview1.1" />
+    <PackageReference Include="Senparc.WebSocket" Version="0.10.100-preview1" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.8.100-preivew1" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.100-preview1" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.104" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.104" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.100-preview1" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
   </ItemGroup>
 

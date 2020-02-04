@@ -24,10 +24,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Senparc.Weixin" Version="6.6.102" />
-    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.5.102" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.7.102" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.9.102" />
+    <PackageReference Include="Senparc.Weixin" Version="6.7.100-preview1" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.100-preview1" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.8.100-preivew1" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.100-preview1" />
   </ItemGroup>
 
   <ItemGroup>
