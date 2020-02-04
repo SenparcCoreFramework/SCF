@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EPPlus.Core" Version="1.5.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
