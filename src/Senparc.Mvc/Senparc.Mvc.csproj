@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.1.0-preview1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview1" />
     <PackageReference Include="Senparc.NeuChar" Version="1.1.100-preview1.1" />
     <PackageReference Include="Senparc.WebSocket" Version="0.10.100-preview1" />
@@ -26,7 +28,6 @@
     <PackageReference Include="Senparc.Weixin.Open" Version="4.7.104" />
     <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.104" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.100-preview1" />
-    <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,9 +35,9 @@
     <ProjectReference Include="..\Senparc.File\Senparc.File.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Service\Senparc.Scf.Service.csproj" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.1.0-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.1.0-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.1.0-beta1" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
