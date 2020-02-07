@@ -5,18 +5,8 @@ using System.Text;
 
 namespace Senparc.Core.Models.DataBaseModel
 {
-    public class BaseDto
+    public class BaseDto : DtoBase
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [MaxLength(150)]
-        public string AdminRemark { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [MaxLength(150)]
-        public string Remark { get; set; }
     }
 }
