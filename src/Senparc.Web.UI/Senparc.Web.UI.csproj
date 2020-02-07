@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.1.0-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.1.1.2-aplha1" />
   </ItemGroup>
 
 </Project>

@@ -42,12 +42,12 @@
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.1.0-beta2" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.1.0-beta2" />
-    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.1.0-beta2" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.1.0-beta2" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.1.0-beta2" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.1.0-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.1.1.2-aplha1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.1.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.1.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.1.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.1.1-beta1" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Threads\Senparc.Threads.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
