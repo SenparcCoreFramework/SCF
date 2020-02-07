@@ -6,6 +6,7 @@ namespace Senparc.Core.Models
     using Microsoft.EntityFrameworkCore;
     using Senparc.Core.Models.DataBaseModel;
     using Senparc.Scf.Core.Models;
+    using Senparc.Scf.Core.Models.DataBaseModel;
     using System;
     using System.Linq.Expressions;
 
@@ -54,16 +55,36 @@ namespace Senparc.Core.Models
 
         public virtual DbSet<PointsLog> PointsLogs { get; set; }
 
-        public virtual DbSet<AccountPayLog> AccountPayLogs { get; set; } 
+        public virtual DbSet<AccountPayLog> AccountPayLogs { get; set; }
+
+
+        #region 不可修改系统表
+
         #endregion
+        /// <summary>
+        /// 扩展模块
+        /// </summary>
+        public DbSet<XscfModule> XscfModules { get; set; }
+
+        #endregion
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region 系统表
+
             modelBuilder.ApplyConfiguration(new AccountConfigurationMapping());
             modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
             modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
             modelBuilder.ApplyConfiguration(new AccountPayLogConfigurationMapping());
             modelBuilder.ApplyConfiguration(new PointsLogConfigurationMapping());
+
+            #region 不可修改系统表
+
+            modelBuilder.ApplyConfiguration(new XscfModuleAccountConfigurationMapping());
+
+            #endregion
+            #endregion
 
             var types = modelBuilder.Model.GetEntityTypes().Where(e => typeof(EntityBase).IsAssignableFrom(e.ClrType));
             foreach (var entityType in types)
