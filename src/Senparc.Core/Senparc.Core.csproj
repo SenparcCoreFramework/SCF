@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.1.1-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101-beta2" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
 
@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <Folder Include="Cache\RedisProvider\" />
+    <Folder Include="Xscf\" />
   </ItemGroup>
 
 

@@ -10,8 +10,8 @@ using Senparc.Core.Models;
 namespace Senparc.Web.Migrations
 {
     [DbContext(typeof(SenparcEntities))]
-    [Migration("20200207154427_Create_XscfModule")]
-    partial class Create_XscfModule
+    [Migration("20200216150622_Add_Tables")]
+    partial class Add_Tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -656,6 +656,9 @@ namespace Senparc.Web.Migrations
                     b.Property<bool>("AllowRemove")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Flag")
                         .HasColumnType("bit");
 
@@ -676,6 +679,12 @@ namespace Senparc.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Uid")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdateLog")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

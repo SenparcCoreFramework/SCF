@@ -654,6 +654,9 @@ namespace Senparc.Web.Migrations
                     b.Property<bool>("AllowRemove")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Flag")
                         .HasColumnType("bit");
 
@@ -674,6 +677,12 @@ namespace Senparc.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Uid")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdateLog")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
