@@ -143,6 +143,11 @@ namespace Senparc.Web
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
             services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
+
+
+            //添加 Xscf 扩展
+
+
         }
 
     }

@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <Folder Include="Cache\RedisProvider\" />
+    <Folder Include="Xscf\" />
   </ItemGroup>
 
 
