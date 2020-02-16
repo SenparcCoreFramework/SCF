@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200204103009_Update-SysMenuDto.cs" />
-    <Compile Remove="Migrations\20200204103009_Update-SysMenuDto.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.1" />
     <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.2" />
@@ -25,8 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.1.2-beta2" />
-    <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.1.2-beta2" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.2.101-beta2" />
+    <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.2.101-beta2" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
     <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview2" />
@@ -44,11 +39,11 @@
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.1.1-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101-beta2" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.1.1-beta2" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.1.1-beta2" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.1.1-beta2" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.2.101-beta2" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.2.101-beta2" />
     <PackageReference Include="Senparc.Scf.Utility" Version="0.1.1-beta2" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Threads\Senparc.Threads.csproj" />

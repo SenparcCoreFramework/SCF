@@ -145,9 +145,8 @@ namespace Senparc.Web
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
 
-            //添加 Xscf 扩展
-
-
+            ////添加 Xscf 扩展
+            //Senparc.Scf.XscfBase.Register.Scan();
         }
 
     }
