@@ -1,0 +1,93 @@
+﻿@page
+@model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModule.StartModel
+@{
+    ViewData["Title"] = Model.XscfRegister.MenuName;
+}
+@section breadcrumbs{
+    <li>扩展模块</li>
+    <li>模块管理</li>
+    <li>@Model.XscfRegister.MenuName</li>
+}
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="pull-left" style="width: 100%">
+                <div class="row">
+                    <div class="col-xs-12 col-md-2 col-lg-2">
+                        <p>
+                            模块代号：@Model.XscfModule.Name
+                        </p>
+                        <p>
+                            模块显示名称：@Model.XscfModule.MenuName
+                        </p>
+                        <p>
+                            唯一编号：@Model.XscfModule.Uid
+                        </p>
+                        <p>
+                            当前版本：@Model.XscfModule.Version
+                            @if (Model.XscfRegister.Version != Model.XscfModule.Version)
+                            {
+                                <span style="color:red">（发现新版本：@Model.XscfRegister.Version）</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="x_content">
+                @*<p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>*@
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th>
+                                    <input type="checkbox" id="check-all" class="flat">
+                                </th>
+                                <th class="column-title">方法名称</th>
+                                <th class="column-title">说明</th>
+                                <th class="column-title">操作 </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.XscfRegister.Functions)
+                            {
+                                <tr class="pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat table_records" name="ids" form="deleteForm" value="@item.Id">
+                                    </td>
+                                    <td class=" ">@item.Name </td>
+                                    <td class=" ">@item.desc</td>
+                                    <td class=" ">@item.MenuName</td>
+                                    <td class=" ">@item.State.ToString()</td>
+                                    <td class=" ">@item.AdminRemark</td>
+                                    <td class=" ">@item.Remark</td>
+                                    <td class=" "> @item.AddTime.ToShortDateString()</td>
+                                    <td class=" ">
+                                        <a asp-page="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-info">
+                                            <em class="fa fa-pencil-square-o">编辑</em>
+                                        </a>
+                                        <a asp-page="Permission" asp-route-RoleId="@item.Id" title="权限" class="btn-xs btn btn-info">
+                                            <em class="fa fa-pencil-square-o">权限</em>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center p jpagerbar">
+                    @Html.Raw((Html.PagerBar(Model.XscfModules, new PagerBarSettings(Url.Page("/XscfModule/Index", new
+               {
+                   pageIndex = "{0}"
+               }))
+               {
+                   NoRecordTip = "暂无数据",
+                   ShowTotalCount = true
+               })))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
