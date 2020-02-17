@@ -55,7 +55,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 //TODO: menu 还需要加一个锁定Uid的扩展属性
                 if (currentMenu == null)
                  {
-                     var menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Item/{register.Uid}", "fa fa-bars", 10, true, null);
+                     var menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 10, true, null);
                      await _sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
                  }
 
