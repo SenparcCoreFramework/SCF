@@ -1,5 +1,5 @@
 ﻿@page
-@model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModule.StartModel
+@model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModuleStartModel
 @{
     ViewData["Title"] = Model.XscfRegister.MenuName;
 }
@@ -53,39 +53,32 @@
                         <tbody>
                             @foreach (var item in Model.XscfRegister.Functions)
                             {
-                                <tr class="pointer">
-                                    <td class="a-center ">
-                                        <input type="checkbox" class="flat table_records" name="ids" form="deleteForm" value="@item.Id">
-                                    </td>
-                                    <td class=" ">@item.Name </td>
-                                    <td class=" ">@item.desc</td>
-                                    <td class=" ">@item.MenuName</td>
-                                    <td class=" ">@item.State.ToString()</td>
-                                    <td class=" ">@item.AdminRemark</td>
-                                    <td class=" ">@item.Remark</td>
-                                    <td class=" "> @item.AddTime.ToShortDateString()</td>
-                                    <td class=" ">
-                                        <a asp-page="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-info">
-                                            <em class="fa fa-pencil-square-o">编辑</em>
-                                        </a>
-                                        <a asp-page="Permission" asp-route-RoleId="@item.Id" title="权限" class="btn-xs btn btn-info">
-                                            <em class="fa fa-pencil-square-o">权限</em>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr class="pointer">
+
+                                <td class=" ">@item.Name </td>
+                                <td class=" ">@item.Name </td>
+                                @*<td class=" ">@item.desc</td>
+        <td class=" ">@item.MenuName</td>
+        <td class=" ">@item.State.ToString()</td>
+        <td class=" ">@item.AdminRemark</td>
+        <td class=" ">@item.Remark</td>
+        <td class=" "> @item.AddTime.ToShortDateString()</td>*@
+                                <td class=" ">
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                 </div>
                 <div class="text-center p jpagerbar">
-                    @Html.Raw((Html.PagerBar(Model.XscfModules, new PagerBarSettings(Url.Page("/XscfModule/Index", new
+                    @*@Html.Raw((Html.PagerBar(Model.FunctionParammeterInfoCollection, new PagerBarSettings(Url.Page("/XscfModule/Index", new
                {
                    pageIndex = "{0}"
                }))
                {
                    NoRecordTip = "暂无数据",
                    ShowTotalCount = true
-               })))
+               })))*@
                 </div>
             </div>
         </div>

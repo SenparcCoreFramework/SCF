@@ -27,6 +27,7 @@ using Senparc.Core.Models;
 using Senparc.Scf.Core;
 using Senparc.Core;
 using Senparc.Respository;
+using Senparc.Scf.XscfBase;
 
 namespace Senparc.Web
 {
@@ -145,9 +146,8 @@ namespace Senparc.Web
             services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
-
-            ////添加 Xscf 扩展
-            //Senparc.Scf.XscfBase.Register.Scan();
+            //激活 Xscf 扩展引擎
+            services.StartEngine();
         }
 
     }

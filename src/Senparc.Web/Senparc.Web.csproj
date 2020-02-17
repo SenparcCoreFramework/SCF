@@ -20,8 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.2.101.16-beta2" />
-    <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.2.101.16-beta2" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.2.101.20-beta2" />
+    <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.2.101.18-beta2" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
     <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview2" />
@@ -39,7 +39,7 @@
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Mvc\Senparc.Mvc.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.1-beta2" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Repository" Version="0.2.101-beta2" />

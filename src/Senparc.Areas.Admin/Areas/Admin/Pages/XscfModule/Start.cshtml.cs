@@ -8,17 +8,22 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
 
-namespace Senparc.Areas.Admin.Areas.Admin.Pages.XscfModule
+namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
-    public class StartModel : BaseAdminPageModel
+    public class XscfModuleStartModel : BaseAdminPageModel
     {
         public IXscfRegister XscfRegister { get; set; }
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
+        public Dictionary<IXscfFunction<IFunctionParameter>, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction<IFunctionParameter>, List<FunctionParammeterInfo>>();
 
         XscfModuleService _xscfModuleService;
+        IServiceProvider _serviceProvider;
 
-        public StartModel(XscfModuleService xscfModuleService)
+        public string Msg { get; set; }
+
+        public XscfModuleStartModel(IServiceProvider serviceProvider,XscfModuleService xscfModuleService)
         {
+            _serviceProvider = serviceProvider;
             _xscfModuleService = xscfModuleService;
         }
 
@@ -26,20 +31,27 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages.XscfModule
         {
             if (uid.IsNullOrEmpty())
             {
-                throw new Exception("模块不存在！");
+                throw new Exception("模块编号未提供！");
+            }
+
+
+            XscfModule = _xscfModuleService.GetObject(z => z.Uid == uid);
+
+            if (XscfModule == null)
+            {
+                throw new Exception("模块未注册！");
             }
 
             XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
             if (XscfRegister == null)
             {
-                throw new Exception("模块不存在！");
+                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
             }
-
-            XscfModule = _xscfModuleService.GetObject(z => z.Uid == uid);
-
-            if (XscfModule==null)
+          
+            foreach (var functionType in XscfRegister.Functions)
             {
-                throw new Exception("模块未注册！");
+                var function = _serviceProvider.GetService(functionType);
+                Msg = function.GetType().FullName + "," + (function is IXscfFunction<IFunctionParameter>);
             }
 
             Page();
