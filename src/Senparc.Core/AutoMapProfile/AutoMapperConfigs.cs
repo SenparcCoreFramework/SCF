@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Senparc.Core.Models;
 using Senparc.Core.Models.DataBaseModel;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace Senparc.Core.AutoMapProfile
                 .ForMember(_ => _.Visible, opt => opt.MapFrom(_ => true))
                 .ForMember(_ => _.Id, opt => opt.MapFrom(_ => _.Id))
                 .ForMember(_ => _.ResourceCode, opt => opt.MapFrom(_ => _.OpearMark));
+            CreateMap<SysRole, SysRoleDto>();
+            CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
         }
     }
 }
