@@ -45,13 +45,10 @@ namespace Senparc.Areas.Admin.Filters
                 bool hasPageRoute = context.RouteData.Values.TryGetValue("page", out object page);
                 bool hasAreaRoute = context.RouteData.Values.TryGetValue("area", out object area);
 
-                //TODO 还有后面其他的参数
-
-
                 bool hasRight = hasPageRoute && hasAreaRoute;
                 if (hasRight)
                 {
-                    var url = context.HttpContext.Request.GetEncodedPathAndQuery();
+                    var url = context.HttpContext.Request.Path;/*.GetEncodedPathAndQuery()*/;
                     hasRight = await _sysPermissionService.HasPermissionAsync(url/*string.Concat("/", area, page)*/);
                 }
 
