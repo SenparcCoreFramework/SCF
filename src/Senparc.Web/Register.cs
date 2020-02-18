@@ -139,6 +139,7 @@ namespace Senparc.Web
             });
             services.AddHttpContextAccessor();
             services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationResultFilterAttribute));
+            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
