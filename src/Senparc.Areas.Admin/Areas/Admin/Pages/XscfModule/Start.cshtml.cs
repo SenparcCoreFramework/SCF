@@ -20,6 +20,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         IServiceProvider _serviceProvider;
 
         public string Msg { get; set; }
+        public object Obj { get; set; }
 
         public XscfModuleStartModel(IServiceProvider serviceProvider,XscfModuleService xscfModuleService)
         {
@@ -47,11 +48,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
             }
-          
+
+
             foreach (var functionType in XscfRegister.Functions)
             {
-                var function = _serviceProvider.GetService(functionType);
-                Msg = function.GetType().FullName + "," + (function is IXscfFunction<IFunctionParameter>);
+                var function = _serviceProvider.GetService(functionType);//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+
+                XscfRegister.
             }
 
             Page();

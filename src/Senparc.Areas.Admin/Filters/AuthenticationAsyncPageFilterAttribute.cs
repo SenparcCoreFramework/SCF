@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -43,10 +44,15 @@ namespace Senparc.Areas.Admin.Filters
 
                 bool hasPageRoute = context.RouteData.Values.TryGetValue("page", out object page);
                 bool hasAreaRoute = context.RouteData.Values.TryGetValue("area", out object area);
+
+                //TODO 还有后面其他的参数
+
+
                 bool hasRight = hasPageRoute && hasAreaRoute;
                 if (hasRight)
                 {
-                    hasRight = await _sysPermissionService.HasPermissionAsync(string.Concat("/", area, page));
+                    var url = context.HttpContext.Request.GetEncodedPathAndQuery();
+                    hasRight = await _sysPermissionService.HasPermissionAsync(url/*string.Concat("/", area, page)*/);
                 }
 
                 if (!hasRight && !(adminPageModel is Pages.IndexModel))
