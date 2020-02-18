@@ -14,7 +14,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
     {
         public IXscfRegister XscfRegister { get; set; }
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
-        public Dictionary<IXscfFunction<IFunctionParameter>, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction<IFunctionParameter>, List<FunctionParammeterInfo>>();
+        public Dictionary<IXscfFunction, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParammeterInfo>>();
 
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
@@ -22,7 +22,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public string Msg { get; set; }
         public object Obj { get; set; }
 
-        public XscfModuleStartModel(IServiceProvider serviceProvider,XscfModuleService xscfModuleService)
+        public XscfModuleStartModel(IServiceProvider serviceProvider, XscfModuleService xscfModuleService)
         {
             _serviceProvider = serviceProvider;
             _xscfModuleService = xscfModuleService;
@@ -52,9 +52,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             foreach (var functionType in XscfRegister.Functions)
             {
-                var function = _serviceProvider.GetService(functionType);//Èç£ºSenparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-
-                XscfRegister.
+                var function = _serviceProvider.GetService(functionType) as FunctionBase;//Èç£ºSenparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                FunctionParammeterInfoCollection[function] = function.GetFunctionParammeterInfo().ToList();
             }
 
             Page();

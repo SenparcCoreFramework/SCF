@@ -62,11 +62,8 @@
                                 <td class=" ">@item.Remark</td>
                                 <td class=" "> @item.AddTime.ToShortDateString()</td>
                                 <td class=" ">
-                                    <a asp-page="Edit" asp-route-id="@item.Id" title="编辑" class="btn-xs btn btn-info">
-                                        <em class="fa fa-pencil-square-o">编辑</em>
-                                    </a>
-                                    <a asp-page="Permission" asp-route-RoleId="@item.Id" title="权限" class="btn-xs btn btn-info">
-                                        <em class="fa fa-pencil-square-o">权限</em>
+                                    <a asp-page="Start" asp-route-uid="@item.Uid" title="设置" class="btn-xs btn btn-info">
+                                        <em class="fa fa-gear">设置</em>
                                     </a>
                                 </td>
                             </tr>
