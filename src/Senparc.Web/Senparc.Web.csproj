@@ -22,7 +22,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Senparc.Scf.XscfBase" Version="0.2.101.26-beta2" />
     <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.2.101.27-beta2" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
     <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview2" />
     <PackageReference Include="Senparc.Weixin.Open" Version="4.7.104" />
