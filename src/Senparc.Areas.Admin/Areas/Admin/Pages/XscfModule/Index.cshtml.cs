@@ -51,7 +51,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// 扫描新模块
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> OnGetScanAsync(string uid)
+        public async Task<IActionResult> OnGetScanAsync(string uid, string backpage = null)
         {
             if (uid.IsNullOrEmpty())
             {
@@ -86,6 +86,10 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
              });
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 
+            //if (backpage=="Start")
+            {
+                return RedirectToPage("Start",new { uid = uid });//始终到详情页
+            }
             return RedirectToPage("Index");
         }
     }
