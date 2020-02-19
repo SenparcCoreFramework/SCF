@@ -38,7 +38,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         private void LoadNewXscfRegisters(PagedList<XscfModule> xscfModules)
         {
-            NewXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !XscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList()??new List<IXscfRegister>();
+            NewXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !XscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList() ?? new List<IXscfRegister>();
         }
 
         public async Task OnGetAsync()
@@ -51,7 +51,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// 扫描新模块
         /// </summary>
         /// <returns></returns>
-        public async Task OnGetScanAsync(string uid)
+        public async Task<IActionResult> OnGetScanAsync(string uid)
         {
             if (uid.IsNullOrEmpty())
             {
@@ -81,12 +81,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                  var currentMenu = _sysMenuService.GetObject(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName);//TODO: menu 还需要加一个锁定Uid的扩展属性
 
                  string menuId = installOrUpdate == InstallOrUpdate.Install ? null : currentMenu?.Id;//如果是Install，必须新建，否则尝试更新
-                 var menuDto = new SysMenuDto(true, menuId, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 10, true, null);
+                 var menuDto = new SysMenuDto(true, menuId, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 5, true, null);
                  await _sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
              });
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 
-            RedirectToPage("Index");
+            return RedirectToPage("Index");
         }
     }
 }
