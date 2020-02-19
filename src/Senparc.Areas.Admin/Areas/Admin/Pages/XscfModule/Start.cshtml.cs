@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
 
@@ -36,11 +37,11 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             }
 
 
-            XscfModule = _xscfModuleService.GetObject(z => z.Uid == uid);
+            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
 
             if (XscfModule == null)
             {
-                throw new Exception("模块未注册！");
+                throw new Exception("模块未添加！");
             }
 
             XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
@@ -57,5 +58,21 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             Page();
         }
+
+        public async Task<IActionResult> OnGetChangeStateAsync(int id, XscfModules_State toState)
+        {
+            var module = await _xscfModuleService.GetObjectAsync(z => z.Id == id).ConfigureAwait(false);
+
+            if (module == null)
+            {
+                throw new Exception("模块未添加！");
+            }
+
+            module.UpdateState(toState);
+            await _xscfModuleService.SaveObjectAsync(module);
+            base.SetMessager(MessageType.success, "状态变更成功！");
+            return RedirectToPage("Start", new { uid = module.Uid });
+        }
+
     }
 }
