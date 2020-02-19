@@ -38,7 +38,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         private void LoadNewXscfRegisters(PagedList<XscfModule> xscfModules)
         {
-            NewXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !XscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList() ?? new List<IXscfRegister>();
+            NewXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !xscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList() ?? new List<IXscfRegister>();
         }
 
         public async Task OnGetAsync()
