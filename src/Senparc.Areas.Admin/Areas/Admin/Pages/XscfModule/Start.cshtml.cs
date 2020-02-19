@@ -49,7 +49,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
             }
 
-
             foreach (var functionType in XscfRegister.Functions)
             {
                 var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace

@@ -26,7 +26,7 @@
     <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.2-beta2" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Repository" Version="0.2.101-beta2" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.2.101-beta2" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.2.101.10-beta2" />
     <ProjectReference Include="..\Senparc.SMS\Senparc.SMS.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>

@@ -63,7 +63,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 throw new Exception("模块不存在！");
             }
 
-            var xscfModule = _xscfModuleService.GetObject(z => z.Uid == z.Uid && z.Version == xscfRegister.Version);
+            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == z.Uid && z.Version == xscfRegister.Version);
             if (xscfModule != null)
             {
                 throw new Exception("相同版本模块已安装，无需重复安装！");
@@ -73,13 +73,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             var dto = XscfModules.Select(z => new CreateOrUpdate_XscfModuleDto(z.Name, z.Uid, z.MenuName, z.Version, z.Description, z.UpdateLog, z.AllowRemove, z.State)).ToList();
 
-            //进行模块扫描    //TODO:异步
-            var result = Senparc.Scf.XscfBase.Register.ScanAndInstall(dto, _xscfModuleService, async (register, installOrUpdate) =>
+            //进行模块扫描
+            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(dto, _xscfModuleService, async (register, installOrUpdate) =>
              {
                  var topMenu = _sysMenuService.GetObject(z => z.MenuName == "扩展模块");
                  var currentMenu = _sysMenuService.GetObject(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName);//TODO: menu 还需要加一个锁定Uid的扩展属性
 
-                 string menuId = installOrUpdate == InstallOrUpdate.Update ? currentMenu?.Id : null;
+                 string menuId = installOrUpdate == InstallOrUpdate.Install ? null : currentMenu?.Id;//如果是Install，必须新建，否则尝试更新
                  var menuDto = new SysMenuDto(true, menuId, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 10, true, null);
                  await _sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
              });
