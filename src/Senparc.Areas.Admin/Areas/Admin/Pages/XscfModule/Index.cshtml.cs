@@ -31,7 +31,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public int PageIndex { get; set; } = 1;
 
         /// <summary>
-        /// 
+        /// 数据库已存的XscfModules
         /// </summary>
         public PagedList<XscfModule> XscfModules { get; set; }
         public List<IXscfRegister> NewXscfRegisters { get; set; }
