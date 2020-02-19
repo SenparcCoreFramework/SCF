@@ -50,10 +50,10 @@ namespace Senparc.Service
             }
             IEnumerable<SysMenuDto> sysMenus = await _sysMenuService.GetMenuDtoByCacheAsync();
 
-            Func<string, string> getUrlPath = url =>
+            Func<string, string> getUrlPath = u =>
             {
-                var index = url.IndexOf("?");
-                return index >= 0 ? url.Substring(0, index) : url;
+                var index = u.IndexOf("?");
+                return index >= 0 ? u.Substring(0, index) : u;
             };
 
             var urls = from menu in sysMenus
