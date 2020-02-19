@@ -38,12 +38,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         private void LoadNewXscfRegisters(PagedList<XscfModule> xscfModules)
         {
-            NewXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !XscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList();
+            NewXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !XscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList()??new List<IXscfRegister>();
         }
 
         public async Task OnGetAsync()
         {
             XscfModules = await _xscfModuleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
+            LoadNewXscfRegisters(XscfModules);
         }
 
         /// <summary>
