@@ -87,10 +87,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 
             //if (backpage=="Start")
-            {
-                return RedirectToPage("Start",new { uid = uid });//始终到详情页
-            }
-            return RedirectToPage("Index");
+            return RedirectToPage("Start", new { uid = uid });//始终到详情页
+            //return RedirectToPage("Index");
         }
     }
 }

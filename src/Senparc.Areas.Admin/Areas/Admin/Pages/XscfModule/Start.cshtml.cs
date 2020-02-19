@@ -55,10 +55,14 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
                 FunctionParammeterInfoCollection[function] = function.GetFunctionParammeterInfo().ToList();
             }
-
-            Page();
         }
 
+        /// <summary>
+        /// 更新状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="toState"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnGetChangeStateAsync(int id, XscfModules_State toState)
         {
             var module = await _xscfModuleService.GetObjectAsync(z => z.Id == id).ConfigureAwait(false);
@@ -69,7 +73,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             }
 
             module.UpdateState(toState);
-            await _xscfModuleService.SaveObjectAsync(module);
+            await _xscfModuleService.SaveObjectAsync(module).ConfigureAwait(false);
             base.SetMessager(MessageType.success, "状态变更成功！");
             return RedirectToPage("Start", new { uid = module.Uid });
         }
