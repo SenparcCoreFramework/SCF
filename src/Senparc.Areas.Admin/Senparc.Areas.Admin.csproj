@@ -8,13 +8,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.2.101.24-beta2" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.2.101.25-beta2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.1-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.2-beta2" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.2.101-beta2" />

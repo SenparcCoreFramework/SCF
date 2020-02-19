@@ -23,7 +23,7 @@
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Respository\Senparc.Respository.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.1-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.2-beta2" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta2" />
     <PackageReference Include="Senparc.Scf.Repository" Version="0.2.101-beta2" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.2.101-beta2" />

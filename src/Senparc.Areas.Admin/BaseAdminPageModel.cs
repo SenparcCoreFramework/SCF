@@ -11,8 +11,8 @@ namespace Senparc.Areas.Admin
 
     }
 
-    //[ServiceFilter(typeof(AuthenticationResultFilterAttribute))]
-    [ServiceFilter(typeof(AuthenticationAsyncPageFilterAttribute))]
+    //暂时取消权限验证
+    //[ServiceFilter(typeof(AuthenticationAsyncPageFilterAttribute))]
     [AdminAuthorize("AdminOnly")]
     public class BaseAdminPageModel : PageModelBase, IBaseAdminPageModel
     {
