@@ -23,8 +23,8 @@
     <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.100.29-beta3" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
     <PackageReference Include="Senparc.CO2NET" Version="1.3.101" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.104" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.105" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.200-preview1" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.200-preview1" />
     <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.2.101.27-beta2" />
   </ItemGroup>
 
