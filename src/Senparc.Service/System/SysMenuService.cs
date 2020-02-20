@@ -45,15 +45,16 @@ namespace Senparc.Service
             ICollection<SysButton> sysButtons = new List<SysButton>();
             if (!string.IsNullOrEmpty(sysMenuDto.Id))
             {
-                menu = await GetObjectAsync(_ => _.Id == sysMenuDto.Id);
+                menu = await GetObjectAsync(_ => _.Id == sysMenuDto.Id).ConfigureAwait(false);
                 menu.Update(sysMenuDto);
             }
             else
             {
                 menu = new SysMenu(sysMenuDto);
             }
-            await SaveObjectAsync(menu);
-            await GetMenuDtoByCacheAsync(true);
+           
+            await SaveObjectAsync(menu).ConfigureAwait(false);
+            await GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
             return menu;
         }
 
@@ -135,7 +136,7 @@ namespace Senparc.Service
         public async Task<IEnumerable<SysMenuDto>> GetMenuDtoByCacheAsync(bool isRefresh = false)
         {
             List<SysMenuDto> selectListItems = null;
-            byte[] selectLiteItemBytes = await _distributedCache.GetAsync(MenuCacheKey);
+            byte[] selectLiteItemBytes = await _distributedCache.GetAsync(MenuCacheKey).ConfigureAwait(false); ;
             if (selectLiteItemBytes == null || isRefresh)
             {
                 List<SysMenu> sysMenus = (await GetFullListAsync(_ => _.Visible).ConfigureAwait(false)).OrderByDescending(z => z.Sort).ToList();
@@ -144,10 +145,10 @@ namespace Senparc.Service
                 List<SysMenuDto> buttons = _sysButtonService.Mapper.Map<List<SysMenuDto>>(sysButtons);
                 selectListItems.AddRange(buttons);
                 string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(selectListItems);
-                await _distributedCache.RemoveAsync(MenuCacheKey);
-                await _distributedCache.RemoveAsync(MenuTreeCacheKey);
-                await _distributedCache.SetAsync(MenuCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr));
-                await _distributedCache.SetStringAsync(MenuTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetSysMenuTreesMainRecursive(selectListItems)));
+                await _distributedCache.RemoveAsync(MenuCacheKey).ConfigureAwait(false); 
+                await _distributedCache.RemoveAsync(MenuTreeCacheKey).ConfigureAwait(false); 
+                await _distributedCache.SetAsync(MenuCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr)).ConfigureAwait(false);
+                await _distributedCache.SetStringAsync(MenuTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetSysMenuTreesMainRecursive(selectListItems))).ConfigureAwait(false);
             }
             else
             {
