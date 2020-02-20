@@ -32,5 +32,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             SysRoles = await _sysRoleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
         }
+
+        public IActionResult OnPostDelete(string[] ids)
+        {
+            foreach (var id in ids)
+            {
+                _sysRoleService.DeleteObject(_ => _.Id == id);
+            }
+
+            return RedirectToPage("./Index");
+        }
     }
 }
