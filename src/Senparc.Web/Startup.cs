@@ -69,8 +69,8 @@ namespace Senparc.Web
 
             //添加（注册） Scf 服务（重要，必须！）
             services.AddScfServices(Configuration, env, CompatibilityVersion.Version_3_0);
-
-            services.AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
+            //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
+            services.AddSenparcWeixinServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -131,7 +131,7 @@ namespace Senparc.Web
 
                         //以下会立即将全局缓存设置为 Redis
                         Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow(); //键值对缓存策略（推荐）
-                                                                                   //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                                                                                     //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                         //也可以通过以下方式自定义当前需要启用的缓存策略
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
