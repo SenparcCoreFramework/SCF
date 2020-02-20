@@ -18,9 +18,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.1.0-preview2" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.1.101" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview2" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.1.101.1" />
     <PackageReference Include="Senparc.NeuChar" Version="1.1.100.2-preview2" />
     <PackageReference Include="Senparc.WebSocket" Version="0.10.100-preview2" />
     <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.0-preview2" />
@@ -35,9 +35,9 @@
     <ProjectReference Include="..\Senparc.File\Senparc.File.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.2.101.3-beta2" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.1.1-beta2" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.2.101.11-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.100-beta2" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.100-beta2" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.100-beta2" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using Senparc.CO2NET;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Log;
 using Senparc.Scf.Utility;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service.OperationQueue
 {
@@ -55,18 +56,20 @@ namespace Senparc.Service.OperationQueue
             {
                 var mq = new OperationQueue();
                 var key = mq.GetCurrentKey(); //获取最新的Key
+                var serviceProvider = SenparcDI.GetServiceProvider();
                 while (!string.IsNullOrEmpty(key))
                 {
                     try
                     {
-                        var operationQueueService = SenparcDI.GetService<OperationQueueService>();
+
+                        var operationQueueService = serviceProvider.GetService<OperationQueueService>();
                         var mqItem = mq.GetItem(key); //获取任务项
 
                         //识别类型
                         switch (mqItem.OperationQueueType)
                         {
                             case OperationQueueType.更新用户头像:
-                                operationQueueService.UpdateAccountHeadImgAsync((int)mqItem.Data[0], mqItem.Data[1] as string).Wait();
+                                operationQueueService.UpdateAccountHeadImgAsync(serviceProvider, (int)mqItem.Data[0], mqItem.Data[1] as string).Wait();
                                 break;
                             default:
                                 LogUtility.OperationQueue.ErrorFormat("OperationQueueType未处理：{0}", mqItem.OperationQueueType.ToString());
