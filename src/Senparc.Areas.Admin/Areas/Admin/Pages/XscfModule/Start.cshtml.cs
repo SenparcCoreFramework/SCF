@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
@@ -80,6 +81,47 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return RedirectToPage("Start", new { uid = module.Uid });
         }
 
+        public async Task<IActionResult> OnPostRunFunctionAsync(string xscfUid, string xscfFunctionName, string xscfFunctionParams)
+        {
+            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == xscfUid);
+
+            if (xscfRegister == null)
+            {
+                return new JsonResult(new { success = false, msg = "模块未注册！" });
+            }
+
+            FunctionBase function = null;
+
+            foreach (var functionType in xscfRegister.Functions)
+            {
+                var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                var functionParameters = fun.GetFunctionParammeterInfo().ToList();
+                if (fun.Name == xscfFunctionName)
+                {
+                    function = fun;
+                }
+            }
+
+            if (function == null)
+            {
+                return new JsonResult(new { success = false, msg = "方法未匹配上！" });
+            }
+
+            var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
+            //var paras = function.GenerateParameterInstance();
+
+            var result = function.Run(paras);
+
+            var data = new { success = true, msg = "修改成功！\r\n" + result };
+
+            return new JsonResult(data);
+        }
+
+        /// <summary>
+        /// 删除模块
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var module = await _xscfModuleService.GetObjectAsync(z => z.Id == id).ConfigureAwait(false);

@@ -19,7 +19,47 @@
             document.getElementById('form_delete').submit();
             return true;
         }
+
+        function submitFunction(id) {
+            var dataInputs = $('input[id^=functionForm_' + id + '_]');
+            var jsonData = {};
+            for (var i = 0; i < dataInputs.length; i++) {
+                var obj = $(dataInputs[i]);
+                jsonData[obj.data('funcname')] = obj.val();
+            }
+            $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
+
+            $('#functionForm_' + id).ajaxSubmit(function (data) {
+                if (!data.sucess) {
+                    alert(data.msg);
+                    return;
+                }
+
+                alert(data.msg);
+                //TODO more...
+            });
+            return false;
+        }
     </script>
+    <script src="~/scripts/jquery.form.js"></script>
+}
+
+@functions{
+    private string GetSystemTypeName(string systemType)
+    {
+        switch (systemType)
+        {
+            case "String":
+                return "文本";
+            case "Int32":
+            case "Int64":
+                return "数字";
+            case "DateTime":
+                return "日期";
+            default:
+                return systemType;
+        }
+    }
 }
 <form id="form_delete" class="form-horizontal form-label-left" novalidate asp-page="Start" asp-page-handler="Delete" asp-area="Admin" method="post">
     <input type="hidden" asp-for="XscfModule.Id" name="id" />
@@ -50,7 +90,7 @@
 
                     <ul class="list-unstyled">
                         <li>
-                            <span><i class="fa fa-map-marker fa-star"></i> @Model.XscfModule.Name</span>
+                            <span class="green"><i class="fa fa-map-marker fa-cubes"></i> @Model.XscfModule.Name</span>
                         </li>
                     </ul>
                     <ul class="list-unstyled">
@@ -71,7 +111,7 @@
                     </ul>
                     <ul class="list-unstyled">
                         <li class="m-top-xs">
-                            <span data-original-title="@Model.XscfModule.Uid" data-toggle="tooltip" data-placement="right" class="" ><i class="fa fa-map-marker fa-shield"></i> 唯一编号</span>
+                            <span data-original-title="@Model.XscfModule.Uid" data-toggle="tooltip" data-placement="right" class=""><i class="fa fa-map-marker fa-shield"></i> 唯一编号</span>
                         </li>
                     </ul>
                     <ul class="list-unstyled">
@@ -118,18 +158,59 @@
                         </div>
                         <div class="x_content">
                             <ul class="list-unstyled timeline">
+                                @{
+                                    var paramIndex = 0;
+                                }
                                 @foreach (var item in Model.FunctionParammeterInfoCollection)
                                 {
+                                    paramIndex++;
                                     <li>
                                         <div class="block">
                                             <div class="tags">
-                                                <a href="" class="tag">
+                                                <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg">
                                                     <span>执行</span>
                                                 </a>
+                                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
+                                                                <input type="hidden" name="xscfUid" value="@Model.XscfRegister.Uid" />
+                                                                <input type="hidden" name="xscfFunctionName" value="@item.Key.Name" />
+                                                                <input type="hidden" name="xscfFunctionParams" value="" id="xscfFunctionParams_@paramIndex" />
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title blue" id="modalLabel_@(paramIndex)"><i class="fa fa-terminal"></i> @item.Key.Name</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h4><i class="fa fa-newspaper-o"></i> @item.Key.Description</h4>
+                                                                    <div class="ln_solid"></div>
+                                                                    @foreach (var p in item.Value)
+                                                                    {
+                                                                        <div class="item form-group">
+                                                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@p.Name">
+                                                                                @p.Title @if (p.IsRequired)
+                                                                                {<span class="required">*</span>}
+                                                                            </label>
+                                                                            <div class="col-md-6 col-sm-6 ">
+                                                                                <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                    <button type="submit" class="btn btn-primary">运行</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="block_content">
                                                 <h2 class="title">
-                                                    <a>@item.Key.Name</a>
+                                                    <span class="green"><i class="fa fa-map-marker fa-terminal"></i> @item.Key.Name</span>
                                                 </h2>
                                                 <div class="byline">
                                                     <span>@item.Key.Description</span>
@@ -153,15 +234,15 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         @{
-                                                                            int paraIndex = 0;
+                                                                            int pIndex = 0;
                                                                         }
                                                                         @foreach (var p in item.Value)
                                                                         {
                                                                             <tr>
-                                                                                <th scope="row">@(++paraIndex)</th>
+                                                                                <th scope="row">@(++pIndex)</th>
                                                                                 <td>@p.Title</td>
                                                                                 <td>@p.Description</td>
-                                                                                <td>@p.</td>
+                                                                                <td>@GetSystemTypeName(p.SystemType)</td>
                                                                                 <td>@(p.IsRequired ? "是" : "否")</td>
                                                                             </tr>
                                                                         }
