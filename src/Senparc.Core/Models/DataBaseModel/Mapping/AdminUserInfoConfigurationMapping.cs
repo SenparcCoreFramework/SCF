@@ -6,7 +6,7 @@ namespace Senparc.Core.Models
 {
     public class AdminUserInfoConfigurationMapping : ConfigurationMappingWithIdBase<AdminUserInfo, int>
     {
-        public void Configure(EntityTypeBuilder<AdminUserInfo> builder)
+        public override void Configure(EntityTypeBuilder<AdminUserInfo> builder)
         {
             builder.Property(e => e.LastLoginIp)
                 .HasColumnName("LastLoginIP")
