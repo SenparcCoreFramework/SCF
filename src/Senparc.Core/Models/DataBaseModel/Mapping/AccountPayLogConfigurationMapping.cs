@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Senparc.Scf.Core.Models.DataBaseModel;
 
 namespace Senparc.Core.Models
 {
-    public class AccountPayLogConfigurationMapping : IEntityTypeConfiguration<AccountPayLog>
+    public class AccountPayLogConfigurationMapping : ConfigurationMappingWithIdBase<AccountPayLog, int>
     {
         public void Configure(EntityTypeBuilder<AccountPayLog> builder)
         {
-            builder.HasKey(z => z.Id);
             builder.Property(e => e.OrderNumber).HasColumnType("varchar(100)").IsRequired();
             builder.Property(e => e.TotalPrice).HasColumnType("money").IsRequired();
             builder.Property(e => e.Price).HasColumnType("money").IsRequired();
@@ -19,7 +19,6 @@ namespace Senparc.Core.Models
             builder.Property(e => e.GetPoints).HasColumnType("money").IsRequired();
             builder.Property(e => e.AddIp).HasColumnType("varchar(50)").IsRequired(false);
             builder.Property(e => e.CompleteTime).HasColumnType("datetime").IsRequired();
-            builder.Property(e => e.AddTime).HasColumnType("datetime").IsRequired();
             builder.Property(e => e.Description).HasColumnType("varchar(250)").IsRequired();
             builder.Property(e => e.TradeNumber).HasColumnType("varchar(150)").IsRequired(false);
             builder.Property(e => e.PrepayId).HasColumnType("varchar(100)").IsRequired(false);

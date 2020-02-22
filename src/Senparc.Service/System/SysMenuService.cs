@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Senparc.Service
 {
@@ -45,15 +46,16 @@ namespace Senparc.Service
             ICollection<SysButton> sysButtons = new List<SysButton>();
             if (!string.IsNullOrEmpty(sysMenuDto.Id))
             {
-                menu = await GetObjectAsync(_ => _.Id == sysMenuDto.Id);
+                menu = await GetObjectAsync(_ => _.Id == sysMenuDto.Id).ConfigureAwait(false);
                 menu.Update(sysMenuDto);
             }
             else
             {
                 menu = new SysMenu(sysMenuDto);
             }
-            await SaveObjectAsync(menu);
-            await GetMenuDtoByCacheAsync(true);
+
+            await SaveObjectAsync(menu).ConfigureAwait(false);
+            await GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
             return menu;
         }
 
@@ -135,19 +137,19 @@ namespace Senparc.Service
         public async Task<IEnumerable<SysMenuDto>> GetMenuDtoByCacheAsync(bool isRefresh = false)
         {
             List<SysMenuDto> selectListItems = null;
-            byte[] selectLiteItemBytes = await _distributedCache.GetAsync(MenuCacheKey);
+            byte[] selectLiteItemBytes = await _distributedCache.GetAsync(MenuCacheKey).ConfigureAwait(false); ;
             if (selectLiteItemBytes == null || isRefresh)
             {
-                List<SysMenu> sysMenus = await GetFullListAsync(_ => true);
-                List<SysButton> sysButtons = await _sysButtonService.GetFullListAsync(_ => true);
+                List<SysMenu> sysMenus = (await GetFullListAsync(_ => _.Visible).ConfigureAwait(false)).OrderByDescending(z => z.Sort).ToList();
+                List<SysButton> sysButtons = (await _sysButtonService.GetFullListAsync(_ => true).ConfigureAwait(false)).OrderBy(z => z.Id).ToList();
                 selectListItems = Mapper.Map<List<SysMenuDto>>(sysMenus);
                 List<SysMenuDto> buttons = _sysButtonService.Mapper.Map<List<SysMenuDto>>(sysButtons);
                 selectListItems.AddRange(buttons);
                 string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(selectListItems);
-                await _distributedCache.RemoveAsync(MenuCacheKey);
-                await _distributedCache.RemoveAsync(MenuTreeCacheKey);
-                await _distributedCache.SetAsync(MenuCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr));
-                await _distributedCache.SetStringAsync(MenuTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetSysMenuTreesMainRecursive(selectListItems)));
+                await _distributedCache.RemoveAsync(MenuCacheKey).ConfigureAwait(false);
+                await _distributedCache.RemoveAsync(MenuTreeCacheKey).ConfigureAwait(false);
+                await _distributedCache.SetAsync(MenuCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr)).ConfigureAwait(false);
+                await _distributedCache.SetStringAsync(MenuTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetSysMenuTreesMainRecursive(selectListItems))).ConfigureAwait(false);
             }
             else
             {
@@ -209,10 +211,13 @@ INSERT [dbo].[SysButtons] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuId], 
 INSERT [dbo].[SysButtons] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuId], [ButtonName], [OpearMark], [Url], [AdminRemark], [Remark]) VALUES (N'e6fe98cf-4670-4665-b1c9-dbcd61a89f47', 0, CAST(N'2019-11-04T15:15:14.9078477' AS DateTime2), CAST(N'2019-11-04T15:15:14.9078477' AS DateTime2), N'95d1dc86-52b5-4689-9735-a2c483f89e81', N'删除', N'Del', N'/Admin/Menu/Edit', NULL, NULL)
 INSERT [dbo].[SysButtons] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuId], [ButtonName], [OpearMark], [Url], [AdminRemark], [Remark]) VALUES (N'e9d3b568-cac5-4c1f-863d-f57117c215e8', 0, CAST(N'2019-11-04T15:15:14.9078469' AS DateTime2), CAST(N'2019-11-04T15:15:14.9078469' AS DateTime2), N'95d1dc86-52b5-4689-9735-a2c483f89e81', N'新增一级菜单', N'AddFirst', N'/Admin/Menu/Edit', NULL, NULL)
 INSERT [dbo].[SysButtons] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuId], [ButtonName], [OpearMark], [Url], [AdminRemark], [Remark]) VALUES (N'f9c07719-97b9-4b30-9b01-6dcfae25813c', 0, CAST(N'2019-11-04T15:13:23.9369843' AS DateTime2), CAST(N'2019-11-04T15:13:23.9369843' AS DateTime2), N'7c307710-45ca-46e2-a96e-7234c5fa4abd', N'设置权限', N'Authentic', N'/Admin/Role/Permission', NULL, NULL)
-INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'538e9d87-e9da-4541-9269-13c3bc99bb9e', 0, CAST(N'2019-08-14T17:29:53.4776498' AS DateTime2), CAST(N'2019-11-04T15:21:31.0513206' AS DateTime2), N'系统管理', NULL, NULL, N'fa fa-cog', 0, 1, NULL, NULL)
+INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'538e9d87-e9da-4541-9269-13c3bc99bb9e', 0, CAST(N'2019-08-14T17:29:53.4776498' AS DateTime2), CAST(N'2019-11-04T15:21:31.0513206' AS DateTime2), N'系统管理', NULL, NULL, N'fa fa-cog', 20, 1, NULL, NULL)
 INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'67855ef5-ab6b-4e93-978f-b618e5306005', 0, CAST(N'2019-08-14T17:30:01.4833756' AS DateTime2), CAST(N'2019-11-04T15:10:24.4180192' AS DateTime2), N'管理员管理', N'538e9d87-e9da-4541-9269-13c3bc99bb9e', N'/Admin/AdminUserInfo/Index', N'fa fa-user-secret', 50, 1, NULL, NULL)
 INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'7c307710-45ca-46e2-a96e-7234c5fa4abd', 0, CAST(N'2019-08-14T17:30:08.3403569' AS DateTime2), CAST(N'2019-11-04T15:13:23.9880751' AS DateTime2), N'角色管理', N'538e9d87-e9da-4541-9269-13c3bc99bb9e', N'/Admin/Role/Index', N'fa fa-user', 49, 1, NULL, NULL)
-INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'95d1dc86-52b5-4689-9735-a2c483f89e81', 0, CAST(N'2019-08-14T17:30:14.1710351' AS DateTime2), CAST(N'2019-11-04T15:15:14.9146690' AS DateTime2), N'菜单管理', N'538e9d87-e9da-4541-9269-13c3bc99bb9e', N'/Admin/Menu/Edit', N'fa fa-bars', 40, 1, NULL, NULL)
+INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'95d1dc86-52b5-4689-9735-a2c483f89e81', 0, CAST(N'2019-08-14T17:30:14.1710351' AS DateTime2), CAST(N'2019-11-04T15:15:14.9146690' AS DateTime2), N'菜单管理', N'538e9d87-e9da-4541-9269-13c3bc99bb9e', N'/Admin/Menu/Index', N'fa fa-bars', 40, 1, NULL, NULL)
+INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'538e9d87-e9da-4541-9269-13c3bc99bb90', 0, CAST(N'2019-08-14T17:29:53.4776498' AS DateTime2), CAST(N'2019-11-04T15:21:31.0513206' AS DateTime2), N'扩展模块', NULL, NULL, N'fa fa-cog', 10, 1, NULL, NULL)
+INSERT [dbo].[SysMenus] ([Id], [Flag], [AddTime], [LastUpdateTime], [MenuName], [ParentId], [Url], [Icon], [Sort], [Visible], [AdminRemark], [Remark]) VALUES (N'67855ef5-ab6b-4e93-978f-b618e5306000', 0, CAST(N'2019-08-14T17:30:01.4833756' AS DateTime2), CAST(N'2019-11-04T15:10:24.4180192' AS DateTime2), N'模块管理', N'538e9d87-e9da-4541-9269-13c3bc99bb90', N'/Admin/XscfModule', N'fa fa-user-secret', 10, 1, NULL, NULL)
+
 SET IDENTITY_INSERT [dbo].[SysPermission] ON 
 INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1094, 0, CAST(N'2019-11-05T09:53:41.9787383' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787384' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 0, N'e6fe98cf-4670-4665-b1c9-dbcd61a89f47', NULL, NULL, NULL)
 INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1095, 0, CAST(N'2019-11-05T09:53:41.9787381' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787382' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 0, N'91c13c73-1688-455f-94df-e8ecd1affdc7', NULL, NULL, NULL)
@@ -227,6 +232,8 @@ INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCo
 INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1104, 0, CAST(N'2019-11-05T09:53:41.9787355' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787356' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 1, N'67855ef5-ab6b-4e93-978f-b618e5306005', NULL, NULL, NULL)
 INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1105, 0, CAST(N'2019-11-05T09:53:41.9787339' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787344' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 1, N'538e9d87-e9da-4541-9269-13c3bc99bb9e', NULL, NULL, NULL)
 INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1106, 0, CAST(N'2019-11-05T09:53:41.9787386' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787387' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 0, N'e9d3b568-cac5-4c1f-863d-f57117c215e8', NULL, NULL, NULL)
+INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1107, 0, CAST(N'2019-11-05T09:53:41.9787386' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787387' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 0, N'538e9d87-e9da-4541-9269-13c3bc99bb90', NULL, NULL, NULL)
+INSERT [dbo].[SysPermission] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [RoleId], [IsMenu], [PermissionId], [AdminRemark], [Remark], [ResourceCode]) VALUES (1108, 0, CAST(N'2019-11-05T09:53:41.9787386' AS DateTime2), CAST(N'2019-11-05T09:53:41.9787387' AS DateTime2), N'administrator', N'1f0dcb10-c6cc-437c-ad0f-526debb18290', 0, N'67855ef5-ab6b-4e93-978f-b618e5306000', NULL, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[SysPermission] OFF
 SET IDENTITY_INSERT [dbo].[SysRoleAdminUserInfos] ON 
 INSERT [dbo].[SysRoleAdminUserInfos] ([Id], [Flag], [AddTime], [LastUpdateTime], [RoleCode], [AccountId], [RoleId], [AdminRemark], [Remark]) VALUES (4, 0, CAST(N'2019-08-15T11:51:01.2047663' AS DateTime2), CAST(N'2019-08-15T11:51:01.2047673' AS DateTime2), N'administrator', 1, N'1f0dcb10-c6cc-437c-ad0f-526debb18290', NULL, NULL)
@@ -242,6 +249,51 @@ COMMIT";
 
                 throw new Exception("初始化数据失败，原因:" + ex);
             }
+
+
         }
+
+        public override void DeleteObject(SysMenu obj)
+        {
+            base.DeleteObject(obj);
+            RemoveMenuAsync().ConfigureAwait(false).GetAwaiter();
+        }
+
+        public override void DeleteObject(Expression<Func<SysMenu, bool>> predicate)
+        {
+            base.DeleteObject(predicate);
+            RemoveMenuAsync().ConfigureAwait(false).GetAwaiter();
+        }
+        public override void DeleteAll(IEnumerable<SysMenu> objects)
+        {
+            base.DeleteAll(objects);
+            RemoveMenuAsync().ConfigureAwait(false).GetAwaiter();
+        }
+
+        public override async Task DeleteObjectAsync(SysMenu obj)
+        {
+            await base.DeleteObjectAsync(obj).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+        public override async Task DeleteObjectAsync(Expression<Func<SysMenu, bool>> predicate)
+        {
+            await base.DeleteObjectAsync(predicate).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+        public override async Task DeleteAllAsync(Expression<Func<SysMenu, bool>> where, bool softDelete = false)
+        {
+            await base.DeleteAllAsync(where).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+        public override async Task DeleteAllAsync(IEnumerable<SysMenu> objects, bool softDelete = false)
+        {
+            await base.DeleteAllAsync(objects).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+       
     }
 }

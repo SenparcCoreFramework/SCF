@@ -15,7 +15,7 @@ using Senparc.Scf.Core.Config;
 using Senparc.Scf.SMS;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
-using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Cache.CsRedis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Open;
@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using Senparc.CO2NET.AspNet;
 
 namespace Senparc.Web
 {
@@ -68,8 +69,8 @@ namespace Senparc.Web
 
             //添加（注册） Scf 服务（重要，必须！）
             services.AddScfServices(Configuration, env, CompatibilityVersion.Version_3_0);
-
-            services.AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
+            //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
+            services.AddSenparcWeixinServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,11 +127,11 @@ namespace Senparc.Web
                          * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                         /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
                          */
-                        Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
+                        Senparc.CO2NET.Cache.CsRedis.Register.SetConfigurationOption(redisConfigurationStr);
 
                         //以下会立即将全局缓存设置为 Redis
-                        Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow(); //键值对缓存策略（推荐）
-                                                                                   //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                        Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow(); //键值对缓存策略（推荐）
+                                                                                     //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                         //也可以通过以下方式自定义当前需要启用的缓存策略
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
@@ -168,7 +169,7 @@ namespace Senparc.Web
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
                     if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
                     {
-                        app.UseSenparcWeixinCacheRedis();
+                        weixinRegister.UseSenparcWeixinCacheCsRedis();
                     }
 
                     #endregion
@@ -362,7 +363,7 @@ namespace Senparc.Web
         private static readonly PhysicalFileProvider _fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
 
         /// <summary>
-        /// 检测我呢见变化
+        /// 检测文件变化
         /// </summary>
         /// <param name="app"></param>
         /// <param name="hubContext"></param>

@@ -49,10 +49,17 @@ namespace Senparc.Service
                 return false;
             }
             IEnumerable<SysMenuDto> sysMenus = await _sysMenuService.GetMenuDtoByCacheAsync();
+
+            Func<string, string> getUrlPath = u =>
+            {
+                var index = u.IndexOf("?");
+                return index >= 0 ? u.Substring(0, index) : u;
+            };
+
             var urls = from menu in sysMenus
                        join permission in permissions on menu.Id equals permission.PermissionId
                        where !string.IsNullOrEmpty(menu.Url)
-                       select menu.Url.ToLower();
+                       select getUrlPath(menu.Url).ToLower();
 
             if (!urls.Any() || !urls.Contains(url.ToLower()))
             {
@@ -108,7 +115,7 @@ namespace Senparc.Service
                 sysRoleMenus.Add(sysPermission);
             }
 
-            await BeginTransactionAsync(async () => 
+            await BeginTransactionAsync(async () =>
             {
                 IEnumerable<SysPermission> entitis = await GetFullListAsync(_ => _.RoleId == sysMenuDto.FirstOrDefault().RoleId);
                 await DeleteAllAsync(entitis);
@@ -162,9 +169,9 @@ namespace Senparc.Service
             }
             IEnumerable<SysMenuDto> sysMenus = await _sysMenuService.GetMenuDtoByCacheAsync();
             var resourceCodes = from menu in sysMenus
-                       join permission in permissions on menu.Id equals permission.PermissionId
-                       where !string.IsNullOrEmpty(menu.ResourceCode) && !permission.IsMenu
-                       select menu.ResourceCode;
+                                join permission in permissions on menu.Id equals permission.PermissionId
+                                where !string.IsNullOrEmpty(menu.ResourceCode) && !permission.IsMenu
+                                select menu.ResourceCode;
 
             IEnumerable<SysMenuDto> sysMenuDtos = await _sysMenuService.GetMenuDtoByCacheAsync();
             SysMenuDto sysMenuDto = sysMenuDtos.FirstOrDefault(_ => _.Url?.ToLower() == url.ToLower() && _.IsMenu);

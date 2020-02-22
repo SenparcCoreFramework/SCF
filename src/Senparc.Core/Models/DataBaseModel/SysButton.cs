@@ -13,6 +13,7 @@ namespace Senparc.Core.Models.DataBaseModel
     {
         public SysButton()
         {
+            Id = Guid.NewGuid().ToString();
             AddTime = DateTime.Now;
             LastUpdateTime = AddTime;
         }

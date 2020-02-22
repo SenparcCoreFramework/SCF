@@ -9,5 +9,9 @@ namespace Senparc.Repository
 
     public class FeedBackRepository : ClientRepositoryBase<FeedBack>, IFeedBackRepository
     {
+        public FeedBackRepository(ISqlClientFinanceData sqlClientFinanceData) : base(sqlClientFinanceData)
+        {
+
+        }
     }
 }

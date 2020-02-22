@@ -1,69 +1,108 @@
 ﻿@page
 @model Senparc.Areas.Admin.Areas.Admin.Pages.LoginModel
 @{
+    Layout = null;
 }
-@{
-    ViewData["Title"] = "登录";
-    Layout = "_Empty";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    <environment names="Development">
 
-@section HeaderContent{
+        <!-- =============== VENDOR STYLES ===============-->
+        <!-- =============== BOOTSTRAP STYLES ===============-->
+        <link href="~/node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <!--Base custom-->
+        <link href="~/node_modules/gentelella/build/css/custom.css" rel="stylesheet" />
+        <link href="~/css/Admin/base/senparc-login.css" rel="stylesheet" />
+
+    </environment>
+    <environment names="Staging,Production">
+        <!-- =============== VENDOR STYLES ===============-->
+        <link href="~/node_modules/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <!-- =============== BOOTSTRAP STYLES ===============-->
+        <link href="~/node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!--Base custom-->
+        <link href="~/node_modules/gentelella/build/css/custom.min.css" rel="stylesheet" />
+        <link href="~/css/Admin/base/senparc-login.css" rel="stylesheet" />
+
+    </environment>
+    <link href="~/css/Admin/base/senparc-login.css" rel="stylesheet" />
     <style>
         body {
             background: #94a1ae;
         }
     </style>
-}
-
-<link href="~/css/Admin/base/senparc-login.css" rel="stylesheet" />
-<div class="content">
-    <div class="login-container animated fadeIn logoBox ">
-        <div class="login-inner-box">
-            <span class="logoImg">
-                <img src="~/images/logo-login-scf.png" width="173" />
-            </span>
-            <form asp-action="Index" asp-controller="Login" method="post">
-                <div class="form-control" style="position:absolute;left:-9999px;">
-                    <input type="text" name="oldName" value="" />
-                    <input type="password" name="oldPassword" value="" />
-                </div>
-                <div class="loginbox bg-white logoBg">
-                    <div class="loginbox-title">管理员登录</div>
-                    <div class="loginbox-textbox">
-                        <div class="form-group">
-                            <input type="text" asp-for="Name" placeholder="用户名" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
+</head>
+<body>
+    <div class="content">
+        <div class="login-container animated fadeIn logoBox ">
+            <div class="login-inner-box">
+                <span class="logoImg">
+                    <img src="~/images/logo-login-scf.png" width="173" />
+                </span>
+                <form asp-action="Index" asp-controller="Login" method="post">
+                    <div class="form-control" style="position:absolute;left:-9999px;">
+                        <input type="text" name="oldName" value="" />
+                        <input type="password" name="oldPassword" value="" />
                     </div>
-                    <div class="loginbox-textbox">
-                        <div class="form-group">
-                            <input type="password" asp-for="Password" placeholder="密码" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                    </div>
-                    @*@if (Model.ShowCheckCode)
-                        {
-                            <div class="loginbox-textbox">
-                                <div class="input-group">
-                                    @Html.TextBoxFor(z => z.CheckCode, new { @class = "form-control input-sm", @placeholder = "验证码" })
-                                    <span class="input-group-btn" id="checkCodeWrap">
-                                        <img class="img-checkcode" alt="验证码，不区分大小写" id="refreshCode" src="@Url.Action("GenerateCode", "Home", new { kind = CheckCodeKind.Login, area = "" })">
-                                    </span>
-                                </div>
+                    <div class="loginbox bg-white logoBg">
+                        <div class="loginbox-title">管理员登录</div>
+                        <div class="loginbox-textbox">
+                            <div class="form-group">
+                                <input type="text" asp-for="Name" placeholder="用户名" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                        }*@
-                    <div class="loginbox-textbox">
-                        <div class="form-group">
-                            <button class="btn btn-primary form-control" type="submit">登录</button>
+                        </div>
+                        <div class="loginbox-textbox">
+                            <div class="form-group">
+                                <input type="password" asp-for="Password" placeholder="密码" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @*@if (Model.ShowCheckCode)
+                            {
+                                <div class="loginbox-textbox">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(z => z.CheckCode, new { @class = "form-control input-sm", @placeholder = "验证码" })
+                                        <span class="input-group-btn" id="checkCodeWrap">
+                                            <img class="img-checkcode" alt="验证码，不区分大小写" id="refreshCode" src="@Url.Action("GenerateCode", "Home", new { kind = CheckCodeKind.Login, area = "" })">
+                                        </span>
+                                    </div>
+                                </div>
+                            }*@
+                        <div class="loginbox-textbox">
+                            <div class="form-group">
+                                <button class="btn btn-primary form-control" type="submit">登录</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </form>
-            @*技术支持*@
-            <div class="login-ICP">
-                技术支持：<a href="http://www.senparc.com/" target="_blank" title="点击进入官网">苏州盛派网络科技有限公司</a>
+                </form>
+                @*技术支持*@
+                <div class="login-ICP">
+                    技术支持：<a href="http://www.senparc.com/" target="_blank" title="点击进入官网">苏州盛派网络科技有限公司</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <environment names="Development">
+        <!-- =============== VENDOR SCRIPTS ===============-->
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <!-- =============== BOOTSTRAP SCRIPTS ===============-->
+    </environment>
+    <environment names="Staging,Production">
+        <!-- =============== VENDOR SCRIPTS ===============-->
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <!-- =============== BOOTSTRAP SCRIPTS ===============-->
+    </environment>
+</body>
+</html>

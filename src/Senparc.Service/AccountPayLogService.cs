@@ -6,6 +6,7 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
 using Senparc.Scf.Repository;
 using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -17,7 +18,7 @@ namespace Senparc.Service
         {
         }
 
-        public AccountPayLog GetByOrderNumber(string orderNumber,params string[] includes)
+        public AccountPayLog GetByOrderNumber(string orderNumber, params string[] includes)
         {
             return this.GetObject(z => z.OrderNumber == orderNumber, includes);
         }
@@ -64,7 +65,7 @@ namespace Senparc.Service
             }
             //try
             //{
-            AccountService accountService = SenparcDI.GetService<AccountService>();
+            AccountService accountService = _serviceProvider.GetService<AccountService>();
             Account account = accountService.GetObject(z => z.Id == accountPayLog.AccountId);
             BeginTransaction(() =>
             {

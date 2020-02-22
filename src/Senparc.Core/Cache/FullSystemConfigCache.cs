@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET;
 using Senparc.Core.Models;
@@ -7,6 +8,7 @@ using Senparc.Scf.Core.DI;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Exceptions;
 using Senparc.Scf.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Core.Cache
 {
@@ -15,7 +17,7 @@ namespace Senparc.Core.Cache
 
     //}
 
-    [AutoDIType(DILifecycleType.Singleton)]
+    [AutoDIType(DILifecycleType.Scoped)]
     public class FullSystemConfigCache : BaseCache<FullSystemConfig>/*, IFullSystemConfigCache*/
     {
         public const string CACHE_KEY = "FullSystemConfigCache";
@@ -30,7 +32,7 @@ namespace Senparc.Core.Cache
         public override FullSystemConfig Update()
         {
             var systemConfig = _dataContext.DataContext.SystemConfigs.FirstOrDefault();
-            FullSystemConfig fullSystemConfig = null;
+            FullSystemConfig fullSystemConfig;
             if (systemConfig != null)
             {
                 fullSystemConfig = FullSystemConfig.CreateEntity<FullSystemConfig>(systemConfig);
@@ -40,7 +42,7 @@ namespace Senparc.Core.Cache
                 string hostName = null;
                 try
                 {
-                    var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
+                    var httpContextAccessor = SenparcDI.GetServiceProvider().GetService<IHttpContextAccessor>();
                     var httpContext = httpContextAccessor.HttpContext;
                     var urlData = httpContext.Request;
                     var scheme = urlData.Scheme;//协议

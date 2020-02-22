@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,20 +13,20 @@
 
   <ItemGroup>
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.9.102" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.102.1-preview2" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.7.102.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.2.100" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.200-preview1" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.200-preview1" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.200-preview1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Respository\Senparc.Respository.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Core\Senparc.Scf.Core.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Log\Senparc.Scf.Log.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Repository\Senparc.Scf.Repository.csproj" />
-    <ProjectReference Include="..\Senparc.Scf.Service\Senparc.Scf.Service.csproj" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.100-beta3" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.100-beta3" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.3.100.12-beta3" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.100.12-beta3" />
     <ProjectReference Include="..\Senparc.SMS\Senparc.SMS.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>

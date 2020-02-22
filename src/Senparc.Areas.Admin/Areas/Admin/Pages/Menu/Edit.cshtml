@@ -4,7 +4,7 @@
     ViewData["Title"] = $"{(!string.IsNullOrEmpty(Model.Id) ? "编辑" : "新增")}菜单";
 }
 @section Style{
-    <link href="~/lib/z-tree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="~/node_modules/@@ztree/ztree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
     <link href="~/css/Admin/menuEdit.css" rel="stylesheet" />
 }
 
@@ -169,9 +169,9 @@
     </div>
 </div>
 @section scripts{
-    <script src="~/lib/z-tree/js/jquery.ztree.core.min.js"></script>
-    <script src="~/lib/z-tree/js/jquery.ztree.excheck.min.js"></script>
-    <script src="~/lib/z-tree/js/jquery.ztree.exedit.min.js"></script>
+    <script src="~/node_modules/@@ztree/ztree_v3/js/jquery.ztree.core.min.js"></script>
+    <script src="~/node_modules/@@ztree/ztree_v3/js/jquery.ztree.excheck.min.js"></script>
+    <script src="~/node_modules/@@ztree/ztree_v3/js/jquery.ztree.exedit.min.js"></script>
     <script src="~/js/Admin/Pages/Menu/Edit.js">
 
     </script>
