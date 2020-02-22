@@ -33,7 +33,7 @@ namespace Senparc.Core
             //                .Options));
             //#endif
 
-            SenparcDI.ResetGlobalIServiceProvider();//清空缓存，下次使用DI会自动重新Build
+            //SenparcDI.ResetGlobalIServiceProvider();//清空缓存，下次使用DI会自动重新Build
 
             return services;
         }

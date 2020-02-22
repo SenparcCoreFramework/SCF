@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
+using Senparc.Areas.Admin.Filter;
 using Senparc.Areas.Admin.Models.VD;
 using Senparc.CO2NET.Extensions;
+using Senparc.Core.Models.VD;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Extensions;
 using Senparc.Scf.Core.Models;
@@ -15,7 +17,7 @@ using System.Net;
 namespace Senparc.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [AdminAuthorize("AdminOnly")]
+    [SenparcAdminAuthorize()]
     public class BaseAdminController : Controller, IResultFilter
     {
         public BaseAdminController()

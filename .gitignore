@@ -17,3 +17,4 @@ obj/
 /src/Senparc.Web/wwwroot/lib/*
 /src/Senparc.Web/node_modules/gentelella
 /src/Senparc.Web/node_modules
+/src/ProjectFileManager

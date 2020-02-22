@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;

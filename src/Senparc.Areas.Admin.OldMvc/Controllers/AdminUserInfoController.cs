@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Senparc.Scf.Service;
+using Senparc.Core.Models;
 
 namespace Senparc.Areas.Admin.Controllers
 {

@@ -27,6 +27,7 @@ using Senparc.Core.Models;
 using Senparc.Scf.Core;
 using Senparc.Core;
 using Senparc.Respository;
+using Senparc.Scf.XscfBase;
 
 namespace Senparc.Web
 {
@@ -126,7 +127,7 @@ namespace Senparc.Web
             services.ScanAssamblesForAutoDI();
             //已经添加完所有程序集自动扫描的委托，立即执行扫描（必须）
             AssembleScanHelper.RunScan();
-            services.AddSingleton<Core.Cache.RedisProvider.IRedisProvider, Core.Cache.RedisProvider.StackExchangeRedisProvider>();
+            //services.AddSingleton<Core.Cache.RedisProvider.IRedisProvider, Core.Cache.RedisProvider.StackExchangeRedisProvider>();
 
             //注册 User 登录策略
             services.AddAuthorization(options =>
@@ -138,11 +139,16 @@ namespace Senparc.Web
             });
             services.AddHttpContextAccessor();
             services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationResultFilterAttribute));
+            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
             services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
+
+            //激活 Xscf 扩展引擎
+            services.StartEngine();
         }
 
     }
