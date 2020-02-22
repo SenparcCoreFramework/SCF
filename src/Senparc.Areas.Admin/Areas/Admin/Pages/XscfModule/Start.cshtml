@@ -9,40 +9,74 @@
     <li>模块管理</li>
     <li>@Model.XscfRegister.MenuName</li>
 }
+@section scripts{
+    <script>
+        function deleteModule() {
+            if (!confirm('确定要删除此模块吗？数据可能永久丢失，请注意备份！')) {
+                return false;
+            }
+
+            document.getElementById('form_delete').submit();
+            return true;
+        }
+    </script>
+}
+<form id="form_delete" class="form-horizontal form-label-left" novalidate asp-page="Start" asp-page-handler="Delete" asp-area="Admin" method="post">
+    <input type="hidden" asp-for="XscfModule.Id" name="id" />
+    @*<input type="submit" value="删除" class="btn btn-danger" />*@
+</form>
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            <div class="pull-left" style="width: 100%">
-                <div class="row">
-                    <div class="col-xs-12 col-md-3 col-lg-3">
-                        <p>模块显示名称：@Model.XscfModule.MenuName</p>
-                        <p>模块代号：@Model.XscfModule.Name</p>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-4">
+            <div class="x_title">
+                <h2>@Model.XscfModule.MenuName<small>@(Model.XscfModule.Version)</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="return deleteModule();">删除此模块</a>
+                        </div>
+                    </li>
+                    <li>@*<a class="close-link"><i class="fa fa-close"></i></a>*@
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 profile_left">
 
-                        <p>
-                            唯一编号：@Model.XscfModule.Uid 
-                           
-                        </p>
-                        <p>
-                            当前版本：v@(Model.XscfModule.Version)
-                            @if (Model.XscfRegister.Version != Model.XscfModule.Version)
-                            {
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-star"></i> @Model.XscfModule.Name</span>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-code-fork"></i> <strong>v@(Model.XscfModule.Version)</strong></span>
+                        </li>
+
+                        @if (Model.XscfRegister.Version != Model.XscfModule.Version)
+                        {
+                            <li>
                                 <span style="color:red">（发现新版本：v@(Model.XscfRegister.Version)）</span>
 
-                                <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@Model.XscfRegister.Uid" asp-route-backpage="Start" title="扫描" class="btn-sm btn btn-success">
-                                    <em class="glyphicon glyphicon-gift"></em> &nbsp;<small>立即安装</small>
+                                <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@Model.XscfRegister.Uid" asp-route-backpage="Start" title="扫描" class="btn-sm btn btn-warning">
+                                    <em class="fa fa-gift"></em> &nbsp;<small>立即安装</small>
                                 </a>
-                            }
-                        </p>
-
-                    </div>
-                    <div class="col-xs-12 col-md-2 col-lg-2">
-                        <p>
-                            状态：<strong>@Model.XscfModule.State</strong>
-                        </p>
-                        <p>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li class="m-top-xs">
+                            <span data-original-title="@Model.XscfModule.Uid" data-toggle="tooltip" data-placement="right" class="" ><i class="fa fa-map-marker fa-shield"></i> 唯一编号</span>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-sliders"></i> <strong>@Model.XscfModule.State</strong></span>
                             @switch (Model.XscfModule.State)
                             {
                                 case Scf.Core.Enums.XscfModules_State.关闭:
@@ -60,53 +94,95 @@
                                 default:
                                     break;
                             }
-                        </p>
-                    </div>
+                        </li>
+                        <ul class="list-unstyled">
+                            <li>
+                                <span><i class="fa fa-map-marker fa-newspaper-o"></i> 介绍：</span>
+                                <p>@Model.XscfModule.Description</p>
+                            </li>
+                        </ul>
+                    </ul>
                 </div>
-            <div class="clearfix"></div>
-            <div class="x_content">
-                <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                            <tr class="headings">
-                                <th class="column-title">方法名称</th>
-                                <th class="column-title">说明</th>
-                                <th class="column-title">参数透视</th>
-                                <th class="column-title">操作 </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.FunctionParammeterInfoCollection)
-                            {
-                                <tr class="pointer">
 
-                                    <td class=" ">@item.Key.Name </td>
-                                    <td class=" ">@item.Key.Description</td>
-                                    <td class=" ">
-                                        @foreach (var p in item.Value)
-                                        {
-                                            <p><strong>@p.Title</strong>：@p.Description</p>
-                                        }
-                                    </td>
-                                    <td class=" ">
-                                        <a href="javascript:void(0);" title="操作" class="btn-xs btn btn-info">
-                                            <em class="fa fa-pencil-square-o">操作</em>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center p jpagerbar">
-                    @*@Html.Raw((Html.PagerBar(Model.FunctionParammeterInfoCollection, new PagerBarSettings(Url.Page("/XscfModule/Index", new
-                        {
-                            pageIndex = "{0}"
-                        }))
-                        {
-                            NoRecordTip = "暂无数据",
-                            ShowTotalCount = true
-                        })))*@
+
+                <div class="col-md-9 col-sm-9">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>@Model.XscfModule.MenuName<small>功能</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <ul class="list-unstyled timeline">
+                                @foreach (var item in Model.FunctionParammeterInfoCollection)
+                                {
+                                    <li>
+                                        <div class="block">
+                                            <div class="tags">
+                                                <a href="" class="tag">
+                                                    <span>执行</span>
+                                                </a>
+                                            </div>
+                                            <div class="block_content">
+                                                <h2 class="title">
+                                                    <a>@item.Key.Name</a>
+                                                </h2>
+                                                <div class="byline">
+                                                    <span>@item.Key.Description</span>
+                                                </div>
+                                                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                                                    <div class="panel">
+                                                        <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                            <h4 class="panel-title">参数透视</h4>
+                                                        </a>
+                                                        <div id="collapseOne" class="panel-collapse in collapse" role="tabpanel" aria-labelledby="headingOne" style="">
+                                                            <div class="panel-body">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>名称</th>
+                                                                            <th>说明</th>
+                                                                            <th>类型</th>
+                                                                            <th>必须</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @{
+                                                                            int paraIndex = 0;
+                                                                        }
+                                                                        @foreach (var p in item.Value)
+                                                                        {
+                                                                            <tr>
+                                                                                <th scope="row">@(++paraIndex)</th>
+                                                                                <td>@p.Title</td>
+                                                                                <td>@p.Description</td>
+                                                                                <td>@p.</td>
+                                                                                <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <p class="excerpt">
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
