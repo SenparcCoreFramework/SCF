@@ -126,20 +126,59 @@ SCF 的扩展模块代号为 `XSCF`。
 
 找到 XSCF 包并加载 dll 或 从 nuget 安装到 SCF 项目，例如我们官方的一个示例（ChangeNamespace），用于定制修改整个项目的命名空间：https://www.nuget.org/packages/Senparc.Xscf.ChangeNamespace
 
-#### 第二步：进入管理员后台的
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/01.png" />
 
+> 说明：`Senparc.Xscf.ChangeNamespace` 模块在 SCF 源码中已默认装载，无需从 nuget 下载。
+
+#### 第二步：进入管理员后台的 【扩展模块】 > 【模块管理】
+
+此时可已经可以看到系统自动扫描到了新增模块：
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/02.png" />
+
+
+#### 第三步：点击所需安装模块的【安装按钮】，即可轻松完成模块安装
+
+点击【安装】按钮后，自动进入到模块详情页面，大功告成！
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/03.png" />
+
+### 如何使用已安装的模块？
+
+在上一步模块详情页中，列出了当前模块支持的所有功能的列表：
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/04.png" />
+
+> 为了让每个模块更加沟通安全，每一个功能都可以预先看到所有参数的透视说明
+
+选择需要执行的方法，点击左侧【执行】按钮。例如点击“修改命名空间”功能的执行【执行】按钮：
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/05.png" />
+
+按照提示输入对应的参数，点击【运行】按钮，即可执行此模块的此项功能。
+
+执行完成后可以看到提示信息：
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/06.png" />
+
+程序中所有命名空间已被批量修改：
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/07.png" />
+
+
+<strong>此过程中无需编写一行代码！<strong>
 
 
 ### 如何自己开发模块？
 
-SCF 的扩展模块代号为 `XSCF`，您可以在 (ScfPackageSources)[https://github.com/SenparcCoreFramework/ScfPackageSources] 项目中找到我们的模块 [示例项目](https://github.com/SenparcCoreFramework/ScfPackageSources/tree/master/src/Extensions/Senparc.Xscf.ChangeNamespace)，只需要“依葫芦画瓢”即可。后续稳定版发布之后将有完整的配套文档。
+SCF 的扩展模块代号为 `XSCF`，您可以在 [ScfPackageSources](https://github.com/SenparcCoreFramework/ScfPackageSources) 项目中找到我们的模块 [示例项目](https://github.com/SenparcCoreFramework/ScfPackageSources/tree/master/src/Extensions/Senparc.Xscf.ChangeNamespace)，只需要“依葫芦画瓢”即可。后续稳定版发布之后将有完整的配套文档。
 
 
 ### 是否可以不使用模块化开发？
 
 > Q：我的系统比较简单，也不需要考虑移植、弹性或扩展，是否可以直接在 SCF 上进行开发？
 
-> A：当然可以。加载模块只是为了方便重和系统解耦用而已，SCF 适用于大多数开发场景。
+> A：当然可以。加载模块只是为了方便重和系统解耦用而已，SCF 适用于大多数开发场景，包括单体应用、分布式、容器、微信等移动端、跨平台 Hybrid 应用，等等。
 
 
 ## 待办事项：

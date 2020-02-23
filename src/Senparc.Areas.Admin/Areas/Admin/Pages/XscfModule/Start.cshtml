@@ -30,15 +30,22 @@
             $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
 
             $('#functionForm_' + id).ajaxSubmit(function (data) {
-                if (!data.sucess) {
-                    alert(data.msg);
+                if (!data.success) {
+                    showModal('遇到错误', '错误信息', data.msg);
                     return;
                 }
-
-                alert(data.msg);
-                //TODO more...
+                showModal('执行成功', '返回信息', data.msg);
             });
             return false;
+        }
+
+        function showModal(title, subtitle, contentHtml) {
+            $('#result_small_modal_title').html(title);
+            $('#result_small_modal_subtitle').html(subtitle);
+            $('#result_small_modal_content').html((contentHtml||'').replace(/\n/g,'<br />'));
+
+            $('#result_small_modal').modal();
+
         }
     </script>
     <script src="~/scripts/jquery.form.js"></script>
@@ -167,10 +174,10 @@
                                     <li>
                                         <div class="block">
                                             <div class="tags">
-                                                <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg">
+                                                <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg-@paramIndex">
                                                     <span>执行</span>
                                                 </a>
-                                                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                                <div class="modal fade bs-example-modal-lg-@paramIndex" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
@@ -217,10 +224,10 @@
                                                 </div>
                                                 <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
                                                     <div class="panel">
-                                                        <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapse-@paramIndex" aria-expanded="false" aria-controls="collapse-@paramIndex">
                                                             <h4 class="panel-title">参数透视</h4>
                                                         </a>
-                                                        <div id="collapseOne" class="panel-collapse in collapse" role="tabpanel" aria-labelledby="headingOne" style="">
+                                                        <div id="collapse-@paramIndex" class="panel-collapse in collapse" role="tabpanel" aria-labelledby="collapse-@paramIndex" style="">
                                                             <div class="panel-body">
                                                                 <table class="table table-striped">
                                                                     <thead>
@@ -265,6 +272,28 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- small modal -->
+
+<div id="result_small_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="result_small_modal_title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 id="result_small_modal_subtitle"></h4>
+                <p id="result_small_modal_content" style="word-break:break-all; "></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
