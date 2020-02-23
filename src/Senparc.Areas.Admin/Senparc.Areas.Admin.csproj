@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.100.31-beta3" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.100.32-beta3" />
   </ItemGroup>
 
   <ItemGroup>
