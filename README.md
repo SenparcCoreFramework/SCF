@@ -71,10 +71,10 @@ Done.
 ```
 
 `方法一结果`
-<img src="https://weixin.senparc.com/images/SCF/Install/02.1.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/02.1.png" />
 
 `方法二结果`
-<img src="https://weixin.senparc.com/images/SCF/Install/02.2.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/02.2.png" />
 
 
 
@@ -82,30 +82,30 @@ Done.
 
  1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：https://localhost:44311/
 
- <img src="https://weixin.senparc.com/images/SCF/Install/01.png" />
+ <img src="https://weixin.senparc.com/images/SCF/Installs/01.png" />
  
  2. 打开 https://localhost:44311/Install ，将显示安装页面：
  
-<img src="https://weixin.senparc.com/images/SCF/Install/03.1.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/03.1.png" />
 
 点击【立即安装】按钮：
 
-<img src="https://weixin.senparc.com/images/SCF/Install/03.2.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/03.2.png" />
 
 系统将自动完成初始化安装，此时页面会提示默认管理员账号和密码，请记住这两个参数，以后将无法明文找回！
 
-<img src="https://weixin.senparc.com/images/SCF/Install/03.3.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/03.3.png" />
 
 
  4. 点击【点击这里登录】，使用已经保存好的管理员账号及密码进行登录：
 
 
-<img src="https://weixin.senparc.com/images/SCF/Install/04.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/04.png" />
 
 
 5. 完成登录
 
-<img src="https://weixin.senparc.com/images/SCF/Install/05.png" />
+<img src="https://weixin.senparc.com/images/SCF/Installs/05.png" />
 
 ### （备用）第四步：还原样式包
 
@@ -126,7 +126,7 @@ SCF 的扩展模块代号为 `XSCF`。
 
 找到 XSCF 包并加载 dll 或 从 nuget 安装到 SCF 项目，例如我们官方的一个示例（ChangeNamespace），用于定制修改整个项目的命名空间：https://www.nuget.org/packages/Senparc.Xscf.ChangeNamespace
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/01.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/01.png" />
 
 > 说明：`Senparc.Xscf.ChangeNamespace` 模块在 SCF 源码中已默认装载，无需从 nuget 下载。
 
@@ -134,36 +134,36 @@ SCF 的扩展模块代号为 `XSCF`。
 
 此时可已经可以看到系统自动扫描到了新增模块：
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/02.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/02.png" />
 
 
 #### 第三步：点击所需安装模块的【安装按钮】，即可轻松完成模块安装
 
 点击【安装】按钮后，自动进入到模块详情页面，大功告成！
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/03.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/03.png" />
 
 ### 如何使用已安装的模块？
 
 在上一步模块详情页中，列出了当前模块支持的所有功能的列表：
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/04.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/04.png" />
 
 > 为了让每个模块更加沟通安全，每一个功能都可以预先看到所有参数的透视说明
 
 选择需要执行的方法，点击左侧【执行】按钮。例如点击“修改命名空间”功能的执行【执行】按钮：
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/05.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/05.png" />
 
 按照提示输入对应的参数，点击【运行】按钮，即可执行此模块的此项功能。
 
 执行完成后可以看到提示信息：
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/06.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/06.png" />
 
 程序中所有命名空间已被批量修改：
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/07.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/07.png" />
 
 
 <strong>此过程中无需编写一行代码！<strong>
@@ -175,11 +175,11 @@ SCF 的扩展模块代号为 `XSCF`。
 
 `【模块管理】页面`
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/08.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/08.png" />
 
 或 `模块详情页面`
 
-<img src="https://weixin.senparc.com/images/SCF/XscfModule/09.png" />
+<img src="https://weixin.senparc.com/images/SCF/XscfModules/09.png" />
 
 点击【立即安装】即可完成新版本的升级！
 
