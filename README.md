@@ -169,6 +169,20 @@ SCF 的扩展模块代号为 `XSCF`。
 <strong>此过程中无需编写一行代码！<strong>
 
 
+### 如何更新模块？
+
+您只需要引用最新的 dll（或安装 nuget 包），系统后台将自动扫描到版本更新：
+
+`【模块管理】页面`
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/08.png" />
+
+或 `模块详情页面`
+
+<img src="https://weixin.senparc.com/images/SCF/XscfModule/09.png" />
+
+点击【立即安装】即可完成新版本的升级！
+
 ### 如何自己开发模块？
 
 SCF 的扩展模块代号为 `XSCF`，您可以在 [ScfPackageSources](https://github.com/SenparcCoreFramework/ScfPackageSources) 项目中找到我们的模块 [示例项目](https://github.com/SenparcCoreFramework/ScfPackageSources/tree/master/src/Extensions/Senparc.Xscf.ChangeNamespace)，只需要“依葫芦画瓢”即可。后续稳定版发布之后将有完整的配套文档。

@@ -90,6 +90,17 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return new JsonResult(new { success = false, msg = "模块未注册！" });
             }
 
+            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == xscfRegister.Uid).ConfigureAwait(false);
+            if (xscfModule == null)
+            {
+                return new JsonResult(new { success = false, msg = "当前模块未安装！" });
+            }
+
+            if (xscfModule.State!= XscfModules_State.开放)
+            {
+                return new JsonResult(new { success = false, msg = $"当前模块状态为【{xscfModule.State}】,必须为【开放】状态的模块才可执行！\r\n此外，如果您强制执行此方法，也将按照未通过验证的程序集执行，因为您之前安装的版本可能已经被新的程序所覆盖。" });
+            }
+
             FunctionBase function = null;
 
             foreach (var functionType in xscfRegister.Functions)
@@ -112,7 +123,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             var result = function.Run(paras);
 
-            var data = new { success = true, msg = "修改成功！\r\n" + result };
+            var data = new { success = true, msg = result };
 
             return new JsonResult(data);
         }

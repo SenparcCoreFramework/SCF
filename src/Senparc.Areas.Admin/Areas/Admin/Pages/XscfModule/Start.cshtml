@@ -21,11 +21,23 @@
         }
 
         function submitFunction(id) {
-            var dataInputs = $('input[id^=functionForm_' + id + '_]');
+            var dataInputs = $('[id^=functionForm_Editor_' + id + '_]');
             var jsonData = {};
             for (var i = 0; i < dataInputs.length; i++) {
-                var obj = $(dataInputs[i]);
-                jsonData[obj.data('funcname')] = obj.val();
+                var ele = dataInputs[i];
+                var tagName = ele.tagName.toLowerCase();
+                var obj = $(ele);
+                var val;
+                if (tagName === 'input' || tagName === 'textara') {
+                    val = obj.val();
+                } else if (tagName === 'select') {
+                    val = [obj.val()];
+                }
+                else {
+                    alert('未知的编辑器类型：' + tagName);
+                    return false;
+                }
+                jsonData[obj.data('funcname')] = val;
             }
             $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
 
@@ -34,7 +46,13 @@
                     showModal('遇到错误', '错误信息', data.msg);
                     return;
                 }
-                showModal('执行成功', '返回信息', data.msg);
+
+                if (data.msg.indexOf('http://') != -1 || data.msg.indexOf('https://') != -1) {
+                    showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="'+data.msg+'" target="_blank">'+data.msg+'</a>');
+                }
+                else {
+                    showModal('执行成功', '返回信息', data.msg);
+                }
             });
             return false;
         }
@@ -42,7 +60,7 @@
         function showModal(title, subtitle, contentHtml) {
             $('#result_small_modal_title').html(title);
             $('#result_small_modal_subtitle').html(subtitle);
-            $('#result_small_modal_content').html((contentHtml||'').replace(/\n/g,'<br />'));
+            $('#result_small_modal_content').html((contentHtml || '').replace(/\n/g, '<br />'));
 
             $('#result_small_modal').modal();
 
@@ -123,15 +141,16 @@
                     </ul>
                     <ul class="list-unstyled">
                         <li>
-                            <span><i class="fa fa-map-marker fa-sliders"></i> <strong>@Model.XscfModule.State</strong></span>
+                            <span><i class="fa fa-map-marker fa-sliders"></i> <strong class="@(Model.XscfModule.State == XscfModules_State.开放?"green":"gray")">@Model.XscfModule.State</strong></span>
                             @switch (Model.XscfModule.State)
                             {
                                 case Scf.Core.Enums.XscfModules_State.关闭:
                                 case Scf.Core.Enums.XscfModules_State.新增待审核:
                                 case Scf.Core.Enums.XscfModules_State.更新待审核:
-                                    <a title="开启" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.开放" class="btn-sm btn btn-success">
+                                    <a title="开启" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.开放" class="btn-sm btn @(Model.XscfModule.State == Scf.Core.Enums.XscfModules_State.关闭 ? "btn-success" : "btn-warning")">
                                         <em class="glyphicon glyphicon-flash"></em> &nbsp;<small>开启</small>
                                     </a>
+                                    <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
                                     break;
                                 case Scf.Core.Enums.XscfModules_State.开放:
                                     <a title="关闭" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.关闭" class="btn-sm btn btn-danger">
@@ -199,7 +218,24 @@
                                                                                 {<span class="required">*</span>}
                                                                             </label>
                                                                             <div class="col-md-6 col-sm-6 ">
-                                                                                <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                @switch (p.ParammeterType)
+                                                                                {
+                                                                                    case Scf.XscfBase.ParammeterType.Text:
+                                                                                        <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                        break;
+                                                                                    case Scf.XscfBase.ParammeterType.SingleSelection:
+                                                                                    case Scf.XscfBase.ParammeterType.MultipleSelection:
+                                                                                        <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                            @foreach (var selectionItem in p.SelectionItems)
+                                                                                            {
+                                                                                                <option value="@selectionItem">@selectionItem</option>
+                                                                                            }
+                                                                                        </select>
+                                                                                        break;
+                                                                                    default:
+                                                                                        break;
+                                                                                }
+
                                                                                 <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
                                                                             </div>
                                                                         </div>
@@ -222,12 +258,12 @@
                                                 <div class="byline">
                                                     <span>@item.Key.Description</span>
                                                 </div>
-                                                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                                                <div class="accordion" id="accordion_@paramIndex" role="tablist" aria-multiselectable="true">
                                                     <div class="panel">
-                                                        <a class="panel-heading collapsed" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapse-@paramIndex" aria-expanded="false" aria-controls="collapse-@paramIndex">
+                                                        <a class="panel-heading collapsed" role="tab" id="heading_@paramIndex" data-toggle="collapse" data-parent="#accordion_@paramIndex" href="#collapse_@paramIndex" aria-expanded="false" aria-controls="collapse_@paramIndex">
                                                             <h4 class="panel-title">参数透视</h4>
                                                         </a>
-                                                        <div id="collapse-@paramIndex" class="panel-collapse in collapse" role="tabpanel" aria-labelledby="collapse-@paramIndex" style="">
+                                                        <div id="collapse_@paramIndex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_@paramIndex" style="">
                                                             <div class="panel-body">
                                                                 <table class="table table-striped">
                                                                     <thead>
