@@ -22,6 +22,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
 
+       public List<string> XscfModuleUpdateLog { get; set; }
+
         public string Msg { get; set; }
         public object Obj { get; set; }
 
@@ -45,6 +47,17 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             if (XscfModule == null)
             {
                 throw new Exception("模块未添加！");
+            }
+
+            if (!XscfModule.UpdateLog.IsNullOrEmpty())
+            {
+                XscfModuleUpdateLog = XscfModule.UpdateLog
+                    .Split(new[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
+            }
+            else
+            {
+                XscfModuleUpdateLog = new List<string>();
             }
 
             XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
@@ -96,7 +109,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return new JsonResult(new { success = false, msg = "当前模块未安装！" });
             }
 
-            if (xscfModule.State!= XscfModules_State.开放)
+            if (xscfModule.State != XscfModules_State.开放)
             {
                 return new JsonResult(new { success = false, msg = $"当前模块状态为【{xscfModule.State}】,必须为【开放】状态的模块才可执行！\r\n此外，如果您强制执行此方法，也将按照未通过验证的程序集执行，因为您之前安装的版本可能已经被新的程序所覆盖。" });
             }
