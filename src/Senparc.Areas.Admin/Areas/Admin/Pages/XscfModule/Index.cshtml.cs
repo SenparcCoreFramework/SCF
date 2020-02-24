@@ -75,10 +75,10 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             XscfModules = await _xscfModuleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending).ConfigureAwait(false);
 
-            var dto = XscfModules.Select(z => new CreateOrUpdate_XscfModuleDto(z.Name, z.Uid, z.MenuName, z.Version, z.Description, z.UpdateLog, z.AllowRemove, z.State)).ToList();
+            var xscfModuleDto = XscfModules.Select(z => _xscfModuleService.Mapper.Map<CreateOrUpdate_XscfModuleDto>(z)).ToList();
 
             //进行模块扫描
-            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(dto, _serviceProvider, async (register, installOrUpdate) =>
+            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(xscfModuleDto, _serviceProvider, async (register, installOrUpdate) =>
               {
                   var sysMenuService = _serviceProvider.GetService<SysMenuService>();
 
@@ -97,7 +97,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                       //新建菜单
                       menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 5, true, null);
                   }
+
                   await sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
+
+                  if (installOrUpdate == InstallOrUpdate.Install)
+                  {
+                      //更新菜单信息
+                      var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, menuDto.Id);
+                      await _xscfModuleService.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
+                  }
               }).ConfigureAwait(false);
 
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);

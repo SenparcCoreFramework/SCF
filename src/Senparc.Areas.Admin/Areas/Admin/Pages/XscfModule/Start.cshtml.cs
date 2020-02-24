@@ -22,7 +22,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
 
-       public List<string> XscfModuleUpdateLog { get; set; }
+        public List<string> XscfModuleUpdateLog { get; set; }
 
         public string Msg { get; set; }
         public object Obj { get; set; }
@@ -52,7 +52,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             if (!XscfModule.UpdateLog.IsNullOrEmpty())
             {
                 XscfModuleUpdateLog = XscfModule.UpdateLog
-                    .Split(new[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
                     .ToList();
             }
             else
@@ -159,7 +159,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             Func<Task> uninstall = async () =>
             {
                 //É¾³ý²Ëµ¥
-                var menu = await _sysMenuService.GetObjectAsync(z => z.MenuName == module.MenuName).ConfigureAwait(false);
+                var menu = await _sysMenuService.GetObjectAsync(z => z.Id == module.MenuId).ConfigureAwait(false);
                 if (menu != null)
                 {
                     await _sysMenuService.DeleteObjectAsync(menu).ConfigureAwait(false);

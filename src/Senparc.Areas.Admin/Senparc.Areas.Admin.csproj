@@ -14,10 +14,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.100-beta3" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.102-beta3" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.100-beta3" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.100-beta3" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.100.12-beta3" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.102.12-beta3" />
     <PackageReference Include="Senparc.Scf.Utility" Version="0.3.100-beta3" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
   </ItemGroup>
@@ -26,5 +26,9 @@
     <Content Update="Areas\Admin\Pages\Shared\_HeaderPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Pages\Database\" />
   </ItemGroup>
 </Project>
