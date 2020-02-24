@@ -45,7 +45,9 @@ SCF 将提供全自动的安装程序，目前正在整理阶段。发布之前�
 ### 第一步：准备数据库
 确保已经安装 SQL Server 2008 及以上版本，系统登录用户具有数据库创建权限（可以不需要使用sa等账号登录），如果必须要使用账号登录，[请看这里](https://github.com/SenparcCoreFramework/SCF/wiki/%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%9F)
 
-### 第二步：准备命令行工具
+### 第二步：准备命令行工具（可跳过）
+
+> 这一步是为喜欢体验手敲命令快感的极客准备的，您也可以跳过这一步，直接进入到【第三步】。
 
 #### 方法一（推荐）：
 1. 同步源代码到本地后，使用 Visual Studio 打开 `/src/SCF.sln`
@@ -77,14 +79,15 @@ Done.
 <img src="https://weixin.senparc.com/images/SCF/Installs/02.2.png" />
 
 
-
 ### 第三步：初始化数据
 
  1. 将 `Senparc.Web` 项目设为启动项目，并运行，地址如：https://localhost:44311/
 
- <img src="https://weixin.senparc.com/images/SCF/Installs/01.png" />
+ <!-- <img src="https://weixin.senparc.com/images/SCF/Installs/01.png" /> -->
  
- 2. 打开 https://localhost:44311/Install ，将显示安装页面：
+ <!-- 2. 打开 https://localhost:44311/Install ，将显示安装页面： -->
+
+ 未初始化之前，访问首页会自动显示安装界面（如果您未执行【第二步】，系统将为您在后台自动执行）：
  
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.1.png" />
 
