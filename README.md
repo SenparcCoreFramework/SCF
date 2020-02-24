@@ -1,6 +1,4 @@
-
-
-<center><img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" /></center>
+<img src="https://weixin.senparc.com/images/SCF/logo.png" width="300" />
 
 
 # SCF - SenparcCoreFramework
@@ -42,7 +40,9 @@ SCF 除了会为大家提供完善的框架代码，还会：
 
 - Visual Studio 2019+ 或 VS Code 最新版本
 
-- .NET Core 2.2+ （未来将支持更多版本），SDK下载地址：https://dotnet.microsoft.com/download/dotnet-core/2.2
+- .NET Core 3.1+ ，SDK下载地址：https://dotnet.microsoft.com/download/dotnet-core/3.1
+
+- 如需查看或修改基础包源代码，请看此项目：https://github.com/SenparcCoreFramework/ScfPackageSources
 
 ## 如何安装
 
