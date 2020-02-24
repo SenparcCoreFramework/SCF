@@ -6,13 +6,37 @@ namespace Senparc.Core.Models
     using Microsoft.EntityFrameworkCore;
     using Senparc.Core.Models.DataBaseModel;
     using Senparc.Scf.Core.Models;
+    using Senparc.Scf.Core.Models.DataBaseModel;
     using System;
     using System.Linq.Expressions;
 
     public partial class SenparcEntities : DbContext, ISenparcEntities
     {
+        private static readonly bool[] _migrated = { true };
+
+
+        /// <summary>
+        /// 重置数据库Migrate状态，合并将在下次初始化的时候执行
+        /// </summary>
+        public void ResetMigrate()
+        {
+            //TODO:做到接口中
+            _migrated[0] = false;
+        }
+
         public SenparcEntities(DbContextOptions<SenparcEntities> dbContextOptions) : base(dbContextOptions)
         {
+            if (!_migrated[0])
+            {
+                lock (_migrated)
+                {
+                    if (!_migrated[0])
+                    {
+                        Database.Migrate(); // apply all migrations
+                        _migrated[0] = true;
+                    }
+                }
+            }
         }
 
         #region 系统表
@@ -54,16 +78,36 @@ namespace Senparc.Core.Models
 
         public virtual DbSet<PointsLog> PointsLogs { get; set; }
 
-        public virtual DbSet<AccountPayLog> AccountPayLogs { get; set; } 
+        public virtual DbSet<AccountPayLog> AccountPayLogs { get; set; }
+
+
+        #region 不可修改系统表
+
         #endregion
+        /// <summary>
+        /// 扩展模块
+        /// </summary>
+        public DbSet<XscfModule> XscfModules { get; set; }
+
+        #endregion
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region 系统表
+
             modelBuilder.ApplyConfiguration(new AccountConfigurationMapping());
             modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
             modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
             modelBuilder.ApplyConfiguration(new AccountPayLogConfigurationMapping());
             modelBuilder.ApplyConfiguration(new PointsLogConfigurationMapping());
+
+            #region 不可修改系统表
+
+            modelBuilder.ApplyConfiguration(new XscfModuleAccountConfigurationMapping());
+
+            #endregion
+            #endregion
 
             var types = modelBuilder.Model.GetEntityTypes().Where(e => typeof(EntityBase).IsAssignableFrom(e.ClrType));
             foreach (var entityType in types)

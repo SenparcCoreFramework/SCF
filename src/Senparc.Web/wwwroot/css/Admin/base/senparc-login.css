@@ -189,12 +189,13 @@ body {
 }
 
     .login-ICP a {
-        color: #1382f0;
+        color: #fff;
     }
 
-    .login-ICP a:hover {
-       text-decoration:none;
-    }
+        .login-ICP a:hover {
+            text-decoration: none;
+            color: #332e67;
+        }
 
 .bg-white {
     background-color: #fff !important;

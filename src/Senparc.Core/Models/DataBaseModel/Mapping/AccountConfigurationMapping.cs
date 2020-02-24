@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models.DataBaseModel;
 
 namespace Senparc.Core.Models
 {
-    public class AccountConfigurationMapping : IEntityTypeConfiguration<Account>
+    public class AccountConfigurationMapping : ConfigurationMappingWithIdBase<Account,int>
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {
-
-            builder.HasKey(z => z.Id);
-            builder.Property(e => e.AddTime).HasColumnType("datetime").IsRequired();
+            //builder.HasKey(z => z.Id);
+            //builder.Property(e => e.AddTime).HasColumnType("datetime").IsRequired();
 
             builder.Property(e => e.City).HasMaxLength(30);
 

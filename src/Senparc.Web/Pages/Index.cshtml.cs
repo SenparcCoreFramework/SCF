@@ -12,17 +12,14 @@ namespace Senparc.Web.Pages
 {
     public class IndexModel : BasePageModel
     {
-        //public FullSystemConfig FullSystemConfig { get; set; }
-
-        //private FullSystemConfigCache _fullSystemConfigCache;
-        //public IndexModel(FullSystemConfigCache fullSystemConfigCache)
-        //{
-        //    _fullSystemConfigCache = fullSystemConfigCache;
-        //}
-
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-          
+            //判断是否需要自动进入到安装程序
+            if (base.FullSystemConfig==null)
+            {
+                return new RedirectResult("/Install");
+            }
+            return Page();
         }
     }
 }
