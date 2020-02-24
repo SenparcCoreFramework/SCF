@@ -1,4 +1,7 @@
-<img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" />
+
+
+<center><img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" /></center>
+
 
 # SCF - SenparcCoreFramework
 
@@ -9,9 +12,12 @@ SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包
 > Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
 
+<center><img src="https://weixin.senparc.com/images/SCF/login.jpg" width="800" /></center>
+
 > 当前快速更新分支：[Developer-RazorPage-DDD](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD)
 
 > 我们欢迎第三方开源组件提供自己的解决方案，我们将会测试并集成到 SCF 中。
+
 
 
 SCF 除了会为大家提供完善的框架代码，还会：
