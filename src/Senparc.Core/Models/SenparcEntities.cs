@@ -12,8 +12,31 @@ namespace Senparc.Core.Models
 
     public partial class SenparcEntities : DbContext, ISenparcEntities
     {
+        private static readonly bool[] _migrated = { true };
+
+
+        /// <summary>
+        /// 重置数据库Migrate状态，合并将在下次初始化的时候执行
+        /// </summary>
+        public void ResetMigrate()
+        {
+            //TODO:做到接口中
+            _migrated[0] = false;
+        }
+
         public SenparcEntities(DbContextOptions<SenparcEntities> dbContextOptions) : base(dbContextOptions)
         {
+            if (!_migrated[0])
+            {
+                lock (_migrated)
+                {
+                    if (!_migrated[0])
+                    {
+                        Database.Migrate(); // apply all migrations
+                        _migrated[0] = true;
+                    }
+                }
+            }
         }
 
         #region 系统表

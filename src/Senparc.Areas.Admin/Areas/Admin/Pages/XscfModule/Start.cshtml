@@ -7,7 +7,7 @@
 @section breadcrumbs{
     <li>扩展模块</li>
     <li>模块管理</li>
-    <li>@Model.XscfRegister.MenuName</li>
+    <li>@Model.XscfRegister.MenuName 模块</li>
 }
 @section scripts{
     <script>
@@ -48,7 +48,7 @@
                 }
 
                 if (data.msg.indexOf('http://') != -1 || data.msg.indexOf('https://') != -1) {
-                    showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="'+data.msg+'" target="_blank">'+data.msg+'</a>');
+                    showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="' + data.msg + '" target="_blank">' + data.msg + '</a>');
                 }
                 else {
                     showModal('执行成功', '返回信息', data.msg);
@@ -95,7 +95,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>@Model.XscfModule.MenuName<small>@(Model.XscfModule.Version)</small></h2>
+                <h2>@Model.XscfModule.MenuName<small>模块 v@(Model.XscfModule.Version)</small></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -161,13 +161,45 @@
                                     break;
                             }
                         </li>
-                        <ul class="list-unstyled">
-                            <li>
-                                <span><i class="fa fa-map-marker fa-newspaper-o"></i> 介绍：</span>
-                                <p>@Model.XscfModule.Description</p>
-                            </li>
-                        </ul>
                     </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-newspaper-o"></i> 介绍：</span>
+                            <p>@Model.XscfModule.Description</p>
+                        </li>
+                    </ul>
+                    <div class="accordion" id="accordion_History" role="tablist" aria-multiselectable="true">
+                        <div class="panel">
+                            <a class="panel-heading collapsed" role="tab" id="heading_History" data-toggle="collapse" data-parent="#accordion_History" href="#collapse_History" aria-expanded="false" aria-controls="collapse_History">
+                                <h4 class="panel-title">更新记录</h4>
+                            </a>
+                            <div id="collapse_History" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_History" style="">
+                                <div class="panel-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>更新记录</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int pIndex = 0;
+                                            }
+                                            @foreach (var log in Model.XscfModuleUpdateLog)
+                                            {
+                                                <tr>
+                                                    <th scope="row">@(++pIndex)</th>
+                                                    <td>@log</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -277,12 +309,12 @@
                                                                     </thead>
                                                                     <tbody>
                                                                         @{
-                                                                            int pIndex = 0;
+                                                                            int logIndex = 0;
                                                                         }
                                                                         @foreach (var p in item.Value)
                                                                         {
                                                                             <tr>
-                                                                                <th scope="row">@(++pIndex)</th>
+                                                                                <th scope="row">@(++logIndex)</th>
                                                                                 <td>@p.Title</td>
                                                                                 <td>@p.Description</td>
                                                                                 <td>@GetSystemTypeName(p.SystemType)</td>
