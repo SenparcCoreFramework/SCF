@@ -10,7 +10,7 @@ SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包
 > Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
 
-<center><img src="https://weixin.senparc.com/images/SCF/login.jpg" width="800" /></center>
+<center><img src="https://weixin.senparc.com/images/SCF/login.jpg" /></center>
 
 > 当前快速更新分支：[Developer-RazorPage-DDD](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD)
 
