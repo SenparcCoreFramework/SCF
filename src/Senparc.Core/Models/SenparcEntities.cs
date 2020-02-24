@@ -12,7 +12,7 @@ namespace Senparc.Core.Models
 
     public partial class SenparcEntities : DbContext, ISenparcEntities
     {
-        private static readonly bool[] _migrated = { false };
+        private static readonly bool[] _migrated = { true };
 
 
         /// <summary>
@@ -20,6 +20,7 @@ namespace Senparc.Core.Models
         /// </summary>
         public void ResetMigrate()
         {
+            //TODO:做到接口中
             _migrated[0] = false;
         }
 

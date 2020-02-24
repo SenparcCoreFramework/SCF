@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.SqlClient;
 
 namespace Senparc.Core.Models.VD
 {
@@ -67,6 +68,11 @@ namespace Senparc.Core.Models.VD
 
         public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
         {
+            base.OnPageHandlerSelected(context);
+        }
+
+        public override Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
+        {
             //获取缓存系统信息
             var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
 
@@ -74,32 +80,25 @@ namespace Senparc.Core.Models.VD
             {
                 FullSystemConfig = fullSystemConfigCache.Data;
             }
-            catch (ScfUninstallException ex)
+            catch (SqlException)
+            {
+                //如数据库未创建
+                context.Result = new RedirectResult("/Install");
+
+                return Task.CompletedTask;
+
+            }
+            catch (ScfUninstallException)
             {
                 //需要进行安装
-                //IActionResult actionResult = new Microsoft.AspNetCore.Mvc.RedirectResult("/Install");
-                //HttpContext.Response.Redirect("/Install");
-                //return;
+                context.Result = new RedirectResult("/Install");
+                return Task.CompletedTask;
             }
 
-            base.OnPageHandlerSelected(context);
+
+            return base.OnPageHandlerExecutionAsync(context, next);
         }
 
-        public override Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
-        {
-            var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
-
-            try
-            {
-                FullSystemConfig = fullSystemConfigCache.Data;
-            }   
-            catch (ScfUninstallException ex)
-            {
-                
-            }
-
-            return base.OnPageHandlerSelectionAsync(context);
-        }
 
         /// <summary>
         /// 检查是否在特定 Scheme 下已登录
