@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
+using Senparc.Core.Models;
 using Senparc.Core.Models.VD;
 using Senparc.Service;
 
@@ -42,14 +43,22 @@ namespace Senparc.Web.Pages.Install
 
         public IActionResult OnGet()
         {
-            var adminUserInfo = _accountInfoService.GetObject(z => true);//检查是否已初始化
-            if (adminUserInfo != null)
+            try
             {
-                return new StatusCodeResult(404);
-                //base.Response.StatusCode = 404;
-                //return; 
+                var adminUserInfo = _accountInfoService.GetObject(z => true);//检查是否已初始化
+                if (adminUserInfo == null)
+                {
+                    throw new Exception("需要初始化");
+                }
             }
-            return Page();
+            catch (Exception)
+            {
+                ((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).ResetMigrate();//下次访问开始执行自动安装数据库
+                return Page();
+            }
+
+            //base.Response.StatusCode = 404;
+            return new StatusCodeResult(404);//已经安装完毕，且存在管理员则不进行安装
         }
 
         public IActionResult OnPost()

@@ -69,7 +69,10 @@ namespace Senparc.Core.Cache
                 catch
                 {
                 }
-                throw new SCFExceptionBase($"SCF 系统未初始化，请先执行 {hostName}/Install 进行数据初始化");
+
+                //尝试安装
+
+                throw new ScfUninstallException($"SCF 系统未初始化，请先执行 {hostName}/Install 进行数据初始化");
             }
 
             base.SetData(fullSystemConfig, base.TimeOut, null);

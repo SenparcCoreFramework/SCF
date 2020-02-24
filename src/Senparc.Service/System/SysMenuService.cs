@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Senparc.Service
 {
@@ -52,7 +53,7 @@ namespace Senparc.Service
             {
                 menu = new SysMenu(sysMenuDto);
             }
-           
+
             await SaveObjectAsync(menu).ConfigureAwait(false);
             await GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
             return menu;
@@ -145,8 +146,8 @@ namespace Senparc.Service
                 List<SysMenuDto> buttons = _sysButtonService.Mapper.Map<List<SysMenuDto>>(sysButtons);
                 selectListItems.AddRange(buttons);
                 string jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(selectListItems);
-                await _distributedCache.RemoveAsync(MenuCacheKey).ConfigureAwait(false); 
-                await _distributedCache.RemoveAsync(MenuTreeCacheKey).ConfigureAwait(false); 
+                await _distributedCache.RemoveAsync(MenuCacheKey).ConfigureAwait(false);
+                await _distributedCache.RemoveAsync(MenuTreeCacheKey).ConfigureAwait(false);
                 await _distributedCache.SetAsync(MenuCacheKey, System.Text.Encoding.UTF8.GetBytes(jsonStr)).ConfigureAwait(false);
                 await _distributedCache.SetStringAsync(MenuTreeCacheKey, Newtonsoft.Json.JsonConvert.SerializeObject(GetSysMenuTreesMainRecursive(selectListItems))).ConfigureAwait(false);
             }
@@ -248,6 +249,51 @@ COMMIT";
 
                 throw new Exception("初始化数据失败，原因:" + ex);
             }
+
+
         }
+
+        public override void DeleteObject(SysMenu obj)
+        {
+            base.DeleteObject(obj);
+            RemoveMenuAsync().ConfigureAwait(false).GetAwaiter();
+        }
+
+        public override void DeleteObject(Expression<Func<SysMenu, bool>> predicate)
+        {
+            base.DeleteObject(predicate);
+            RemoveMenuAsync().ConfigureAwait(false).GetAwaiter();
+        }
+        public override void DeleteAll(IEnumerable<SysMenu> objects)
+        {
+            base.DeleteAll(objects);
+            RemoveMenuAsync().ConfigureAwait(false).GetAwaiter();
+        }
+
+        public override async Task DeleteObjectAsync(SysMenu obj)
+        {
+            await base.DeleteObjectAsync(obj).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+        public override async Task DeleteObjectAsync(Expression<Func<SysMenu, bool>> predicate)
+        {
+            await base.DeleteObjectAsync(predicate).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+        public override async Task DeleteAllAsync(Expression<Func<SysMenu, bool>> where, bool softDelete = false)
+        {
+            await base.DeleteAllAsync(where).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+        public override async Task DeleteAllAsync(IEnumerable<SysMenu> objects, bool softDelete = false)
+        {
+            await base.DeleteAllAsync(objects).ConfigureAwait(false);
+            await RemoveMenuAsync().ConfigureAwait(false);
+        }
+
+       
     }
 }
