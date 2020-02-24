@@ -69,9 +69,36 @@ namespace Senparc.Core.Models.VD
         {
             //获取缓存系统信息
             var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
-            FullSystemConfig = fullSystemConfigCache.Data;
+
+            try
+            {
+                FullSystemConfig = fullSystemConfigCache.Data;
+            }
+            catch (ScfUninstallException ex)
+            {
+                //需要进行安装
+                //IActionResult actionResult = new Microsoft.AspNetCore.Mvc.RedirectResult("/Install");
+                //HttpContext.Response.Redirect("/Install");
+                //return;
+            }
 
             base.OnPageHandlerSelected(context);
+        }
+
+        public override Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
+        {
+            var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
+
+            try
+            {
+                FullSystemConfig = fullSystemConfigCache.Data;
+            }   
+            catch (ScfUninstallException ex)
+            {
+                
+            }
+
+            return base.OnPageHandlerSelectionAsync(context);
         }
 
         /// <summary>

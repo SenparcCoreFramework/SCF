@@ -29,6 +29,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using Senparc.CO2NET.AspNet;
+using Microsoft.EntityFrameworkCore.Storage;
+using Senparc.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Senparc.Web
 {
@@ -41,6 +44,9 @@ namespace Senparc.Web
             //∂¡»°Log≈‰÷√Œƒº˛
             var repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -76,8 +82,11 @@ namespace Senparc.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             IOptions<SenparcSetting> senparcSetting,
-            IOptions<SenparcWeixinSetting> senparcWeixinSetting, IHubContext<ReloadPageHub> hubContext)
+            IOptions<SenparcWeixinSetting> senparcWeixinSetting, IHubContext<ReloadPageHub> hubContextd)
         {
+
+            //dbContext.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -22,7 +22,7 @@ namespace Senparc.Core
              */
 
             services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString)
+                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
                 .Options));
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
