@@ -87,7 +87,7 @@ Done.
  
  <!-- 2. 打开 https://localhost:44311/Install ，将显示安装页面： -->
 
- 未初始化之前，访问首页会自动显示安装界面（如果您未执行【第二步】，系统将为您在后台自动执行）：
+ 未初始化之前，访问首页会自动显示安装界面：
  
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.1.png" />
 
@@ -95,7 +95,9 @@ Done.
 
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.2.png" />
 
-系统将自动完成初始化安装，此时页面会提示默认管理员账号和密码，请记住这两个参数，以后将无法明文找回！
+> 如果您未手动执行【第二步】，系统将为您在后台自动执行相关步骤。
+
+随后，系统将自动完成初始化安装，此时页面会提示默认管理员账号和密码，请记住这两个参数，以后将无法明文找回！
 
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.3.png" />
 
