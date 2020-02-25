@@ -42,12 +42,18 @@
             $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
 
             $('#functionForm_' + id).ajaxSubmit(function (data) {
+                if (data.log && data.tempId) {
+                    var downloadArea = $('#result_small_modal_download-log');
+                    downloadArea.show();
+                    $(downloadArea.find('a')[0]).attr('href', '?handler=Log&tempId=' + data.tempId);
+                }
+
                 if (!data.success) {
                     showModal('遇到错误', '错误信息', data.msg);
                     return;
                 }
 
-                if (data.msg.indexOf('http://') != -1 || data.msg.indexOf('https://') != -1) {
+                if (data.msg && data.msg.indexOf('http://') != -1 || data.msg.indexOf('https://') != -1) {
                     showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="' + data.msg + '" target="_blank">' + data.msg + '</a>');
                 }
                 else {
@@ -361,6 +367,7 @@
                 <p id="result_small_modal_content" style="word-break:break-all; "></p>
             </div>
             <div class="modal-footer">
+                <p id="result_small_modal_download-log" style="display:none;"><a href="#" target="_blank">下载日志（5分钟内1次有效）</a></p>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>

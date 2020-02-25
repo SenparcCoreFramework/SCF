@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET;
 using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 
 namespace Senparc.Core
 {
@@ -24,6 +25,11 @@ namespace Senparc.Core
             services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
                 .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
                 .Options));
+
+            services.AddScoped<ISenparcEntities>(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
+    .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
+    .Options));
+
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
             //            services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
