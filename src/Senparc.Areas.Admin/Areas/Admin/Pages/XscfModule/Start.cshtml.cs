@@ -22,7 +22,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
 
-       public List<string> XscfModuleUpdateLog { get; set; }
+        public List<string> XscfModuleUpdateLog { get; set; }
 
         public string Msg { get; set; }
         public object Obj { get; set; }
@@ -52,7 +52,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             if (!XscfModule.UpdateLog.IsNullOrEmpty())
             {
                 XscfModuleUpdateLog = XscfModule.UpdateLog
-                    .Split(new[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
                     .ToList();
             }
             else
@@ -123,6 +123,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 if (fun.Name == xscfFunctionName)
                 {
                     function = fun;
+                    break;
                 }
             }
 
@@ -134,11 +135,16 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
             //var paras = function.GenerateParameterInstance();
 
-            var result = function.Run(paras);
-
-            var data = new { success = true, msg = result };
-
-            return new JsonResult(data);
+            try
+            {
+                var result = function.Run(paras);
+                var data = new { success = true, msg = result };
+                return new JsonResult(data);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { success = false, msg = $"‘ –Ì“Ï≥££°œÍœ∏£∫{ex.Message}" });
+            }
         }
 
         /// <summary>
