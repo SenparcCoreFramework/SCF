@@ -22,7 +22,7 @@ namespace Senparc.Core
              */
 
             services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString)
+                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
                 .Options));
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
@@ -33,7 +33,7 @@ namespace Senparc.Core
             //                .Options));
             //#endif
 
-            SenparcDI.ResetGlobalIServiceProvider();//清空缓存，下次使用DI会自动重新Build
+            //SenparcDI.ResetGlobalIServiceProvider();//清空缓存，下次使用DI会自动重新Build
 
             return services;
         }

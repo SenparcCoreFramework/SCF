@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
+using Senparc.Core.Models;
 using Senparc.Core.Models.VD;
 using Senparc.Service;
 
@@ -17,8 +18,21 @@ namespace Senparc.Web.Pages.Install
         private readonly SystemConfigService _systemConfigService;
         private readonly SysMenuService _sysMenuService;
 
+        /// <summary>
+        /// 管理员用户名
+        /// </summary>
         public string AdminUserName { get; set; }
+        /// <summary>
+        /// 管理员密码
+        /// </summary>
         public string AdminPassword { get; set; }
+        /// <summary>
+        /// 需要修改的命名空间
+        /// </summary>
+        public string Namespace { get; set; }
+
+        public int Step { get; set; }
+
 
         public IndexModel(AdminUserInfoService accountService, SystemConfigService systemConfigService, SysMenuService sysMenuService)
         {
@@ -29,19 +43,40 @@ namespace Senparc.Web.Pages.Install
 
         public IActionResult OnGet()
         {
-            _systemConfigService.Init();//初始化系统信息
-            _sysMenuService.Init();
+            try
+            {
+                var adminUserInfo = _accountInfoService.GetObject(z => true);//检查是否已初始化
+                if (adminUserInfo == null)
+                {
+                    throw new Exception("需要初始化");
+                }
+            }
+            catch (Exception)
+            {
+                ((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).ResetMigrate();//下次访问开始执行自动安装数据库
+                return Page();
+            }
+
+            //base.Response.StatusCode = 404;
+            return new StatusCodeResult(404);//已经安装完毕，且存在管理员则不进行安装
+        }
+
+        public IActionResult OnPost()
+        {
             var adminUserInfo = _accountInfoService.Init(out string userName, out string password);//初始化管理员信息
 
             if (adminUserInfo == null)
             {
                 return new StatusCodeResult(404);
-                base.Response.StatusCode = 404;
+                //base.Response.StatusCode = 404;
                 //return; 
-                //return new StatusCodeResult(404);
             }
             else
             {
+                Step = 1;
+                _systemConfigService.Init();//初始化系统信息
+                _sysMenuService.Init();
+
                 AdminUserName = userName;
                 AdminPassword = password;//这里不可以使用 adminUserInfo.Password，因为此参数已经是加密信息
 

@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Senparc.Scf.Core.Models.DataBaseModel;
 
 namespace Senparc.Core.Models
 {
-    public class AdminUserInfoConfigurationMapping : IEntityTypeConfiguration<AdminUserInfo>
+    public class AdminUserInfoConfigurationMapping : ConfigurationMappingWithIdBase<AdminUserInfo, int>
     {
         public void Configure(EntityTypeBuilder<AdminUserInfo> builder)
         {
-            builder.Property(e => e.AddTime).HasColumnType("datetime").IsRequired();
-
             builder.Property(e => e.LastLoginIp)
                 .HasColumnName("LastLoginIP")
                 .HasMaxLength(20)

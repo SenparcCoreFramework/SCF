@@ -15,14 +15,23 @@ using Senparc.Weixin.MP.Containers;
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
     public class WeixinService /*: IWeixinService*/
     {
+
+        private readonly IServiceProvider _serviceProvider;
+
+        public WeixinService(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
         public string ReplaceWeixinFace(string content)
         {
-            var weixinFaceCahce = SenparcDI.GetService<WeixinFaceCache>();
+            var weixinFaceCahce = _serviceProvider.GetService<WeixinFaceCache>();
             foreach (var keyValuePair in weixinFaceCahce.Data)
             {
                 var image = $"<img src=\"/Content/WeixinFace/{keyValuePair.Value}.png\" title=\"{keyValuePair.Value.ToString()}\" />";
@@ -99,7 +108,7 @@ namespace Senparc.Service
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                var senparcWeixinSetting = SenparcDI.GetService<IOptions<SenparcWeixinSetting>>().Value;
+                var senparcWeixinSetting = _serviceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value;
                 MediaApi.Get(senparcWeixinSetting.WeixinAppId, serverId, ms);
                 //保存到文件
                 ms.Position = 0;

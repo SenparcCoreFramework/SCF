@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET;
 using Senparc.Core.Models;
@@ -7,6 +8,7 @@ using Senparc.Scf.Core.DI;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Exceptions;
 using Senparc.Scf.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Core.Cache
 {
@@ -40,7 +42,7 @@ namespace Senparc.Core.Cache
                 string hostName = null;
                 try
                 {
-                    var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
+                    var httpContextAccessor = SenparcDI.GetServiceProvider().GetService<IHttpContextAccessor>();
                     var httpContext = httpContextAccessor.HttpContext;
                     var urlData = httpContext.Request;
                     var scheme = urlData.Scheme;//协议
@@ -67,7 +69,10 @@ namespace Senparc.Core.Cache
                 catch
                 {
                 }
-                throw new SCFExceptionBase($"SCF 系统未初始化，请先执行 {hostName}/Install 进行数据初始化");
+
+                //尝试安装
+
+                throw new ScfUninstallException($"SCF 系统未初始化，请先执行 {hostName}/Install 进行数据初始化");
             }
 
             base.SetData(fullSystemConfig, base.TimeOut, null);

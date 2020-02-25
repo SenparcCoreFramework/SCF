@@ -4,11 +4,8 @@ using System.Text;
 
 namespace Senparc.Core.Models.DataBaseModel.Dto.Base
 {
-    public class BaseQueryDto
+    public class BaseQueryDto : QueryDtoBase
     {
-        /// <summary>
-        /// xxxx Desc, ddd asc
-        /// </summary>
-        public string OrderBy { get; set; }
+
     }
 }

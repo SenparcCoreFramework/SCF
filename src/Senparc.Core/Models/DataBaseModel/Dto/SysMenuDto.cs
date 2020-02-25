@@ -7,6 +7,7 @@ namespace Senparc.Core.Models.DataBaseModel
 {
     public class SysMenuDto : BaseDto
     {
+      
         /// <summary>
         /// 是否是菜单
         /// </summary>
@@ -45,6 +46,22 @@ namespace Senparc.Core.Models.DataBaseModel
         public bool Visible { get; set; }
 
         public string ResourceCode { get; set; }
+
+        public SysMenuDto() { }
+
+        public SysMenuDto(bool isMenu, string id, string menuName, string parentId, string url, string icon, int sort, bool visible, string resourceCode)
+        {
+            IsMenu = isMenu;
+            Id = id;
+            MenuName = menuName;
+            ParentId = parentId;
+            Url = url;
+            Icon = icon;
+            Sort = sort;
+            Visible = visible;
+            ResourceCode = resourceCode;
+        }
+
     }
 
     /// <summary>

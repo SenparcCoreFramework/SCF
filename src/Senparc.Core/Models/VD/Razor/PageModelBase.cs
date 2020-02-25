@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.SqlClient;
 
 namespace Senparc.Core.Models.VD
 {
@@ -67,12 +68,37 @@ namespace Senparc.Core.Models.VD
 
         public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
         {
-            //获取缓存系统信息
-            var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
-            FullSystemConfig = fullSystemConfigCache.Data;
-
             base.OnPageHandlerSelected(context);
         }
+
+        public override Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
+        {
+            //获取缓存系统信息
+            var fullSystemConfigCache = context.HttpContext.RequestServices.GetService<FullSystemConfigCache>();
+
+            try
+            {
+                FullSystemConfig = fullSystemConfigCache.Data;
+            }
+            catch (SqlException)
+            {
+                //如数据库未创建
+                context.Result = new RedirectResult("/Install");
+
+                return Task.CompletedTask;
+
+            }
+            catch (ScfUninstallException)
+            {
+                //需要进行安装
+                context.Result = new RedirectResult("/Install");
+                return Task.CompletedTask;
+            }
+
+
+            return base.OnPageHandlerExecutionAsync(context, next);
+        }
+
 
         /// <summary>
         /// 检查是否在特定 Scheme 下已登录

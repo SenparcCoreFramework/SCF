@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.Areas.Admin.Filters;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.Core.Models.VD;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
 using Senparc.Service;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
     [AllowAnonymous]
-    public class LoginModel : BaseAdminPageModel
+    public class LoginModel : PageModelBase/* BaseAdminPageModel*/
     {
         [BindProperty]
         [Required(ErrorMessage = "请输入用户名")]
@@ -92,7 +93,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             SenparcTrace.SendCustomLog("管理员退出登录", $"用户名：{base.UserName}");
             await _userInfoService.Logout();
-            return RedirectToPage("Index");
+            return Redirect("/");
         }
     }
 }
