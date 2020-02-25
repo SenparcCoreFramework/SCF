@@ -61,13 +61,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 throw new Exception("模块不存在！");
             }
 
-            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == z.Uid);
+            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
             if (xscfRegister == null)
             {
                 throw new Exception("模块不存在！");
             }
 
-            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == z.Uid && z.Version == xscfRegister.Version);
+            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == xscfRegister.Uid && z.Version == xscfRegister.Version);
             if (xscfModule != null)
             {
                 throw new Exception("相同版本模块已安装，无需重复安装！");

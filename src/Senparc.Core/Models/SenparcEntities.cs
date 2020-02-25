@@ -10,33 +10,12 @@ namespace Senparc.Core.Models
     using System;
     using System.Linq.Expressions;
 
-    public partial class SenparcEntities : DbContext, ISenparcEntities
+    public partial class SenparcEntities : SenparcEntitiesBase, ISenparcEntities
     {
-        private static readonly bool[] _migrated = { true };
-
-
-        /// <summary>
-        /// 重置数据库Migrate状态，合并将在下次初始化的时候执行
-        /// </summary>
-        public void ResetMigrate()
-        {
-            //TODO:做到接口中
-            _migrated[0] = false;
-        }
 
         public SenparcEntities(DbContextOptions<SenparcEntities> dbContextOptions) : base(dbContextOptions)
         {
-            if (!_migrated[0])
-            {
-                lock (_migrated)
-                {
-                    if (!_migrated[0])
-                    {
-                        Database.Migrate(); // apply all migrations
-                        _migrated[0] = true;
-                    }
-                }
-            }
+            
         }
 
         #region 系统表
@@ -102,36 +81,12 @@ namespace Senparc.Core.Models
             modelBuilder.ApplyConfiguration(new AccountPayLogConfigurationMapping());
             modelBuilder.ApplyConfiguration(new PointsLogConfigurationMapping());
 
-            #region 不可修改系统表
-
-            modelBuilder.ApplyConfiguration(new XscfModuleAccountConfigurationMapping());
 
             #endregion
-            #endregion
 
-            var types = modelBuilder.Model.GetEntityTypes().Where(e => typeof(EntityBase).IsAssignableFrom(e.ClrType));
-            foreach (var entityType in types)
-            {
-                SetGlobalQueryMethodInfo
-                        .MakeGenericMethod(entityType.ClrType)
-                        .Invoke(this, new object[] { modelBuilder });
-            }
+            base.OnModelCreating(modelBuilder);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private static readonly MethodInfo SetGlobalQueryMethodInfo = typeof(SenparcEntities)
-            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .Single(t => t.IsGenericMethod && t.Name == "SetGlobalQuery");
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="builder"></param>
-        public void SetGlobalQuery<T>(ModelBuilder builder) where T : EntityBase
-        {
-            builder.Entity<T>().HasQueryFilter(z => !z.Flag);
-        }
+
     }
 }

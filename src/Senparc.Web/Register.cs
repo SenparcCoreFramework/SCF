@@ -28,6 +28,7 @@ using Senparc.Scf.Core;
 using Senparc.Core;
 using Senparc.Respository;
 using Senparc.Scf.XscfBase;
+using Microsoft.EntityFrameworkCore;
 
 namespace Senparc.Web
 {
@@ -120,8 +121,9 @@ namespace Senparc.Web
             //注册 Lazy<T>
             services.AddTransient(typeof(Lazy<>));
 
-            services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"))
-                .AddSenparcEntitiesDI(); //SQL Server设置
+            services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
+           
+            services.AddSenparcEntitiesDI(); //SQL Server设置
 
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
@@ -138,12 +140,20 @@ namespace Senparc.Web
                 });
             });
             services.AddHttpContextAccessor();
+            
+            //Attributes
             services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationResultFilterAttribute));
             services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
+            //Database
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
+            // services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
+
+          //Repository
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
+            //Other
             services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
