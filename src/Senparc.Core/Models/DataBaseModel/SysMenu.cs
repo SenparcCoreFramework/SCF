@@ -28,6 +28,7 @@ namespace Senparc.Core.Models.DataBaseModel
             Url = sysMenuDto.Url;
             ParentId = sysMenuDto.ParentId;
             MenuName = sysMenuDto.MenuName;
+            IsLocked = sysMenuDto.IsLocked;
         }
 
         [MaxLength(50)]
@@ -51,6 +52,11 @@ namespace Senparc.Core.Models.DataBaseModel
         /// </summary>
         [MaxLength(50)]
         public string Icon { get; set; }
+
+        /// <summary>
+        /// 是否锁定, 锁定后不能 修改和删除
+        /// </summary>
+        public bool IsLocked { get; set; }
 
         public void Update(SysMenuDto sysMenuDto)
         {

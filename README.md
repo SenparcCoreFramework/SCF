@@ -1,6 +1,4 @@
-
-
-<center><img src="https://weixin.senparc.com/images/SCF/logo.png" width="500" /></center>
+<img src="https://weixin.senparc.com/images/SCF/logo.png" width="300" />
 
 
 # SCF - SenparcCoreFramework
@@ -12,7 +10,7 @@ SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包
 > Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
 
-<center><img src="https://weixin.senparc.com/images/SCF/login.jpg" width="800" /></center>
+<center><img src="https://weixin.senparc.com/images/SCF/login.jpg" /></center>
 
 > 当前快速更新分支：[Developer-RazorPage-DDD](https://github.com/SenparcCoreFramework/SCF/tree/Developer-RazorPage-DDD)
 
@@ -42,7 +40,9 @@ SCF 除了会为大家提供完善的框架代码，还会：
 
 - Visual Studio 2019+ 或 VS Code 最新版本
 
-- .NET Core 2.2+ （未来将支持更多版本），SDK下载地址：https://dotnet.microsoft.com/download/dotnet-core/2.2
+- .NET Core 3.1+ ，SDK下载地址：https://dotnet.microsoft.com/download/dotnet-core/3.1
+
+- 如需查看或修改基础包源代码，请看此项目：https://github.com/SenparcCoreFramework/ScfPackageSources
 
 ## 如何安装
 
