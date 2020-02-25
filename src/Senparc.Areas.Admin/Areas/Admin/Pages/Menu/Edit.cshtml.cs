@@ -83,13 +83,14 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         public async Task<IActionResult> OnPostDeleteAsync(string[] ids)
         {
-            var entity = await _sysMenuService.GetFullListAsync(_ => ids.Contains(_.Id));
+            var entity = await _sysMenuService.GetFullListAsync(_ => ids.Contains(_.Id) && _.IsLocked == false);
             var buttons = await _sysButtonService.GetFullListAsync(_ => ids.Contains(_.MenuId));
 
             await _sysButtonService.DeleteAllAsync(buttons);
             await _sysMenuService.DeleteAllAsync(entity);
             await _sysMenuService.RemoveMenuAsync();
-            return Ok(true);
+            IEnumerable<string> unDeleteIds = ids.Except(entity.Select(_ => _.Id));
+            return Ok(unDeleteIds);
         }
 
         public async Task<IActionResult> OnPostAddMenuAsync(SysMenuDto sysMenu)
