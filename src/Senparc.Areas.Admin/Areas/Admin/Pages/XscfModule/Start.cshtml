@@ -44,7 +44,7 @@
             $('#functionForm_' + id).ajaxSubmit(function (data) {
 
                 var downloadArea = $('#result_small_modal_download-log');
-                if (data.log && data.tempId) {
+                if ((data.log || '').length > 0 && (data.tempId || '').length >0) {
                     downloadArea.show();
                     $('#result_small_modal_download_log_link').attr('href', '?handler=Log&tempId=' + data.tempId);
                 } else {
