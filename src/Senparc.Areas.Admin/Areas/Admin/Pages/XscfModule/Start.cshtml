@@ -42,10 +42,13 @@
             $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
 
             $('#functionForm_' + id).ajaxSubmit(function (data) {
+
+                var downloadArea = $('#result_small_modal_download-log');
                 if (data.log && data.tempId) {
-                    var downloadArea = $('#result_small_modal_download-log');
                     downloadArea.show();
-                    $(downloadArea.find('a')[0]).attr('href', '?handler=Log&tempId=' + data.tempId);
+                    $('#result_small_modal_download_log_link').attr('href', '?handler=Log&tempId=' + data.tempId);
+                } else {
+                     downloadArea.hide();
                 }
 
                 if (!data.success) {
@@ -87,6 +90,8 @@
                 return "数字";
             case "DateTime":
                 return "日期";
+            case "String[]":
+                return "选项";
             default:
                 return systemType;
         }
@@ -303,32 +308,41 @@
                                                         </a>
                                                         <div id="collapse_@paramIndex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_@paramIndex" style="">
                                                             <div class="panel-body">
-                                                                <table class="table table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>#</th>
-                                                                            <th>名称</th>
-                                                                            <th>说明</th>
-                                                                            <th>类型</th>
-                                                                            <th>必须</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @{
-                                                                            int logIndex = 0;
-                                                                        }
-                                                                        @foreach (var p in item.Value)
-                                                                        {
+                                                                @if (item.Value.Count > 0)
+                                                                {
+                                                                    <table class="table table-striped">
+                                                                        <thead>
                                                                             <tr>
-                                                                                <th scope="row">@(++logIndex)</th>
-                                                                                <td>@p.Title</td>
-                                                                                <td>@p.Description</td>
-                                                                                <td>@GetSystemTypeName(p.SystemType)</td>
-                                                                                <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                                <th>#</th>
+                                                                                <th>名称</th>
+                                                                                <th>说明</th>
+                                                                                <th>类型</th>
+                                                                                <th>必须</th>
                                                                             </tr>
-                                                                        }
-                                                                    </tbody>
-                                                                </table>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                int logIndex = 0;
+                                                                            }
+                                                                            @foreach (var p in item.Value)
+                                                                            {
+                                                                                <tr>
+                                                                                    <th scope="row">@(++logIndex)</th>
+                                                                                    <td>@p.Title</td>
+                                                                                    <td>@p.Description</td>
+                                                                                    <td>@GetSystemTypeName(p.SystemType)</td>
+                                                                                    <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                }
+                                                                else { 
+                                                                                <div>
+                                                                                    无需填写数据
+                                                                                </div>
+                                                                                }
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -367,7 +381,13 @@
                 <p id="result_small_modal_content" style="word-break:break-all; "></p>
             </div>
             <div class="modal-footer">
-                <p id="result_small_modal_download-log" style="display:none;"><a href="#" target="_blank">下载日志（5分钟内1次有效）</a></p>
+                <p id="result_small_modal_download-log" style="display:none;">
+                    <div class="row">
+                        <div class="fa-hover col-md-12 col-sm-12">
+                            <a href="#" target="_blank" id="result_small_modal_download_log_link"><i class="fa fa-cloud-download"></i> 下载日志（5分钟内1次有效）</a>
+                        </div>
+                    </div>
+                </p>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>
