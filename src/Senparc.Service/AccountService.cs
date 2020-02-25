@@ -380,7 +380,7 @@ namespace Senparc.Service
                 var fileName = $@"/Upload/Account/headimgurl.{DateTime.Now.Ticks + Guid.NewGuid().ToString("n").Substring(0, 8)}.jpg";
 
                 //下载图片
-                DownLoadPic(userInfo.headimgurl, fileName);
+                DownLoadPic(_serviceProvider,userInfo.headimgurl, fileName);
 
                 account.PicUrl = fileName;
             }
@@ -393,11 +393,11 @@ namespace Senparc.Service
         /// </summary>
         /// <param name="picUrl"></param>
         /// <param name="fileName"></param>
-        private void DownLoadPic(string picUrl, string fileName)
+        private void DownLoadPic(IServiceProvider serviceProvider, string picUrl, string fileName)
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                Get.Download(picUrl, stream);
+                Get.Download(serviceProvider,picUrl, stream);
 
                 using (var fs = new FileStream(Server.GetWebMapPath("~" + fileName), FileMode.CreateNew))
                 {

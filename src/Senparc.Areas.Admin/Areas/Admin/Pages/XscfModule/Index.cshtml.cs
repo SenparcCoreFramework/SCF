@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Models.DataBaseModel;
 using Senparc.Scf.Core.Enums;
@@ -12,17 +11,21 @@ using Senparc.Scf.Core.Models.DataBaseModel;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
 using Senparc.Service;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
     public class XscfModuleIndexModel : BaseAdminPageModel
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly XscfModuleService _xscfModuleService;
         private readonly SysMenuService _sysMenuService;
 
-        public XscfModuleIndexModel(XscfModuleService xscfModuleService, SysMenuService sysMenuService)
+        public XscfModuleIndexModel(IServiceProvider serviceProvider, XscfModuleService xscfModuleService, SysMenuService sysMenuService)
         {
             CurrentMenu = "XscfModule";
+
+            this._serviceProvider = serviceProvider;
             this._xscfModuleService = xscfModuleService;
             this._sysMenuService = sysMenuService;
         }
@@ -51,7 +54,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// 扫描新模块
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> OnGetScanAsync(string uid, string backpage = null)
+        public async Task<IActionResult> OnGetScanAsync(string uid)
         {
             if (uid.IsNullOrEmpty())
             {
@@ -75,15 +78,28 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var dto = XscfModules.Select(z => new CreateOrUpdate_XscfModuleDto(z.Name, z.Uid, z.MenuName, z.Version, z.Description, z.UpdateLog, z.AllowRemove, z.State)).ToList();
 
             //进行模块扫描
-            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(dto, _xscfModuleService, async (register, installOrUpdate) =>
-             {
-                 var topMenu = _sysMenuService.GetObject(z => z.MenuName == "扩展模块");
-                 var currentMenu = _sysMenuService.GetObject(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName);//TODO: menu 还需要加一个锁定Uid的扩展属性
+            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(dto, _serviceProvider, async (register, installOrUpdate) =>
+              {
+                  var sysMenuService = _serviceProvider.GetService<SysMenuService>();
 
-                 string menuId = installOrUpdate == InstallOrUpdate.Install ? null : currentMenu?.Id;//如果是Install，必须新建，否则尝试更新
-                 var menuDto = new SysMenuDto(true, menuId, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 5, true, null);
-                 await _sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
-             });
+                  var topMenu = await sysMenuService.GetObjectAsync(z => z.MenuName == "扩展模块").ConfigureAwait(false);
+                  var currentMenu = await sysMenuService.GetObjectAsync(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName).ConfigureAwait(false);//TODO: menu 还需要加一个锁定Uid的扩展属性
+                  SysMenuDto menuDto;
+
+                  if (installOrUpdate == InstallOrUpdate.Update && currentMenu != null)
+                  {
+                      //更新菜单
+                      menuDto = sysMenuService.Mapper.Map<SysMenuDto>(currentMenu);
+                      menuDto.MenuName = register.MenuName;//更新菜单名称
+                  }
+                  else
+                  {
+                      //新建菜单
+                      menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 5, true, null);
+                  }
+                  await sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
+              }).ConfigureAwait(false);
+
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 
             //if (backpage=="Start")
