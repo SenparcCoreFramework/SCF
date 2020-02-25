@@ -177,7 +177,7 @@ SCF 的扩展模块代号为 `XSCF`。
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/07.png" />
 
 
-<strong>此过程中无需编写一行代码！<strong>
+<strong>此过程中无需编写一行代码！</strong>
 
 
 ### 如何更新模块？

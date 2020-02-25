@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Scf.Core.Enums;
@@ -8,6 +9,7 @@ using Senparc.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
@@ -22,7 +24,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
 
-       public List<string> XscfModuleUpdateLog { get; set; }
+        public List<string> XscfModuleUpdateLog { get; set; }
 
         public string Msg { get; set; }
         public object Obj { get; set; }
@@ -52,7 +54,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             if (!XscfModule.UpdateLog.IsNullOrEmpty())
             {
                 XscfModuleUpdateLog = XscfModule.UpdateLog
-                    .Split(new[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
                     .ToList();
             }
             else
@@ -136,9 +138,35 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             var result = function.Run(paras);
 
-            var data = new { success = true, msg = result };
+            var tempId = "Xscf-FunctionRun-" + Guid.NewGuid().ToString("n");
+            //记录日志缓存
+            if (!result.Log.IsNullOrEmpty())
+            {
+                var cache = _serviceProvider.GetObjectCacheStrategyInstance();
+                await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODO：可设置
+            }
 
+            var data = new { success = result.Success, msg = result.Message, log = result.Log, exception = result.Exception?.Message, tempId = tempId };
             return new JsonResult(data);
+        }
+
+        /// <summary>
+        /// 获取日志
+        /// </summary>
+        /// <param name="tempId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetLogAsync(string tempId)
+        {
+            var cache = _serviceProvider.GetObjectCacheStrategyInstance();
+            var log = await cache.GetAsync<string>(tempId);
+            if (log == null)
+            {
+                return Content("日志文件不存在或已下载！");
+            }
+
+            await cache.RemoveFromCacheAsync(tempId);
+
+            return File(Encoding.UTF8.GetBytes(log), "text/plain", $"xscf-log-{tempId}.txt");
         }
 
         /// <summary>
@@ -159,7 +187,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             Func<Task> uninstall = async () =>
             {
                 //删除菜单
-                var menu = await _sysMenuService.GetObjectAsync(z => z.MenuName == module.MenuName).ConfigureAwait(false);
+                var menu = await _sysMenuService.GetObjectAsync(z => z.Id == module.MenuId).ConfigureAwait(false);
                 if (menu != null)
                 {
                     await _sysMenuService.DeleteObjectAsync(menu).ConfigureAwait(false);
@@ -182,5 +210,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             return RedirectToPage("Index");
         }
+
     }
 }
