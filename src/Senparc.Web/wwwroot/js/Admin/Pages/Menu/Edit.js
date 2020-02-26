@@ -47,9 +47,13 @@ async function deleteNode(treeNode) {
     var result = getAllChildrenNodes(treeNode, []);
     result.push(treeNode);
     var ids = result.map(_ => { return _.id; });
-    await base.post('/Admin/Menu/Edit?handler=delete', { ids: ids });
-    for (var i = 0; i < result.length; i++) {
-        treeObj.removeNode(result[i]);
+    let response = await base.post('/Admin/Menu/Edit?handler=delete', { ids: ids });
+    if (response.length === 0) {
+        for (var i = 0; i < result.length; i++) {
+            treeObj.removeNode(result[i]);
+        }
+    } else {
+        await base.swal.confirm('删除失败！当前节点不允许删除！', 'warning');
     }
 }
 
@@ -61,7 +65,7 @@ async function zTreeOnClick(event, treeId, treeNode) {
     $('.buttonContainer').not(':first').remove();
     $('.buttonContainer:first input[type="text"]').val('');
     //debugger;
-
+    
     for (var i in data.sysMenuDto) {
         $('#SysMenuDto_' + i.toString().replace(/^\S/, s => s.toUpperCase())).val(data.sysMenuDto[i]);
     }   
@@ -81,6 +85,28 @@ async function zTreeOnClick(event, treeId, treeNode) {
         }
     }
 
+    if (data.sysMenuDto.isLocked) {
+        $('#form input').attr('disabled', 'disabled').addClass('disabled');
+        $('#submit').attr('disabled', 'disabled').addClass('disabled');
+        $('.addButton').attr('disabled', 'disabled').addClass('disabled');
+    } else {
+        $('#form input').removeAttr('disabled').removeClass('disabled');
+        $('#submit').removeAttr('disabled').removeClass('disabled');
+        $('.addButton').removeAttr('disabled').removeClass('disabled');
+    }
+        //debugger
+    if (data.sysMenuDto.isLocked) {
+        debugger
+        $('#SysMenuDto_IsLocked').iCheck('check');
+    } else {
+        $('#SysMenuDto_IsLocked').iCheck('uncheck');
+    }
+    if (data.sysMenuDto.visible) {
+        $('#SysMenuDto_Visible').iCheck('check');
+    } else {
+        $('#SysMenuDto_Visible').iCheck('uncheck');
+    }
+    //$('input[type="checkbox"]').iCheck('update');
     $('.deleteButton').off('click').on('click', deleteButton);
 }
 

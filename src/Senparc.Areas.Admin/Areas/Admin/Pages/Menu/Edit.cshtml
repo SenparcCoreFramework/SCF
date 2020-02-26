@@ -45,7 +45,7 @@
     <div class="col-md-9 col-sm-9 col-xs-12">
         <div class="x_panel">
             <div class="x_content">
-                <form class="form-horizontal form-label-left" novalidate asp-action="Edit" asp-area="Admin" method="post">
+                <form id="form" class="form-horizontal form-label-left" novalidate asp-action="Edit" asp-area="Admin" method="post">
                     <input type="hidden" asp-for="SysMenuDto.Id" />
 
                     <div class="item form-group">
@@ -85,6 +85,19 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input asp-for="SysMenuDto.Icon" type="text" data-validate-length="1,150" class="form-control" placeholder="请输入菜单图标">
                             <span asp-validation-for="SysMenuDto.Icon" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">
+                            是否锁定
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" asp-for="SysMenuDto.IsLocked" value="True" class="flat">
+                                </label>
+                            </div>
                         </div>
                     </div>
 
