@@ -137,27 +137,24 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
             //var paras = function.GenerateParameterInstance();
 
-           try
+            try
             {
                 var result = function.Run(paras);
-                var data = new { success = true, msg = result };
+                var tempId = "Xscf-FunctionRun-" + Guid.NewGuid().ToString("n");
+                //记录日志缓存
+                if (!result.Log.IsNullOrEmpty())
+                {
+                    var cache = _serviceProvider.GetObjectCacheStrategyInstance();
+                    await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODO：可设置
+                }
+
+                var data = new { success = result.Success, msg = result.Message, log = result.Log, exception = result.Exception?.Message, tempId = tempId };
                 return new JsonResult(data);
             }
             catch (Exception ex)
             {
-                return new JsonResult(new { success = false, msg = $"允许异常！详细：{ex.Message}" });
+                return new JsonResult(new { success = false, msg = $"运行异常！详细：{ex.Message}" });
             }
-
-            var tempId = "Xscf-FunctionRun-" + Guid.NewGuid().ToString("n");
-            //记录日志缓存
-            if (!result.Log.IsNullOrEmpty())
-            {
-                var cache = _serviceProvider.GetObjectCacheStrategyInstance();
-                await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODO：可设置
-            }
-
-            var data = new { success = result.Success, msg = result.Message, log = result.Log, exception = result.Exception?.Message, tempId = tempId };
-            return new JsonResult(data);
         }
 
         /// <summary>
