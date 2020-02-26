@@ -38,7 +38,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         }
 
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string ReturnUrl)
         {
             //ÊÇ·ñÒÑ¾­µÇÂ¼
             var logined = await base.CheckLoginedAsync(AdminAuthorizeAttribute.AuthenticationScheme);//ÅÐ¶ÏµÇÂ¼
@@ -49,7 +49,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 {
                     return RedirectToPage("/Index");
                 }
-                return Redirect(ReturnUrl.UrlDecode());
+                return LocalRedirect(ReturnUrl.UrlDecode());
             }
 
             return null;
@@ -86,7 +86,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 return RedirectToPage("/Index");
             }
-            return Redirect(this.ReturnUrl.UrlDecode());
+            return LocalRedirect(this.ReturnUrl.UrlDecode());
         }
 
         public async Task<IActionResult> OnGetLogoutAsync()

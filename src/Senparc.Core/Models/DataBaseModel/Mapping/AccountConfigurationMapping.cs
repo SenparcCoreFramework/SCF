@@ -7,7 +7,7 @@ namespace Senparc.Core.Models
 {
     public class AccountConfigurationMapping : ConfigurationMappingWithIdBase<Account,int>
     {
-        public void Configure(EntityTypeBuilder<Account> builder)
+        public override void Configure(EntityTypeBuilder<Account> builder)
         {
             //builder.HasKey(z => z.Id);
             //builder.Property(e => e.AddTime).HasColumnType("datetime").IsRequired();

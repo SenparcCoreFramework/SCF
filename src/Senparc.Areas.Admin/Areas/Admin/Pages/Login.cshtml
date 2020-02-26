@@ -50,6 +50,7 @@
                     <img src="~/images/logo-login-scf.png" width="173" />
                 </span>
                 <form asp-action="Index" asp-controller="Login" method="post">
+                    <input type="hidden" asp-for="ReturnUrl" />
                     <div class="form-control" style="position:absolute;left:-9999px;">
                         <input type="text" name="oldName" value="" />
                         <input type="password" name="oldPassword" value="" />
