@@ -10,62 +10,8 @@
     <li>@Model.XscfRegister.MenuName 模块</li>
 }
 @section scripts{
-    <script>
-        function deleteModule() {
-            if (!confirm('确定要删除此模块吗？数据可能永久丢失，请注意备份！')) {
-                return false;
-            }
 
-            document.getElementById('form_delete').submit();
-            return true;
-        }
-
-        function submitFunction(id) {
-            var dataInputs = $('[id^=functionForm_Editor_' + id + '_]');
-            var jsonData = {};
-            for (var i = 0; i < dataInputs.length; i++) {
-                var ele = dataInputs[i];
-                var tagName = ele.tagName.toLowerCase();
-                var obj = $(ele);
-                var val;
-                if (tagName === 'input' || tagName === 'textara') {
-                    val = obj.val();
-                } else if (tagName === 'select') {
-                    val = [obj.val()];
-                }
-                else {
-                    alert('未知的编辑器类型：' + tagName);
-                    return false;
-                }
-                jsonData[obj.data('funcname')] = val;
-            }
-            $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
-
-            $('#functionForm_' + id).ajaxSubmit(function (data) {
-                if (!data.success) {
-                    showModal('遇到错误', '错误信息', data.msg);
-                    return;
-                }
-
-                if (data.msg.indexOf('http://') != -1 || data.msg.indexOf('https://') != -1) {
-                    showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="' + data.msg + '" target="_blank">' + data.msg + '</a>');
-                }
-                else {
-                    showModal('执行成功', '返回信息', data.msg);
-                }
-            });
-            return false;
-        }
-
-        function showModal(title, subtitle, contentHtml) {
-            $('#result_small_modal_title').html(title);
-            $('#result_small_modal_subtitle').html(subtitle);
-            $('#result_small_modal_content').html((contentHtml || '').replace(/\n/g, '<br />'));
-
-            $('#result_small_modal').modal();
-
-        }
-    </script>
+    <script src="~/js/Admin/Pages/XscfModule/start.js"></script>
     <script src="~/scripts/jquery.form.js"></script>
 }
 
@@ -81,6 +27,8 @@
                 return "数字";
             case "DateTime":
                 return "日期";
+            case "String[]":
+                return "选项";
             default:
                 return systemType;
         }
@@ -175,7 +123,7 @@
                             </a>
                             <div id="collapse_History" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_History" style="">
                                 <div class="panel-body">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -206,7 +154,7 @@
                 <div class="col-md-9 col-sm-9">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>@Model.XscfModule.MenuName<small>功能</small></h2>
+                            <h2><small>功能列表</small></h2> @*TODO：源码（如有）*@
                             <ul class="nav navbar-right panel_toolbox">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -297,32 +245,42 @@
                                                         </a>
                                                         <div id="collapse_@paramIndex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_@paramIndex" style="">
                                                             <div class="panel-body">
-                                                                <table class="table table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>#</th>
-                                                                            <th>名称</th>
-                                                                            <th>说明</th>
-                                                                            <th>类型</th>
-                                                                            <th>必须</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @{
-                                                                            int logIndex = 0;
-                                                                        }
-                                                                        @foreach (var p in item.Value)
-                                                                        {
+                                                                @if (item.Value.Count > 0)
+                                                                {
+                                                                    <table class="table table-striped">
+                                                                        <thead>
                                                                             <tr>
-                                                                                <th scope="row">@(++logIndex)</th>
-                                                                                <td>@p.Title</td>
-                                                                                <td>@p.Description</td>
-                                                                                <td>@GetSystemTypeName(p.SystemType)</td>
-                                                                                <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                                <th>#</th>
+                                                                                <th style="min-width:50px;">名称</th>
+                                                                                <th>说明</th>
+                                                                                <th style="min-width:50px;">类型</th>
+                                                                                <th style="min-width:50px;">必须</th>
                                                                             </tr>
-                                                                        }
-                                                                    </tbody>
-                                                                </table>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                int logIndex = 0;
+                                                                            }
+                                                                            @foreach (var p in item.Value)
+                                                                            {
+                                                                                <tr>
+                                                                                    <th scope="row">@(++logIndex)</th>
+                                                                                    <td>@p.Title</td>
+                                                                                    <td>@p.Description</td>
+                                                                                    <td>@GetSystemTypeName(p.SystemType)</td>
+                                                                                    <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div>
+                                                                        无需填写数据
+                                                                    </div>
+                                                                }
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -361,6 +319,11 @@
                 <p id="result_small_modal_content" style="word-break:break-all; "></p>
             </div>
             <div class="modal-footer">
+                <div class="row" id="result_small_modal_download_log" style="display:none;">
+                    <div class="fa-hover col-md-12 col-sm-12">
+                        <a href="#" target="_blank" id="result_small_modal_download_log_link"><i class="fa fa-cloud-download"></i> 下载日志（5分钟内1次有效）</a>
+                    </div>
+                </div>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>

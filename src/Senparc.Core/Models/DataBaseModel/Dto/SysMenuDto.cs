@@ -47,6 +47,8 @@ namespace Senparc.Core.Models.DataBaseModel
 
         public string ResourceCode { get; set; }
 
+        public bool IsLocked { get; set; }
+
         public SysMenuDto() { }
 
         public SysMenuDto(bool isMenu, string id, string menuName, string parentId, string url, string icon, int sort, bool visible, string resourceCode)

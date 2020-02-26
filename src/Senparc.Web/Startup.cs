@@ -294,7 +294,7 @@ namespace Senparc.Web
                 //FormFieldName = "X-Http-Method-Override"//此为默认值
             });
 
-            app.UseSenparcMvcDI();
+            //app.UseSenparcMvcDI();//已过期
 
             //Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//网站设置
 

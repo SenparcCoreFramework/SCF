@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET;
 using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
+using System;
 
 namespace Senparc.Core
 {
@@ -21,9 +23,13 @@ namespace Senparc.Core
              *      问题解决方案说明：https://www.colabug.com/2329124.html
              */
 
-            services.AddScoped(s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
+            Func<IServiceProvider, SenparcEntities> implementationFactory = s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
                 .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
-                .Options));
+                .Options);
+
+            services.AddScoped(implementationFactory);
+            services.AddScoped<ISenparcEntities>(implementationFactory);
+
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
             //            services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
