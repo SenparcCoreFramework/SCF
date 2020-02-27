@@ -137,17 +137,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
             //var paras = function.GenerateParameterInstance();
 
-           try
-            {
-                var result = function.Run(paras);
-                var data = new { success = true, msg = result };
-                return new JsonResult(data);
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(new { success = false, msg = $"允许异常！详细：{ex.Message}" });
-            }
-
+            var result = function.Run(paras);
+            
             var tempId = "Xscf-FunctionRun-" + Guid.NewGuid().ToString("n");
             //记录日志缓存
             if (!result.Log.IsNullOrEmpty())
