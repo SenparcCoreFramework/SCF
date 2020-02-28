@@ -40,7 +40,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             if (uid.IsNullOrEmpty())
             {
-                throw new Exception("Ä£¿é±àºÅÎ´Ìá¹©£¡");
+                throw new Exception("æ¨¡å—ç¼–å·æœªæä¾›ï¼");
             }
 
 
@@ -48,7 +48,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             if (XscfModule == null)
             {
-                throw new Exception("Ä£¿éÎ´Ìí¼Ó£¡");
+                throw new Exception("æ¨¡å—æœªæ·»åŠ ï¼");
             }
 
             if (!XscfModule.UpdateLog.IsNullOrEmpty())
@@ -65,18 +65,18 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
             if (XscfRegister == null)
             {
-                throw new Exception($"Ä£¿é¶ªÊ§»òÎ´¼ÓÔØ£¨{Senparc.Scf.XscfBase.Register.RegisterList.Count}£©£¡");
+                throw new Exception($"æ¨¡å—ä¸¢å¤±æˆ–æœªåŠ è½½ï¼ˆ{Senparc.Scf.XscfBase.Register.RegisterList.Count}ï¼‰ï¼");
             }
 
             foreach (var functionType in XscfRegister.Functions)
             {
-                var function = _serviceProvider.GetService(functionType) as FunctionBase;//Èç£ºSenparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                var function = _serviceProvider.GetService(functionType) as FunctionBase;//å¦‚ï¼šSenparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
                 FunctionParammeterInfoCollection[function] = function.GetFunctionParammeterInfo().ToList();
             }
         }
 
         /// <summary>
-        /// ¸üĞÂ×´Ì¬
+        /// æ›´æ–°çŠ¶æ€
         /// </summary>
         /// <param name="id"></param>
         /// <param name="toState"></param>
@@ -87,12 +87,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             if (module == null)
             {
-                throw new Exception("Ä£¿éÎ´Ìí¼Ó£¡");
+                throw new Exception("æ¨¡å—æœªæ·»åŠ ï¼");
             }
 
             module.UpdateState(toState);
             await _xscfModuleService.SaveObjectAsync(module).ConfigureAwait(false);
-            base.SetMessager(MessageType.success, "×´Ì¬±ä¸ü³É¹¦£¡");
+            base.SetMessager(MessageType.success, "çŠ¶æ€å˜æ›´æˆåŠŸï¼");
             return RedirectToPage("Start", new { uid = module.Uid });
         }
 
@@ -102,48 +102,49 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             if (xscfRegister == null)
             {
-                return new JsonResult(new { success = false, msg = "Ä£¿éÎ´×¢²á£¡" });
+                return new JsonResult(new { success = false, msg = "æ¨¡å—æœªæ³¨å†Œï¼" });
             }
 
             var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == xscfRegister.Uid).ConfigureAwait(false);
             if (xscfModule == null)
             {
-                return new JsonResult(new { success = false, msg = "µ±Ç°Ä£¿éÎ´°²×°£¡" });
+                return new JsonResult(new { success = false, msg = "å½“å‰æ¨¡å—æœªå®‰è£…ï¼" });
             }
 
-            if (xscfModule.State != XscfModules_State.¿ª·Å)
+            if (xscfModule.State != XscfModules_State.å¼€æ”¾)
             {
-                return new JsonResult(new { success = false, msg = $"µ±Ç°Ä£¿é×´Ì¬Îª¡¾{xscfModule.State}¡¿,±ØĞëÎª¡¾¿ª·Å¡¿×´Ì¬µÄÄ£¿é²Å¿ÉÖ´ĞĞ£¡\r\n´ËÍâ£¬Èç¹ûÄúÇ¿ÖÆÖ´ĞĞ´Ë·½·¨£¬Ò²½«°´ÕÕÎ´Í¨¹ıÑéÖ¤µÄ³ÌĞò¼¯Ö´ĞĞ£¬ÒòÎªÄúÖ®Ç°°²×°µÄ°æ±¾¿ÉÄÜÒÑ¾­±»ĞÂµÄ³ÌĞòËù¸²¸Ç¡£" });
+                return new JsonResult(new { success = false, msg = $"å½“å‰æ¨¡å—çŠ¶æ€ä¸ºã€{xscfModule.State}ã€‘,å¿…é¡»ä¸ºã€å¼€æ”¾ã€‘çŠ¶æ€çš„æ¨¡å—æ‰å¯æ‰§è¡Œï¼\r\næ­¤å¤–ï¼Œå¦‚æœæ‚¨å¼ºåˆ¶æ‰§è¡Œæ­¤æ–¹æ³•ï¼Œä¹Ÿå°†æŒ‰ç…§æœªé€šè¿‡éªŒè¯çš„ç¨‹åºé›†æ‰§è¡Œï¼Œå› ä¸ºæ‚¨ä¹‹å‰å®‰è£…çš„ç‰ˆæœ¬å¯èƒ½å·²ç»è¢«æ–°çš„ç¨‹åºæ‰€è¦†ç›–ã€‚" });
             }
 
             FunctionBase function = null;
 
             foreach (var functionType in xscfRegister.Functions)
             {
-                var fun = _serviceProvider.GetService(functionType) as FunctionBase;//Èç£ºSenparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                var fun = _serviceProvider.GetService(functionType) as FunctionBase;//å¦‚ï¼šSenparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
                 var functionParameters = fun.GetFunctionParammeterInfo().ToList();
                 if (fun.Name == xscfFunctionName)
                 {
                     function = fun;
+                    break;
                 }
             }
 
             if (function == null)
             {
-                return new JsonResult(new { success = false, msg = "·½·¨Î´Æ¥ÅäÉÏ£¡" });
+                return new JsonResult(new { success = false, msg = "æ–¹æ³•æœªåŒ¹é…ä¸Šï¼" });
             }
 
             var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
             //var paras = function.GenerateParameterInstance();
 
             var result = function.Run(paras);
-
+            
             var tempId = "Xscf-FunctionRun-" + Guid.NewGuid().ToString("n");
-            //¼ÇÂ¼ÈÕÖ¾»º´æ
+            //è®°å½•æ—¥å¿—ç¼“å­˜
             if (!result.Log.IsNullOrEmpty())
             {
                 var cache = _serviceProvider.GetObjectCacheStrategyInstance();
-                await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODO£º¿ÉÉèÖÃ
+                await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODOï¼šå¯è®¾ç½®
             }
 
             var data = new { success = result.Success, msg = result.Message, log = result.Log, exception = result.Exception?.Message, tempId = tempId };
@@ -151,7 +152,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         }
 
         /// <summary>
-        /// »ñÈ¡ÈÕÖ¾
+        /// è·å–æ—¥å¿—
         /// </summary>
         /// <param name="tempId"></param>
         /// <returns></returns>
@@ -161,7 +162,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var log = await cache.GetAsync<string>(tempId);
             if (log == null)
             {
-                return Content("ÈÕÖ¾ÎÄ¼ş²»´æÔÚ»òÒÑÏÂÔØ£¡");
+                return Content("æ—¥å¿—æ–‡ä»¶ä¸å­˜åœ¨æˆ–å·²ä¸‹è½½ï¼");
             }
 
             await cache.RemoveFromCacheAsync(tempId);
@@ -170,7 +171,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         }
 
         /// <summary>
-        /// É¾³ıÄ£¿é
+        /// åˆ é™¤æ¨¡å—
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -180,13 +181,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             if (module == null)
             {
-                throw new Exception("Ä£¿éÎ´Ìí¼Ó£¡");
+                throw new Exception("æ¨¡å—æœªæ·»åŠ ï¼");
             }
 
-            //É¾³ı²Ëµ¥
+            //åˆ é™¤èœå•
             Func<Task> uninstall = async () =>
             {
-                //É¾³ı²Ëµ¥
+                //åˆ é™¤èœå•
                 var menu = await _sysMenuService.GetObjectAsync(z => z.Id == module.MenuId).ConfigureAwait(false);
                 if (menu != null)
                 {
@@ -196,11 +197,11 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             };
 
 
-            //³¢ÊÔ´ÓÒÑ¼ÓÔØµÄÄ£¿éÖĞÖ´ĞĞÉ¾³ı¹ı³Ì
+            //å°è¯•ä»å·²åŠ è½½çš„æ¨¡å—ä¸­æ‰§è¡Œåˆ é™¤è¿‡ç¨‹
             var register = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == module.Uid);
             if (register == null)
             {
-                //Ö±½ÓÉ¾³ı£¬ÈçdllÒÑ¾­²»´æÔÚ£¬¿ÉÄÜÒı·¢´ËÎÊÌâ£¬Ö»ÄÜÔÚµ±Ç°ÏµÍ³ÄÚÖ±½ÓÖ´ĞĞÉ¾³ı
+                //ç›´æ¥åˆ é™¤ï¼Œå¦‚dllå·²ç»ä¸å­˜åœ¨ï¼Œå¯èƒ½å¼•å‘æ­¤é—®é¢˜ï¼Œåªèƒ½åœ¨å½“å‰ç³»ç»Ÿå†…ç›´æ¥æ‰§è¡Œåˆ é™¤
                 await uninstall().ConfigureAwait(false);
             }
             else

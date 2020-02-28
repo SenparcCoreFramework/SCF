@@ -46,6 +46,11 @@ namespace Senparc.Core.Models
         public string WeixinUnionId { get; set; }
       
         public string WeixinOpenId { get; set; }
+
+        /// <summary>
+        /// 是否被锁定（无法登陆） TODO：暂未添加到DTO中
+        /// </summary>
+        public bool? Locked { get; set; }
         
         public ICollection<PointsLog> PointsLogs { get; set; }
         public ICollection<AccountPayLog> AccountPayLogs { get; set; }

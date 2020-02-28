@@ -117,8 +117,7 @@ namespace Senparc.Web.Migrations
                     Url = table.Column<string>(maxLength: 350, nullable: true),
                     Icon = table.Column<string>(maxLength: 50, nullable: true),
                     Sort = table.Column<int>(nullable: false),
-                    Visible = table.Column<bool>(nullable: false),
-                    IsLocked = table.Column<bool>(nullable: false)
+                    Visible = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

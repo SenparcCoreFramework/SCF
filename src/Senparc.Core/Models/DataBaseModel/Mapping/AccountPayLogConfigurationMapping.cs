@@ -6,7 +6,7 @@ namespace Senparc.Core.Models
 {
     public class AccountPayLogConfigurationMapping : ConfigurationMappingWithIdBase<AccountPayLog, int>
     {
-        public void Configure(EntityTypeBuilder<AccountPayLog> builder)
+        public override void Configure(EntityTypeBuilder<AccountPayLog> builder)
         {
             builder.Property(e => e.OrderNumber).HasColumnType("varchar(100)").IsRequired();
             builder.Property(e => e.TotalPrice).HasColumnType("money").IsRequired();

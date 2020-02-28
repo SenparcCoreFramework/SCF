@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Senparc.Core.Models;
 
 namespace Senparc.Web.Migrations
 {
     [DbContext(typeof(SenparcEntities))]
-    partial class SenparcEntitiesModelSnapshot : ModelSnapshot
+    [Migration("20200227080207_Update_Account")]
+    partial class Update_Account
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
