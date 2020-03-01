@@ -53,7 +53,8 @@ namespace Senparc.Web.Pages.Install
             }
             catch (Exception)
             {
-                ((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).ResetMigrate();//下次访问开始执行自动安装数据库
+                ((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).ResetMigrate();//重置合并状态
+                ((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).Migrate();//进行合并
                 return Page();
             }
 

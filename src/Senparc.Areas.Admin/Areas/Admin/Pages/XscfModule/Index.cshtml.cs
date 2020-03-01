@@ -83,7 +83,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                   var sysMenuService = _serviceProvider.GetService<SysMenuService>();
 
                   var topMenu = await sysMenuService.GetObjectAsync(z => z.MenuName == "扩展模块").ConfigureAwait(false);
-                  var currentMenu = await sysMenuService.GetObjectAsync(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName).ConfigureAwait(false);//TODO: menu 还需要加一个锁定Uid的扩展属性
+                  var currentMenu = await sysMenuService.GetObjectAsync(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName).ConfigureAwait(false);
                   SysMenuDto menuDto;
 
                   if (installOrUpdate == InstallOrUpdate.Update && currentMenu != null)
@@ -91,22 +91,24 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                       //更新菜单
                       menuDto = sysMenuService.Mapper.Map<SysMenuDto>(currentMenu);
                       menuDto.MenuName = register.MenuName;//更新菜单名称
+                      menuDto.Icon = register.Icon;//更新菜单图标
                   }
                   else
                   {
                       //新建菜单
-                      menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 5, true, null);
+                      var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
+                      menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, 5, true, null);
                   }
 
-                  await sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
+                  var sysMemu = await sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
 
                   if (installOrUpdate == InstallOrUpdate.Install)
                   {
                       //更新菜单信息
-                      var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, menuDto.Id);
+                      var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
                       await _xscfModuleService.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
                   }
-              }).ConfigureAwait(false);
+              }, uid).ConfigureAwait(false);
 
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 

@@ -138,7 +138,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             //var paras = function.GenerateParameterInstance();
 
             var result = function.Run(paras);
-            
+
             var tempId = "Xscf-FunctionRun-" + Guid.NewGuid().ToString("n");
             //记录日志缓存
             if (!result.Log.IsNullOrEmpty())
@@ -147,7 +147,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODO：可设置
             }
 
-            var data = new { success = result.Success, msg = result.Message, log = result.Log, exception = result.Exception?.Message, tempId = tempId };
+            var data = new { success = result.Success, msg = result.Message.HtmlEncode(), log = result.Log, exception = result.Exception?.Message, tempId = tempId };
             return new JsonResult(data);
         }
 
@@ -191,7 +191,10 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 var menu = await _sysMenuService.GetObjectAsync(z => z.Id == module.MenuId).ConfigureAwait(false);
                 if (menu != null)
                 {
+                    //删除菜单
                     await _sysMenuService.DeleteObjectAsync(menu).ConfigureAwait(false);
+                    //更新菜单缓存
+                    await _sysMenuService.GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
                 }
                 await _xscfModuleService.DeleteObjectAsync(module).ConfigureAwait(false);
             };
