@@ -48,7 +48,7 @@ namespace Senparc.Service
                 menu = await GetObjectAsync(_ => _.Id == sysMenuDto.Id);
                 if (menu.IsLocked)
                 {
-                    return menu;
+                    return menu;//TODO：需要给出提示
                 }
                 menu.Update(sysMenuDto);
             }
