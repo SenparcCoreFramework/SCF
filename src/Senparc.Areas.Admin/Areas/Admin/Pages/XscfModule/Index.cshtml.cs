@@ -91,11 +91,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                       //更新菜单
                       menuDto = sysMenuService.Mapper.Map<SysMenuDto>(currentMenu);
                       menuDto.MenuName = register.MenuName;//更新菜单名称
+                      menuDto.Icon = register.Icon;//更新菜单图标
                   }
                   else
                   {
                       //新建菜单
-                      menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", "fa fa-bars", 5, true, null);
+                      var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
+                      menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, 5, true, null);
                   }
 
                   await sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
@@ -106,7 +108,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                       var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, menuDto.Id);
                       await _xscfModuleService.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
                   }
-              }).ConfigureAwait(false);
+              }, uid).ConfigureAwait(false);
 
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 
