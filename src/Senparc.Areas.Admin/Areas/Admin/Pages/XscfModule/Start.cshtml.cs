@@ -147,7 +147,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 await cache.SetAsync(tempId, result.Log, TimeSpan.FromMinutes(5));//TODO：可设置
             }
 
-            var data = new { success = result.Success, msg = result.Message, log = result.Log, exception = result.Exception?.Message, tempId = tempId };
+            var data = new { success = result.Success, msg = result.Message.HtmlEncode(), log = result.Log, exception = result.Exception?.Message, tempId = tempId };
             return new JsonResult(data);
         }
 
