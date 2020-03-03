@@ -67,7 +67,9 @@ namespace Senparc.Web
             //})
 
 
-            var builder = services.AddRazorPages()
+            var builder = services.AddRazorPages(opt=> {
+                opt.RootDirectory = "/";
+            })
               .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
