@@ -10,33 +10,11 @@ namespace MyArea
     {
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {
-            //鉴权配置
-            //添加基于Cookie的权限验证：https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
-            builder.Services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(AdminAuthorizeAttribute.AuthenticationScheme, options =>
-                {
-                    options.AccessDeniedPath = "/Admin/Forbidden/";
-                    options.LoginPath = "/Admin/Login/";
-                    options.Cookie.HttpOnly = false;
-                });
-            builder.Services
-                .AddAuthorization(options =>
-                {
-                    options.AddPolicy("AdminOnly", policy =>
-                    {
-                        policy.RequireClaim("AdminMember");
-                    });
-                });
-
             builder.AddRazorPagesOptions(options =>
             {
-                options.Conventions.AuthorizePage("/", "AdminOnly");//必须登录
-                options.Conventions.AllowAnonymousToPage("/Login");//允许匿名
-                //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
             });
 
-            SenparcTrace.SendCustomLog("系统启动", "完成 Area:Admin 注册");
+            SenparcTrace.SendCustomLog("系统启动", "完成 Area:MyArea 注册");
            
             return builder;
         }
