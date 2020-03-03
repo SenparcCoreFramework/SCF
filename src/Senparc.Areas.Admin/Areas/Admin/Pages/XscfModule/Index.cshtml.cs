@@ -46,6 +46,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         public async Task OnGetAsync()
         {
+            //¸üÐÂ²Ëµ¥»º´æ
+            await _sysMenuService.GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
             XscfModules = await _xscfModuleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
             LoadNewXscfRegisters(XscfModules);
         }
@@ -108,6 +110,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                       var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
                       await _xscfModuleService.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
                   }
+
               }, uid).ConfigureAwait(false);
 
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
