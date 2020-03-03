@@ -52,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web", "Senparc.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.Admin", "Senparc.Areas.Admin\Senparc.Areas.Admin.csproj", "{346475E8-6E39-4AA9-896F-893DC47AD3D7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamicContent", "DynamicContent", "{8AFFF4BB-DFED-40D2-99FB-4ABF0740783C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DynamicContentTests", "DynamicContentTests", "{8AFFF4BB-DFED-40D2-99FB-4ABF0740783C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
