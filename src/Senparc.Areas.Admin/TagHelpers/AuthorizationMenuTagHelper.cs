@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.Scf.Service;
 
 namespace Senparc.Areas.Admin.TagHelpers
 {
@@ -14,7 +15,7 @@ namespace Senparc.Areas.Admin.TagHelpers
     {
         public string PermissionCode { get; set; }
         private readonly IServiceProvider _serviceProvider;
-        private readonly Service.SysPermissionService _sysPermissionService;
+        private readonly SysPermissionService _sysPermissionService;
         //private readonly Core.WorkContext.Provider.IAdminWorkContextProvider _adminWorkContextProvider;
         //private readonly Microsoft.AspNetCore.Http.IHttpContextAccessor _httpContextAccessor;
         private readonly Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor _actionContextAccessor;
@@ -22,7 +23,7 @@ namespace Senparc.Areas.Admin.TagHelpers
         public AuthorizationMenuTagHelper(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _sysPermissionService = _serviceProvider.GetService<Service.SysPermissionService>();
+            _sysPermissionService = _serviceProvider.GetService<SysPermissionService>();
             _actionContextAccessor = _serviceProvider.GetService<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor>();
             //_adminWorkContextProvider = _serviceProvider.GetService<Core.WorkContext.Provider.IAdminWorkContextProvider>();
             //_httpContextAccessor = _serviceProvider.GetService<Microsoft.AspNetCore.Http.IHttpContextAccessor>();

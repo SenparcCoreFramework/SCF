@@ -25,6 +25,8 @@ using System.Security.Claims;
 using Senparc.Scf.Service;
 using Senparc.Service.OperationQueue;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Cache;
 
 namespace Senparc.Service
 {

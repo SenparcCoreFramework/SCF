@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.Core.Models.DataBaseModel;
+using Senparc.Scf.Core.Models.DataBaseModel;
+using Senparc.Scf.Service;
 using Senparc.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin

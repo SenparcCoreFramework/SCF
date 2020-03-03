@@ -144,8 +144,8 @@ namespace Senparc.Web
             services.AddHttpContextAccessor();
             
             //Attributes
-            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationResultFilterAttribute));
-            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
+            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute));
+            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
             //Database
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));

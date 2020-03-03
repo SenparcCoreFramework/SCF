@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Areas.Admin.Filters;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.Core.Models.VD;
+using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
 using Senparc.Service;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
     [AllowAnonymous]
-    public class LoginModel : PageModelBase/* BaseAdminPageModel*/
+    public class LoginModel : BasePageModel/* BaseAdminPageModel*/
     {
         [BindProperty]
         [Required(ErrorMessage = "请输入用户名")]

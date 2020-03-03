@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Trace;
+using Senparc.Scf.AreaBase.Admin.Filters;
+using Senparc.Scf.Core.Areas;
 
 namespace MyArea
 {
