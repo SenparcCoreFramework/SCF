@@ -147,7 +147,7 @@ namespace Senparc.Web
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
             //Other
-            services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
+            services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
             //激活 Xscf 扩展引擎

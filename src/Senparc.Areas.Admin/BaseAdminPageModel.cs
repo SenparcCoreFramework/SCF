@@ -3,6 +3,7 @@ using Senparc.Core.Models.VD;
 using Senparc.Scf.AreaBase.Admin;
 using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Models.VD;
+using Senparc.Scf.Core.WorkContext;
 
 namespace Senparc.Areas.Admin
 {
@@ -21,7 +22,7 @@ namespace Senparc.Areas.Admin
         /// <summary>
         /// 存储相关用户信息
         /// </summary>
-        public Core.AdminWorkContext AdminWorkContext { get; set; }
+        public AdminWorkContext AdminWorkContext { get; set; }
 
         public virtual IActionResult RenderError(string message)
         {
