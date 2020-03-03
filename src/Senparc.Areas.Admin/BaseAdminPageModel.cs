@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Senparc.Areas.Admin.Filters;
 using Senparc.Core.Models.VD;
 using Senparc.Scf.Core.Models.VD;
 
@@ -14,7 +13,7 @@ namespace Senparc.Areas.Admin
     //暂时取消权限验证
     //[ServiceFilter(typeof(AuthenticationAsyncPageFilterAttribute))]
     [AdminAuthorize("AdminOnly")]
-    public class BaseAdminPageModel : PageModelBase, IBaseAdminPageModel
+    public class BaseAdminPageModel : BaseAdminPageModelBase, IBaseAdminPageModel
     {
 
         /// <summary>

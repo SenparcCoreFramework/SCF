@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
-    public class PointsLogService : ClientServiceBase<PointsLog>
+    public class PointsLogService : BaseClientService<PointsLog>
     {
         public PointsLogService(PointsLogRepository pointsLogRepo, IServiceProvider serviceProvider)
             : base(pointsLogRepo, serviceProvider)

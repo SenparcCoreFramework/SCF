@@ -28,7 +28,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
-    public class AccountService : ClientServiceBase<Account> /*, UserService*/
+    public class AccountService : BaseClientService<Account> /*, UserService*/
     {
         private readonly Lazy<IHttpContextAccessor> _httpContextAccessor;
         private string GetSalt => DateTime.Now.Ticks.ToString();
