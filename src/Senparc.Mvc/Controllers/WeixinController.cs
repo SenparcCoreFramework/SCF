@@ -87,9 +87,9 @@ namespace Senparc.Mvc.Controllers
                 messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(),
                     messageHandler.RequestMessage.FromUserName,
                     messageHandler.RequestMessage.MsgType)));
-                if (messageHandler.UsingEcryptMessage)
+                if (messageHandler.UsingEncryptMessage)
                 {
-                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(),
+                    messageHandler.EncryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(),
                         messageHandler.RequestMessage.FromUserName,
                         messageHandler.RequestMessage.MsgType)));
                 }
