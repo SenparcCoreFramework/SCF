@@ -44,9 +44,6 @@ namespace Senparc.Web
             //∂¡»°Log≈‰÷√Œƒº˛
             var repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-
-
-
         }
 
         public IConfiguration Configuration { get; }

@@ -17,7 +17,6 @@ namespace Senparc.Core.AutoMapProfile
     {
         public AutoMapperConfigs()
         {
-
             CreateMap<SysMenu, SelectListItem>().ForMember(_ => _.Text, opt => opt.MapFrom(_ => _.MenuName))
                 .ForMember(_ => _.Value, opt => opt.MapFrom(_ => _.Id));
             CreateMap<SysPermission, SysPermissionDto>();
