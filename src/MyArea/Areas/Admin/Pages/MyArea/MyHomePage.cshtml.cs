@@ -10,9 +10,9 @@ using Senparc.Scf.XscfBase;
 
 namespace MyArea.Areas.MyArea.Pages
 {
-    public class IndexModel : Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
+    public class MyHomePage : Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
     {
-        public IndexModel(Lazy<XscfModuleService> xscfModuleService) : base(xscfModuleService)
+        public MyHomePage(Lazy<XscfModuleService> xscfModuleService) : base(xscfModuleService)
         {
 
         }

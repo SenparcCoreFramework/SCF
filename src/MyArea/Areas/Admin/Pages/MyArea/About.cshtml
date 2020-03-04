@@ -1,0 +1,15 @@
+﻿@page
+@model MyArea.Areas.MyArea.Pages.About
+@{
+    ViewData["Title"] = "关于";
+    Layout = "_XscfModuleLayout";
+}
+@section breadcrumbs{
+    <li>@ViewData["Title"]</li>
+}
+@section subMenu{
+    <partial name="_MyAreaMenuPartial" model="@Model" />
+}
+
+<p>@Model.XscfRegister.Description</p>
+

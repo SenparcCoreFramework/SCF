@@ -3,7 +3,8 @@
     Layout = "_Layout";
 }
 @{
-    ViewData["Title"] = "模块管理";
+    var subTitle = ViewData["Title"];
+    ViewData["Title"] = subTitle +" - "+ Model.XscfModuleDto?.MenuName;
 }
 @section HeaderContent{
     @RenderSection("HeaderContent", false)
@@ -37,11 +38,16 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>@Model.XscfModuleDto.MenuName</h2>
+            <div class="clearfix"></div> 
             </div>
-            <div class="x_content">
-                <ul>
-                    @RenderSection("subMenu", false)
-                </ul>
+            <div class="x_content" style="background:#2A3F54;">
+                <div id="sidebar-sub-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section active">
+                        <ul class="nav side-menu" style="">
+                            @RenderSection("subMenu", false)
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,7 +56,8 @@
     <div class="col-md-8">
         <div class="x_panel">
             <div class="x_title">
-                <h2>@ViewData["Title"]</h2>
+                <h2>@subTitle</h2>
+                <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 @RenderBody()

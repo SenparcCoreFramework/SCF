@@ -18,7 +18,7 @@ namespace MyArea
 
         #region IAreaRegister 接口
 
-        public string HomeUrl => "/Admin/Index1";
+        public string HomeUrl => "/Admin/MyArea/MyHomePage";
 
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {

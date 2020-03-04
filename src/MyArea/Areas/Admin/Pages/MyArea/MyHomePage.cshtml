@@ -1,0 +1,16 @@
+﻿@page
+@model MyArea.Areas.MyArea.Pages.MyHomePage
+@addTagHelper *, MyArea
+@{
+    ViewData["Title"] = "首页";
+    Layout = "_XscfModuleLayout";
+}
+@section breadcrumbs{
+    <li>@ViewData["Title"]</li>
+}
+@section subMenu{
+    <partial name="_MyAreaMenuPartial" model="@Model" />
+}
+
+<p>Hi! @SystemTime.Now</p>
+<p>@Model.XscfModuleDto.MenuName</p>
