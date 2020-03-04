@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging.Debug;
 
 namespace Senparc.Service
 {
-    public class AdminUserInfoService : ClientServiceBase<AdminUserInfo>
+    public class AdminUserInfoService : BaseClientService<AdminUserInfo>
     {
 
         private readonly Lazy<IHttpContextAccessor> _contextAccessor;

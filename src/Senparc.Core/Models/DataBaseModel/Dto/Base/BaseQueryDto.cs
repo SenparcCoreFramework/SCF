@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.Scf.Core.Models.DataBaseModel.Dto.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

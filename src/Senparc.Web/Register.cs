@@ -1,34 +1,24 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Senparc.CO2NET.Trace;
-using Senparc.Scf.Core.Areas;
-using Senparc.Scf.Core.AssembleScan;
-using Senparc.Scf.Core.DI;
-using Senparc.Scf.Core.Enums;
-using Senparc.Scf.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Senparc.CO2NET.RegisterServices;
-using Senparc.CO2NET;
-using Senparc.Core.Models;
-using Senparc.Scf.Core;
 using Senparc.Core;
+using Senparc.Core.Models;
 using Senparc.Respository;
+using Senparc.Scf.Core;
+using Senparc.Scf.Core.Areas;
+using Senparc.Scf.Core.AssembleScan;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Senparc.Web
 {
@@ -67,7 +57,10 @@ namespace Senparc.Web
             //})
 
 
-            var builder = services.AddRazorPages()
+            var builder = services.AddRazorPages(opt =>
+            {
+                //opt.RootDirectory = "/";
+            })
               .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
@@ -98,6 +91,9 @@ namespace Senparc.Web
                 {
                     var libraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Areas.Admin"));
                     options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
+
+                    var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "MyArea"));
+                    options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
                 });
             }
 
@@ -122,7 +118,7 @@ namespace Senparc.Web
             services.AddTransient(typeof(Lazy<>));
 
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
-           
+
             services.AddSenparcEntitiesDI(); //SQL Server设置
 
             //自动依赖注入扫描
@@ -140,21 +136,21 @@ namespace Senparc.Web
                 });
             });
             services.AddHttpContextAccessor();
-            
+
             //Attributes
-            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationResultFilterAttribute));
-            services.AddScoped(typeof(Areas.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
+            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute));
+            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
             //Database
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
             //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
             // services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
 
-          //Repository
+            //Repository
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
             //Other
-            services.AddScoped(typeof(Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Core.WorkContext.Provider.AdminWorkContextProvider));
+            services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
             //激活 Xscf 扩展引擎

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
 using Senparc.Core.Models;
 using Senparc.Core.Models.VD;
+using Senparc.Scf.Service;
 using Senparc.Service;
 
 namespace Senparc.Web.Pages.Install

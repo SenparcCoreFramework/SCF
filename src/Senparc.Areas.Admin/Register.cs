@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
-using Senparc.Areas.Admin.Filters;
 using Senparc.CO2NET.Trace;
+using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Areas;
-using Senparc.Scf.Core.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Senparc.Areas.Admin
 {
     public class Register : IAreaRegister
     {
+        public string HomeUrl => null;
+
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {
             //鉴权配置
@@ -41,7 +39,7 @@ namespace Senparc.Areas.Admin
             });
 
             SenparcTrace.SendCustomLog("系统启动", "完成 Area:Admin 注册");
-           
+
             return builder;
         }
     }

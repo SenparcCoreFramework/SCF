@@ -1,5 +1,5 @@
-@model Senparc.Areas.Admin.BaseAdminPageModel
-@inject Senparc.Service.SysMenuService _sysMenuService
+@model Senparc.Scf.AreaBase.Admin.IAdminPageModelBase
+@inject Senparc.Scf.Service.SysMenuService _sysMenuService
 @addTagHelper *, Senparc.Areas.Admin
 @{
     var sysMenuDtos = await _sysMenuService.GetMenuTreeDtoByCacheAsync();

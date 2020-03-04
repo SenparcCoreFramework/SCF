@@ -87,7 +87,7 @@ namespace Senparc.Mvc.Controllers
                 messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(),
                     messageHandler.RequestMessage.FromUserName,
                     messageHandler.RequestMessage.MsgType)));
-                if (messageHandler.UsingEcryptMessage)
+                if (messageHandler.UsingEncryptMessage)
                 {
                     messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(),
                         messageHandler.RequestMessage.FromUserName,
@@ -114,7 +114,7 @@ namespace Senparc.Mvc.Controllers
                         messageHandler.ResponseMessage.MsgType)));
                 }
 
-                if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
+                if (messageHandler.UsingEncryptMessage && messageHandler.FinalResponseDocument != null)
                 {
                     //记录加密后的响应信息
                     messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}_{2}.txt", _getRandomFileName(),

@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Senparc.Service
 {
 
-    public class AccountPayLogService : ClientServiceBase<AccountPayLog>
+    public class AccountPayLogService : BaseClientService<AccountPayLog>
     {
         public AccountPayLogService(AccountPayLogRepository accountPayLogRepo, IServiceProvider serviceProvider)
             : base(accountPayLogRepo, serviceProvider)

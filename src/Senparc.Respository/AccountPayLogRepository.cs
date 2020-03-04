@@ -1,4 +1,5 @@
 ﻿using Senparc.Core.Models;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.Repository;
 
 

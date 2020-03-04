@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Senparc.Core.Models;
 using Senparc.Core.Models.DataBaseModel;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.Core.Models.DataBaseModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +17,6 @@ namespace Senparc.Core.AutoMapProfile
     {
         public AutoMapperConfigs()
         {
-
             CreateMap<SysMenu, SelectListItem>().ForMember(_ => _.Text, opt => opt.MapFrom(_ => _.MenuName))
                 .ForMember(_ => _.Value, opt => opt.MapFrom(_ => _.Id));
             CreateMap<SysPermission, SysPermissionDto>();
@@ -30,6 +31,8 @@ namespace Senparc.Core.AutoMapProfile
                 .ForMember(_ => _.ResourceCode, opt => opt.MapFrom(_ => _.OpearMark));
             CreateMap<SysRole, SysRoleDto>();
             CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
+            CreateMap<XscfModule, CreateOrUpdate_XscfModuleDto>();
+            CreateMap<XscfModule, XscfModuleDto>();
         }
     }
 }
