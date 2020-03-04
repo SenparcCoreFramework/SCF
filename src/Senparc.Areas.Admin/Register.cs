@@ -3,12 +3,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Areas;
+using System.Collections.Generic;
 
 namespace Senparc.Areas.Admin
 {
     public class Register : IAreaRegister
     {
         public string HomeUrl => null;
+
+        public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>();//Admin比较特殊，不需要自动输出 
+
 
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {

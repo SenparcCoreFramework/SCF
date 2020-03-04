@@ -163,6 +163,7 @@
                 </div>
 
 
+
                 <div class="col-md-9 col-sm-9">
                     <div class="x_panel">
                         <div class="x_title">
@@ -182,9 +183,12 @@
                                     <li>
                                         <div class="block homeUrl">
                                             <div class="tags">
-                                                <a href="@Model.XscfRegister.GetAreaHomeUrl()" class="tag">
-                                                    <span>进入首页</span>
-                                                </a>
+                                                @if (Model.XscfModule.State == XscfModules_State.开放)
+                                                {
+                                                    <a href="@Model.XscfRegister.GetAreaHomeUrl()" class="tag">
+                                                        <span>进入首页</span>
+                                                    </a>
+                                                }
                                             </div>
                                             <div class="block_content">
                                                 <h2 class="title">
@@ -210,62 +214,65 @@
                                     <li>
                                         <div class="block">
                                             <div class="tags">
-                                                <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg-@paramIndex">
-                                                    <span>执行</span>
-                                                </a>
-                                                <div class="modal fade bs-example-modal-lg-@paramIndex" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
-                                                                <input type="hidden" name="xscfUid" value="@Model.XscfRegister.Uid" />
-                                                                <input type="hidden" name="xscfFunctionName" value="@item.Key.Name" />
-                                                                <input type="hidden" name="xscfFunctionParams" value="" id="xscfFunctionParams_@paramIndex" />
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title blue" id="modalLabel_@(paramIndex)"><i class="fa fa-terminal"></i> @item.Key.Name</h4>
-                                                                    <button type="button" class="close" data-dismiss="modal">×</button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <h4><i class="fa fa-newspaper-o"></i> @item.Key.Description</h4>
-                                                                    <div class="ln_solid"></div>
-                                                                    @foreach (var p in item.Value)
-                                                                    {
-                                                                        <div class="item form-group">
-                                                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@p.Name">
-                                                                                @p.Title @if (p.IsRequired)
-                                                                                {<span class="required">*</span>}
-                                                                            </label>
-                                                                            <div class="col-md-6 col-sm-6 ">
-                                                                                @switch (p.ParammeterType)
-                                                                                {
-                                                                                    case Scf.XscfBase.ParammeterType.Text:
-                                                                                        <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
-                                                                                        break;
-                                                                                    case Scf.XscfBase.ParammeterType.SingleSelection:
-                                                                                    case Scf.XscfBase.ParammeterType.MultipleSelection:
-                                                                                        <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
-                                                                                            @foreach (var selectionItem in p.SelectionItems)
-                                                                                            {
-                                                                                                <option value="@selectionItem">@selectionItem</option>
-                                                                                            }
-                                                                                        </select>
-                                                                                        break;
-                                                                                    default:
-                                                                                        break;
-                                                                                }
+                                                @if (Model.XscfModule.State == XscfModules_State.开放)
+                                                {
+                                                    <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg-@paramIndex">
+                                                        <span>执行</span>
+                                                    </a>
+                                                    <div class="modal fade bs-example-modal-lg-@paramIndex" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
+                                                                    <input type="hidden" name="xscfUid" value="@Model.XscfRegister.Uid" />
+                                                                    <input type="hidden" name="xscfFunctionName" value="@item.Key.Name" />
+                                                                    <input type="hidden" name="xscfFunctionParams" value="" id="xscfFunctionParams_@paramIndex" />
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title blue" id="modalLabel_@(paramIndex)"><i class="fa fa-terminal"></i> @item.Key.Name</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <h4><i class="fa fa-newspaper-o"></i> @item.Key.Description</h4>
+                                                                        <div class="ln_solid"></div>
+                                                                        @foreach (var p in item.Value)
+                                                                        {
+                                                                            <div class="item form-group">
+                                                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@p.Name">
+                                                                                    @p.Title @if (p.IsRequired)
+                                                                                    {<span class="required">*</span>}
+                                                                                </label>
+                                                                                <div class="col-md-6 col-sm-6 ">
+                                                                                    @switch (p.ParammeterType)
+                                                                                    {
+                                                                                        case Scf.XscfBase.ParammeterType.Text:
+                                                                                            <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                            break;
+                                                                                        case Scf.XscfBase.ParammeterType.SingleSelection:
+                                                                                        case Scf.XscfBase.ParammeterType.MultipleSelection:
+                                                                                            <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                                @foreach (var selectionItem in p.SelectionItems)
+                                                                                                {
+                                                                                                    <option value="@selectionItem">@selectionItem</option>
+                                                                                                }
+                                                                                            </select>
+                                                                                            break;
+                                                                                        default:
+                                                                                            break;
+                                                                                    }
 
-                                                                                <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
+                                                                                    <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    }
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                                                                    <button type="submit" class="btn btn-primary">运行</button>
-                                                                </div>
-                                                            </form>
+                                                                        }
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                        <button type="submit" class="btn btn-primary">运行</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                }
 
                                             </div>
                                             <div class="block_content">
@@ -333,6 +340,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
