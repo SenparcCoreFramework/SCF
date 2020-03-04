@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyArea
+namespace Senparc.ExtensionAreaTemplate
 {
     public class Register : XscfRegisterBase, IAreaRegister, IXscfRegister
     {

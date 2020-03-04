@@ -1,8 +1,8 @@
 ﻿@page
-@model MyArea.Areas.MyArea.Pages.About
+@model Senparc.ExtensionAreaTemplate.Areas.MyArea.Pages.MyHomePage
 @addTagHelper *, MyArea
 @{
-    ViewData["Title"] = "关于";
+    ViewData["Title"] = "首页";
     Layout = "_XscfModuleLayout";
 }
 @section breadcrumbs{
@@ -10,8 +10,7 @@
 }
 @section subMenu{
     @Html.Partial("_MyAreaMenuPartial", Model)
-    @*<partial name="_MyAreaMenuPartial" model="@Model" />*@
 }
 
-<p>@Model.XscfRegister.Description</p>
-
+<p>Hi! @SystemTime.Now</p>
+<p>@Model.XscfModuleDto.MenuName</p>

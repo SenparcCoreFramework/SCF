@@ -8,7 +8,7 @@ using Senparc.Scf.Core.Models.DataBaseModel;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
 
-namespace MyArea.Areas.MyArea.Pages
+namespace Senparc.ExtensionAreaTemplate.Areas.MyArea.Pages
 {
     public class About : Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
     {
