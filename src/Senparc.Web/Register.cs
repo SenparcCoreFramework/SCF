@@ -91,6 +91,9 @@ namespace Senparc.Web
                 {
                     var libraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Areas.Admin"));
                     options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
+
+                    var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "MyArea"));
+                    options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
                 });
             }
 

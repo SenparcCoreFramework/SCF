@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MyArea.Areas.MyArea.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : Senparc.Scf.AreaBase.Admin.AdminPageModelBase
     {
         public void OnGet()
         {
