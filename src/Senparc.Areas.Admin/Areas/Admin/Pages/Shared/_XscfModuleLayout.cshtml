@@ -1,4 +1,5 @@
 ﻿@model Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
+@using Senparc.Scf.Core.Areas;
 @{
     Layout = "_Layout";
 }
@@ -22,8 +23,11 @@
     <li>扩展模块</li>
     <li>模块管理</li>
     <li>@Model.XscfModuleDto.MenuName</li>
-
     @RenderSection("breadcrumbs", false)
+    @if (!IsSectionDefined("breadcrumbs"))
+    {
+        <li>@subTitle</li>
+    }
 }
 @section filter{
     @RenderSection("filter", false)
@@ -42,6 +46,10 @@
                         <li><a asp-page="../XscfModule/Start" asp-route-uid="@Model.XscfRegister.Uid"><i class="fa fa-chevron-left"></i> 返回</a></li>
                     </ul>
                     <ul class="nav side-menu" style="">
+                        @foreach (var menu in (Model.XscfRegister as IAreaRegister).AareaPageMenuItems)
+                        {
+                            <li><a href="@menu.Url"><i class="@menu.Icon"></i> @menu.Name</a></li>
+                        }
                         @RenderSection("subMenu", false)
                     </ul>
                 </div>

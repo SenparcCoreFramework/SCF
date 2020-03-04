@@ -6,12 +6,10 @@
     Layout = "_XscfModuleLayout";
 }
 @section breadcrumbs{
-    <li>@ViewData["Title"]</li>
+    <li>手动设置导航-关于</li>
 }
 @section subMenu{
-    @Html.Partial("_MyAreaMenuPartial", Model)
-    @*<partial name="_MyAreaMenuPartial" model="@Model" />*@
+    <li><a href="@Model.XscfRegister.GetAreaUrl("/Admin/MyApp/About")"><i class="fa fa-bookmark-o"></i> 手动加菜单</a></li>
 }
 
 <p>@Model.XscfRegister.Description</p>
-
