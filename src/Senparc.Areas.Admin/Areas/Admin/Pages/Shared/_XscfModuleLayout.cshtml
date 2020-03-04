@@ -4,7 +4,7 @@
 }
 @{
     var subTitle = ViewData["Title"];
-    ViewData["Title"] = subTitle +" - "+ Model.XscfModuleDto?.MenuName;
+    ViewData["Title"] = Model.XscfModuleDto?.MenuName + " - " + subTitle;
 }
 @section HeaderContent{
     @RenderSection("HeaderContent", false)
@@ -38,7 +38,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>@Model.XscfModuleDto.MenuName</h2>
-            <div class="clearfix"></div> 
+                <div class="clearfix"></div>
             </div>
             <div class="x_content" style="background:#2A3F54;">
                 <div id="sidebar-sub-menu" class="main_menu_side hidden-print main_menu">

@@ -9,7 +9,7 @@
     <li>@ViewData["Title"]</li>
 }
 @section subMenu{
-    <partial name="_MyAreaMenuPartial" model="@Model" />
+    @Html.Partial("_MyAreaMenuPartial", Model)
 }
 
 <p>Hi! @SystemTime.Now</p>
