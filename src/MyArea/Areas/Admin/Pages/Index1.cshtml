@@ -1,6 +1,7 @@
 ﻿@page
 @model MyArea.Areas.MyArea.Pages.IndexModel
 @{
+    Layout = "_XscfModuleLayout";
 }
 <p>Hi! @SystemTime.Now</p>
-<p>updated</p>
+<p>@Model.XscfModuleDto.MenuName</p>

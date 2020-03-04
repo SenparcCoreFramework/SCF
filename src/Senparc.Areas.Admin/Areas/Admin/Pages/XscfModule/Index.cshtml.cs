@@ -12,6 +12,7 @@ using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
 using Senparc.Service;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
@@ -69,19 +70,21 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 throw new Exception("模块不存在！");
             }
 
-            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == xscfRegister.Uid && z.Version == xscfRegister.Version);
+            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == xscfRegister.Uid && z.Version == xscfRegister.Version).ConfigureAwait(false);
             if (xscfModule != null)
             {
                 throw new Exception("相同版本模块已安装，无需重复安装！");
             }
 
-            XscfModules = await _xscfModuleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending).ConfigureAwait(false);
+            XscfModules = await _xscfModuleService.GetObjectListAsync(PageIndex, 999, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending).ConfigureAwait(false);
 
-            var xscfModuleDto = XscfModules.Select(z => _xscfModuleService.Mapper.Map<CreateOrUpdate_XscfModuleDto>(z)).ToList();
+            var xscfModuleDtos = XscfModules.Select(z => _xscfModuleService.Mapper.Map<CreateOrUpdate_XscfModuleDto>(z)).ToList();
 
             //进行模块扫描
-            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(xscfModuleDto, _serviceProvider, async (register, installOrUpdate) =>
+            InstallOrUpdate? installOrUpdateValue = null;
+            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(xscfModuleDtos, _serviceProvider, async (register, installOrUpdate) =>
               {
+                  installOrUpdateValue = installOrUpdate;
                   var sysMenuService = _serviceProvider.GetService<SysMenuService>();
 
                   var topMenu = await sysMenuService.GetObjectAsync(z => z.MenuName == "扩展模块").ConfigureAwait(false);
@@ -112,6 +115,10 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                   }
 
               }, uid).ConfigureAwait(false);
+
+            //记录日志
+            var installOrUpdateMsg = installOrUpdateValue.HasValue ? (installOrUpdateValue.Value == InstallOrUpdate.Install ? "安装" : "更新") : "失败";
+            SenparcTrace.SendCustomLog($"安装或更新模块（{installOrUpdateMsg}）", result.ToString());
 
             base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
 

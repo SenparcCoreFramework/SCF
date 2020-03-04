@@ -6,22 +6,26 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Pages\Database\**" />
+    <Compile Remove="Filters\**" />
     <Content Remove="Areas\Admin\Pages\Database\**" />
+    <Content Remove="Filters\**" />
     <EmbeddedResource Remove="Areas\Admin\Pages\Database\**" />
+    <EmbeddedResource Remove="Filters\**" />
     <None Remove="Areas\Admin\Pages\Database\**" />
+    <None Remove="Filters\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.105.1-beta1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.105-beta1" />
+    <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.105.8-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.105.3-beta1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.105.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.105.9-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.105-beta1" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.105-beta1" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.3.105-beta1" />
@@ -33,9 +37,5 @@
     <Content Update="Areas\Admin\Pages\Shared\_HeaderPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Filters\" />
   </ItemGroup>
 </Project>

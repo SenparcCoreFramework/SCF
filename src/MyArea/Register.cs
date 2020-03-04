@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace MyArea
 {
-    public class Register : IAreaRegister, IXscfRegister
+    public class Register : XscfRegisterBase, IAreaRegister, IXscfRegister
     {
         public Register()
         { }
 
         #region IAreaRegister 接口
+
+        public string HomeUrl => "/Admin/Index1";
 
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {
@@ -33,26 +35,26 @@ namespace MyArea
 
         #region IXscfRegister 接口
 
-        public string Name => "Senparc.Test.MyArea";
-        public string Uid => "1052306E-8C78-4EBF-8CA9-0EB3738350AE";//必须确保全局唯一，生成后必须固定
-        public string Version => "0.0.1";//必须填写版本号
+        public override string Name => "Senparc.Test.MyArea";
+        public override string Uid => "1052306E-8C78-4EBF-8CA9-0EB3738350AE";//必须确保全局唯一，生成后必须固定
+        public override string Version => "0.0.1";//必须填写版本号
 
-        public string MenuName => "扩展页面测试模块";
-        public string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
-        public string Description => "这是一个示例项目，用于展示如何扩展自己的网页、功能模块，学习之后可以删除。";
+        public override string MenuName => "扩展页面测试模块";
+        public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
+        public override string Description => "这是一个示例项目，用于展示如何扩展自己的网页、功能模块，学习之后可以删除。";
 
         /// <summary>
         /// 注册当前模块需要支持的功能模块
         /// </summary>
-        public IList<Type> Functions => new Type[] {
+        public override IList<Type> Functions => new Type[] {
         };
 
-        public virtual Task InstallOrUpdateAsync(InstallOrUpdate installOrUpdate)
+        public override Task InstallOrUpdateAsync(InstallOrUpdate installOrUpdate)
         {
             return Task.CompletedTask;
         }
 
-        public virtual async Task UninstallAsync(Func<Task> unsinstallFunc)
+        public override async Task UninstallAsync(Func<Task> unsinstallFunc)
         {
             await unsinstallFunc().ConfigureAwait(false);
         }

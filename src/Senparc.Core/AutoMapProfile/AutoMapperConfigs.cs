@@ -31,6 +31,8 @@ namespace Senparc.Core.AutoMapProfile
                 .ForMember(_ => _.ResourceCode, opt => opt.MapFrom(_ => _.OpearMark));
             CreateMap<SysRole, SysRoleDto>();
             CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
+            CreateMap<XscfModule, CreateOrUpdate_XscfModuleDto>();
+            CreateMap<XscfModule, XscfModuleDto>();
         }
     }
 }

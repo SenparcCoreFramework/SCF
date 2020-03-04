@@ -1,0 +1,60 @@
+﻿@model Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
+@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "模块管理";
+}
+@section HeaderContent{
+    @RenderSection("HeaderContent", false)
+}
+@section Style{
+    @RenderSection("Style", false)
+}
+@section modal{
+    @RenderSection("modal", false)
+}
+@section explanations{
+    @RenderSection("explanations", false)
+}
+@section breadcrumbs{
+    <li>扩展模块</li>
+    <li>模块管理</li>
+    <li>@Model.XscfModuleDto.MenuName</li>
+
+    @RenderSection("breadcrumbs", false)
+}
+@section filter{
+    @RenderSection("filter", false)
+}
+@section scripts{
+    @RenderSection("scripts", false)
+}
+
+<div class="div">
+    @*左侧*@
+    <div class="col-md-3">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@Model.XscfModuleDto.MenuName</h2>
+            </div>
+            <div class="x_content">
+                <ul>
+                    @RenderSection("subMenu", false)
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @*右侧*@
+    <div class="col-md-8">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@ViewData["Title"]</h2>
+            </div>
+            <div class="x_content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>

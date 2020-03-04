@@ -4,6 +4,17 @@
 @{
     ViewData["Title"] = Model.XscfRegister.MenuName;
 }
+@section style{
+    <style>
+        .homeUrl .tag {
+            background-color: #ff6a00;
+        }
+
+            .homeUrl .tag:after {
+                border-left-color: #ff6a00;
+            }
+    </style>
+}
 @section breadcrumbs{
     <li>扩展模块</li>
     <li>模块管理</li>
@@ -74,13 +85,14 @@
                         @if (Model.XscfRegister.Version != Model.XscfModule.Version)
                         {
                             <li>
-                                <span style="color:red">（发现新版本：v@(Model.XscfRegister.Version)）</span>
+                                <span style="        color: red
+">（发现新版本：v@(Model.XscfRegister.Version)）</span>
 
-                                <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@Model.XscfRegister.Uid" asp-route-backpage="Start" title="扫描" class="btn-sm btn btn-warning">
-                                    <em class="fa fa-gift"></em> &nbsp;<small>立即安装</small>
-                                </a>
-                            </li>
-                        }
+<a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@Model.XscfRegister.Uid" asp-route-backpage="Start" title="扫描" class="btn-sm btn btn-warning">
+    <em class="fa fa-gift"></em> &nbsp;<small>立即安装</small>
+</a>
+</li>
+}
                     </ul>
                     <ul class="list-unstyled">
                         <li class="m-top-xs">
@@ -164,6 +176,31 @@
                         </div>
                         <div class="x_content">
                             <ul class="list-unstyled timeline">
+
+                                @if (Model.XscfRegister.GetAreaHomeUrl() != null)
+                                {
+                                    <li>
+                                        <div class="block homeUrl">
+                                            <div class="tags">
+                                                <a href="@Model.XscfRegister.GetAreaHomeUrl()" class="tag">
+                                                    <span>进入首页</span>
+                                                </a>
+                                            </div>
+                                            <div class="block_content">
+                                                <h2 class="title">
+                                                    <a>进入 @Model.XscfRegister.MenuName 的首页</a>
+                                                </h2>
+                                                <div class="byline">
+                                                    <span>地址：</span><a>@Model.XscfRegister.GetAreaHomeUrl()</a>
+                                                </div>
+                                                <p class="excerpt">
+                                                    说明：当前模块配备了可互动操作的 UI 页面，因此您可以看到这个入口。
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+
                                 @{
                                     var paramIndex = 0;
                                 }
@@ -285,8 +322,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                                 <p class="excerpt">
 
                                                 </p>
