@@ -1,7 +1,6 @@
 ﻿@page
 @model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModuleStartModel
 @using Scf.Core.Enums;
-@using static Senparc.Scf.Core.Extensions.StringExtensions;
 @{
     ViewData["Title"] = Model.XscfRegister.MenuName;
 }
@@ -232,7 +231,7 @@
                                                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <h4><i class="fa fa-newspaper-o"></i> @item.Key.Description</h4>
+                                                                        <h4><i class="fa fa-newspaper-o"></i> @Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(item.Key.Description)</h4>
                                                                         <div class="ln_solid"></div>
                                                                         @foreach (var p in item.Value)
                                                                         {
@@ -311,7 +310,7 @@
                                                                                 <tr>
                                                                                     <th scope="row">@(++logIndex)</th>
                                                                                     <td>@p.Title</td>
-                                                                                    <td>@p.Description</td>
+                                                                                    <td>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(p.Description)</td>
                                                                                     <td>@GetSystemTypeName(p.SystemType)</td>
                                                                                     <td>@(p.IsRequired ? "是" : "否")</td>
                                                                                 </tr>
