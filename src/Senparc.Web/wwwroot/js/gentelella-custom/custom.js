@@ -117,10 +117,10 @@ $MENU_TOGGLE.on('click', function() {
 });
 
 	// check active menu
-	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"],a.current-page-xscf').parent('li').addClass('current-page');
 
 	$SIDEBAR_MENU.find('a').filter(function () {
-		return this.href == CURRENT_URL;
+		return this.href == CURRENT_URL || $(this).hasClass('current-page-xscf');
 	}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
 		setContentHeight();
 	}).parent().addClass('active');
