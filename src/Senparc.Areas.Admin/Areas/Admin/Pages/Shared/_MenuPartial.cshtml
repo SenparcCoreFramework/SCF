@@ -4,6 +4,11 @@
 @{
     var sysMenuDtos = await _sysMenuService.GetMenuTreeDtoByCacheAsync();
 }
+<style>
+    .nav.child_menu.xscf_area_submenu > li {
+        position: initial;
+    }
+</style>
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title hidden-small">
@@ -53,13 +58,46 @@
                                     @foreach (var childrenItem in item.Children.Where(_ => _.IsMenu))
                                     {
                                         <li>
-                                            <a href="@childrenItem.Url">
-                                                @if (!string.IsNullOrEmpty(childrenItem.Icon))
-                                                {
-                                                    <i class="@childrenItem.Icon"></i>
-                                                }
-                                                @childrenItem.MenuName
-                                            </a>
+                                            @{
+                                                var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => childrenItem.Url.Contains($"uid={z.Uid}", StringComparison.OrdinalIgnoreCase));
+                                            }
+                                            @if (xscfRegister != null &&
+                                         xscfRegister is Senparc.Scf.Core.Areas.IAreaRegister xscfAreapage &&
+                                         xscfAreapage.AareaPageMenuItems.Count() > 0)
+                                            {
+                                                //这是一个 XSCF 模块菜单，并且包含多个菜单配置
+                                                <a><i class="@childrenItem.Icon"></i> @childrenItem.MenuName<span class="fa fa-chevron-down"></span></a>
+                                                <ul class="nav child_menu xscf_area_submenu">
+                                                    <li class="sub_menu">
+                                                        <a href="@childrenItem.Url">
+                                                            <i class="fa fa-gear"></i>
+                                                            <text>设置/执行</text>
+                                                        </a>
+                                                    </li>
+                                                    @foreach (var xscfSubMenu in xscfAreapage.AareaPageMenuItems)
+                                                    {
+                                                        <li>
+                                                            <a href="@xscfRegister.GetAreaUrl(xscfSubMenu.Url)">
+                                                                @if (!string.IsNullOrEmpty(xscfSubMenu.Icon))
+                                                                {
+                                                                    <i class="@xscfSubMenu.Icon"></i>
+                                                                }
+                                                                @xscfSubMenu.Name
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            }
+                                            else
+                                            {
+                                                <a href="@childrenItem.Url">
+                                                    @if (!string.IsNullOrEmpty(childrenItem.Icon))
+                                                    {
+                                                        <i class="@childrenItem.Icon"></i>
+                                                    }
+                                                    @childrenItem.MenuName
+                                                </a>
+                                            }
                                         </li>
                                     }
                                 </ul>
