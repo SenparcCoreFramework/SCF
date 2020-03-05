@@ -10,3 +10,15 @@
     .breadcrumb a {
         color: #337ab7
     }
+
+.nav li.xscf_area_submenu {
+    position: initial;
+}
+
+.nav li li li.current-page {
+    background: #4f6276;
+}
+
+    .nav li li li.current-page:hover {
+        background: #617992;
+    }
