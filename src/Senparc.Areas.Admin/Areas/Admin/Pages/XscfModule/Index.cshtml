@@ -1,6 +1,7 @@
 ﻿@page
 @model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModuleIndexModel
 @using Senparc.Scf.Core.Areas;
+@using Senparc.Scf.XscfBase;
 @{
     ViewData["Title"] = "模块管理";
 }
@@ -123,10 +124,13 @@
                                         <a asp-page="Start" asp-route-uid="@item.Uid" title="操作" class="btn-xs btn btn-info">
                                             <em class="fa fa-gear"> 操作</em>
                                         </a>
-                                        @if (Model.XscfRegisterList.FirstOrDefault(z => z.Uid == item.Uid) is IAreaRegister areaRegister)
+                                        @if (Model.XscfRegisterList.FirstOrDefault(z => z.Uid == item.Uid)?.GetAreaHomeUrl() is string homeUrl &&
+                                            !homeUrl.IsNullOrEmpty())
                                         {
-                                            <a asp-page="Start" asp-route-uid="@item.Uid" title="操作" class="btn-xs btn btn-info">
-                                                <em class="fa fa-gear"> 操作</em>
+                                            <a href="@homeUrl" title="主页" class="btn-xs btn btn-danger">
+                                                <em class="fa fa-home">
+                                                    主页
+                                                </em>
                                             </a>
                                         }
                                     </td>
