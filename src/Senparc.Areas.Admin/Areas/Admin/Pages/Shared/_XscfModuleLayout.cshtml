@@ -1,5 +1,8 @@
-﻿@model Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
+﻿@* XSCF 模块页面的模板页 *@
+@model Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
 @using Senparc.Scf.Core.Areas;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor _httpContextAccessor
 @{
     Layout = "_Layout";
 }
@@ -35,7 +38,24 @@
 @section scripts{
     @RenderSection("scripts", false)
 }
+@functions{
+    /// <summary>
+    /// 判断当前页面是否为 XSCF 子页面
+    /// </summary>
+    /// <param name="currentMenuUrl"></param>
+    /// <returns></returns>
+    string CurrentXscfSubPage(string currentMenuUrl)
+    {
+        var pathAndQuery = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedPathAndQuery(_httpContextAccessor.HttpContext.Request);
+        if (pathAndQuery.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase) ||
+            (ViewData["TempMenuUrl"] is string tempMenuUrl && tempMenuUrl.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase)))
+        {
+            return "current-sub-page-xscf";
+        }
+        return "";
+    }
 
+}
 <div class="div">
     @*左侧*@
     <div class="col-md-2 col-sm-2" style="background:#586e83;">
@@ -45,10 +65,10 @@
                     <ul class="nav side-menu" style="">
                         <li><a asp-page="../XscfModule/Start" asp-route-uid="@Model.XscfRegister.Uid"><i class="fa fa-chevron-left"></i> 返回</a></li>
                     </ul>
-                    <ul class="nav side-menu" style="">
+                    <ul class="nav side-menu">
                         @foreach (var menu in (Model.XscfRegister as IAreaRegister).AareaPageMenuItems)
                         {
-                            <li><a href="@menu.Url"><i class="@menu.Icon"></i> @menu.Name</a></li>
+                            <li class="xscf_area_submenu @CurrentXscfSubPage(menu.Url)"><a href="@menu.Url"><i class="@menu.Icon"></i> @menu.Name</a></li>
                         }
                         @RenderSection("subMenu", false)
                     </ul>

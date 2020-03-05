@@ -39,7 +39,7 @@
     {
         var pathAndQuery = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedPathAndQuery(_httpContextAccessor.HttpContext.Request);
         if (pathAndQuery.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase) ||
-            (ViewData["TempMenuUrl"] is string tempMenuUrl && pathAndQuery.Equals(tempMenuUrl, StringComparison.OrdinalIgnoreCase)))
+            (ViewData["TempMenuUrl"] is string tempMenuUrl && tempMenuUrl.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase)))
         {
             return "current-page-xscf";
         }

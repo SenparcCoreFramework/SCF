@@ -11,6 +11,7 @@
         color: #337ab7
     }
 
+/* Admin _Layout _MenuPartial ²Ëµ¥*/
 .nav li.xscf_area_submenu {
     position: initial;
 }
@@ -20,5 +21,13 @@
 }
 
     .nav li li li.current-page:hover {
+        background: #617992;
+    }
+
+
+.nav li.current-sub-page-xscf {
+    background: #4f6276;
+}
+    .nav li.current-sub-page-xscf:hover {
         background: #617992;
     }
