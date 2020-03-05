@@ -1,5 +1,8 @@
-﻿@model Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
+﻿@* XSCF 模块页面的模板页 *@
+@model Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
 @using Senparc.Scf.Core.Areas;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor _httpContextAccessor
 @{
     Layout = "_Layout";
 }
@@ -45,13 +48,14 @@
                     <ul class="nav side-menu" style="">
                         <li><a asp-page="../XscfModule/Start" asp-route-uid="@Model.XscfRegister.Uid"><i class="fa fa-chevron-left"></i> 返回</a></li>
                     </ul>
-                    <ul class="nav side-menu" style="">
-                        @foreach (var menu in (Model.XscfRegister as IAreaRegister).AareaPageMenuItems)
-                        {
-                            <li><a href="@menu.Url"><i class="@menu.Icon"></i> @menu.Name</a></li>
-                        }
-                        @RenderSection("subMenu", false)
-                    </ul>
+                    @await Html.PartialAsync("_XscfModuleLayout_Menu", Model.XscfRegister)
+
+                    @if (IsSectionDefined("subMenu"))
+                    {
+                        <ul class="nav side-menu" style="">
+                            @RenderSection("subMenu", false)
+                        </ul>
+                    }
                 </div>
             </div>
         </div>

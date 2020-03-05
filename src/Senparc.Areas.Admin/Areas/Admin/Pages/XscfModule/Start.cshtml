@@ -1,6 +1,7 @@
 ﻿@page
 @model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModuleStartModel
 @using Scf.Core.Enums;
+@using Scf.Core.Areas;
 @{
     ViewData["Title"] = Model.XscfRegister.MenuName;
 }
@@ -13,6 +14,10 @@
             .homeUrl .tag:after {
                 border-left-color: #ff6a00;
             }
+
+        #xscf_homepage_menu_view {
+            background:#2a3f54;
+        }
     </style>
 }
 @section breadcrumbs{
@@ -125,7 +130,7 @@
                     <ul class="list-unstyled">
                         <li>
                             <span><i class="fa fa-map-marker fa-newspaper-o"></i> 介绍：</span>
-                            <p>@Model.XscfModule.Description</p>
+                            <p>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(Model.XscfModule.Description)</p>
                         </li>
                     </ul>
                     <div class="accordion" id="accordion_History" role="tablist" aria-multiselectable="true">
@@ -159,7 +164,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
 
@@ -178,7 +182,7 @@
                         <div class="x_content">
                             <ul class="list-unstyled timeline">
 
-                                @if (Model.XscfRegister.GetAreaHomeUrl() != null)
+                                @if (Model.XscfRegister is IAreaRegister && Model.XscfRegister.GetAreaHomeUrl() != null)
                                 {
                                     <li>
                                         <div class="block homeUrl">
@@ -197,6 +201,21 @@
                                                 <div class="byline">
                                                     <span>地址：</span><a>@Model.XscfRegister.GetAreaHomeUrl()</a>
                                                 </div>
+
+                                                <div class="accordion" id="accordion_homepage" role="tablist" aria-multiselectable="true">
+                                                    <div class="panel">
+                                                        <a class="panel-heading collapsed" role="tab" id="heading_homepage" data-toggle="collapse" data-parent="#accordion_homepage" href="#collapse_homepage" aria-expanded="false" aria-controls="collapse_homepage">
+                                                            <h4 class="panel-title">页面透视</h4>
+                                                        </a>
+                                                        <div id="collapse_homepage" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_homepage" style="">
+                                                            <div class="panel-body" id="xscf_homepage_menu_view">
+                                                                <partial name="_XscfModuleLayout_Menu" model="@Model.XscfRegister" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
                                                 <p class="excerpt">
                                                     说明：当前模块配备了可互动操作的 UI 页面，因此您可以看到这个入口。
                                                 </p>
@@ -231,7 +250,7 @@
                                                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <h4><i class="fa fa-newspaper-o"></i> @item.Key.Description</h4>
+                                                                        <h4><i class="fa fa-newspaper-o"></i> @Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(item.Key.Description)</h4>
                                                                         <div class="ln_solid"></div>
                                                                         @foreach (var p in item.Value)
                                                                         {
@@ -310,7 +329,7 @@
                                                                                 <tr>
                                                                                     <th scope="row">@(++logIndex)</th>
                                                                                     <td>@p.Title</td>
-                                                                                    <td>@p.Description</td>
+                                                                                    <td>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(p.Description)</td>
                                                                                     <td>@GetSystemTypeName(p.SystemType)</td>
                                                                                     <td>@(p.IsRequired ? "是" : "否")</td>
                                                                                 </tr>

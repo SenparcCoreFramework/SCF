@@ -1,0 +1,28 @@
+﻿@* XSCF 模块页面的模板页的菜单部分 *@
+@model IAreaRegister
+@using Senparc.Scf.Core.Areas;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor _httpContextAccessor
+@functions{
+    /// <summary>
+    /// 判断当前页面是否为 XSCF 子页面
+    /// </summary>
+    /// <param name="currentMenuUrl"></param>
+    /// <returns></returns>
+    string CurrentXscfSubPage(string currentMenuUrl)
+    {
+        var pathAndQuery = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedPathAndQuery(_httpContextAccessor.HttpContext.Request);
+        if (pathAndQuery.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase) ||
+            (ViewData["TempMenuUrl"] is string tempMenuUrl && tempMenuUrl.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase)))
+        {
+            return "current-sub-page-xscf";
+        }
+        return "";
+    }
+}
+<ul class="nav side-menu">
+    @foreach (var menu in Model.AareaPageMenuItems)
+    {
+        <li class="xscf_area_submenu @CurrentXscfSubPage(menu.Url)"><a href="@menu.Url"><i class="@menu.Icon"></i> @menu.Name</a></li>
+    }
+</ul>

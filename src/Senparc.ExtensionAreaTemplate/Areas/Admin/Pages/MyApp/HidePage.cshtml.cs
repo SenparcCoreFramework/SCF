@@ -10,9 +10,9 @@ using Senparc.Scf.XscfBase;
 
 namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
 {
-    public class About : Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
+    public class HidePage : Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
     {
-        public About(Lazy<XscfModuleService> xscfModuleService) : base(xscfModuleService)
+        public HidePage(Lazy<XscfModuleService> xscfModuleService) : base(xscfModuleService)
         {
 
         }

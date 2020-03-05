@@ -1,5 +1,5 @@
 ﻿@page
-@model Senparc.ExtensionAreaTemplate.Areas.MyArea.Pages.About
+@model Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages.About
 @addTagHelper *, MyArea
 @{
     ViewData["Title"] = "关于";
@@ -9,7 +9,7 @@
     <li>手动设置导航-关于</li>
 }
 @section subMenu{
-    <li><a href="@Model.XscfRegister.GetAreaUrl("/Admin/MyApp/About")"><i class="fa fa-bookmark-o"></i> 手动加菜单</a></li>
+    <li><a href="@Model.XscfRegister.GetAreaUrl("/Admin/MyApp/HidePage")"><i class="fa fa-bookmark-o"></i> 隐藏菜单</a></li>
 }
 
 <p>@Model.XscfRegister.Description</p>
