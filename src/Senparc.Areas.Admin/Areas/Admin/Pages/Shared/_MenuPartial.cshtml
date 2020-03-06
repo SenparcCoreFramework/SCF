@@ -97,7 +97,7 @@
                                     {
                                         <li>
                                             @{
-                                                var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => childrenItem.Url.Contains($"uid={z.Uid}", StringComparison.OrdinalIgnoreCase));
+                                                var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => !childrenItem.Url.IsNullOrEmpty() && childrenItem.Url.Contains($"uid={z.Uid}", StringComparison.OrdinalIgnoreCase));
                                             }
                                             @if (xscfRegister != null)
                                             {
