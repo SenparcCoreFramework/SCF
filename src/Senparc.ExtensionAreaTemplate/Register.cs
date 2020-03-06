@@ -72,10 +72,14 @@ namespace Senparc.ExtensionAreaTemplate
 
         #endregion
 
-
         #region IXscfDatabase 接口
 
-        public string UniquePrefix => "ExtensionAreaTemplate";
+        public string UniquePrefix => DATABASE_PREFIX;
+
+        /// <summary>
+        /// 数据库前缀
+        /// </summary>
+        public const string DATABASE_PREFIX = "AreaTemplate";
 
         #endregion
     }
