@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
+using Senparc.ExtensionAreaTemplate.Models;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.XscfBase;
@@ -80,6 +82,12 @@ namespace Senparc.ExtensionAreaTemplate
         /// 数据库前缀
         /// </summary>
         public const string DATABASE_PREFIX = "AreaTemplate";
+
+
+        public void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+        }
 
         #endregion
     }
