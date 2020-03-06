@@ -144,6 +144,7 @@ namespace Senparc.Web
             //Database
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            //services.AddScoped(typeof(SenparcEntitiesBase), typeof(SenparcEntities));
             //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
             // services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
 
