@@ -29,6 +29,7 @@ namespace Senparc.Core
 
             services.AddScoped(implementationFactory);
             services.AddScoped<ISenparcEntities>(implementationFactory);
+            services.AddScoped<SenparcEntitiesBase>(implementationFactory);
 
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;

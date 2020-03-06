@@ -18,6 +18,7 @@ namespace Senparc.ExtensionAreaTemplate
         #region IAreaRegister 接口
 
         public string HomeUrl => "/Admin/MyApp/MyHomePage";
+
         public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>() {
              new AreaPageMenuItem(GetAreaHomeUrl(),"首页","fa fa-laptop"),
              new AreaPageMenuItem(GetAreaUrl("/Admin/MyApp/About"),"关于","fa fa-bookmark-o"),
