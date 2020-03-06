@@ -141,12 +141,6 @@ namespace Senparc.Web
             //Attributes
             services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute));
             services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
-            //Database
-            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
-            //services.AddScoped(typeof(SenparcEntitiesBase), typeof(SenparcEntities));
-            //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
-            // services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
 
             //Repository
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));

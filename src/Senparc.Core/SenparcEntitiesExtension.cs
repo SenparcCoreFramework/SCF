@@ -11,7 +11,6 @@ namespace Senparc.Core
     {
         public static IServiceCollection AddSenparcEntitiesDI(this IServiceCollection services)
         {
-
             //var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
             //services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
 
@@ -27,9 +26,17 @@ namespace Senparc.Core
                 .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
                 .Options);
 
+            //Database
             services.AddScoped(implementationFactory);
             services.AddScoped<ISenparcEntities>(implementationFactory);
             services.AddScoped<SenparcEntitiesBase>(implementationFactory);
+
+            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
+            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            //services.AddScoped(typeof(SenparcEntitiesBase), typeof(SenparcEntities));
+            //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
+            //services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
+
 
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;

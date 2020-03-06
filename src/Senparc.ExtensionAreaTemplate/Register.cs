@@ -10,34 +10,14 @@ using System.Threading.Tasks;
 
 namespace Senparc.ExtensionAreaTemplate
 {
-    public class Register : XscfRegisterBase, IAreaRegister, IXscfRegister
+    public class Register : XscfRegisterBase,
+        IXscfRegister, //注册 XSCF 基础模块接口（必须）
+        IAreaRegister, //注册 XSCF 页面接口（按需选用）
+        IXscfDatabase  //注册 XSCF 模块数据库（按需选用）
     {
         public Register()
         { }
 
-        #region IAreaRegister 接口
-
-        public string HomeUrl => "/Admin/MyApp/MyHomePage";
-
-        public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>() {
-             new AreaPageMenuItem(GetAreaHomeUrl(),"首页","fa fa-laptop"),
-             new AreaPageMenuItem(GetAreaUrl("/Admin/MyApp/About"),"关于","fa fa-bookmark-o"),
-        };
-
-
-
-        public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
-        {
-            builder.AddRazorPagesOptions(options =>
-            {
-            });
-
-            SenparcTrace.SendCustomLog("系统启动", "完成 Area:MyArea 注册");
-
-            return builder;
-        }
-
-        #endregion
 
         #region IXscfRegister 接口
 
@@ -66,6 +46,36 @@ namespace Senparc.ExtensionAreaTemplate
         {
             await unsinstallFunc().ConfigureAwait(false);
         }
+
+        #endregion
+
+        #region IAreaRegister 接口
+
+        public string HomeUrl => "/Admin/MyApp/MyHomePage";
+
+        public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>() {
+             new AreaPageMenuItem(GetAreaHomeUrl(),"首页","fa fa-laptop"),
+             new AreaPageMenuItem(GetAreaUrl("/Admin/MyApp/About"),"关于","fa fa-bookmark-o"),
+        };
+
+
+        public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
+        {
+            builder.AddRazorPagesOptions(options =>
+            {
+            });
+
+            SenparcTrace.SendCustomLog("系统启动", "完成 Area:MyArea 注册");
+
+            return builder;
+        }
+
+        #endregion
+
+
+        #region IXscfDatabase 接口
+
+        public string UniquePrefix => "ExtensionAreaTemplate";
 
         #endregion
     }
