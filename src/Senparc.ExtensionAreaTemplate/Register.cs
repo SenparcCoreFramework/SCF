@@ -4,6 +4,8 @@ using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
 using Senparc.ExtensionAreaTemplate.Models;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
+using Senparc.ExtensionAreaTemplate.Respository;
+using Senparc.ExtensionAreaTemplate.Services;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Repository;
@@ -76,16 +78,28 @@ namespace Senparc.ExtensionAreaTemplate
 
         public override IServiceCollection AddXscfModule(IServiceCollection services)
         {
-            services.AddScoped<MySenparcEntities>();
+            Func<IServiceProvider, MySenparcEntities> implementationFactory = s => 
+                new MySenparcEntities(new DbContextOptionsBuilder<MySenparcEntities>()
+                   .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, 
+                                 b => b.MigrationsAssembly("Senparc.ExtensionAreaTemplate"))
+                   .Options);
+            services.AddScoped(implementationFactory);
+            services.AddScoped<SqlMyAppFinanceData>();
             services.AddScoped<ISqlMyAppFinanceData, SqlMyAppFinanceData>();
 
-            services.AddScoped(typeof(IRepositoryBase<AreaTemplate_Color>), serviceProvider =>
-            {
-                var mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-                var sqlData = serviceProvider.GetService<ISqlMyAppFinanceData>();
-                var obj = new RepositoryBase<AreaTemplate_Color>(sqlData);
-                return obj;
-            });
+            services.AddScoped(typeof(BaseRespository<>));
+            services.AddScoped(typeof(AreaTemplate_ColorService));
+
+            services.AddScoped(typeof(AreaTemplate_Color));
+
+
+            //services.AddScoped(typeof(IRepositoryBase<AreaTemplate_Color>), serviceProvider =>
+            //{
+            //    var mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+            //    var sqlData = serviceProvider.GetService<ISqlMyAppFinanceData>();
+            //    var obj = new RepositoryBase<AreaTemplate_Color>(sqlData);
+            //    return obj;
+            //});
 
             return base.AddXscfModule(services);
         }

@@ -120,7 +120,8 @@ namespace Senparc.Web
 
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
 
-            services.AddSenparcEntitiesDI(); //SQL Server设置
+            //SQL Server设置
+            services.AddSenparcEntitiesDI(); 
 
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();

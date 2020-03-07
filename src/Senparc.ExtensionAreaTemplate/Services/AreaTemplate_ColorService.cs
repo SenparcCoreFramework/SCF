@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Repository;
+﻿using Senparc.ExtensionAreaTemplate.Respository;
+using Senparc.Scf.Repository;
 using Senparc.Scf.Service;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Senparc.ExtensionAreaTemplate.Services
 {
     public class AreaTemplate_ColorService : ServiceBase<AreaTemplate_Color>
     {
-        public AreaTemplate_ColorService(IRepositoryBase<AreaTemplate_Color> repo, IServiceProvider serviceProvider) 
+        public AreaTemplate_ColorService(BaseRespository<AreaTemplate_Color> repo, IServiceProvider serviceProvider) 
             : base(repo, serviceProvider)
         {
         }

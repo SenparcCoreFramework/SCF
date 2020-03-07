@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Senparc.ExtensionAreaTemplate.Services;
 using Senparc.Scf.Core.Models.DataBaseModel;
 using Senparc.Scf.Service;
@@ -23,13 +24,14 @@ namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
 
         public Task OnGetAsync()
         {
-            _areaTemplate_ColorService.BaseData.BaseDB.BaseDataContext.Database.EnsureCreated();
+           ViewData["EnsureCreated"] = _areaTemplate_ColorService.BaseData.BaseDB.BaseDataContext.Database.EnsureCreated();
+
+            _areaTemplate_ColorService.BaseData.BaseDB.BaseDataContext.Database.Migrate();
             return Task.CompletedTask;
         }
 
         public Task OnBrightenAsync() { 
             return Task.CompletedTask;
-
         }
     }
 }

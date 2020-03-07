@@ -20,7 +20,6 @@ namespace Senparc.ExtensionAreaTemplate.Models
             dataContext = senparcEntities;
         }
 
-
         public MySenparcEntities DataContext
         {
             get
