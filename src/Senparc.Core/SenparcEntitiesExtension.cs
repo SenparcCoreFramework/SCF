@@ -49,6 +49,9 @@ namespace Senparc.Core
 
             //SenparcDI.ResetGlobalIServiceProvider();//清空缓存，下次使用DI会自动重新Build
 
+            //services.AddScoped(typeof(IDatabaseCreator), typeof(SqlClientFinanceData));
+
+
             return services;
         }
     }

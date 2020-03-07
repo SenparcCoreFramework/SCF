@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
@@ -43,12 +44,29 @@ namespace Senparc.ExtensionAreaTemplate
         };
 
 
-        public override Task InstallOrUpdateAsync(InstallOrUpdate installOrUpdate)
+        public override Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
+            switch (installOrUpdate)
+            {
+                case InstallOrUpdate.Install:
+                    //新安装
+                    var colorService = serviceProvider.GetService<AreaTemplate_ColorService>();
+                    var databaseCreator = (serviceProvider.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
+                    databaseCreator.CreateTables();
+
+                    break;
+                case InstallOrUpdate.Update:
+                    //更新
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
             return Task.CompletedTask;
         }
 
-        public override async Task UninstallAsync(Func<Task> unsinstallFunc)
+        public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
             await unsinstallFunc().ConfigureAwait(false);
         }
@@ -78,9 +96,9 @@ namespace Senparc.ExtensionAreaTemplate
 
         public override IServiceCollection AddXscfModule(IServiceCollection services)
         {
-            Func<IServiceProvider, MySenparcEntities> implementationFactory = s => 
+            Func<IServiceProvider, MySenparcEntities> implementationFactory = s =>
                 new MySenparcEntities(new DbContextOptionsBuilder<MySenparcEntities>()
-                   .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, 
+                   .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString,
                                  b => b.MigrationsAssembly("Senparc.ExtensionAreaTemplate"))
                    .Options);
             services.AddScoped(implementationFactory);
