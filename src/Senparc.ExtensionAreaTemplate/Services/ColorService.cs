@@ -38,10 +38,18 @@ namespace Senparc.ExtensionAreaTemplate.Services
             //TODO:异步方法需要添加排序功能
             var obj = this.GetObject(z => true, z => z.Id, OrderingType.Descending);
             obj.Darken();
-            base.SaveObject(obj);
+            await base.SaveObjectAsync(obj).ConfigureAwait(false);
             return base.Mapper.Map<ColorDto>(obj);
         }
 
+        public async Task<ColorDto> Random()
+        {
+            //TODO:异步方法需要添加排序功能
+            var obj = this.GetObject(z => true, z => z.Id, OrderingType.Descending);
+            obj.Random();
+            await base.SaveObjectAsync(obj).ConfigureAwait(false);
+            return base.Mapper.Map<ColorDto>(obj);
+        }
 
         //TODO: 更多业务方法可以写到这里
     }

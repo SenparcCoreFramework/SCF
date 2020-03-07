@@ -21,8 +21,4 @@
     <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.107.8-beta1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DbContext\" />
-  </ItemGroup>
-
 </Project>

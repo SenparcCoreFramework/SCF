@@ -29,19 +29,16 @@ namespace Senparc.ExtensionAreaTemplate
 
         public Color(int red, int green, int blue)
         {
-            if (red == -1 && green == -1 && blue == -1)
+            if (red < 0 || green < 0 || blue < 0)
             {
-                //随机产生颜色代码
-                var radom = new Random(SystemTime.Now.Second);
-                Func<int> getRadomColorCode = () => radom.Next(0, 255);
-                red = getRadomColorCode();
-                green = getRadomColorCode();
-                blue = getRadomColorCode();
+                Random();//随机
             }
-
-            Red = red;
-            Green = green;
-            Blue = blue;
+            else
+            {
+                Red = red;
+                Green = green;
+                Blue = blue;
+            }
         }
 
         public Color(ColorDto colorDto)
@@ -51,18 +48,28 @@ namespace Senparc.ExtensionAreaTemplate
             Blue = colorDto.Blue;
         }
 
-        public void Brighten()
+        public void Random()
         {
-            Red = Math.Max(0, Red - 10);
-            Green = Math.Max(0, Green - 10);
-            Blue = Math.Max(0, Blue - 10);
+            //随机产生颜色代码
+            var radom = new Random(SystemTime.Now.Second);
+            Func<int> getRadomColorCode = () => radom.Next(0, 255);
+            Red = getRadomColorCode();
+            Green = getRadomColorCode();
+            Blue = getRadomColorCode();
         }
 
-        public void Darken()
+        public void Brighten()
         {
             Red = Math.Min(255, Red + 10);
             Green = Math.Min(255, Green + 10);
             Blue = Math.Min(255, Blue + 10);
+        }
+
+        public void Darken()
+        {
+            Red = Math.Max(0, Red - 10);
+            Green = Math.Max(0, Green - 10);
+            Blue = Math.Max(0, Blue - 10);
         }
     }
 }

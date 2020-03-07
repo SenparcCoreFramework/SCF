@@ -12,8 +12,8 @@
     string CurrentXscfSubPage(string currentMenuUrl)
     {
         var pathAndQuery = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedPathAndQuery(_httpContextAccessor.HttpContext.Request);
-        if (pathAndQuery.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase) ||
-            (ViewData["TempMenuUrl"] is string tempMenuUrl && tempMenuUrl.Equals(currentMenuUrl, StringComparison.OrdinalIgnoreCase)))
+        if (pathAndQuery.Contains(currentMenuUrl, StringComparison.OrdinalIgnoreCase) ||
+            (ViewData["TempMenuUrl"] is string tempMenuUrl && currentMenuUrl.Contains(tempMenuUrl, StringComparison.OrdinalIgnoreCase)))
         {
             return "current-sub-page-xscf";
         }

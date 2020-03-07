@@ -32,18 +32,23 @@ namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
 
         public Task OnGetAsync()
         {
-            ColorDto = new ColorDto(_colorService.GetObject(z => true, z => z.Id, OrderingType.Descending));
+            var color = _colorService.GetObject(z => true, z => z.Id, OrderingType.Descending);
+            ColorDto = new ColorDto(color);
             return Task.CompletedTask;
         }
 
-        public async Task OnBrightenAsync()
+        public async Task OnGetBrightenAsync()
         {
-            await _colorService.Brighten().ConfigureAwait(false);
+            ColorDto = await _colorService.Brighten().ConfigureAwait(false);
         }
 
-        public async Task OnDarkenAsync()
+        public async Task OnGetDarkenAsync()
         {
-            await _colorService.Darken().ConfigureAwait(false);
+            ColorDto = await _colorService.Darken().ConfigureAwait(false);
+        }
+        public async Task OnGetRandomAsync()
+        {
+            ColorDto = await _colorService.Random().ConfigureAwait(false);
         }
     }
 }
