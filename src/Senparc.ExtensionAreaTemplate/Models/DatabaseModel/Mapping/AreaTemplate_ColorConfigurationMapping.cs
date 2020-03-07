@@ -12,7 +12,7 @@ namespace Senparc.ExtensionAreaTemplate.Models
         {
             builder.Property(e => e.Red).IsRequired();
             builder.Property(e => e.Green).IsRequired();
-            builder.Property(e => e.Bule).IsRequired();
+            builder.Property(e => e.Blue).IsRequired();
         }
     }
 }

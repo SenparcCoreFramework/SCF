@@ -8,10 +8,10 @@ using System.Text;
 
 namespace Senparc.ExtensionAreaTemplate.Respository
 {
-    public class BaseRespository<T> : RepositoryBase<T>, IRepositoryBase<T> where T : EntityBase
-    {
-        public BaseRespository(SqlMyAppFinanceData db) : base(db)
-        {
-        }
-    }
+    //public class BaseRespository<T> : RepositoryBase<T>, IRepositoryBase<T> where T : EntityBase
+    //{
+    //    public BaseRespository(SqlMyAppFinanceData db) : base(db)
+    //    {
+    //    }
+    //}
 }

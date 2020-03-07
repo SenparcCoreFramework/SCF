@@ -24,16 +24,16 @@ namespace Senparc.Core
 
 
             //Database Start
-    //        Func<IServiceProvider, SenparcEntities> implementationFactory = s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-    //.UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
-    //.Options);
+            Func<IServiceProvider, SenparcEntities> implementationFactory = s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
+                    .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
+                    .Options);
 
-            //services.AddScoped(implementationFactory);
-            //services.AddScoped<ISenparcEntities>(implementationFactory);
-            //services.AddScoped<SenparcEntitiesBase>(implementationFactory);
+            services.AddScoped(implementationFactory);
+            services.AddScoped<ISenparcEntities>(implementationFactory);
+            services.AddScoped<SenparcEntitiesBase>(implementationFactory);
 
-            //services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            //services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
+            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
             //Database End
 
 

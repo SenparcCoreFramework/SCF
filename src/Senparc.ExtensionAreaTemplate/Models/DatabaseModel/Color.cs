@@ -1,4 +1,5 @@
-﻿using Senparc.Scf.Core.Models;
+﻿using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
+using Senparc.Scf.Core.Models;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,32 +18,51 @@ namespace Senparc.ExtensionAreaTemplate
         /// </summary>
         public int Green { get; private set; }
 
+        private int blue;
+
         /// <summary>
         /// 颜色码，0-255
         /// </summary>
-        public int Bule { get; private set; }
+        public int Blue { get; set; }
 
         private Color() { }
 
-        public Color(int red, int green, int bule)
+        public Color(int red, int green, int blue)
         {
+            if (red == -1 && green == -1 && blue == -1)
+            {
+                //随机产生颜色代码
+                var radom = new Random(SystemTime.Now.Second);
+                Func<int> getRadomColorCode = () => radom.Next(0, 255);
+                red = getRadomColorCode();
+                green = getRadomColorCode();
+                blue = getRadomColorCode();
+            }
+
             Red = red;
             Green = green;
-            Bule = bule;
+            Blue = blue;
+        }
+
+        public Color(ColorDto colorDto)
+        {
+            Red = colorDto.Red;
+            Green = colorDto.Green;
+            Blue = colorDto.Blue;
         }
 
         public void Brighten()
         {
             Red = Math.Max(0, Red - 10);
             Green = Math.Max(0, Green - 10);
-            Bule = Math.Max(0, Bule - 10);
+            Blue = Math.Max(0, Blue - 10);
         }
 
         public void Darken()
         {
             Red = Math.Max(0, Red + 10);
             Green = Math.Max(0, Green + 10);
-            Bule = Math.Max(0, Bule + 10);
+            Blue = Math.Max(0, Blue + 10);
         }
     }
 }

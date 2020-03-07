@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
 using Senparc.ExtensionAreaTemplate.Models;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
+using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
 using Senparc.ExtensionAreaTemplate.Respository;
 using Senparc.ExtensionAreaTemplate.Services;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
@@ -43,16 +44,22 @@ namespace Senparc.ExtensionAreaTemplate
         };
 
 
-        public override Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
+        public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
+            MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+            await mySenparcEntities.Database.MigrateAsync().ConfigureAwait(false);//更新数据库
+
             switch (installOrUpdate)
             {
                 case InstallOrUpdate.Install:
                     //新安装
-                    var colorService = serviceProvider.GetService<AreaTemplate_ColorService>();
-                    var databaseCreator = (serviceProvider.GetService<IDatabaseCreator>() as RelationalDatabaseCreator);
-                    databaseCreator.CreateTables();
-
+                    var colorService = serviceProvider.GetService<ColorService>();
+                    var color = colorService.GetObject(z => true);
+                    if (color == null)//如果是纯第一次安装，理论上不会有残留数据
+                    {
+                        //创建默认颜色
+                        ColorDto colorDto = colorService.CreateNewColor();
+                    }
                     break;
                 case InstallOrUpdate.Update:
                     //更新
@@ -60,12 +67,14 @@ namespace Senparc.ExtensionAreaTemplate
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            return Task.CompletedTask;
         }
 
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
+            //TODO: 删除数据库表（或隐藏）
+            //MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+            //await mySenparcEntities.Database.MigrateAsync().ConfigureAwait(false);//更新数据库
+
             await unsinstallFunc().ConfigureAwait(false);
         }
 
@@ -102,11 +111,13 @@ namespace Senparc.ExtensionAreaTemplate
             services.AddScoped<SqlMyAppFinanceData>();
             services.AddScoped<ISqlMyAppFinanceData, SqlMyAppFinanceData>();
 
-            services.AddScoped(typeof(BaseRespository<>));
-            services.AddScoped(typeof(AreaTemplate_ColorService));
+            //services.AddScoped(typeof(BaseRespository<>));
+            services.AddScoped(typeof(ColorService));
 
             services.AddScoped(typeof(Color));
+            services.AddScoped(typeof(ColorDto));
 
+            EntitySetKeys.GetEntitySetKeys(typeof(MySenparcEntities));//注册当前数据库的对象（必须）
 
             //services.AddScoped(typeof(IRepositoryBase<AreaTemplate_Color>), serviceProvider =>
             //{

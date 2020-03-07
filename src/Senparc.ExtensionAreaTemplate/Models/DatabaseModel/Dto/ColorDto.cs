@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto
 {
-    public class AreaTemplate_ColorDto : DtoBase
+    public class ColorDto : DtoBase
     {
         /// <summary>
         /// 颜色码，0-255
@@ -19,15 +19,22 @@ namespace Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto
         /// <summary>
         /// 颜色码，0-255
         /// </summary>
-        public int Bule { get; private set; }
+        public int Blue { get; private set; }
 
-        private AreaTemplate_ColorDto() { }
+        private ColorDto() { }
 
-        public AreaTemplate_ColorDto(Color obj)
+        public ColorDto(Color obj)
         {
             Red = obj.Red;
             Green = obj.Green;
-            Bule = obj.Bule;
+            Blue = obj.Blue;
+        }
+
+        public ColorDto(int red, int green, int blue)
+        {
+            Red = red;
+            Green = green;
+            Blue = blue;
         }
     }
 }
