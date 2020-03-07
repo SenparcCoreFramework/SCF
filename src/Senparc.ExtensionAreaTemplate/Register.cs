@@ -9,7 +9,6 @@ using Senparc.ExtensionAreaTemplate.Respository;
 using Senparc.ExtensionAreaTemplate.Services;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Enums;
-using Senparc.Scf.Repository;
 using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
@@ -62,7 +61,6 @@ namespace Senparc.ExtensionAreaTemplate
                     throw new ArgumentOutOfRangeException();
             }
 
-
             return Task.CompletedTask;
         }
 
@@ -81,7 +79,6 @@ namespace Senparc.ExtensionAreaTemplate
              new AreaPageMenuItem(GetAreaHomeUrl(),"首页","fa fa-laptop"),
              new AreaPageMenuItem(GetAreaUrl("/Admin/MyApp/About"),"关于","fa fa-bookmark-o"),
         };
-
 
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
         {

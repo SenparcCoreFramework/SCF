@@ -39,7 +39,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>   
 
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.107.7-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.107.8-beta1" />
     <PackageReference Include="Senparc.Weixin" Version="6.7.305" />
     <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.304" />
     <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.304" />

@@ -22,17 +22,21 @@ namespace Senparc.Core
              *      问题解决方案说明：https://www.colabug.com/2329124.html
              */
 
-            Func<IServiceProvider, SenparcEntities> implementationFactory = s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
-                .Options);
 
-            //Database
-            services.AddScoped(implementationFactory);
-            services.AddScoped<ISenparcEntities>(implementationFactory);
-            services.AddScoped<SenparcEntitiesBase>(implementationFactory);
+            //Database Start
+    //        Func<IServiceProvider, SenparcEntities> implementationFactory = s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
+    //.UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
+    //.Options);
 
-            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            //services.AddScoped(implementationFactory);
+            //services.AddScoped<ISenparcEntities>(implementationFactory);
+            //services.AddScoped<SenparcEntitiesBase>(implementationFactory);
+
+            //services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
+            //services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            //Database End
+
+
             //services.AddScoped(typeof(SenparcEntitiesBase), typeof(SenparcEntities));
             //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
             //services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
