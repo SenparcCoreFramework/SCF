@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Senparc.ExtensionAreaTemplate.Models.DatabaseModel
 {
-    public class MySenparcEntities : SenparcEntitiesBase
+    public class MySenparcEntities : DbContext
     {
         public MySenparcEntities(DbContextOptions<MySenparcEntities> dbContextOptions) : base(dbContextOptions)
         {
         }
 
-        public DbSet<AreaTemplate_Color> AreaTemplate_Colors { get; set; }
+        public DbSet<Color> Colors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

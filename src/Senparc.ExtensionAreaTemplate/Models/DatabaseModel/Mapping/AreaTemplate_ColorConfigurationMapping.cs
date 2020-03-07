@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Senparc.ExtensionAreaTemplate.Models
 {
-    public class AreaTemplate_ColorConfigurationMapping : ConfigurationMappingWithIdBase<AreaTemplate_Color, int>
+    public class AreaTemplate_ColorConfigurationMapping : ConfigurationMappingWithIdBase<Color, int>
     {
-        public override void Configure(EntityTypeBuilder<AreaTemplate_Color> builder)
+        public override void Configure(EntityTypeBuilder<Color> builder)
         {
             builder.Property(e => e.Red).IsRequired();
             builder.Property(e => e.Green).IsRequired();

@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Senparc.ExtensionAreaTemplate.Services
 {
-    public class AreaTemplate_ColorService : ServiceBase<AreaTemplate_Color>
+    public class AreaTemplate_ColorService : ServiceBase<Color>
     {
-        public AreaTemplate_ColorService(BaseRespository<AreaTemplate_Color> repo, IServiceProvider serviceProvider) 
+        public AreaTemplate_ColorService(BaseRespository<Color> repo, IServiceProvider serviceProvider) 
             : base(repo, serviceProvider)
         {
         }

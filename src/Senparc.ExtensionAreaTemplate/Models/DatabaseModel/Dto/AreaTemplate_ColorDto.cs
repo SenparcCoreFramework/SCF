@@ -23,7 +23,7 @@ namespace Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto
 
         private AreaTemplate_ColorDto() { }
 
-        public AreaTemplate_ColorDto(AreaTemplate_Color obj)
+        public AreaTemplate_ColorDto(Color obj)
         {
             Red = obj.Red;
             Green = obj.Green;

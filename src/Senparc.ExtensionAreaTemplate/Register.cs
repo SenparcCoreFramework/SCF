@@ -108,7 +108,7 @@ namespace Senparc.ExtensionAreaTemplate
             services.AddScoped(typeof(BaseRespository<>));
             services.AddScoped(typeof(AreaTemplate_ColorService));
 
-            services.AddScoped(typeof(AreaTemplate_Color));
+            services.AddScoped(typeof(Color));
 
 
             //services.AddScoped(typeof(IRepositoryBase<AreaTemplate_Color>), serviceProvider =>
@@ -131,7 +131,7 @@ namespace Senparc.ExtensionAreaTemplate
         /// <summary>
         /// 数据库前缀
         /// </summary>
-        public const string DATABASE_PREFIX = "AreaTemplate";
+        public const string DATABASE_PREFIX = "AreaTemplate_";
 
 
         public void OnModelCreating(ModelBuilder modelBuilder)

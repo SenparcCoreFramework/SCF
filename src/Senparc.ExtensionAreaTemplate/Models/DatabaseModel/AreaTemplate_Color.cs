@@ -1,10 +1,12 @@
 ﻿using Senparc.Scf.Core.Models;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senparc.ExtensionAreaTemplate
 {
     [Serializable]
-    public class AreaTemplate_Color : EntityBase<int>
+    [Table(Register.DATABASE_PREFIX + "Color")]
+    public class Color : EntityBase<int>
     {
         /// <summary>
         /// 颜色码，0-255
@@ -20,9 +22,9 @@ namespace Senparc.ExtensionAreaTemplate
         /// </summary>
         public int Bule { get; private set; }
 
-        private AreaTemplate_Color() { }
+        private Color() { }
 
-        public AreaTemplate_Color(int red, int green, int bule)
+        public Color(int red, int green, int bule)
         {
             Red = red;
             Green = green;
