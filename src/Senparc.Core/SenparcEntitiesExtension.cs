@@ -11,7 +11,6 @@ namespace Senparc.Core
     {
         public static IServiceCollection AddSenparcEntitiesDI(this IServiceCollection services)
         {
-
             //var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
             //services.AddDbContext<SenparcEntities>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Senparc.Web")));
 
@@ -23,13 +22,25 @@ namespace Senparc.Core
              *      问题解决方案说明：https://www.colabug.com/2329124.html
              */
 
+
+            //Database Start
             Func<IServiceProvider, SenparcEntities> implementationFactory = s => new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-                .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
-                .Options);
+                    .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString, b => b.MigrationsAssembly("Senparc.Web"))
+                    .Options);
 
             services.AddScoped(implementationFactory);
             services.AddScoped<ISenparcEntities>(implementationFactory);
             services.AddScoped<SenparcEntitiesBase>(implementationFactory);
+
+            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
+            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+            //Database End
+
+
+            //services.AddScoped(typeof(SenparcEntitiesBase), typeof(SenparcEntities));
+            //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
+            //services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
+
 
             //#if DEBUG
             //            var connectionString = Senparc.Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString;
@@ -41,6 +52,9 @@ namespace Senparc.Core
             //#endif
 
             //SenparcDI.ResetGlobalIServiceProvider();//清空缓存，下次使用DI会自动重新Build
+
+            //services.AddScoped(typeof(IDatabaseCreator), typeof(SqlClientFinanceData));
+
 
             return services;
         }

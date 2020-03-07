@@ -209,7 +209,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             }
             else
             {
-                await register.UninstallAsync(uninstall).ConfigureAwait(false);
+                await register.UninstallAsync(_serviceProvider, uninstall).ConfigureAwait(false);
             }
 
             return RedirectToPage("Index");
