@@ -14,13 +14,16 @@ namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
     public class MyHomePage : Senparc.Scf.AreaBase.Admin.AdminXscfModulePageModelBase
     {
         private readonly AreaTemplate_ColorService _areaTemplate_ColorService;
-        public MyHomePage(Lazy<XscfModuleService> xscfModuleService) : base(xscfModuleService)
+  
+        public MyHomePage(AreaTemplate_ColorService areaTemplate_ColorService, Lazy<XscfModuleService> xscfModuleService)
+            : base(xscfModuleService)
         {
-
+            _areaTemplate_ColorService = areaTemplate_ColorService;
         }
 
         public Task OnGetAsync()
         {
+            _areaTemplate_ColorService.BaseData.BaseDB.BaseDataContext.Database.EnsureCreated();
             return Task.CompletedTask;
         }
 

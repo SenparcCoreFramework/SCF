@@ -3,8 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
 using Senparc.ExtensionAreaTemplate.Models;
+using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Repository;
 using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
@@ -67,9 +69,25 @@ namespace Senparc.ExtensionAreaTemplate
             {
             });
 
-            SenparcTrace.SendCustomLog("系统启动", "完成 Area:MyArea 注册");
+            SenparcTrace.SendCustomLog("系统启动", "完成 Area:MyApp 注册");
 
             return builder;
+        }
+
+        public override IServiceCollection AddXscfModule(IServiceCollection services)
+        {
+            services.AddScoped<MySenparcEntities>();
+            services.AddScoped<ISqlMyAppFinanceData, SqlMyAppFinanceData>();
+
+            services.AddScoped(typeof(IRepositoryBase<AreaTemplate_Color>), serviceProvider =>
+            {
+                var mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+                var sqlData = serviceProvider.GetService<ISqlMyAppFinanceData>();
+                var obj = new RepositoryBase<AreaTemplate_Color>(sqlData);
+                return obj;
+            });
+
+            return base.AddXscfModule(services);
         }
 
         #endregion

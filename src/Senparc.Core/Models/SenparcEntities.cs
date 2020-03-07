@@ -38,7 +38,7 @@ namespace Senparc.Core.Models
             {
                 databaseRegister.OnModelCreating(modelBuilder);
             }
-
+            
             #endregion
 
             base.OnModelCreating(modelBuilder);

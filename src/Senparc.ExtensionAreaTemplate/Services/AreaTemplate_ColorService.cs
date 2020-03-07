@@ -8,7 +8,8 @@ namespace Senparc.ExtensionAreaTemplate.Services
 {
     public class AreaTemplate_ColorService : ServiceBase<AreaTemplate_Color>
     {
-        public AreaTemplate_ColorService(IRepositoryBase<AreaTemplate_Color> repo, IServiceProvider serviceProvider) : base(repo, serviceProvider)
+        public AreaTemplate_ColorService(IRepositoryBase<AreaTemplate_Color> repo, IServiceProvider serviceProvider) 
+            : base(repo, serviceProvider)
         {
         }
 
