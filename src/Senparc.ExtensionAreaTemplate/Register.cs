@@ -5,7 +5,6 @@ using Senparc.ExtensionAreaTemplate.Functions;
 using Senparc.ExtensionAreaTemplate.Models;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
-using Senparc.ExtensionAreaTemplate.Respository;
 using Senparc.ExtensionAreaTemplate.Services;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.Enums;
@@ -58,7 +57,7 @@ namespace Senparc.ExtensionAreaTemplate
                     if (color == null)//如果是纯第一次安装，理论上不会有残留数据
                     {
                         //创建默认颜色
-                        ColorDto colorDto = colorService.CreateNewColor();
+                        ColorDto colorDto = await colorService.CreateNewColor().ConfigureAwait(false);
                     }
                     break;
                 case InstallOrUpdate.Update:

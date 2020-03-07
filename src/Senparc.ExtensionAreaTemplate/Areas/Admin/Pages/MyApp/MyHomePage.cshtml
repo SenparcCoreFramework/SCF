@@ -6,8 +6,8 @@
 
 <p>@Model.XscfModuleDto.MenuName - @SystemTime.Now</p>
 <p>@Model.XscfModuleDto.Description</p>
-<p>EnsureCreated：@ViewData["EnsureCreated"]</p>
-<p>ViewData["Obj"]：@ViewData["Obj"]</p>
-<div style="margin:100px auto; width:50%; color">
-    <a asp-page-handler="Brighten" title="变亮" class="btn-sm btn btn-success">变亮</a>
+
+<div style="margin:30px auto; width:50%; text-align:center; padding:50px; background-color:rgba(@Model.ColorDto.Red,@Model.ColorDto.Green,@Model.ColorDto.Blue,1)">
+    <a asp-page-handler="Brighten" asp-route-uid="@Model.XscfModuleDto.Uid" title="变亮" class="btn-sm btn btn-success" style="background-color:rgba(@(255-Model.ColorDto.Red),@(255-Model.ColorDto.Green),@(255-Model.ColorDto.Blue),0.8)">变亮</a>
+    <a asp-page-handler="Darken" asp-route-uid="@Model.XscfModuleDto.Uid" title="变暗" class="btn-sm btn btn-success" style="background-color:rgba(@(255-Model.ColorDto.Red),@(255-Model.ColorDto.Green),@(255-Model.ColorDto.Blue),0.8)">变暗</a>
 </div>

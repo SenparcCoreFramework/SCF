@@ -13,6 +13,7 @@ using Senparc.Scf.XscfBase;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
+using Senparc.Scf.Core.Enums;
 
 namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
 {
@@ -20,24 +21,29 @@ namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
     {
         public ColorDto ColorDto { get; set; }
 
-        private readonly ColorService _areaTemplate_ColorService;
+        private readonly ColorService _colorService;
         private readonly IServiceProvider _serviceProvider;
-        public MyHomePage(IServiceProvider serviceProvider, ColorService areaTemplate_ColorService, Lazy<XscfModuleService> xscfModuleService)
+        public MyHomePage(IServiceProvider serviceProvider, ColorService colorService, Lazy<XscfModuleService> xscfModuleService)
             : base(xscfModuleService)
         {
-            _areaTemplate_ColorService = areaTemplate_ColorService;
+            _colorService = colorService;
             _serviceProvider = serviceProvider;
         }
 
         public Task OnGetAsync()
         {
-            ColorDto = new ColorDto(_areaTemplate_ColorService.GetObject(z => true, z => z.Id, Scf.Core.Enums.OrderingType.Descending));
+            ColorDto = new ColorDto(_colorService.GetObject(z => true, z => z.Id, OrderingType.Descending));
             return Task.CompletedTask;
         }
 
-        public Task OnBrightenAsync()
+        public async Task OnBrightenAsync()
         {
-            return Task.CompletedTask;
+            await _colorService.Brighten().ConfigureAwait(false);
+        }
+
+        public async Task OnDarkenAsync()
+        {
+            await _colorService.Darken().ConfigureAwait(false);
         }
     }
 }

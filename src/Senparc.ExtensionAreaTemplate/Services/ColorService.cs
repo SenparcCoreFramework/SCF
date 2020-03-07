@@ -1,10 +1,11 @@
 ﻿using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
-using Senparc.ExtensionAreaTemplate.Respository;
+using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Repository;
 using Senparc.Scf.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.ExtensionAreaTemplate.Services
 {
@@ -15,13 +16,32 @@ namespace Senparc.ExtensionAreaTemplate.Services
         {
         }
 
-        public ColorDto CreateNewColor()
+        public async Task<ColorDto> CreateNewColor()
         {
             Color color = new Color(-1, -1, -1);
-            base.SaveObject(color);
+            await base.SaveObjectAsync(color).ConfigureAwait(false);
             ColorDto colorDto = base.Mapper.Map<ColorDto>(color);
             return colorDto;
         }
+
+        public async Task<ColorDto> Brighten()
+        {
+            //TODO:异步方法需要添加排序功能
+            var obj = this.GetObject(z => true, z => z.Id, OrderingType.Descending);
+            obj.Brighten();
+            await base.SaveObjectAsync(obj).ConfigureAwait(false);
+            return base.Mapper.Map<ColorDto>(obj);
+        }
+
+        public async Task<ColorDto> Darken()
+        {
+            //TODO:异步方法需要添加排序功能
+            var obj = this.GetObject(z => true, z => z.Id, OrderingType.Descending);
+            obj.Darken();
+            base.SaveObject(obj);
+            return base.Mapper.Map<ColorDto>(obj);
+        }
+
 
         //TODO: 更多业务方法可以写到这里
     }

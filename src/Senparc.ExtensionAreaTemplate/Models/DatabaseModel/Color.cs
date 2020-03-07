@@ -60,9 +60,9 @@ namespace Senparc.ExtensionAreaTemplate
 
         public void Darken()
         {
-            Red = Math.Max(0, Red + 10);
-            Green = Math.Max(0, Green + 10);
-            Blue = Math.Max(0, Blue + 10);
+            Red = Math.Min(255, Red + 10);
+            Green = Math.Min(255, Green + 10);
+            Blue = Math.Min(255, Blue + 10);
         }
     }
 }
