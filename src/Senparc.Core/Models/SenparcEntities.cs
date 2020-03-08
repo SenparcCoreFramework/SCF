@@ -1,21 +1,16 @@
-﻿using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using Senparc.Scf.Core.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Senparc.Core.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using Senparc.Core.Models.DataBaseModel;
-    using Senparc.Scf.Core.Models;
-    using Senparc.Scf.Core.Models.DataBaseModel;
-    using System;
-    using System.Linq.Expressions;
 
     public partial class SenparcEntities : SenparcEntitiesBase, ISenparcEntities
     {
-
         public SenparcEntities(DbContextOptions<SenparcEntities> dbContextOptions) : base(dbContextOptions)
         {
-            
         }
 
         #region 系统表
@@ -35,6 +30,15 @@ namespace Senparc.Core.Models
             modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
             modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
 
+            #endregion
+
+            #region 其他动态模块
+
+            foreach (var databaseRegister in Senparc.Scf.XscfBase.Register.XscfDatabaseList)
+            {
+                databaseRegister.OnModelCreating(modelBuilder);
+            }
+            
             #endregion
 
             base.OnModelCreating(modelBuilder);

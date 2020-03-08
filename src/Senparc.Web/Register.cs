@@ -120,7 +120,8 @@ namespace Senparc.Web
 
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
 
-            services.AddSenparcEntitiesDI(); //SQL Server设置
+            //SQL Server设置
+            services.AddSenparcEntitiesDI(); 
 
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
@@ -141,12 +142,6 @@ namespace Senparc.Web
             //Attributes
             services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute));
             services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
-            //Database
-            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
-            //services.AddScoped(typeof(SenparcEntitiesBase), typeof(SenparcEntities));
-            //services.AddScoped(typeof(ISenparcEntities), typeof(SenparcEntities));
-            // services.AddScoped(typeof(DbContextOptions<SenparcEntities>), typeof(DbContextOptions<SenparcEntities>));
 
             //Repository
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
