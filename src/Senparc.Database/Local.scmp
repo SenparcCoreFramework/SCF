@@ -2,15 +2,15 @@
 <SchemaComparison>
   <Version>10</Version>
   <SourceModelProvider>
+    <ConnectionBasedModelProvider>
+      <ConnectionString>Data Source=.;Initial Catalog=SCF;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</ConnectionString>
+    </ConnectionBasedModelProvider>
+  </SourceModelProvider>
+  <TargetModelProvider>
     <ProjectBasedModelProvider>
       <ProjectGuid>{64439fb4-20d8-4c1e-84e3-7c6eb507480b}</ProjectGuid>
       <Name>Senparc.Database</Name>
     </ProjectBasedModelProvider>
-  </SourceModelProvider>
-  <TargetModelProvider>
-    <ConnectionBasedModelProvider>
-      <ConnectionString>Data Source=.;Initial Catalog=SCF;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</ConnectionString>
-    </ConnectionBasedModelProvider>
   </TargetModelProvider>
   <SchemaCompareSettingsService>
     <SchemaCompareSettingsService>
@@ -157,6 +157,10 @@
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>IgnoreTablePartitionOptions</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>IgnoreWithNocheckOnCheckConstraints</Name>
         <Value>False</Value>
       </PropertyElementName>
@@ -298,11 +302,11 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetDatabaseName</Name>
-        <Value>SCF</Value>
+        <Value>Senparc.Database</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TargetConnectionString</Name>
-        <Value>Data Source=.;Initial Catalog=SCF;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;Application Name="Microsoft SQL Server Data Tools, Schema Compare"</Value>
+        <Value>Integrated Security=True;Pooling=False;Connect Timeout=30</Value>
       </PropertyElementName>
       <PropertyElementName>
         <Name>TreatVerificationErrorsAsWarnings</Name>
@@ -434,6 +438,10 @@
       </PropertyElementName>
       <PropertyElementName>
         <Name>DoNotDropFilegroups</Name>
+        <Value>False</Value>
+      </PropertyElementName>
+      <PropertyElementName>
+        <Name>DoNotDropFiles</Name>
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
@@ -681,6 +689,10 @@
         <Value>False</Value>
       </PropertyElementName>
       <PropertyElementName>
+        <Name>ExcludeFiles</Name>
+        <Value>True</Value>
+      </PropertyElementName>
+      <PropertyElementName>
         <Name>ExcludeFileTables</Name>
         <Value>False</Value>
       </PropertyElementName>
@@ -924,6 +936,10 @@
       <Name>dbo</Name>
       <Name>FeedBacks</Name>
       <Name>IX_FeedBacks_AccountId</Name>
+    </SelectedItem>
+    <SelectedItem Type="Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlTable, Microsoft.Data.Tools.Schema.Sql, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>dbo</Name>
+      <Name>AreaTemplate_Color</Name>
     </SelectedItem>
   </ExcludedSourceElements>
   <ExcludedTargetElements>
