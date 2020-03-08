@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
 using Senparc.ExtensionAreaTemplate.Models;
@@ -12,6 +14,7 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Senparc.ExtensionAreaTemplate
@@ -29,7 +32,7 @@ namespace Senparc.ExtensionAreaTemplate
 
         public override string Name => "Senparc.ExtensionAreaTemplate";
         public override string Uid => "1052306E-8C78-4EBF-8CA9-0EB3738350AE";//必须确保全局唯一，生成后必须固定
-        public override string Version => "0.2.0";//必须填写版本号
+        public override string Version => "0.2.2";//必须填写版本号
 
         public override string MenuName => "扩展页面测试模块";
         public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
@@ -43,10 +46,16 @@ namespace Senparc.ExtensionAreaTemplate
         };
 
 
+        /// <summary>
+        /// 安装或更新过程需要执行的业务
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="installOrUpdate"></param>
+        /// <returns></returns>
         public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
-            MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-            await mySenparcEntities.Database.MigrateAsync().ConfigureAwait(false);//更新数据库
+            //更新数据库
+            await base.MigrateDatabaseAsync<MySenparcEntities>(serviceProvider);
 
             switch (installOrUpdate)
             {
@@ -67,12 +76,21 @@ namespace Senparc.ExtensionAreaTemplate
                     throw new ArgumentOutOfRangeException();
             }
         }
-
+        /// <summary>
+        /// 删除模块时需要执行的业务
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="unsinstallFunc"></param>
+        /// <returns></returns>
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
-            //TODO: 删除数据库表（或隐藏）
-            //MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-            //await mySenparcEntities.Database.MigrateAsync().ConfigureAwait(false);//更新数据库
+            MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+            
+            //指定需要删除的数据实体
+
+            //注意：这里作为演示，删除了所有的表，实际操作过程中，请谨慎操作，并且按照删除顺序对实体进行排序！
+            var dropTableKeys = EntitySetKeys.GetEntitySetInfo(this.XscfDatabaseDbContextType).Keys.ToArray();
+            await base.DropTablesAsync(serviceProvider, mySenparcEntities, dropTableKeys);
 
             await unsinstallFunc().ConfigureAwait(false);
         }
@@ -92,6 +110,7 @@ namespace Senparc.ExtensionAreaTemplate
         {
             builder.AddRazorPagesOptions(options =>
             {
+                //此处可配置页面权限
             });
 
             SenparcTrace.SendCustomLog("系统启动", "完成 Area:MyApp 注册");
@@ -101,31 +120,7 @@ namespace Senparc.ExtensionAreaTemplate
 
         public override IServiceCollection AddXscfModule(IServiceCollection services)
         {
-            Func<IServiceProvider, MySenparcEntities> implementationFactory = s =>
-                new MySenparcEntities(new DbContextOptionsBuilder<MySenparcEntities>()
-                   .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString,
-                                 b => b.MigrationsAssembly("Senparc.ExtensionAreaTemplate"))
-                   .Options);
-            services.AddScoped(implementationFactory);
-            services.AddScoped<SqlMyAppFinanceData>();
-            services.AddScoped<ISqlMyAppFinanceData, SqlMyAppFinanceData>();
-
-            //services.AddScoped(typeof(BaseRespository<>));
-            services.AddScoped(typeof(ColorService));
-
-            services.AddScoped(typeof(Color));
-            services.AddScoped(typeof(ColorDto));
-
-            EntitySetKeys.GetEntitySetKeys(typeof(MySenparcEntities));//注册当前数据库的对象（必须）
-
-            //services.AddScoped(typeof(IRepositoryBase<AreaTemplate_Color>), serviceProvider =>
-            //{
-            //    var mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-            //    var sqlData = serviceProvider.GetService<ISqlMyAppFinanceData>();
-            //    var obj = new RepositoryBase<AreaTemplate_Color>(sqlData);
-            //    return obj;
-            //});
-
+            //任何需要注册的对象
             return base.AddXscfModule(services);
         }
 
@@ -133,17 +128,31 @@ namespace Senparc.ExtensionAreaTemplate
 
         #region IXscfDatabase 接口
 
-        public string UniquePrefix => DATABASE_PREFIX;
-
         /// <summary>
         /// 数据库前缀
         /// </summary>
         public const string DATABASE_PREFIX = "AreaTemplate_";
 
+        /// <summary>
+        /// 数据库前缀
+        /// </summary>
+        public string DatabaseUniquePrefix => DATABASE_PREFIX;
+        /// <summary>
+        /// 设置 XscfSenparcEntities 类型
+        /// </summary>
+        public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
+
 
         public void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+        }
+
+        public void AddXscfDatabaseModule(IServiceCollection services)
+        {
+            services.AddScoped(typeof(Color));
+            services.AddScoped(typeof(ColorDto));
+            services.AddScoped(typeof(ColorService));
         }
 
         #endregion

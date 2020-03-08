@@ -22,19 +22,5 @@ namespace Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto
         public int Blue { get; private set; }
 
         private ColorDto() { }
-
-        public ColorDto(Color obj)
-        {
-            Red = obj.Red;
-            Green = obj.Green;
-            Blue = obj.Blue;
-        }
-
-        public ColorDto(int red, int green, int blue)
-        {
-            Red = red;
-            Green = green;
-            Blue = blue;
-        }
     }
 }
