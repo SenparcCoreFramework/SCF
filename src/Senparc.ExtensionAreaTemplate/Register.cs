@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
 using Senparc.ExtensionAreaTemplate.Models;
@@ -83,27 +84,14 @@ namespace Senparc.ExtensionAreaTemplate
         /// <returns></returns>
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
-            //删除数据库表（也可以进行隐藏）
+            //指定需要删除的数据实体
+            var setKeys = EntitySetKeys.GetEntitySetInfo(this.XscfDatabaseDbContextType);
+
+            //注意：这里作为演示，删除了所有的表，实际操作过程中，请谨慎操作，并且按照删除顺序对实体进行排序！
+            var dropTableKeys = setKeys.Keys.ToArray();
             MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-            var appliedMigrations = mySenparcEntities.Database.GetAppliedMigrations();
-            if (appliedMigrations.Count() > 0)
-            {
-                using (await mySenparcEntities.Database.BeginTransactionAsync())
-                {
-                    //mySenparcEntities.Database.GetService<>
-                }
-                //var databaseCreator = mySenparcEntities.Database.GetService<IRelationalDatabaseCreator>();
+            await base.DropTablesAsync(serviceProvider, mySenparcEntities, dropTableKeys);
 
-                var keys = EntitySetKeys.GetEntitySetKeys(typeof(MySenparcEntities));
-                foreach (var key in keys)
-                {
-                    int keyExeCount = await mySenparcEntities.Database.ExecuteSqlRawAsync($"DELETE FROM [{key}]");
-                }
-
-                //删除 Migration 记录
-                var migrationHistoryTableName = base.GetDatabaseMigrationHistoryTableName();
-                int historyExeCount = await mySenparcEntities.Database.ExecuteSqlRawAsync($"DELETE FROM [{migrationHistoryTableName}]");
-            }
             await unsinstallFunc().ConfigureAwait(false);
         }
 

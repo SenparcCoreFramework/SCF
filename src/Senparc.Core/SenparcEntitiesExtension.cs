@@ -34,6 +34,10 @@ namespace Senparc.Core
 
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+
+            //预加载 EntitySetKey
+            EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
+
             //Database End
 
 

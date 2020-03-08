@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.109-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.109.6-beta1" />
     <PackageReference Include="Senparc.Xscf.DatabaseToolkit" Version="0.1.106.4-beta2" />
     <PackageReference Include="Senparc.Xscf.Terminal" Version="0.1.5.6-beta1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
@@ -42,12 +42,12 @@
     <ProjectReference Include="..\Senparc.ExtensionAreaTemplate\Senparc.ExtensionAreaTemplate.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.109-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.109-beta1" />
-    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.109-beta1" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.3.109.1-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.109-beta1" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.109-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.109.3-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.109.3-beta1" />
+    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.109.3-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.3.109.4-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.109.3-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.109.3-beta1" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Threads\Senparc.Threads.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
