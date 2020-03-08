@@ -33,7 +33,7 @@ namespace Senparc.ExtensionAreaTemplate.Areas.MyApp.Pages
         public Task OnGetAsync()
         {
             var color = _colorService.GetObject(z => true, z => z.Id, OrderingType.Descending);
-            ColorDto = new ColorDto(color);
+            ColorDto = _colorService.Mapper.Map<ColorDto>(color);
             return Task.CompletedTask;
         }
 

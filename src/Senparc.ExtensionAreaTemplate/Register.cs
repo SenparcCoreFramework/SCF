@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
+using Senparc.ExtensionAreaTemplate.Migrations;
 using Senparc.ExtensionAreaTemplate.Models;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
@@ -44,6 +47,12 @@ namespace Senparc.ExtensionAreaTemplate
         };
 
 
+        /// <summary>
+        /// 安装或更新过程需要执行的业务
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="installOrUpdate"></param>
+        /// <returns></returns>
         public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
             //更新数据库
@@ -68,7 +77,12 @@ namespace Senparc.ExtensionAreaTemplate
                     throw new ArgumentOutOfRangeException();
             }
         }
-
+        /// <summary>
+        /// 删除模块时需要执行的业务
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <param name="unsinstallFunc"></param>
+        /// <returns></returns>
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
             //删除数据库表（也可以进行隐藏）
@@ -76,6 +90,11 @@ namespace Senparc.ExtensionAreaTemplate
             var appliedMigrations = mySenparcEntities.Database.GetAppliedMigrations();
             if (appliedMigrations.Count() > 0)
             {
+                using (await mySenparcEntities.Database.BeginTransactionAsync())
+                {
+                    mySenparcEntities.Database.GetService<>
+                }
+                //var databaseCreator = mySenparcEntities.Database.GetService<IRelationalDatabaseCreator>();
 
             }
 
@@ -115,16 +134,19 @@ namespace Senparc.ExtensionAreaTemplate
 
         #region IXscfDatabase 接口
 
-        public string DatabaseUniquePrefix => DATABASE_PREFIX;
-
-        public string SenparcEntitiesAssemblyName => this.GetType().Assembly.FullName;
-
-        public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
-
         /// <summary>
         /// 数据库前缀
         /// </summary>
         public const string DATABASE_PREFIX = "AreaTemplate_";
+
+        /// <summary>
+        /// 数据库前缀
+        /// </summary>
+        public string DatabaseUniquePrefix => DATABASE_PREFIX;
+        /// <summary>
+        /// 设置 XscfSenparcEntities 类型
+        /// </summary>
+        public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
 
 
         public void OnModelCreating(ModelBuilder modelBuilder)
