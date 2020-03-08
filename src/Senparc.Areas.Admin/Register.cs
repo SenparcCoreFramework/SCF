@@ -38,7 +38,7 @@ namespace Senparc.Areas.Admin
 
         public override string Uid => SiteConfig.SYSTEM_XSCF_MODULE_UID;// "00000000-0000-0000-0000-000000000001";
 
-        public override string Version => "0.1.0-beta3";
+        public override string Version => "0.1.0-beta4";
 
         public override string MenuName => "SCF 系统后台";
 

@@ -1,12 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Senparc.CO2NET;
-using Senparc.CO2NET.RegisterServices;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
-using Senparc.Scf.Core.Config;
-using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase.Database;
 using System;
 using System.IO;
