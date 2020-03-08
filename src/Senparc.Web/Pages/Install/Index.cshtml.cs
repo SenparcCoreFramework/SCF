@@ -88,7 +88,7 @@ namespace Senparc.Web.Pages.Install
                 _sysMenuService.Init();
 
                 IXscfRegister systemRegister = Senparc.Scf.XscfBase.Register.RegisterList.First(z => z.GetType() == typeof(Senparc.Areas.Admin.Register));
-                await _xscfModuleService.InstallMenuAsync(systemRegister);//安装菜单
+                await _xscfModuleService.InstallMenuAsync(systemRegister, Scf.Core.Enums.InstallOrUpdate.Install);//安装菜单
 
                 AdminUserName = userName;
                 AdminPassword = password;//这里不可以使用 adminUserInfo.Password，因为此参数已经是加密信息
