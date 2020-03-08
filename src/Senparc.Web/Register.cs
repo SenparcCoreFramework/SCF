@@ -120,9 +120,6 @@ namespace Senparc.Web
 
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
 
-            //SQL Server设置
-            services.AddSenparcEntitiesDI(); 
-
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
             //已经添加完所有程序集自动扫描的委托，立即执行扫描（必须）
