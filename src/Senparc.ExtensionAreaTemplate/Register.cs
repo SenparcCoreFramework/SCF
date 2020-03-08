@@ -33,7 +33,7 @@ namespace Senparc.ExtensionAreaTemplate
 
         public override string Name => "Senparc.ExtensionAreaTemplate";
         public override string Uid => "1052306E-8C78-4EBF-8CA9-0EB3738350AE";//必须确保全局唯一，生成后必须固定
-        public override string Version => "0.2.1";//必须填写版本号
+        public override string Version => "0.2.2";//必须填写版本号
 
         public override string MenuName => "扩展页面测试模块";
         public override string Icon => "fa fa-dot-circle-o";//参考如：https://colorlib.com/polygon/gentelella/icons.html
@@ -92,12 +92,20 @@ namespace Senparc.ExtensionAreaTemplate
             {
                 using (await mySenparcEntities.Database.BeginTransactionAsync())
                 {
-                    mySenparcEntities.Database.GetService<>
+                    //mySenparcEntities.Database.GetService<>
                 }
                 //var databaseCreator = mySenparcEntities.Database.GetService<IRelationalDatabaseCreator>();
 
-            }
+                var keys = EntitySetKeys.GetEntitySetKeys(typeof(MySenparcEntities));
+                foreach (var key in keys)
+                {
+                    int keyExeCount = await mySenparcEntities.Database.ExecuteSqlRawAsync($"DELETE FROM [{key}]");
+                }
 
+                //删除 Migration 记录
+                var migrationHistoryTableName = base.GetDatabaseMigrationHistoryTableName();
+                int historyExeCount = await mySenparcEntities.Database.ExecuteSqlRawAsync($"DELETE FROM [{migrationHistoryTableName}]");
+            }
             await unsinstallFunc().ConfigureAwait(false);
         }
 
