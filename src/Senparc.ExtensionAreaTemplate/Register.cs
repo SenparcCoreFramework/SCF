@@ -84,12 +84,12 @@ namespace Senparc.ExtensionAreaTemplate
         /// <returns></returns>
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
+            MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+            
             //指定需要删除的数据实体
-            var setKeys = EntitySetKeys.GetEntitySetInfo(this.XscfDatabaseDbContextType);
 
             //注意：这里作为演示，删除了所有的表，实际操作过程中，请谨慎操作，并且按照删除顺序对实体进行排序！
-            var dropTableKeys = setKeys.Keys.ToArray();
-            MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
+            var dropTableKeys = EntitySetKeys.GetEntitySetInfo(this.XscfDatabaseDbContextType).Keys.ToArray();
             await base.DropTablesAsync(serviceProvider, mySenparcEntities, dropTableKeys);
 
             await unsinstallFunc().ConfigureAwait(false);
