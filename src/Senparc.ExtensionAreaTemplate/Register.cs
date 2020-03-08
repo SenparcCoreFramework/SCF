@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.ExtensionAreaTemplate.Functions;
-using Senparc.ExtensionAreaTemplate.Migrations;
 using Senparc.ExtensionAreaTemplate.Models;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel.Dto;

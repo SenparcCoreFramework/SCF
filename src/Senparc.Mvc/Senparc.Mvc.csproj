@@ -35,7 +35,7 @@
     <ProjectReference Include="..\Senparc.File\Senparc.File.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.108.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.108.3-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.108-beta1" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.3.108-beta1" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />

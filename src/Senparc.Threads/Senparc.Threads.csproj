@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.108.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.108.3-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.108-beta1" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.3.108-beta1" />
     <PackageReference Include="Senparc.Scf.Utility" Version="0.3.108-beta1" />
