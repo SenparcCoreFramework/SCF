@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Senparc.CO2NET.Trace;
 using Senparc.Core;
 using Senparc.Core.Models;
 using Senparc.Respository;
@@ -18,6 +19,7 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -40,8 +42,8 @@ namespace Senparc.Web
             //提供网站根目录
             if (env.ContentRootPath != null)
             {
-              SiteConfig.ApplicationPath = env.ContentRootPath;
-              SiteConfig.WebRootPath = env.WebRootPath;
+                SiteConfig.ApplicationPath = env.ContentRootPath;
+                SiteConfig.WebRootPath = env.WebRootPath;
             }
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -62,13 +64,12 @@ namespace Senparc.Web
             //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             //})
 
-            //激活 Xscf 扩展引擎
-            services.StartEngine();
+
 
             var builder = services.AddRazorPages(opt =>
-            {
-                //opt.RootDirectory = "/";
-            })
+                {
+                    //opt.RootDirectory = "/";
+                })
               .AddScfAreas(env)//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
@@ -96,19 +97,24 @@ namespace Senparc.Web
             {
                 builder.AddRazorRuntimeCompilation(options =>
                 {
-                    var libraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Areas.Admin"));
-                    options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
-                    
-                    //TODO:自动索引
-                    var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.ExtensionAreaTemplate"));
-                    options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
+                    //自动索引所有需要使用 RazorRuntimeCompilation 的模块
+                    foreach (var razorRegister in Senparc.Scf.XscfBase.Register.RegisterList.Where(z => z is IXscfRazorRuntimeCompilation))
+                    {
+                        try
+                        {
+                            var libraryPath = ((IXscfRazorRuntimeCompilation)razorRegister).LibraryPath;
+                            options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
+                        }
+                        catch (Exception ex)
+                        {
+                            SenparcTrace.BaseExceptionLog(ex);
+                        }
+
+                    }
                 });
             }
 
 #endif
-
-
-
             //支持 AutoMapper
             services.AddAutoMapper(_ => _.AddProfile<Core.AutoMapProfile.AutoMapperConfigs>());
 
@@ -153,6 +159,8 @@ namespace Senparc.Web
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
+            //激活 Xscf 扩展引擎
+            services.StartEngine();
         }
 
     }

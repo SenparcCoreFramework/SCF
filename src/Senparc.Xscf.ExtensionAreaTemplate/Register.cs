@@ -28,7 +28,8 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
     public class Register : XscfRegisterBase,
         IXscfRegister, //注册 XSCF 基础模块接口（必须）
         IAreaRegister, //注册 XSCF 页面接口（按需选用）
-        IXscfDatabase  //注册 XSCF 模块数据库（按需选用）
+        IXscfDatabase,  //注册 XSCF 模块数据库（按需选用）
+        IXscfRazorRuntimeCompilation  //需要使用 RazorRuntimeCompilation，在开发环境下实时更新 Razor Page
     {
         public Register()
         { }
@@ -173,6 +174,10 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             services.AddScoped(typeof(ColorService));
         }
 
+        #endregion
+
+        #region IXscfRazorRuntimeCompilation 接口
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
         #endregion
     }
 }

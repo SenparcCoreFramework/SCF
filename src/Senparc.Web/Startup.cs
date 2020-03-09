@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
+using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Utilities;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.SMS;
@@ -26,12 +28,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using AutoMapper;
-using Senparc.CO2NET.AspNet;
-using Microsoft.EntityFrameworkCore.Storage;
-using Senparc.Core.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Senparc.Web
 {

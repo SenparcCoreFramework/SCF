@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Senparc.CO2NET.Trace;
 using Senparc.Core.Models;
 using Senparc.Scf.AreaBase.Admin.Filters;
@@ -32,7 +30,8 @@ namespace Senparc.Areas.Admin
     public class Register : XscfRegisterBase,
         IXscfRegister, //注册 XSCF 基础模块接口（必须）
         IAreaRegister, //注册 XSCF 页面接口（按需选用）
-        IXscfDatabase  //注册 XSCF 模块数据库（按需选用）
+        IXscfDatabase,  //注册 XSCF 模块数据库（按需选用）
+        IXscfRazorRuntimeCompilation  //需要使用 RazorRuntimeCompilation，在开发环境下实时更新 Razor Page
     {
 
         #region IXscfRegister 接口
@@ -126,19 +125,6 @@ namespace Senparc.Areas.Admin
                 options.Conventions.AuthorizePage("/", "AdminOnly");//必须登录
                 options.Conventions.AllowAnonymousToPage("/Login");//允许匿名
                                                                    //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
-
-#if DEBUG
-                //Razor启用运行时编译，多个项目不需要手动编译。
-                if (env.IsDevelopment())
-                {
-                    builder.AddRazorRuntimeCompilation(options =>
-                    {
-                        var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
-                        options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
-                    });
-                }
-#endif
-
             });
 
             SenparcTrace.SendCustomLog("系统启动", "完成 Area:Admin 注册");
@@ -148,10 +134,12 @@ namespace Senparc.Areas.Admin
 
         #endregion
 
+
         #region IXscfDatabase 接口
 
         public string DatabaseUniquePrefix => "ScfSystem_";
         public Type XscfDatabaseDbContextType => typeof(SenparcEntities);
+
 
         public void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -196,6 +184,11 @@ namespace Senparc.Areas.Admin
             EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
         }
 
+        #endregion
+
+
+        #region IXscfRazorRuntimeCompilation 接口
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..","..", "Senparc.Areas.Admin"));
         #endregion
     }
 }
