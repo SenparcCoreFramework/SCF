@@ -103,8 +103,6 @@ namespace Senparc.Web
                 RequestPath = new PathString("/node_modules")
             });
 
-
-
             app.UseCookiePolicy();
 
             app.UseRouting();
@@ -290,17 +288,6 @@ namespace Senparc.Web
             {
                 //FormFieldName = "X-Http-Method-Override"//此为默认值
             });
-
-            //app.UseSenparcMvcDI();//已过期
-
-            //Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//网站设置
-
-            //提供网站根目录
-            if (env.ContentRootPath != null)
-            {
-                Senparc.Scf.Core.Config.SiteConfig.ApplicationPath = env.ContentRootPath;
-                Senparc.Scf.Core.Config.SiteConfig.WebRootPath = env.WebRootPath;
-            }
 
             #endregion
 

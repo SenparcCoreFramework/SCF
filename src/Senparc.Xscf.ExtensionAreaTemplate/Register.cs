@@ -20,6 +20,8 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Senparc.Scf.Core.Config;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate
 {
@@ -124,14 +126,8 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
                         options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
                     });
                 }
-
 #endif
 
-#if DEBUG
-                //TODO:自动索引
-                var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
-                options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
-#endif
                 //此处可配置页面权限
             });
 

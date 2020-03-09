@@ -13,6 +13,7 @@ using Senparc.Respository;
 using Senparc.Scf.Core;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.AssembleScan;
+using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.XscfBase;
 using System;
@@ -36,6 +37,12 @@ namespace Senparc.Web
             //    options.ForwardClientCertificate = false;
             //});
 
+            //提供网站根目录
+            if (env.ContentRootPath != null)
+            {
+              SiteConfig.ApplicationPath = env.ContentRootPath;
+              SiteConfig.WebRootPath = env.WebRootPath;
+            }
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -43,7 +50,6 @@ namespace Senparc.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
 
             //services.AddMvc(options =>
             //{
@@ -61,7 +67,7 @@ namespace Senparc.Web
             {
                 //opt.RootDirectory = "/";
             })
-              .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
+              .AddScfAreas(env)//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
               {
@@ -82,7 +88,6 @@ namespace Senparc.Web
               });
             ;
 
-
 #if DEBUG
             //Razor启用运行时编译，多个项目不需要手动编译。
             if (env.IsDevelopment())
@@ -101,7 +106,6 @@ namespace Senparc.Web
 #endif
 
 
-            //services.AddSenparcGlobalServices(configuration);//Senparc.CO2NET 全局注册    //已经在startup.cs中注册
 
             //支持 AutoMapper
             services.AddAutoMapper(_ => _.AddProfile<Core.AutoMapProfile.AutoMapperConfigs>());
