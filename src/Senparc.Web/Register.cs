@@ -62,6 +62,8 @@ namespace Senparc.Web
             //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             //})
 
+            //激活 Xscf 扩展引擎
+            services.StartEngine();
 
             var builder = services.AddRazorPages(opt =>
             {
@@ -96,7 +98,7 @@ namespace Senparc.Web
                 {
                     var libraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Areas.Admin"));
                     options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
-
+                    
                     //TODO:自动索引
                     var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.ExtensionAreaTemplate"));
                     options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
@@ -151,8 +153,6 @@ namespace Senparc.Web
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
-            //激活 Xscf 扩展引擎
-            services.StartEngine();
         }
 
     }
