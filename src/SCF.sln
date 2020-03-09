@@ -52,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web", "Senparc.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.Admin", "Senparc.Areas.Admin\Senparc.Areas.Admin.csproj", "{346475E8-6E39-4AA9-896F-893DC47AD3D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.ExtensionAreaTemplate", "Senparc.ExtensionAreaTemplate\Senparc.ExtensionAreaTemplate.csproj", "{A21645FD-561A-4B91-AA01-6B4E030FFD9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Xscf.ExtensionAreaTemplate", "Senparc.Xscf.ExtensionAreaTemplate\Senparc.Xscf.ExtensionAreaTemplate.csproj", "{A21645FD-561A-4B91-AA01-6B4E030FFD9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

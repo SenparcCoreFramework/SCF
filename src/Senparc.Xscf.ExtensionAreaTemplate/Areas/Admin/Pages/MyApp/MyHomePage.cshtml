@@ -1,0 +1,15 @@
+﻿@page
+@model Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages.MyHomePage
+@{
+    ViewData["Title"] = "首页";
+}
+
+<h4>@Model.XscfModuleDto.MenuName - @SystemTime.Now</h4>
+<h4>@Model.XscfModuleDto.Description</h4>
+<h3>第一次颜色添加时间：@Model.ColorDto.AddTime.ToString("yyyy-MM-dd HH:mm:ss")</h3>
+
+<div style="margin:30px auto; width:80%; text-align:center; padding:80px; background-color:rgba(@Model.ColorDto.Red,@Model.ColorDto.Green,@Model.ColorDto.Blue,1)">
+    <a href="@Url.PageLink(null,"Brighten",new { uid = Model.XscfModuleDto.Uid })" title="变亮" class="btn-lg btn btn-success" style="background-color:rgba(@(255-Model.ColorDto.Red),@(255-Model.ColorDto.Green),@(255-Model.ColorDto.Blue),0.5)"><i class="fa fa-sun-o"></i> 变亮</a>
+    <a href="@Url.PageLink(null,"Darken",new { uid = Model.XscfModuleDto.Uid })" title="变暗" class="btn-lg btn btn-success" style="background-color:rgba(@(255-Model.ColorDto.Red),@(255-Model.ColorDto.Green),@(255-Model.ColorDto.Blue),0.5)"><i class="fa moon-o"></i> 变暗</a>
+    <a href="@Url.PageLink(null,"Random",new { uid = Model.XscfModuleDto.Uid })" title="随机" class="btn-lg btn btn-success" style="background-color:rgba(@(255-Model.ColorDto.Red),@(255-Model.ColorDto.Green),@(255-Model.ColorDto.Blue),0.2)"><i class="fa fa-tachometer"></i> 随机</a>
+</div>
