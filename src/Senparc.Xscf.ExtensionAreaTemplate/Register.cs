@@ -21,7 +21,6 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Senparc.Scf.Core.Config;
-using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate
 {
@@ -117,18 +116,6 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         {
             builder.AddRazorPagesOptions(options =>
             {
-#if DEBUG
-                //Razor启用运行时编译，多个项目不需要手动编译。
-                if (env.IsDevelopment())
-                {
-                    builder.AddRazorRuntimeCompilation(options =>
-                    {
-                        var libraryPath = Path.GetFullPath(Path.Combine(SiteConfig.ApplicationPath, "..", "Senparc.Areas.Admin"));
-                        options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
-                    });
-                }
-#endif
-
                 //此处可配置页面权限
             });
 

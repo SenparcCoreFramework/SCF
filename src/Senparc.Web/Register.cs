@@ -109,7 +109,6 @@ namespace Senparc.Web
                         {
                             SenparcTrace.BaseExceptionLog(ex);
                         }
-
                     }
                 });
             }
