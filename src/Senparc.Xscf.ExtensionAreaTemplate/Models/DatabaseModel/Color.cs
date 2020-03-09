@@ -8,7 +8,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
     /// <summary>
     /// Color 实体类
     /// </summary>
-    [Table(Register.DATABASE_PREFIX + "Color")]//必须添加前缀，防止全系统中发生冲突
+    [Table(Register.DATABASE_PREFIX + nameof(Color))]//必须添加前缀，防止全系统中发生冲突
     [Serializable]
     public class Color : EntityBase<int>
     {

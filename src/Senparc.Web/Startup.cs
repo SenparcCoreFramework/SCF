@@ -14,7 +14,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Utilities;
 using Senparc.Scf.Core.Config;
-using Senparc.Scf.SMS;
+using Senparc.Scf.Core.Models;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.CsRedis;
@@ -48,12 +48,6 @@ namespace Senparc.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var cache = services.BuildServiceProvider().GetService<IMemoryCache>();//测试成功
-            services
-                .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
-                .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))//TODO：让SMS模块进行注册
-                ;
-
 
             //启用以下代码强制使用 https 访问
             //services.AddHttpsRedirection(options =>
@@ -70,16 +64,16 @@ namespace Senparc.Web
             services.AddScfServices(Configuration, env, CompatibilityVersion.Version_3_0);
             //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
             services.AddSenparcWeixinServices(Configuration);
+            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            IOptions<SenparcCoreSetting> senparcCoreSetting,
             IOptions<SenparcSetting> senparcSetting,
-            IOptions<SenparcWeixinSetting> senparcWeixinSetting, IHubContext<ReloadPageHub> hubContextd)
+            IOptions<SenparcWeixinSetting> senparcWeixinSetting,
+            IHubContext<ReloadPageHub> hubContextd)
         {
-
-            //dbContext.Database.Migrate();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -107,6 +101,9 @@ namespace Senparc.Web
             {
                 endpoints.MapRazorPages();
             });
+
+            //Use SCF
+            app.UseScf(senparcCoreSetting);
 
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs

@@ -7,18 +7,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Senparc.CO2NET.Trace;
-using Senparc.Core;
-using Senparc.Core.Models;
 using Senparc.Respository;
 using Senparc.Scf.Core;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.AssembleScan;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
+using Senparc.Scf.SMS;
 using Senparc.Scf.XscfBase;
 using System;
-using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -63,7 +62,6 @@ namespace Senparc.Web
             //    //options.AllowAreas = true;//支持 Area
             //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             //})
-
 
 
             var builder = services.AddRazorPages(opt =>
@@ -130,6 +128,7 @@ namespace Senparc.Web
             services.AddTransient(typeof(Lazy<>));
 
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
+            services.Configure<SenparcSmsSetting>(configuration.GetSection("SenparcSmsSetting"));
 
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
@@ -162,5 +161,9 @@ namespace Senparc.Web
             services.StartEngine();
         }
 
+        public static void UseScf(this IApplicationBuilder app, IOptions<SenparcCoreSetting> senparcCoreSetting)
+        {
+            Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;
+        }
     }
 }
