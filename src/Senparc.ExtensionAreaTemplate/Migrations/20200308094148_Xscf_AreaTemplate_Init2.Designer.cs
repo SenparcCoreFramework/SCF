@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Senparc.ExtensionAreaTemplate.Models.DatabaseModel;
 
 namespace Senparc.ExtensionAreaTemplate.Migrations
 {
     [DbContext(typeof(MySenparcEntities))]
-    partial class MySenparcEntitiesModelSnapshot : ModelSnapshot
+    [Migration("20200308094148_Xscf_AreaTemplate_Init2")]
+    partial class Xscf_AreaTemplate_Init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

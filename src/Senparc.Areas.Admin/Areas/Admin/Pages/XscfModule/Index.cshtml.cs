@@ -19,10 +19,10 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
     public class XscfModuleIndexModel : BaseAdminPageModel
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly XscfModuleService _xscfModuleService;
+        private readonly XscfModuleServiceExtension _xscfModuleService;
         private readonly SysMenuService _sysMenuService;
 
-        public XscfModuleIndexModel(IServiceProvider serviceProvider, XscfModuleService xscfModuleService, SysMenuService sysMenuService)
+        public XscfModuleIndexModel(IServiceProvider serviceProvider, XscfModuleServiceExtension xscfModuleService, SysMenuService sysMenuService)
         {
             CurrentMenu = "XscfModule";
 
@@ -59,68 +59,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnGetScanAsync(string uid)
         {
-            if (uid.IsNullOrEmpty())
-            {
-                throw new Exception("模块不存在！");
-            }
-
-            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
-            if (xscfRegister == null)
-            {
-                throw new Exception("模块不存在！");
-            }
-
-            var xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == xscfRegister.Uid && z.Version == xscfRegister.Version).ConfigureAwait(false);
-            if (xscfModule != null)
-            {
-                throw new Exception("相同版本模块已安装，无需重复安装！");
-            }
-
-            XscfModules = await _xscfModuleService.GetObjectListAsync(PageIndex, 999, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending).ConfigureAwait(false);
-
-            var xscfModuleDtos = XscfModules.Select(z => _xscfModuleService.Mapper.Map<CreateOrUpdate_XscfModuleDto>(z)).ToList();
-
-            //进行模块扫描
-            InstallOrUpdate? installOrUpdateValue = null;
-            var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(xscfModuleDtos, _serviceProvider, async (register, installOrUpdate) =>
-              {
-                  installOrUpdateValue = installOrUpdate;
-                  var sysMenuService = _serviceProvider.GetService<SysMenuService>();
-
-                  var topMenu = await sysMenuService.GetObjectAsync(z => z.MenuName == "扩展模块").ConfigureAwait(false);
-                  var currentMenu = await sysMenuService.GetObjectAsync(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName).ConfigureAwait(false);
-                  SysMenuDto menuDto;
-
-                  if (installOrUpdate == InstallOrUpdate.Update && currentMenu != null)
-                  {
-                      //更新菜单
-                      menuDto = sysMenuService.Mapper.Map<SysMenuDto>(currentMenu);
-                      menuDto.MenuName = register.MenuName;//更新菜单名称
-                      menuDto.Icon = register.Icon;//更新菜单图标
-                  }
-                  else
-                  {
-                      //新建菜单
-                      var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
-                      menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, 5, true, null);
-                  }
-
-                  var sysMemu = await sysMenuService.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
-
-                  if (installOrUpdate == InstallOrUpdate.Install)
-                  {
-                      //更新菜单信息
-                      var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
-                      await _xscfModuleService.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
-                  }
-
-              }, uid).ConfigureAwait(false);
-
-            //记录日志
-            var installOrUpdateMsg = installOrUpdateValue.HasValue ? (installOrUpdateValue.Value == InstallOrUpdate.Install ? "安装" : "更新") : "失败";
-            SenparcTrace.SendCustomLog($"安装或更新模块（{installOrUpdateMsg}）", result.ToString());
-
-            base.SetMessager(Scf.Core.Enums.MessageType.info, result, true);
+            var result = await _xscfModuleService.InstallModuleAsync(uid);
+            XscfModules = result.Item1;
+            base.SetMessager(Scf.Core.Enums.MessageType.info, result.Item2, true);
 
             //if (backpage=="Start")
             return RedirectToPage("Start", new { uid = uid });//始终到详情页

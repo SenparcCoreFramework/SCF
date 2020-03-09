@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senparc.ExtensionAreaTemplate
 {
+    /// <summary>
+    /// Color 实体类
+    /// </summary>
+    [Table(Register.DATABASE_PREFIX + "Color")]//必须添加前缀，防止全系统中发生冲突
     [Serializable]
-    [Table(Register.DATABASE_PREFIX + "Color")]
     public class Color : EntityBase<int>
     {
         /// <summary>
@@ -23,7 +26,12 @@ namespace Senparc.ExtensionAreaTemplate
         /// <summary>
         /// 颜色码，0-255
         /// </summary>
-        public int Blue { get; set; }
+        public int Blue { get; private set; }
+
+        /// <summary>
+        /// 附加列，测试多次数据库 Migrate
+        /// </summary>
+        public string AdditionNote { get; private set; }
 
         private Color() { }
 
