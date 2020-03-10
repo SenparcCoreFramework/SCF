@@ -85,4 +85,6 @@
         </div>
     </div>
 </div>
-<form method="post" asp-page-handler="Delete" id="deleteForm"></form>
+<form method="post" asp-page-handler="Delete" id="deleteForm">
+    <input type="hidden" name="uid" value="@Model.Uid" />
+</form>
