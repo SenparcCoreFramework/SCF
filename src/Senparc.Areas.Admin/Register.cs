@@ -6,6 +6,7 @@
  */
 
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ using Senparc.Scf.XscfBase;
 using Senparc.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,8 +30,8 @@ namespace Senparc.Areas.Admin
     public class Register : XscfRegisterBase,
         IXscfRegister, //注册 XSCF 基础模块接口（必须）
         IAreaRegister, //注册 XSCF 页面接口（按需选用）
-        IXscfDatabase  //注册 XSCF 模块数据库（按需选用）
-
+        IXscfDatabase,  //注册 XSCF 模块数据库（按需选用）
+        IXscfRazorRuntimeCompilation  //需要使用 RazorRuntimeCompilation，在开发环境下实时更新 Razor Page
     {
 
         #region IXscfRegister 接口
@@ -92,9 +94,12 @@ namespace Senparc.Areas.Admin
 
         public string HomeUrl => "/Admin";
 
-        public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>();//Admin比较特殊，不需要自动输出 
+        public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>()
+        {
+            new AreaPageMenuItem(GetAreaUrl("/Admin/Menu/Index"),"菜单管理","fa fa-bug")
+        };//Admin比较特殊，不需要全部输出
 
-        public IMvcBuilder AuthorizeConfig(IMvcBuilder builder)
+        public IMvcBuilder AuthorizeConfig(IMvcBuilder builder, IWebHostEnvironment env)
         {
             //鉴权配置
             //添加基于Cookie的权限验证：https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-2.1&tabs=aspnetcore2x
@@ -119,7 +124,7 @@ namespace Senparc.Areas.Admin
             {
                 options.Conventions.AuthorizePage("/", "AdminOnly");//必须登录
                 options.Conventions.AllowAnonymousToPage("/Login");//允许匿名
-                //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
+                                                                   //更多：https://docs.microsoft.com/en-us/aspnet/core/security/authorization/razor-pages-authorization?view=aspnetcore-2.2
             });
 
             SenparcTrace.SendCustomLog("系统启动", "完成 Area:Admin 注册");
@@ -129,10 +134,12 @@ namespace Senparc.Areas.Admin
 
         #endregion
 
+
         #region IXscfDatabase 接口
 
         public string DatabaseUniquePrefix => "ScfSystem_";
         public Type XscfDatabaseDbContextType => typeof(SenparcEntities);
+
 
         public void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -177,6 +184,11 @@ namespace Senparc.Areas.Admin
             EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
         }
 
+        #endregion
+
+
+        #region IXscfRazorRuntimeCompilation 接口
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..","..", "Senparc.Areas.Admin"));
         #endregion
     }
 }

@@ -1,0 +1,15 @@
+﻿@page
+@model Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages.About
+@addTagHelper *, MyArea
+@{
+    ViewData["Title"] = "关于";
+    Layout = "_XscfModuleLayout";
+}
+@section breadcrumbs{
+    <li>手动设置导航-关于</li>
+}
+@section subMenu{
+    <li><a href="@Model.XscfRegister.GetAreaUrl("/Admin/MyApp/HidePage")"><i class="fa fa-bookmark-o"></i> 隐藏菜单</a></li>
+}
+
+<p>@Model.XscfRegister.Description</p>
