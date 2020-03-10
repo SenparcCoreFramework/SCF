@@ -28,7 +28,7 @@ namespace Senparc.Service
         /// </summary>
         /// <param name="uid">模块 Uid</param>
         /// <returns></returns>
-        public async Task<Tuple<PagedList<XscfModule>, string>> InstallModuleAsync(string uid)
+        public async Task<Tuple<PagedList<XscfModule>, string, InstallOrUpdate?>> InstallModuleAsync(string uid)
         {
             if (uid.IsNullOrEmpty())
             {
@@ -55,17 +55,18 @@ namespace Senparc.Service
             InstallOrUpdate? installOrUpdateValue = null;
             var result = await Senparc.Scf.XscfBase.Register.ScanAndInstall(xscfModuleDtos, _serviceProvider, async (register, installOrUpdate) =>
             {
+                installOrUpdateValue = installOrUpdate;
                 //底层系统模块此时还没有设置好初始化的菜单信息，不能设置菜单
                 if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_UID)
                 {
-                    await InstallMenuAsync(register);
+                    await InstallMenuAsync(register, installOrUpdate);
                 }
             }, uid).ConfigureAwait(false);
 
             //记录日志
             var installOrUpdateMsg = installOrUpdateValue.HasValue ? (installOrUpdateValue.Value == InstallOrUpdate.Install ? "安装" : "更新") : "失败";
             SenparcTrace.SendCustomLog($"安装或更新模块（{installOrUpdateMsg}）", result.ToString());
-            return new Tuple<PagedList<XscfModule>, string>(xscfModules, result);
+            return new Tuple<PagedList<XscfModule>, string, InstallOrUpdate?>(xscfModules, result, installOrUpdateValue);
         }
 
         /// <summary>
@@ -73,35 +74,35 @@ namespace Senparc.Service
         /// </summary>
         /// <param name="register"></param>
         /// <returns></returns>
-        public async Task InstallMenuAsync(IXscfRegister register)
+        public async Task InstallMenuAsync(IXscfRegister register, InstallOrUpdate installOrUpdate)
         {
             var topMenu = await _sysMenuService.Value.GetObjectAsync(z => z.MenuName == "扩展模块").ConfigureAwait(false);
             var currentMenu = await _sysMenuService.Value.GetObjectAsync(z => z.ParentId == topMenu.Id && z.MenuName == register.MenuName).ConfigureAwait(false);
             SysMenuDto menuDto;
 
-            //if (installOrUpdate == InstallOrUpdate.Update && currentMenu != null)
-            //{
-            //    //更新菜单
-            //    menuDto = _sysMenuService.Value.Mapper.Map<SysMenuDto>(currentMenu);
-            //    menuDto.MenuName = register.MenuName;//更新菜单名称
-            //    menuDto.Icon = register.Icon;//更新菜单图标
-            //}
-            //else
-            //{
-            //新建菜单
-            var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
-            var order = register.Uid == SiteConfig.SYSTEM_XSCF_MODULE_UID ? 150 : 20;
-            menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, order, true, null);
-            //}
+            if (installOrUpdate == InstallOrUpdate.Update && currentMenu != null)
+            {
+                //更新菜单
+                menuDto = _sysMenuService.Value.Mapper.Map<SysMenuDto>(currentMenu);
+                menuDto.MenuName = register.MenuName;//更新菜单名称
+                menuDto.Icon = register.Icon;//更新菜单图标
+            }
+            else
+            {
+                //新建菜单
+                var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
+                var order = register.Uid == SiteConfig.SYSTEM_XSCF_MODULE_UID ? 150 : 20;
+                menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, order, true, null);
+            }
 
             var sysMemu = await _sysMenuService.Value.CreateOrUpdateAsync(menuDto).ConfigureAwait(false);
 
-            //if (installOrUpdate == InstallOrUpdate.Install)
-            //{
-            //    //更新菜单信息
-            //    var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
-            //    await base.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
-            //}
+            if (installOrUpdate == InstallOrUpdate.Install)
+            {
+                //更新菜单信息
+                var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
+                await base.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
+            }
         }
     }
 }

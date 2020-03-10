@@ -1,0 +1,12 @@
+﻿@page
+@model Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages.HidePage
+@addTagHelper *, MyArea
+@{
+    ViewData["Title"] = "主菜单中没有的隐藏页面";
+    Layout = "_XscfModuleLayout";
+
+    ViewData["TempMenuUrl"] = Model.XscfRegister.GetAreaUrl("/Admin/MyApp/About");//使用 About 页面作为当前选中菜单
+}
+
+<p>由于当前页面地址没有在 <strong><a href="https://github.com/SenparcCoreFramework/SCF/blob/cf847f9c58b27533aba5d515825d3dbcfd75ae7a/src/Senparc.Xscf.ExtensionAreaTemplate/Register.cs#L22" target="_blank">Register.AareaPageMenuItems</strong> 中注册，因此外部菜单无法看到此页面，
+    可以通过 <strong>ViewData["TempMenuUrl"]</strong> 来设定当前选中菜单。</p>

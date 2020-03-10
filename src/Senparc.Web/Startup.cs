@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
+using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Utilities;
 using Senparc.Scf.Core.Config;
-using Senparc.Scf.SMS;
+using Senparc.Scf.Core.Models;
 using Senparc.Web.Hubs;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.CsRedis;
@@ -26,12 +28,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using AutoMapper;
-using Senparc.CO2NET.AspNet;
-using Microsoft.EntityFrameworkCore.Storage;
-using Senparc.Core.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Senparc.Web
 {
@@ -52,12 +48,6 @@ namespace Senparc.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var cache = services.BuildServiceProvider().GetService<IMemoryCache>();//测试成功
-            services
-                .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
-                .Configure<SenparcSmsSetting>(Configuration.GetSection("SenparcSmsSetting"))//TODO：让SMS模块进行注册
-                ;
-
 
             //启用以下代码强制使用 https 访问
             //services.AddHttpsRedirection(options =>
@@ -74,16 +64,16 @@ namespace Senparc.Web
             services.AddScfServices(Configuration, env, CompatibilityVersion.Version_3_0);
             //Senparc.Weixin 注册（已自带 Senparc.CO2NET 全局注册）
             services.AddSenparcWeixinServices(Configuration);
+            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            IOptions<SenparcCoreSetting> senparcCoreSetting,
             IOptions<SenparcSetting> senparcSetting,
-            IOptions<SenparcWeixinSetting> senparcWeixinSetting, IHubContext<ReloadPageHub> hubContextd)
+            IOptions<SenparcWeixinSetting> senparcWeixinSetting,
+            IHubContext<ReloadPageHub> hubContextd)
         {
-
-            //dbContext.Database.Migrate();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -103,8 +93,6 @@ namespace Senparc.Web
                 RequestPath = new PathString("/node_modules")
             });
 
-
-
             app.UseCookiePolicy();
 
             app.UseRouting();
@@ -113,6 +101,9 @@ namespace Senparc.Web
             {
                 endpoints.MapRazorPages();
             });
+
+            //Use SCF
+            app.UseScf(senparcCoreSetting);
 
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
@@ -290,17 +281,6 @@ namespace Senparc.Web
             {
                 //FormFieldName = "X-Http-Method-Override"//此为默认值
             });
-
-            //app.UseSenparcMvcDI();//已过期
-
-            //Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;//网站设置
-
-            //提供网站根目录
-            if (env.ContentRootPath != null)
-            {
-                Senparc.Scf.Core.Config.SiteConfig.ApplicationPath = env.ContentRootPath;
-                Senparc.Scf.Core.Config.SiteConfig.WebRootPath = env.WebRootPath;
-            }
 
             #endregion
 
