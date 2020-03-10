@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Senparc.Xscf.WeixinManager\src\Senparc.Xscf.WeixinManager\Senparc.Xscf.WeixinManager.csproj" />
     <ProjectReference Include="..\Senparc.Areas.Admin\Senparc.Areas.Admin.csproj" />
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.ExtensionAreaTemplate\Senparc.ExtensionAreaTemplate.csproj" />
