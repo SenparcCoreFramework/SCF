@@ -113,8 +113,6 @@ namespace Senparc.Web
             }
 
 #endif
-            //支持 AutoMapper
-            services.AddAutoMapper(_ => _.AddProfile<Core.AutoMapProfile.AutoMapperConfigs>());
 
             //支持 Session
             services.AddSession();
@@ -167,6 +165,7 @@ namespace Senparc.Web
         public static void UseScf(this IApplicationBuilder app, IOptions<SenparcCoreSetting> senparcCoreSetting)
         {
             Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;
+            Senparc.Scf.XscfBase.Register.UseScfModules(app);
         }
     }
 }
