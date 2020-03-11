@@ -54,8 +54,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Areas.Admin", "Senp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Xscf.ExtensionAreaTemplate", "Senparc.Xscf.ExtensionAreaTemplate\Senparc.Xscf.ExtensionAreaTemplate.csproj", "{A21645FD-561A-4B91-AA01-6B4E030FFD9E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Xscf.WeixinManager", "..\..\Senparc.Xscf.WeixinManager\src\Senparc.Xscf.WeixinManager\Senparc.Xscf.WeixinManager.csproj", "{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,12 +166,6 @@ Global
 		{A21645FD-561A-4B91-AA01-6B4E030FFD9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A21645FD-561A-4B91-AA01-6B4E030FFD9E}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{A21645FD-561A-4B91-AA01-6B4E030FFD9E}.Test|Any CPU.Build.0 = Release|Any CPU
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0}.Test|Any CPU.Build.0 = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,7 +185,6 @@ Global
 		{DFF2FDD1-7520-4122-95EF-FE16D8B355D9} = {4D53646F-67EE-430A-8B50-9600CFACF434}
 		{346475E8-6E39-4AA9-896F-893DC47AD3D7} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
 		{A21645FD-561A-4B91-AA01-6B4E030FFD9E} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
-		{A1E30B43-0762-49AB-BEE5-7FCE970DE3D0} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7427A6C9-D522-4B10-B0AC-607D69736B50}
