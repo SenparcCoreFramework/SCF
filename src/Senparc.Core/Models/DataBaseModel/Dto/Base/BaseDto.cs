@@ -1,8 +1,4 @@
-﻿using Senparc.Scf.Core.Models.DataBaseModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using Senparc.Scf.Core.Models;
 
 namespace Senparc.Core.Models.DataBaseModel
 {
