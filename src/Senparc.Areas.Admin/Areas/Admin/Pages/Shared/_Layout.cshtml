@@ -62,7 +62,8 @@
     </environment>
     @RenderSection("HeaderContent", false)
     @RenderSection("Style", false)
-
+    <!-- jQuery -->
+    <script src="~/node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
 </head>
 <body class="nav-md">
     @RenderSection("modal", false)
@@ -110,7 +111,7 @@
     @*本地*@
     <environment include="Development">
         <!-- jQuery -->
-        <script src="~/node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+        @*<script src="~/node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>*@
         <!-- Bootstrap -->
         <script src="~/node_modules/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -135,7 +136,7 @@
     @*线上*@
     <environment exclude="Development">
         <!-- jQuery -->
-        <script src="~/node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+        @*<script src="~/node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>*@
         <!-- Bootstrap -->
         <script src="~/node_modules/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->

@@ -5,6 +5,7 @@
  * 如果需要学习扩展模块，请参考 【Senparc.ExtensionAreaTemplate】 项目的 Register.cs 文件！
  */
 
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -182,8 +183,14 @@ namespace Senparc.Areas.Admin
 
             //预加载 EntitySetKey
             EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
+
+            //AutoMap映射
+            base.AddAutoMapMapping(profile => {
+                profile.CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
+            });
         }
 
+     
         #endregion
 
 

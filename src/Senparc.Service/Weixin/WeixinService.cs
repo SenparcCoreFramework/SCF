@@ -95,8 +95,6 @@ namespace Senparc.Service
             }
         }
 
-
-
         /// <summary>
         /// 下载微信临时素材Image
         /// </summary>
