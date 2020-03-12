@@ -19,6 +19,7 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
 using Senparc.Scf.SMS;
 using Senparc.Scf.XscfBase;
+using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using System;
 using System.Linq;
@@ -171,9 +172,6 @@ namespace Senparc.Web
             IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;
-            Senparc.Scf.XscfBase.Register.UseScfModules(app);
-
-
 
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
@@ -220,6 +218,7 @@ namespace Senparc.Web
                     #endregion
                 });
 
+            Senparc.Scf.XscfBase.Register.UseXscfModules(app, registerService);
 
             #region .NET Core默认不支持GB2312
 
@@ -274,7 +273,7 @@ namespace Senparc.Web
         /// <summary>
         /// 配置微信跟踪日志
         /// </summary>
-        private void ConfigTraceLog()
+        private static void ConfigTraceLog()
         {
             //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
 

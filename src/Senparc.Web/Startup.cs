@@ -103,7 +103,7 @@ namespace Senparc.Web
             });
 
             //Use SCF
-            app.UseScf(senparcCoreSetting, senparcSetting, senparcWeixinSetting);
+            app.UseScf(env, senparcCoreSetting, senparcSetting, senparcWeixinSetting);
         }
     }
 

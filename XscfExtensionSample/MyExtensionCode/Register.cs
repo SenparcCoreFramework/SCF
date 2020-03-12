@@ -66,9 +66,9 @@ namespace MyExtensionCode
 
                         #region 注册公众号或小程序（按需）
 
-                        //注册公众号（可注册多个）
-                        weixinRegister.RegisterMpAccount(senparcWeixinSetting.Value, "SCF")
-                                          .RegisterMpAccount("AppId", "Secret", "Senparc_Template")
+                        ////注册公众号（可注册多个）
+                        //weixinRegister.RegisterMpAccount(senparcWeixinSetting.Value, "SCF")
+                        //                  .RegisterMpAccount("AppId", "Secret", "Senparc_Template")
 
                         #endregion
                             ;
@@ -79,9 +79,23 @@ namespace MyExtensionCode
             }
 
             //基类中会自动注册所有已经添加到数据库的公众号
-            return base.UseXscfModule(app);
+            return base.UseXscfModule(app, registerService);
         }
 
         #endregion
+
+
+        /// <summary>
+        /// 判断当前配置是否满足使用 Redis（根据是否已经修改了默认配置字符串判断）
+        /// </summary>
+        /// <param name="senparcSetting"></param>
+        /// <returns></returns>
+        internal bool UseRedis(SenparcSetting senparcSetting, out string redisConfigurationStr)
+        {
+            redisConfigurationStr = senparcSetting.Cache_Redis_Configuration;
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
+            return useRedis;
+        }
+
     }
 }
