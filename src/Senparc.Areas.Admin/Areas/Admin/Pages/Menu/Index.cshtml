@@ -20,10 +20,7 @@
                         <a asp-page="Edit" asp-route-id="" title="新增" class="btn-sm btn btn-success">
                             <em class="fa fa-plus"></em> &nbsp;<small>新增</small>
                         </a>
-                        <label for="deleteBtn" class="btn-sm btn btn-danger" title="删除">
-                            <em class="fa fa-trash-o"></em> &nbsp;<small>删除</small>
-                            <input type="submit" id="deleteBtn" onclick="deleteCheck('ids','deleteForm'); return false;" form="deleteForm" class="hidden" value="删除" />
-                        </label>
+
                     </div>
                     @*<div class="col-xs-12 col-md-10 col-lg-10 form-horizontal form-label-left">
                             <form id="searchForm" asp-page="/CommodityCategory/Index" asp-area="Admin" method="get">
@@ -54,6 +51,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="x_content">
+
                 @*<p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>*@
                 <div class="table-responsive">
                     <table class="table table-striped jambo_table bulk_action">
@@ -68,11 +66,18 @@
                                 <th class="column-title">说明</th>
                                 <th class="column-title">添加时间 </th>
                                 <th class="column-title">操作 </th>
-                                <th class="bulk-actions" colspan="16">
+                                <th class="bulk-actions">
                                     <a class="antoo" style="color:#fff; font-weight:500;">
                                         已选中 <span class="action-cnt"> </span>
                                         <i class="fa fa-chevron-down"></i>
                                     </a>
+                                    <span class="col-lg-2"></span>
+                                    <label for="deleteBtn" class="btn-sm btn btn-danger" title="删除">
+                                        <em class="fa fa-trash-o"></em> &nbsp;<small>删除</small>
+                                        <input type="submit" id="deleteBtn" onclick="deleteCheck('ids','deleteForm'); return false;" form="deleteForm" class="hidden" value="删除" />
+                                    </label>
+                                </th>
+                                <th class="bulk-actions" colspan="5">
                                 </th>
                             </tr>
                         </thead>
@@ -93,8 +98,8 @@
                                             <em class="fa fa-pencil-square-o">编辑</em>
                                         </a>
                                         @*<button data-content="@item.Id" title="复制商品链接" class="copyLink btn-xs btn btn-default">
-                                            复制<em class="fa fa-clone"></em>
-                                        </button>*@
+                                                复制<em class="fa fa-clone"></em>
+                                            </button>*@
                                     </td>
                                 </tr>
                             }

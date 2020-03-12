@@ -7,16 +7,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Senparc.Core;
-using Senparc.Core.Models;
+using Microsoft.Extensions.Options;
+using Senparc.CO2NET.Trace;
 using Senparc.Respository;
 using Senparc.Scf.Core;
 using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.AssembleScan;
+using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
+using Senparc.Scf.Service;
+using Senparc.Scf.SMS;
 using Senparc.Scf.XscfBase;
 using System;
-using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -36,6 +39,12 @@ namespace Senparc.Web
             //    options.ForwardClientCertificate = false;
             //});
 
+            //提供网站根目录
+            if (env.ContentRootPath != null)
+            {
+                SiteConfig.ApplicationPath = env.ContentRootPath;
+                SiteConfig.WebRootPath = env.WebRootPath;
+            }
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -43,7 +52,6 @@ namespace Senparc.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
 
             //services.AddMvc(options =>
             //{
@@ -58,10 +66,10 @@ namespace Senparc.Web
 
 
             var builder = services.AddRazorPages(opt =>
-            {
-                //opt.RootDirectory = "/";
-            })
-              .AddScfAreas()//注册所有 Scf 的 Area 模块（必须）
+                {
+                    //opt.RootDirectory = "/";
+                })
+              .AddScfAreas(env)//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
               {
@@ -82,29 +90,29 @@ namespace Senparc.Web
               });
             ;
 
-
 #if DEBUG
             //Razor启用运行时编译，多个项目不需要手动编译。
             if (env.IsDevelopment())
             {
                 builder.AddRazorRuntimeCompilation(options =>
                 {
-                    var libraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.Areas.Admin"));
-                    options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
-
-                    //TODO:自动索引
-                    var myAreaLibraryPath = Path.GetFullPath(Path.Combine(env.ContentRootPath, "..", "Senparc.ExtensionAreaTemplate"));
-                    options.FileProviders.Add(new PhysicalFileProvider(myAreaLibraryPath));
+                    //自动索引所有需要使用 RazorRuntimeCompilation 的模块
+                    foreach (var razorRegister in Senparc.Scf.XscfBase.Register.RegisterList.Where(z => z is IXscfRazorRuntimeCompilation))
+                    {
+                        try
+                        {
+                            var libraryPath = ((IXscfRazorRuntimeCompilation)razorRegister).LibraryPath;
+                            options.FileProviders.Add(new PhysicalFileProvider(libraryPath));
+                        }
+                        catch (Exception ex)
+                        {
+                            SenparcTrace.BaseExceptionLog(ex);
+                        }
+                    }
                 });
             }
 
 #endif
-
-
-            //services.AddSenparcGlobalServices(configuration);//Senparc.CO2NET 全局注册    //已经在startup.cs中注册
-
-            //支持 AutoMapper
-            services.AddAutoMapper(_ => _.AddProfile<Core.AutoMapProfile.AutoMapperConfigs>());
 
             //支持 Session
             services.AddSession();
@@ -119,6 +127,7 @@ namespace Senparc.Web
             services.AddTransient(typeof(Lazy<>));
 
             services.Configure<SenparcCoreSetting>(configuration.GetSection("SenparcCoreSetting"));
+            services.Configure<SenparcSmsSetting>(configuration.GetSection("SenparcSmsSetting"));
 
             //自动依赖注入扫描
             services.ScanAssamblesForAutoDI();
@@ -142,6 +151,8 @@ namespace Senparc.Web
 
             //Repository
             services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
+            services.AddScoped(typeof(ServiceBase<>));
+            services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
             //Other
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
@@ -151,5 +162,10 @@ namespace Senparc.Web
             services.StartEngine();
         }
 
+        public static void UseScf(this IApplicationBuilder app, IOptions<SenparcCoreSetting> senparcCoreSetting)
+        {
+            Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;
+            Senparc.Scf.XscfBase.Register.UseScfModules(app);
+        }
     }
 }
