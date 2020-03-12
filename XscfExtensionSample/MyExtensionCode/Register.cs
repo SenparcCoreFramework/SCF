@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.XscfBase;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.CsRedis;
@@ -36,6 +37,9 @@ namespace MyExtensionCode
 
         public override IApplicationBuilder UseXscfModule(IApplicationBuilder app, IRegisterService registerService)
         {
+
+            SenparcTrace.SendCustomLog("MyExtensionCode UseXscfModule", "1");
+
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 //从 appsettings.json 获取微信原始注册信息
