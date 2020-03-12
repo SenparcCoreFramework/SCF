@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.119.3-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.119.5-beta1" />
     <PackageReference Include="Senparc.Xscf.DatabaseToolkit" Version="0.1.106.5-beta2" />
     <PackageReference Include="Senparc.Xscf.Terminal" Version="0.1.5.7-beta1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Senparc.Xscf.WeixinManager\src\Senparc.Xscf.WeixinManager\Senparc.Xscf.WeixinManager.csproj" />
+    <ProjectReference Include="..\..\XscfExtensionSample\MyExtensionCode\MyExtensionCode.csproj" />
     <ProjectReference Include="..\Senparc.Areas.Admin\Senparc.Areas.Admin.csproj" />
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.ExtensionAreaTemplate\Senparc.ExtensionAreaTemplate.csproj" />
