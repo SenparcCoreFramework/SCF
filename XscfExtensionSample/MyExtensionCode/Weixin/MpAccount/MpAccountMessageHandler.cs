@@ -6,6 +6,7 @@ using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Xscf.WeixinManager;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace MyExtensionCode
 {
@@ -25,7 +26,7 @@ namespace MyExtensionCode
 
         }
 
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
             var defaultResponseMessage = base.CreateResponseMessage<ResponseMessageText>();
             var requestHandler =
@@ -35,8 +36,15 @@ namespace MyExtensionCode
                     {
                         defaultResponseMessage.Content = @"code";
                         return defaultResponseMessage;
+                    }).Keyword("scf",()=> {
+                        var register = new Register();
+                        defaultResponseMessage.Content = register.Description;
+                        return defaultResponseMessage;
+                    }).Default(() =>
+                    {
+                        defaultResponseMessage.Content = @"你发送了文字：" + requestMessage.Content;
+                        return defaultResponseMessage;
                     });
-
 
             return requestHandler.GetResponseMessage() as IResponseMessageBase;
         }
