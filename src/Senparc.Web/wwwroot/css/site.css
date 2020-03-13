@@ -52,5 +52,133 @@ body {
   white-space: nowrap;
   /* Set the fixed height of the footer here */
   height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  /*line-height: 60px; /* Vertically center the text there */
+}
+
+/*base*/
+img{
+    width:100%;
+}
+a:hover {
+    text-decoration: none;
+}
+p {
+    line-height: 1.7;
+    letter-spacing: .3px;
+}
+/*首页开始*/
+
+header .nav-item:hover {
+    opacity:.6;
+}
+
+header .header-icon img {
+    width:24px;
+}
+header .header-icon img:hover {
+    opacity:.7;
+}
+main {
+    padding-top: 60px;
+}
+.index-logo {
+    width: 300px;
+    margin: 0 auto; 
+}
+.index-simple-tip {
+    margin-top:20px;
+}
+
+.index-special-point{
+    margin-top:2rem
+}
+.mt-8r {
+    margin-top:8rem
+}
+.index-special-title {
+    padding-top: 0;
+    font-weight: 300;
+    font-size: 20px;
+    color: #1976d2;
+}
+.text-container {
+    max-width:50%;
+}
+.index-show-row {
+    align-items: center;
+    justify-content: center;
+    margin: 32px auto;
+}
+    .index-show-row .img-fluid {
+        max-width:90%;
+    }
+    .index-show-row .text-headline {
+        font-size: 20px;
+        font-weight: 500;
+        color: #1976d2;
+        margin-top: 10px;
+        text-transform: uppercase;
+    }
+    .index-show-row .text-body {
+        margin: 14px 0 0;
+       
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .index-show-row .start-btn {
+        padding: 2px 34px 0;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 40px;
+        background-color: #fff;
+        border-radius: 48px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+        box-sizing: border-box;
+        cursor: pointer;
+        transition-property: all;
+        transition-duration: .3s;
+        color: #1976d2;
+        overflow: hidden;
+        border: none;
+        outline:none;
+    }
+        .index-show-row .start-btn:hover {
+            opacity: .7;
+            color: #6d17e1;
+        }
+        .index-show-row .start-btn:active {
+            background-color: #6d17e1;
+            border-color: #6d17e1;
+            opacity: .8;
+            color: #fff;
+        }
+
+footer .footer-img {
+    width:24px;
+    margin-right:1rem;
+}
+footer  ul {
+    padding:0;
+}
+footer ul li {
+    list-style-type: none;
+    padding: 4px 0;
+    text-align: left;
+}
+    footer ul li a:hover {
+        opacity:.7;
+        color: #6d17e1
+    }
+footer .footer-title {
+    font-size: 14px;
+}
+footer .footer-copyright {
+    color: #999;
+    padding-top: 15px;
+}
+/*媒体查询*/
+@media(max-width: 576px) {
+    header .header-icon {
+        display:none;
+    }
 }
