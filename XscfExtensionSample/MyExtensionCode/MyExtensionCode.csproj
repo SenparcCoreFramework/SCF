@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Senparc.Xscf.WeixinManager\src\Senparc.Xscf.WeixinManager\Senparc.Xscf.WeixinManager.csproj" />
+    <PackageReference Include="Senparc.Xscf.WeixinManager" Version="0.1.7-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Senparc.Service\Senparc.Service.csproj" />
   </ItemGroup>
 
