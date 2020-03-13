@@ -18,6 +18,7 @@ namespace MyExtensionCode
     public class Register : XscfRegisterBase, IXscfRegister
     {
         #region IXscfRegister 接口
+        public override bool IgnoreInstall => true;//禁止出现安装提示
 
         public override string Name => "自定义代码";
 
