@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
@@ -15,7 +16,7 @@ using System.Text;
 
 namespace MyExtensionCode
 {
-    
+
     public class Register : XscfRegisterBase, IXscfRegister
     {
         #region IXscfRegister 接口
@@ -37,17 +38,14 @@ namespace MyExtensionCode
 
         public override IList<Type> Functions => new Type[] { };
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services)
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSenparcWeixinServices();
-            return base.AddXscfModule(services);
+            services.AddSenparcWeixinServices(configuration);
+            return base.AddXscfModule(services, configuration);
         }
 
         public override IApplicationBuilder UseXscfModule(IApplicationBuilder app, IRegisterService registerService)
         {
-
-            SenparcTrace.SendCustomLog("MyExtensionCode UseXscfModule", "1");
-
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 //从 appsettings.json 获取微信原始注册信息

@@ -162,8 +162,8 @@ namespace Senparc.Web
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
-            //激活 Xscf 扩展引擎
-            services.StartEngine();
+            //激活 Xscf 扩展引擎（必须）
+            services.StartEngine(configuration);
         }
 
         public static void UseScf(this IApplicationBuilder app, IWebHostEnvironment env,
@@ -218,6 +218,7 @@ namespace Senparc.Web
                     #endregion
                 });
 
+            //XscfModules（必须）
             Senparc.Scf.XscfBase.Register.UseXscfModules(app, registerService);
 
             #region .NET Core默认不支持GB2312
