@@ -21,6 +21,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Senparc.Scf.Core.Config;
+using Microsoft.Extensions.Configuration;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate
 {
@@ -91,7 +92,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
             MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-            
+
             //指定需要删除的数据实体
 
             //注意：这里作为演示，删除了所有的表，实际操作过程中，请谨慎操作，并且按照删除顺序对实体进行排序！
@@ -124,47 +125,47 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             return builder;
         }
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services)
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
             //任何需要注册的对象
-            return base.AddXscfModule(services);
-        }
-
-        #endregion
-
-        #region IXscfDatabase 接口
-
-        /// <summary>
-        /// 数据库前缀
-        /// </summary>
-        public const string DATABASE_PREFIX = "AreaTemplate_";
-
-        /// <summary>
-        /// 数据库前缀
-        /// </summary>
-        public string DatabaseUniquePrefix => DATABASE_PREFIX;
-        /// <summary>
-        /// 设置 XscfSenparcEntities 类型
-        /// </summary>
-        public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
-
-
-        public void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
-        }
-
-        public void AddXscfDatabaseModule(IServiceCollection services)
-        {
-            services.AddScoped(typeof(Color));
-            services.AddScoped(typeof(ColorDto));
-            services.AddScoped(typeof(ColorService));
-        }
-
-        #endregion
-
-        #region IXscfRazorRuntimeCompilation 接口
-        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
-        #endregion
+            return base.AddXscfModule(services, configuration);
     }
+
+    #endregion
+
+    #region IXscfDatabase 接口
+
+    /// <summary>
+    /// 数据库前缀
+    /// </summary>
+    public const string DATABASE_PREFIX = "AreaTemplate_";
+
+    /// <summary>
+    /// 数据库前缀
+    /// </summary>
+    public string DatabaseUniquePrefix => DATABASE_PREFIX;
+    /// <summary>
+    /// 设置 XscfSenparcEntities 类型
+    /// </summary>
+    public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
+
+
+    public void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+    }
+
+    public void AddXscfDatabaseModule(IServiceCollection services)
+    {
+        services.AddScoped(typeof(Color));
+        services.AddScoped(typeof(ColorDto));
+        services.AddScoped(typeof(ColorService));
+    }
+
+    #endregion
+
+    #region IXscfRazorRuntimeCompilation 接口
+    public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
+    #endregion
+}
 }
