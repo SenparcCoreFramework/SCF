@@ -8,6 +8,7 @@ using Senparc.Scf.XscfBase;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.CsRedis;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.RegisterServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,6 +36,12 @@ namespace MyExtensionCode
               如果您需要扩展代码，请参考此项目新建项目。本项目请在发布到生产环境之前移除！";
 
         public override IList<Type> Functions => new Type[] { };
+
+        public override IServiceCollection AddXscfModule(IServiceCollection services)
+        {
+            services.AddSenparcWeixinServices();
+            return base.AddXscfModule(services);
+        }
 
         public override IApplicationBuilder UseXscfModule(IApplicationBuilder app, IRegisterService registerService)
         {
