@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Trace;
 using Senparc.Core.Models;
@@ -52,10 +53,10 @@ namespace Senparc.Areas.Admin
         public override IList<Type> Functions => new Type[] { };
 
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services)
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<XscfModuleServiceExtension>();
-            return base.AddXscfModule(services);
+            return base.AddXscfModule(services, configuration);
         }
 
         public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
@@ -97,7 +98,8 @@ namespace Senparc.Areas.Admin
 
         public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>()
         {
-            new AreaPageMenuItem(GetAreaUrl("/Admin/Menu/Index"),"菜单管理","fa fa-bug")
+            new AreaPageMenuItem(GetAreaUrl("/Admin/Menu/Index"),"菜单管理","fa fa-bug"),
+            new AreaPageMenuItem(GetAreaUrl("/Admin/SenparcTrace/Index"),"SenparcTrace 日志","fa fa-calendar-o"),
         };//Admin比较特殊，不需要全部输出
 
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder, IWebHostEnvironment env)
