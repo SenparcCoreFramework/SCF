@@ -40,4 +40,8 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Pages\SystemConfig\" />
+  </ItemGroup>
 </Project>
