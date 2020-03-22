@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - @Model.FullSystemConfig.SystemName</title>
+    <title>SCF - 用于构建基础项目的.NET框架</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,6 +17,7 @@
               integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/Index/index.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -30,13 +31,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">文档</a>
+                            <a class="nav-link text-dark" onclick="unopen()">文档</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">社区</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">隐私策略</a>
+                            <a class="nav-link text-dark" href="https://weixin.senparc.com/QA" target="_blank" >社区</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-page="/Index">管理员登录</a>
@@ -44,7 +42,7 @@
                     </ul>
                 </div>
                 <div class="header-icon">
-                    <a href="#">
+                    <a href="https://github.com/SenparcCoreFramework/SCF" target="_blank">
                         <img src="~/images/Icon/github.svg" />
                     </a>
                 </div>
@@ -59,62 +57,54 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container pt-5 pl-5 pr-5 pb-1">
+        <div class="container pt-1 pl-5 pr-5 pb-1">
             <div class=" pl-5 pr-5">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 col-6">
+                    <div class="col-lg-4 col-md-4 col-6">
                         <span class="footer-title">社区</span>
-                        <ul>
+                        <ul >
                             <li>
-                                <a href="#">活动</a>
+                                <a  onclick="unopen()" >活动</a>
                             </li>
                             <li>
-                                <a href="#">贡献</a>
+                                <a onclick="unopen()">贡献</a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://github.com/SenparcCoreFramework/SCF" target="_blank">
                                     GitHub
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-6">
+                    <div class="col-lg-4 col-md-4 col-6">
                         <span class="footer-title">文档</span>
-                        <ul>
+                        <ul onclick="unopen()">
                             <li>
-                                <a href="#">安装</a>
+                                <a >安装</a>
                             </li>
                             <li>
-                                <a href="#">核心概念</a>
+                                <a >核心概念</a>
                             </li>
                             <li>
-                                <a href="#">API</a>
+                                <a >API</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-6">
-                        <span class="footer-title">文档</span>
-                        <ul>
-                            <li>
-                                <a href="#">安装</a>
-                            </li>
-                            <li>
-                                <a href="#">核心概念</a>
-                            </li>
-                            <li>
-                                <a href="#">API</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-3  col-6">
+                    <div class="col-lg-4 col-md-4  col-6">
                         <span class="footer-title">联系我们</span>
                         <div>
-                            <a href="#">
+                        <a href="javascript:;" id="qq-code">
+                            <img class="footer-img" src="~/images/Icon/qq.svg" />
+                            <span id="qq-code-img" class="dn" p-id="107">
+                                <img src="~/images/Index/qq-code-img.jpg" />
+                            </span>
+                        </a>
+                            @*<a href="javascript:;">
                                 <img class="footer-img" src="~/images/Icon/mail.svg" />
                             </a>
-                            <a href="#">
+                            <a href="javascript:;">
                                 <img class="footer-img" src="~/images/Icon/wechat.svg" />
-                            </a>
+                            </a>*@
                         </div>
                     </div>
                 </div>
@@ -123,7 +113,7 @@
             <div class="row">
                 <div class="col-12">
                     <p class="footer-copyright text-center">
-                        © Senparc 2020 苏ICP备11023884号-8
+                        © Senparc 2020
                     </p>
                 </div>
             </div>
@@ -149,6 +139,7 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Index/index.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
