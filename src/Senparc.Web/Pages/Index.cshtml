@@ -3,7 +3,86 @@
 @{
     ViewData["Title"] = $" 首页";
 }
-<div class="text-center">
-    <h1 class="display-4">@Model.FullSystemConfig.SystemName</h1>
-    <p>开源项目：<a href="https://github.com/SenparcCoreFramework/SCF">https://github.com/SenparcCoreFramework/SCF</a></p>
-</div>
+    <div class="">
+        <div class="index-logo">
+            <img src="~/images/logo-index.png" />
+        </div>
+        <h2 class="index-simple-tip text-center">
+            简单 灵活 可扩展
+            @*一用于构套造基础项目的 .NET 框架*@
+        </h2>
+        <h6 class="index-simple-tip text-center">
+            SCF（ SenparcCoreFramework）是一整套可用于构建基础项目的企业级通用 .NET 框架，<br />
+            严格遵循 DDD 设计模式，包含了基础的缓存、数据库、模型、验证及配套管理后台，<br />高度模块化，
+            具有高度的可扩展性和耐操性。
+        </h6>
+        <div class="row start-now">
+            <a href="https://github.com/SenparcCoreFramework/SCF" target="_blank" class="start-btn">
+                立即开始
+            </a>
+        </div>
+        <div class="row mt-6r">
+            <div class="col-lg-4 col-md-4">
+                <h3 class="index-special-title">快速搭建</h3>
+                <div class="index-special-point">
+                    <p>
+                        提供框架模板，一键安装。
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <h3 class="index-special-title">DDD 模式</h3>
+                <div class="index-special-point">
+                    <p>DDD 模式开发，灵活应对变化。</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <h3 class="index-special-title">模块化</h3>
+                <div class="index-special-point">
+                    <p>
+                        高度模块化设计，自由组合、自行扩展。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr class="mt-6r" />
+        <article>
+            <div class="row index-show-row">
+                <div class="col-lg-6 col-md-6 col-sm-12 ">
+                    <img src="~/images/Index/creat-img1.png" class="img-fluid" alt="Alternate Text" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 pr-5">
+                    <div class="text-headline">项目自动生成</div>
+                    <p class="text-body">学会构建应用，然后把这些代码和能力复用在多种多种不同平台的应用上 —— Web、移动 Web、移动应用、原生应用和桌面原生应用。</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row index-show-row">
+                <div class="col-lg-6 col-md-6 col-sm-12 pr-5">
+                    <div class="text-headline">丰富的模块</div>
+                    <p class="text-body">通过 Web Worker 和服务端渲染，达到在如今(以及未来）的 Web 平台上所能达到的最高速度。</p>
+                    <p class="text-body">通过 Web Worker 和服务端渲染，达到在如今(以及未来）的 Web 平台上所能达到的最高速度。</p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 ">
+                    <img src="~/images/Index/modules.png" class="img-fluid" alt="Alternate Text" />
+                </div>
+            </div>
+            <hr>
+            <div class="row index-show-row">
+                <div class="col-lg-6 col-md-6 col-sm-12 ">
+                    <img src="~/images/Index/moduleint.png" class="img-fluid" alt="Alternate Text" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 pr-5">
+                    <div class="text-headline">快捷的模块化开发和安装方法</div>
+                    <p class="text-body">学会构建应用，然后把这些代码和能力复用在多种多种不同平台的应用上 —— Web、移动 Web、移动应用、原生应用和桌面原生应用。</p>
+                </div>
+            </div>
+            <div class="row start-now">
+                <a href="https://github.com/SenparcCoreFramework/SCF" target="_blank" class="start-btn">
+                    立即开始
+                </a>
+            </div>
+        </article>
+    </div>
