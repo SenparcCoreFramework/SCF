@@ -88,78 +88,78 @@
                 <table class="table" id="tbList">
                     <tr>
                         <th width="100px">编号/行号</th>
-                        <th width="120px">标题</th>
                         <th width="120px">时间</th>
                         <th width="50px">线程</th>
                         <th width="100px">类型</th>
-                        <th width="80px;">是否异常</th>
+                        <th width="80px">是否异常</th>
+                        <th width="120px">标题</th>
                         <th>内容</th>
                     </tr>
                     @{var i = Model.WeixinTraceItemList.Count;}
                     @foreach (var item in Model.WeixinTraceItemList)
                     {
                         var showMessage = false;//是否有特殊消息输出
-                        <tr class="@(item.IsException?"exception":"not_exception")">
-                            <td>
-                                <strong>#@(i)</strong> / @item.Line
-                            </td>
-                            <td>@item.Title</td>
-                            <td>
-                                @if (item.DateTime != null)
-                                {
-                                    @Html.Raw(item.DateTime?.Replace(" ", "<br />"))
-                                }
-                            </td>
-                            <td>@item.ThreadId</td>
-                            <td>
-                                @item.weixinTraceType.ToString()
-                            </td>
-                            <td>@item.IsException</td>
-                            <td>
-                                @if (!string.IsNullOrEmpty(item.Result.Url))
-                                {
-                                    showMessage = true;
-                                    <p>
-                                        <strong>URL：</strong>
-                                        @item.Result.Url
-                                    </p>
-                                }
+                <tr class="@(item.IsException?"exception":"not_exception")">
+                    <td>
+                        <strong>#@(i)</strong> / @item.Line
+                    </td>
+                    <td>
+                        @if (item.DateTime != null)
+                        {
+                            @Html.Raw(item.DateTime?.Replace(" ", "<br />"))
+                        }
+                    </td>
+                    <td>@item.ThreadId</td>
+                    <td>
+                        @item.weixinTraceType.ToString()
+                    </td>
+                    <td>@item.IsException</td>
+                    <td>@item.Title</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Result.Url))
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>URL：</strong>
+                                @item.Result.Url
+                            </p>
+                        }
 
-                                @if (!string.IsNullOrEmpty(item.Result.Result))
-                                {
-                                    showMessage = true;
-                                    <p>
-                                        <strong>返回结果：</strong>
-                                        @item.Result.Result
-                                    </p>
-                                }
-
-
-                                @if (!string.IsNullOrEmpty(item.Result.PostData))
-                                {
-                                    showMessage = true;
-                                    <p>
-                                        <strong>Post 数据：</strong>
-                                        @item.Result.PostData
-                                    </p>
-                                }
+                        @if (!string.IsNullOrEmpty(item.Result.Result))
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>返回结果：</strong>
+                                @item.Result.Result
+                            </p>
+                        }
 
 
-                                @if (item.IsException)
-                                {
-                                    showMessage = true;
-                                    <p>
-                                        <strong>异常信息：</strong>
-                                        @item.Result.ExceptionMessage
-                                    </p>
-                                }
+                        @if (!string.IsNullOrEmpty(item.Result.PostData))
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>Post 数据：</strong>
+                                @item.Result.PostData
+                            </p>
+                        }
 
-                                @if (!showMessage)
-                                {
-                                    @Html.Raw(item.Result.ToString())//显示所有结果
-                                }
-                            </td>
-                        </tr>
+
+                        @if (item.IsException)
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>异常信息：</strong>
+                                @item.Result.ExceptionMessage
+                            </p>
+                        }
+
+                        @if (!showMessage)
+                        {
+                            @Html.Raw(item.Result.ToString())//显示所有结果
+                        }
+                    </td>
+                </tr>
 
                         if (showMessage)
                         {
