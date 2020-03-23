@@ -13,14 +13,6 @@
   </Target>
 
   <ItemGroup>
-    <Compile Remove="Xscf\**" />
-    <EmbeddedResource Remove="Xscf\**" />
-    <None Remove="Xscf\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="20200216150622_Add_Tables.cs" />
-    <Compile Remove="20200216150622_Add_Tables.Designer.cs" />
     <Compile Remove="Cache\RedisProvider\IRedisProvider.cs" />
     <Compile Remove="Cache\RedisProvider\StackExchangeRedisProvider.cs" />
     <Compile Remove="SenparcEntitiesModelSnapshot.cs" />
