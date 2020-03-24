@@ -98,7 +98,8 @@ namespace Senparc.Areas.Admin
 
         public List<AreaPageMenuItem> AareaPageMenuItems => new List<AreaPageMenuItem>()
         {
-            new AreaPageMenuItem(GetAreaUrl("/Admin/Menu/Index"),"菜单管理","fa fa-bug")
+            new AreaPageMenuItem(GetAreaUrl("/Admin/Menu/Index"),"菜单管理","fa fa-bug"),
+            new AreaPageMenuItem(GetAreaUrl("/Admin/SenparcTrace/Index"),"SenparcTrace 日志","fa fa-calendar-o"),
         };//Admin比较特殊，不需要全部输出
 
         public IMvcBuilder AuthorizeConfig(IMvcBuilder builder, IWebHostEnvironment env)

@@ -31,10 +31,10 @@
                         <table class="table  bulk_action">
                             <thead>
                                 <tr class="headings">
-                                    <th class="column-title">名称</th>
-                                    <th class="column-title">唯一编码（全局唯一）</th>
+                                    <th class="column-title">模块名称</th>
                                     <th class="column-title">菜单名称（显示名称）</th>
                                     <th class="column-title">版本号</th>
+                                    <th class="column-title">唯一编码（全局唯一）</th>
                                     <th class="column-title">操作 </th>
                                     <th class="bulk-actions" colspan="16">
                                         <a class="antoo" style="color:#fff; font-weight:500;">
@@ -47,20 +47,20 @@
                             <tbody>
                                 @foreach (var item in Model.NewXscfRegisters)
                                 {
-                                    <tr class="pointer">
-                                        <td class=" ">@item.Name </td>
-                                        <td class=" ">@item.Uid</td>
-                                        <td class=" ">@item.MenuName</td>
-                                        <td class=" ">v@(item.Version)</td>
-                                        <td class=" ">
-                                            <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@item.Uid" title="扫描" class="btn-sm btn btn-success">
-                                                <em class="glyphicon glyphicon-gift"></em> &nbsp;<small>安装</small>
-                                            </a>
-                                            @*<a asp-page="Start" asp-route-uid="@item.Uid" title="设置" class="btn-xs btn btn-info">
-                                                    <em class="fa fa-gear">设置</em>
-                                                </a>*@
-                                        </td>
-                                    </tr>
+                                <tr class="pointer">
+                                    <td class=" "><i class="fa fa-cubes"></i> @item.Name </td>
+                                    <td class=" "><i class="@item.Icon"></i> @item.MenuName</td>
+                                    <td class=" "> <i class="fa fa-code-fork"></i> v@(item.Version)</td>
+                                    <td class=" "><i class="fa fa-shield"></i> @item.Uid</td>
+                                    <td class=" ">
+                                        <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@item.Uid" title="扫描" class="btn-sm btn btn-success">
+                                            <em class="glyphicon glyphicon-gift"></em> &nbsp;<small>安装</small>
+                                        </a>
+                                        @*<a asp-page="Start" asp-route-uid="@item.Uid" title="设置" class="btn-xs btn btn-info">
+                <em class="fa fa-gear">设置</em>
+            </a>*@
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -88,13 +88,11 @@
                                 <th>
                                     <input type="checkbox" id="check-all" class="flat">
                                 </th>
-                                <th class="column-title">名称</th>
-                                <th class="column-title">唯一编码（全局唯一）</th>
-                                <th class="column-title">菜单名称（显示名称）</th>
-                                <th class="column-title">版本号</th>
+                                <th class="column-title">菜单名称 / 版本号</th>
+                                <th class="column-title">模块名称 / 唯一编码（全局唯一）</th>
                                 <th class="column-title">状态</th>
-                                <th class="column-title">备注</th>
-                                <th class="column-title">说明</th>
+                                @*<th class="column-title">备注</th>
+                                <th class="column-title">说明</th>*@
                                 <th class="column-title">添加时间 </th>
                                 <th class="column-title">操作 </th>
                                 <th class="bulk-actions" colspan="16">
@@ -108,24 +106,29 @@
                         <tbody>
                             @foreach (var item in Model.XscfModules)
                             {
+                                var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => z.Uid == item.Uid);
                                 <tr class="pointer">
                                     <td class="a-center ">
                                         <input type="checkbox" class="flat table_records" name="ids" form="deleteForm" value="@item.Id">
                                     </td>
-                                    <td class=" ">@item.Name </td>
-                                    <td class=" ">@item.Uid</td>
-                                    <td class=" ">@item.MenuName</td>
-                                    <td class=" ">v@(item.Version)</td>
+                                    <td class=" ">
+                                        <i class="@xscfRegister?.Icon"></i> @item.MenuName<br />
+                                        <i class="fa fa-code-fork"></i> v@(item.Version)
+                                    </td>
+                                    <td class=" ">
+                                        <i class="fa fa-cubes"></i> @item.Name<br />
+                                        <i class="fa fa-shield"></i> @item.Uid
+                                    </td>
                                     <td class=" ">@item.State.ToString()</td>
-                                    <td class=" ">@item.AdminRemark</td>
-                                    <td class=" ">@item.Remark</td>
-                                    <td class=" "> @item.AddTime.ToShortDateString()</td>
+                                    @*<td class=" ">@item.AdminRemark</td>
+                                    <td class=" ">@item.Remark</td>*@
+                                    <td class=" "> @item.AddTime.ToString()</td>
                                     <td class=" ">
                                         <a asp-page="Start" asp-route-uid="@item.Uid" title="操作" class="btn-xs btn btn-info">
                                             <em class="fa fa-gear"> 操作</em>
                                         </a>
-                                        @if (Model.XscfRegisterList.FirstOrDefault(z => z.Uid == item.Uid)?.GetAreaHomeUrl() is string homeUrl &&
-                                            !homeUrl.IsNullOrEmpty())
+                                        @if (xscfRegister?.GetAreaHomeUrl() is string homeUrl &&
+                                          !homeUrl.IsNullOrEmpty())
                                         {
                                             <a href="@homeUrl" title="主页" class="btn-xs btn btn-danger">
                                                 <em class="fa fa-home">

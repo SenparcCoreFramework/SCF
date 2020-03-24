@@ -13,14 +13,6 @@
   </Target>
 
   <ItemGroup>
-    <Compile Remove="Xscf\**" />
-    <EmbeddedResource Remove="Xscf\**" />
-    <None Remove="Xscf\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="20200216150622_Add_Tables.cs" />
-    <Compile Remove="20200216150622_Add_Tables.Designer.cs" />
     <Compile Remove="Cache\RedisProvider\IRedisProvider.cs" />
     <Compile Remove="Cache\RedisProvider\StackExchangeRedisProvider.cs" />
     <Compile Remove="SenparcEntitiesModelSnapshot.cs" />
@@ -39,16 +31,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>   
 
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.119.9-beta1" />
-    <PackageReference Include="Senparc.Weixin" Version="6.7.305" />
-    <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.304" />
-    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.304" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.304" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.300-beta1" />
+    <PackageReference Include="Senparc.Weixin" Version="6.7.401" />
+    <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.401" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.401" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.401" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.119-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.300-beta1" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
 
