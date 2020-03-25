@@ -17,7 +17,7 @@ main {
 }
 
 .index-logo {
-    width: 300px;
+    width: 704px;
     margin: 0 auto;
 }
 
@@ -86,7 +86,7 @@ main {
     line-height: 40px;
     background-color: #fff;
     border-radius: 48px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16);
     box-sizing: border-box;
     cursor: pointer;
     transition-property: all;
@@ -149,6 +149,47 @@ footer #qq-code-img {
 
 footer .footer-img:hover {
     opacity: .7
+}
+/*模块*/
+.index-module {
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    max-width: 310px;
+    margin-bottom: 30px;
+    height: 360px;
+    color: #444;
+    cursor: default;
+    border-radius: 5px;
+    /*动画*/
+    transition: all .2s,transform .2s;
+    transform: translateY(0);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16);
+}
+.place-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px 0 rgba(108,135,135,.2)
+}
+
+    .index-module:hover .caption-tit {
+        color: #6d17e1
+    }
+    .caption {
+        height: 220px;
+        overflow-y: hidden;
+        padding: 7px;
+    }
+.caption-tit {
+    margin-top: 1rem;
+    font-size: 24px;
+    color: #1976d2;
 }
 /*媒体查询*/
 @media(max-width: 576px) {

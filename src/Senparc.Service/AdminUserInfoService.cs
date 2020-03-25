@@ -35,7 +35,11 @@ namespace Senparc.Service
         /// <returns></returns>
         public bool CheckUserNameExisted(long id, string userName)
         {
-            return GetObject(z => z.Id != id && z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase)) != null;
+            userName = userName.Trim().ToUpper();
+
+            return
+            GetObject(
+                z => z.Id != id && z.UserName.ToUpper() == userName /*z.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)*/) != null;
         }
 
         public async Task<AdminUserInfo> GetUserInfo(string userName)
