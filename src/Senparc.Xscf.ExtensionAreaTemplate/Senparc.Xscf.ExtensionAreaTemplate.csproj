@@ -16,9 +16,11 @@
     </PackageReference>
 
     <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.300-beta1" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.300-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.300-beta1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.300-beta1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
+    <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
   </ItemGroup>
 
 </Project>
