@@ -12,21 +12,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.2.105" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.304" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.304" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.304.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.2.106" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.401" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.401" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.401" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
     <ProjectReference Include="..\Senparc.Respository\Senparc.Respository.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.119-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.119-beta1" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.3.119-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.119-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.300-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.300-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.300-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.300-beta1" />
     <ProjectReference Include="..\Senparc.SMS\Senparc.SMS.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
