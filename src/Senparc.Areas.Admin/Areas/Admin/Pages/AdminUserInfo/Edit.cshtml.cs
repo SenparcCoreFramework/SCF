@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.Core.Models;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
@@ -29,11 +30,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public CreateOrUpdate_AdminUserInfoDto AdminUserInfo { get; set; } = new CreateOrUpdate_AdminUserInfoDto();
         //public CreateUpdate_AdminUserInfoDto AdminUserInfo { get; set; }
 
+        private readonly IServiceProvider _serviceProvider;
         private readonly AdminUserInfoService _adminUserInfoService;
 
-
-        public AdminUserInfo_EditModel(AdminUserInfoService adminUserInfoService)
+        public AdminUserInfo_EditModel(IServiceProvider serviceProvider,AdminUserInfoService adminUserInfoService)
         {
+            _serviceProvider = serviceProvider;
             _adminUserInfoService = adminUserInfoService;
         }
 
@@ -75,6 +77,17 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 return Page();
             }
+
+            ////执行数据库备份
+            //var backupFile = @$"SCF-Backup-{SystemTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.bak";
+            //SenparcTrace.SendCustomLog("开始执行数据库备份", backupFile);
+            //var dbToolkitFunction = new Senparc.Xscf.DatabaseToolkit.Functions.BackupDatabase(_serviceProvider);
+            //var dbToolkitParam = new Senparc.Xscf.DatabaseToolkit.Functions.BackupDatabase.BackupDatabase_Parameters()
+            //{
+            //    Path = @$"E:\Senparc项目\SenparcCoreFramework\SCF\src\Senparc.Web\App_Data\DataBase\{backupFile}"
+            //};
+            //dbToolkitFunction.Run(dbToolkitParam);
+            //SenparcTrace.SendCustomLog("数据库备份完毕", "完整路径" + dbToolkitParam.Path);
 
             if (IsEdit)
             {
