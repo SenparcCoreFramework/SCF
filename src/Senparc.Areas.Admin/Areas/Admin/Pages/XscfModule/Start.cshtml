@@ -263,11 +263,11 @@
                                                                                     @switch (p.ParameterType)
                                                                                     {
                                                                                         case Scf.XscfBase.ParameterType.Text:
-                                                                                            <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                          <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
                                                                                             break;
                                                                                         case Scf.XscfBase.ParameterType.SingleSelection:
                                                                                         case Scf.XscfBase.ParameterType.MultipleSelection:
-                                                                                <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
                                                                                     @foreach (var selectionItem in p.SelectionItems)
                                                                                     {
                                                                                         if (p.Value != null && selectionItem == p.Value.ToString())

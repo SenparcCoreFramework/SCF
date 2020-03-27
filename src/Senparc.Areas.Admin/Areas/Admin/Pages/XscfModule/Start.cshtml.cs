@@ -71,7 +71,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in XscfRegister.Functions)
             {
                 var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                FunctionParameterInfoCollection[function] = function.GetFunctionParameterInfo(_serviceProvider, true).ToList();
+                FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
             }
         }
 
@@ -128,7 +128,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in xscfRegister.Functions)
             {
                 var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                var functionParameters = fun.GetFunctionParameterInfo(_serviceProvider, false).ToList();
+                //var functionParameters = await function.GetFunctionParameterInfoAsync(_serviceProvider, false);
                 if (fun.Name == xscfFunctionName)
                 {
                     function = fun;
