@@ -19,7 +19,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public IXscfRegister XscfRegister { get; set; }
         private readonly SysMenuService _sysMenuService;
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
-        public Dictionary<IXscfFunction, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParammeterInfo>>();
+        public Dictionary<IXscfFunction, List<FunctionParameterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();
 
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
