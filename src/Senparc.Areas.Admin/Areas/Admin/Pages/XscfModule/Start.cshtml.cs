@@ -19,7 +19,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public IXscfRegister XscfRegister { get; set; }
         private readonly SysMenuService _sysMenuService;
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
-        public Dictionary<IXscfFunction, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParammeterInfo>>();
+        public Dictionary<IXscfFunction, List<FunctionParameterInfo>> FunctionParameterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();
 
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
@@ -71,7 +71,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in XscfRegister.Functions)
             {
                 var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                FunctionParammeterInfoCollection[function] = function.GetFunctionParammeterInfo().ToList();
+                FunctionParameterInfoCollection[function] = function.GetFunctionParameterInfo(_serviceProvider).ToList();
             }
         }
 
@@ -121,7 +121,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in xscfRegister.Functions)
             {
                 var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                var functionParameters = fun.GetFunctionParammeterInfo().ToList();
+                var functionParameters = fun.GetFunctionParameterInfo(_serviceProvider).ToList();
                 if (fun.Name == xscfFunctionName)
                 {
                     function = fun;

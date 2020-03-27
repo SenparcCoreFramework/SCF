@@ -227,7 +227,7 @@
                                 @{
                                     var paramIndex = 0;
                                 }
-                                @foreach (var item in Model.FunctionParammeterInfoCollection)
+                                @foreach (var item in Model.FunctionParameterInfoCollection)
                                 {
                                     paramIndex++;
                                     <li>
@@ -260,13 +260,13 @@
                                                                                     {<span class="required">*</span>}
                                                                                 </label>
                                                                                 <div class="col-md-6 col-sm-6 ">
-                                                                                    @switch (p.ParammeterType)
+                                                                                    @switch (p.ParameterType)
                                                                                     {
-                                                                                        case Scf.XscfBase.ParammeterType.Text:
+                                                                                        case Scf.XscfBase.ParameterType.Text:
                                                                                             <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
                                                                                             break;
-                                                                                        case Scf.XscfBase.ParammeterType.SingleSelection:
-                                                                                        case Scf.XscfBase.ParammeterType.MultipleSelection:
+                                                                                        case Scf.XscfBase.ParameterType.SingleSelection:
+                                                                                        case Scf.XscfBase.ParameterType.MultipleSelection:
                                                                                             <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
                                                                                                 @foreach (var selectionItem in p.SelectionItems)
                                                                                                 {
