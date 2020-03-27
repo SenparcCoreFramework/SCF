@@ -71,7 +71,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in XscfRegister.Functions)
             {
                 var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                FunctionParameterInfoCollection[function] = function.GetFunctionParameterInfo(_serviceProvider).ToList();
+                FunctionParameterInfoCollection[function] = function.GetFunctionParameterInfo(_serviceProvider, true).ToList();
             }
         }
 
@@ -96,6 +96,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return RedirectToPage("Start", new { uid = module.Uid });
         }
 
+        /// <summary>
+        /// 提交信息，执行方法
+        /// </summary>
+        /// <param name="xscfUid"></param>
+        /// <param name="xscfFunctionName"></param>
+        /// <param name="xscfFunctionParams"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostRunFunctionAsync(string xscfUid, string xscfFunctionName, string xscfFunctionParams)
         {
             var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == xscfUid);
@@ -121,7 +128,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in xscfRegister.Functions)
             {
                 var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                var functionParameters = fun.GetFunctionParameterInfo(_serviceProvider).ToList();
+                var functionParameters = fun.GetFunctionParameterInfo(_serviceProvider, false).ToList();
                 if (fun.Name == xscfFunctionName)
                 {
                     function = fun;

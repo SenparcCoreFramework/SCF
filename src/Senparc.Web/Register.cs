@@ -168,8 +168,7 @@ namespace Senparc.Web
 
         public static void UseScf(this IApplicationBuilder app, IWebHostEnvironment env,
             IOptions<SenparcCoreSetting> senparcCoreSetting,
-            IOptions<SenparcSetting> senparcSetting,
-            IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+            IOptions<SenparcSetting> senparcSetting)
         {
             Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;
 

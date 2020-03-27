@@ -16,7 +16,7 @@
             }
 
         #xscf_homepage_menu_view {
-            background:#2a3f54;
+            background: #2a3f54;
         }
     </style>
 }
@@ -263,16 +263,23 @@
                                                                                     @switch (p.ParameterType)
                                                                                     {
                                                                                         case Scf.XscfBase.ParameterType.Text:
-                                                                                            <input type="text" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                            <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
                                                                                             break;
                                                                                         case Scf.XscfBase.ParameterType.SingleSelection:
                                                                                         case Scf.XscfBase.ParameterType.MultipleSelection:
-                                                                                            <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
-                                                                                                @foreach (var selectionItem in p.SelectionItems)
-                                                                                                {
-                                                                                                    <option value="@selectionItem">@selectionItem</option>
-                                                                                                }
-                                                                                            </select>
+                                                                                <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @(p.IsRequired ? "required=\" required\"" : "") class="form-control">
+                                                                                    @foreach (var selectionItem in p.SelectionItems)
+                                                                                    {
+                                                                                        if (p.Value != null && selectionItem == p.Value.ToString())
+                                                                                        {
+                                                                                            <option value="@selectionItem" selected="selected">@selectionItem</option>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value="@selectionItem">@selectionItem</option>
+                                                                                        }
+                                                                                    }
+                                                                                </select>
                                                                                             break;
                                                                                         default:
                                                                                             break;
