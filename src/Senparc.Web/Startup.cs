@@ -11,22 +11,11 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
-using Senparc.CO2NET.AspNet;
-using Senparc.CO2NET.Utilities;
-using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
 using Senparc.Web.Hubs;
-using Senparc.Weixin;
-using Senparc.Weixin.Cache.CsRedis;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.TenPay;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Web
@@ -71,7 +60,6 @@ namespace Senparc.Web
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             IOptions<SenparcCoreSetting> senparcCoreSetting,
             IOptions<SenparcSetting> senparcSetting,
-            IOptions<SenparcWeixinSetting> senparcWeixinSetting,
             IHubContext<ReloadPageHub> hubContextd)
         {
             if (env.IsDevelopment())
@@ -103,7 +91,7 @@ namespace Senparc.Web
             });
 
             //Use SCF
-            app.UseScf(env, senparcCoreSetting, senparcSetting, senparcWeixinSetting);
+            app.UseScf(env, senparcCoreSetting, senparcSetting);
         }
     }
 

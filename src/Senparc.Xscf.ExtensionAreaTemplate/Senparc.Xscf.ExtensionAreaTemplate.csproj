@@ -15,7 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
 
-    <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.300-beta1" />
+    <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.302-beta1" />
   </ItemGroup>
 
   <ItemGroup>
