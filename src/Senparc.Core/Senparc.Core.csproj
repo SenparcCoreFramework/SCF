@@ -31,8 +31,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
 
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.300-beta1" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.300-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.302-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.302-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Weixin" Version="6.7.401" />
     <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.401" />
     <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.401" />
@@ -41,7 +42,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.300-beta1" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>
 
