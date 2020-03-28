@@ -6,11 +6,13 @@ using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
+using Senparc.Scf.XscfBase.Threads;
 using Senparc.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
@@ -26,6 +28,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         IServiceProvider _serviceProvider;
 
         public List<string> XscfModuleUpdateLog { get; set; }
+
+        /// <summary>
+        /// 获取当前模块的已注册线程信息
+        /// </summary>
+       public IEnumerable<KeyValuePair<ThreadInfo, Thread>> RegisteredThreadInfo { get; set; }
+
         /// <summary>
         /// 是否必须更新（常规读取失败）
         /// </summary>
@@ -88,6 +96,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 MustUpdate = true;
             }
 
+            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
         }
 
         /// <summary>

@@ -6,12 +6,16 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Pages\Database\**" />
+    <Compile Remove="Areas\Admin\Pages\SystemConfig\**" />
     <Compile Remove="Filters\**" />
     <Content Remove="Areas\Admin\Pages\Database\**" />
+    <Content Remove="Areas\Admin\Pages\SystemConfig\**" />
     <Content Remove="Filters\**" />
     <EmbeddedResource Remove="Areas\Admin\Pages\Database\**" />
+    <EmbeddedResource Remove="Areas\Admin\Pages\SystemConfig\**" />
     <EmbeddedResource Remove="Filters\**" />
     <None Remove="Areas\Admin\Pages\Database\**" />
+    <None Remove="Areas\Admin\Pages\SystemConfig\**" />
     <None Remove="Filters\**" />
   </ItemGroup>
 
@@ -21,7 +25,7 @@
     <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="0.3.104" />
     <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.9.104" />
     <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.302-beta1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.304-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.304.7-qbeta1" />
     <PackageReference Include="Senparc.Scf.Core" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.302-beta1" />
@@ -39,9 +43,5 @@
     <Content Update="Areas\Admin\Pages\Shared\_HeaderPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Pages\SystemConfig\" />
   </ItemGroup>
 </Project>
