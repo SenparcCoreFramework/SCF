@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using log4net;
+using log4net.Config;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,7 @@ using Senparc.Scf.XscfBase;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -51,6 +54,9 @@ namespace Senparc.Web
             //    options.HttpsPort = 443;
             //});
 
+            //读取Log配置文件
+            var repository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
 
             //提供网站根目录
             if (env.ContentRootPath != null)
@@ -262,6 +268,8 @@ namespace Senparc.Web
                 z.IsBackground = true;
                 z.Start();
             }); //全部运行 
+
+            //更多 XSCF 模块线程已经集成到 Senparc.Scf.XscfBase.Register.ThreadCollection 中
 
             #endregion
         }

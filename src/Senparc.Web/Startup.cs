@@ -23,9 +23,6 @@ namespace Senparc.Web
         {
             Configuration = configuration;
             this.env = env;
-            //读取Log配置文件
-            var repository = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
         }
 
         public IConfiguration Configuration { get; }
@@ -71,7 +68,7 @@ namespace Senparc.Web
             {
                 endpoints.MapRazorPages();
             });
-
+            
             //Use SCF（必须）
             app.UseScf(env, senparcCoreSetting, senparcSetting);
         }
