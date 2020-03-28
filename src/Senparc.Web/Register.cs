@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET.Trace;
 using Senparc.Respository;
 using Senparc.Scf.Core;
@@ -43,6 +44,14 @@ namespace Senparc.Web
             //    options.ForwardClientCertificate = false;
             //});
 
+            //启用以下代码强制使用 https 访问
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 443;
+            //});
+
+
             //提供网站根目录
             if (env.ContentRootPath != null)
             {
@@ -68,6 +77,7 @@ namespace Senparc.Web
             //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             //})
 
+            services.AddSenparcGlobalServices(configuration);
 
             var builder = services.AddRazorPages(opt =>
                 {
