@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using log4net;
+using log4net.Config;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET.Trace;
 using Senparc.Respository;
 using Senparc.Scf.Core;
@@ -22,6 +25,7 @@ using Senparc.Scf.XscfBase;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -42,6 +46,17 @@ namespace Senparc.Web
             //{
             //    options.ForwardClientCertificate = false;
             //});
+
+            //启用以下代码强制使用 https 访问
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 443;
+            //});
+
+            //读取Log配置文件
+            var repository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
 
             //提供网站根目录
             if (env.ContentRootPath != null)
@@ -68,6 +83,7 @@ namespace Senparc.Web
             //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             //})
 
+            services.AddSenparcGlobalServices(configuration);
 
             var builder = services.AddRazorPages(opt =>
                 {
@@ -252,6 +268,8 @@ namespace Senparc.Web
                 z.IsBackground = true;
                 z.Start();
             }); //全部运行 
+
+            //更多 XSCF 模块线程已经集成到 Senparc.Scf.XscfBase.Register.ThreadCollection 中
 
             #endregion
         }

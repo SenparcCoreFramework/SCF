@@ -2,14 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
+using Senparc.Scf.XscfBase.Threads;
 using Senparc.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
@@ -25,6 +28,16 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         IServiceProvider _serviceProvider;
 
         public List<string> XscfModuleUpdateLog { get; set; }
+
+        /// <summary>
+        /// 获取当前模块的已注册线程信息
+        /// </summary>
+       public IEnumerable<KeyValuePair<ThreadInfo, Thread>> RegisteredThreadInfo { get; set; }
+
+        /// <summary>
+        /// 是否必须更新（常规读取失败）
+        /// </summary>
+        public bool MustUpdate { get; set; }
 
         public string Msg { get; set; }
         public object Obj { get; set; }
@@ -68,11 +81,22 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
             }
 
-            foreach (var functionType in XscfRegister.Functions)
+            try
             {
-                var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+                foreach (var functionType in XscfRegister.Functions)
+                {
+                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+                }
             }
+            catch (Exception ex)
+            {
+                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+请尝试更新此模块后刷新页面！");
+                MustUpdate = true;
+            }
+
+            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
         }
 
         /// <summary>

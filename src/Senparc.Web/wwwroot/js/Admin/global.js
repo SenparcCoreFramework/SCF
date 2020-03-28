@@ -72,6 +72,52 @@ async function _initMenuTree(selector, url, params, options) {
     return treeObj;
 }
 
+/**
+ * 
+ * @param {any} selector 选择器
+ * @param {any} options 树选项
+ * @returns {any} 树示例
+ */
+async function initCatalog(selector, options) {
+    return await _initCatalogTree(selector || '#tree', '/Admin/Document/Edit', { handler: 'catalog' }, options);
+}
+
+/**
+ * 初始化树
+ * @param {any} selector 元素选择器
+ * @param {any} url 请求地址
+ * @param {any} params 请求参数
+ * @param {any} options 选项
+ * @returns {any} 树示例
+ */
+async function _initCatalogTree(selector, url, params, options) {
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true,
+                pIdKey: "parentId",
+                rootPId: 0
+            },
+            key: {
+                title: 'id',
+                name: 'name',
+                url: 'xdasdf'
+            }
+        }
+    };
+    setting = $.extend(setting, options);
+    let responseData = await base.get(url, params);
+    if (options.hiddenButton) {
+        responseData = responseData.filter((ele, index) => { return ele.isMenu; });
+    }
+    debugger
+    let treeObj = $.fn.zTree.init($(selector), setting, responseData);
+    if (options.IsExpendAll) {
+        treeObj.expandAll(true);
+    }
+    return treeObj;
+}
+
 
 /**
  * 多选删除

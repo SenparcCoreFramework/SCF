@@ -32,7 +32,7 @@
     </PackageReference>
 
     <PackageReference Include="Senparc.Scf.Core" Version="0.3.302-beta1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.302-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.304.9-beta1" />
     <PackageReference Include="Senparc.Scf.Utility" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Weixin" Version="6.7.401" />
     <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.401" />
