@@ -163,8 +163,7 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>名称</th>
-                                                            <th>活动状态</th>
-                                                            <th>后台状态</th>
+                                                            <th>活动状态/后台</th>
                                                             <th>线程状态</th>
                                                             <th>最近故事</th>
                                                         </tr>
@@ -178,9 +177,8 @@
                                                         <tr>
                                                             <th scope="row">@(++tIndex)</th>
                                                             <td>@threadInfoKV.Key.Name</td>
-                                                            <td>@threadInfoKV.Value.IsAlive</td>
-                                                            <td>@(threadInfoKV.Value.IsAlive?threadInfoKV.Value.IsBackground:false)</td>
-                                                            <td>@(threadInfoKV.Value.IsAlive? threadInfoKV.Value.ThreadState.ToString():"Dead")</td>
+                                                            <td>@threadInfoKV.Value.IsAlive / @(threadInfoKV.Value.IsAlive ? threadInfoKV.Value.IsBackground : false)</td>
+                                                            <td>@(threadInfoKV.Value.IsAlive? threadInfoKV.Value.ThreadState.ToString():"-")</td>
                                                             <td>@Html.Raw(threadInfoKV.Key.StoryHtml)</td>
                                                         </tr>
                                                         }
