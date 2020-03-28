@@ -89,12 +89,12 @@
 
                         @if (Model.XscfRegister.Version != Model.XscfModule.Version)
                         {
-                            <li>
-                                <span style="        color: red
+                        <li>
+                            <span style="        color: red
 ">（发现新版本：v@(Model.XscfRegister.Version)）</span>
 
 <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@Model.XscfRegister.Uid" asp-route-backpage="Start" title="扫描" class="btn-sm btn btn-warning">
-    <em class="fa fa-gift"></em> &nbsp;<small>立即安装</small>
+    <em class="fa fa-gift"></em> &nbsp;<small>立即更新</small>
 </a>
 </li>
 }
@@ -112,15 +112,15 @@
                                 case Scf.Core.Enums.XscfModules_State.关闭:
                                 case Scf.Core.Enums.XscfModules_State.新增待审核:
                                 case Scf.Core.Enums.XscfModules_State.更新待审核:
-                                    <a title="开启" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.开放" class="btn-sm btn @(Model.XscfModule.State == Scf.Core.Enums.XscfModules_State.关闭 ? "btn-success" : "btn-warning")">
-                                        <em class="glyphicon glyphicon-flash"></em> &nbsp;<small>开启</small>
-                                    </a>
-                                    <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
+                            <a title="开启" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.开放" class="btn-sm btn @(Model.XscfModule.State == Scf.Core.Enums.XscfModules_State.关闭 ? "btn-success" : "btn-warning")">
+                                <em class="glyphicon glyphicon-flash"></em> &nbsp;<small>开启</small>
+                            </a><br />
+                            <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
                                     break;
                                 case Scf.Core.Enums.XscfModules_State.开放:
-                                    <a title="关闭" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.关闭" class="btn-sm btn btn-danger">
-                                        <em class="glyphicon glyphicon-off"></em> &nbsp;<small>关闭</small>
-                                    </a>
+                            <a title="关闭" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.关闭" class="btn-sm btn btn-danger">
+                                <em class="glyphicon glyphicon-off"></em> &nbsp;<small>关闭</small>
+                            </a>
                                     break;
                                 default:
                                     break;
@@ -153,10 +153,10 @@
                                             }
                                             @foreach (var log in Model.XscfModuleUpdateLog)
                                             {
-                                                <tr>
-                                                    <th scope="row">@(++pIndex)</th>
-                                                    <td>@log</td>
-                                                </tr>
+                                            <tr>
+                                                <th scope="row">@(++pIndex)</th>
+                                                <td>@log</td>
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>
@@ -180,189 +180,199 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            @if (!Model.MustUpdate)
+                            {
                             <ul class="list-unstyled timeline">
 
                                 @if (Model.XscfRegister is IAreaRegister && Model.XscfRegister.GetAreaHomeUrl() != null)
-                                {
-                                    <li>
-                                        <div class="block homeUrl">
-                                            <div class="tags">
-                                                @if (Model.XscfModule.State == XscfModules_State.开放)
-                                                {
-                                                    <a href="@Model.XscfRegister.GetAreaHomeUrl()" class="tag">
-                                                        <span>进入首页</span>
-                                                    </a>
-                                                }
+                                    {
+                                <li>
+                                    <div class="block homeUrl">
+                                        <div class="tags">
+                                            @if (Model.XscfModule.State == XscfModules_State.开放)
+                                                    {
+                                            <a href="@Model.XscfRegister.GetAreaHomeUrl()" class="tag">
+                                                <span>进入首页</span>
+                                            </a>
+                                                    }
+                                        </div>
+                                        <div class="block_content">
+                                            <h2 class="title">
+                                                <a>进入 @Model.XscfRegister.MenuName 的首页</a>
+                                            </h2>
+                                            <div class="byline">
+                                                <span>地址：</span><a>@Model.XscfRegister.GetAreaHomeUrl()</a>
                                             </div>
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <a>进入 @Model.XscfRegister.MenuName 的首页</a>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>地址：</span><a>@Model.XscfRegister.GetAreaHomeUrl()</a>
-                                                </div>
 
-                                                <div class="accordion" id="accordion_homepage" role="tablist" aria-multiselectable="true">
-                                                    <div class="panel">
-                                                        <a class="panel-heading collapsed" role="tab" id="heading_homepage" data-toggle="collapse" data-parent="#accordion_homepage" href="#collapse_homepage" aria-expanded="false" aria-controls="collapse_homepage">
-                                                            <h4 class="panel-title">页面透视</h4>
-                                                        </a>
-                                                        <div id="collapse_homepage" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_homepage" style="">
-                                                            <div class="panel-body" id="xscf_homepage_menu_view">
-                                                                <partial name="_XscfModuleLayout_Menu" model="@Model.XscfRegister" />
-                                                            </div>
+                                            <div class="accordion" id="accordion_homepage" role="tablist" aria-multiselectable="true">
+                                                <div class="panel">
+                                                    <a class="panel-heading collapsed" role="tab" id="heading_homepage" data-toggle="collapse" data-parent="#accordion_homepage" href="#collapse_homepage" aria-expanded="false" aria-controls="collapse_homepage">
+                                                        <h4 class="panel-title">页面透视</h4>
+                                                    </a>
+                                                    <div id="collapse_homepage" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_homepage" style="">
+                                                        <div class="panel-body" id="xscf_homepage_menu_view">
+                                                            <partial name="_XscfModuleLayout_Menu" model="@Model.XscfRegister" />
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-                                                <p class="excerpt">
-                                                    说明：当前模块配备了可互动操作的 UI 页面，因此您可以看到这个入口。
-                                                </p>
                                             </div>
+
+
+                                            <p class="excerpt">
+                                                说明：当前模块配备了可互动操作的 UI 页面，因此您可以看到这个入口。
+                                            </p>
                                         </div>
-                                    </li>
-                                }
+                                    </div>
+                                </li>
+                                    }
 
                                 @{
-                                    var paramIndex = 0;
+                                        var paramIndex = 0;
                                 }
                                 @foreach (var item in Model.FunctionParameterInfoCollection)
-                                {
-                                    paramIndex++;
-                                    <li>
-                                        <div class="block">
-                                            <div class="tags">
-                                                @if (Model.XscfModule.State == XscfModules_State.开放)
-                                                {
-                                                    <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg-@paramIndex">
-                                                        <span>执行</span>
-                                                    </a>
-                                                    <div class="modal fade bs-example-modal-lg-@paramIndex" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                                        <div class="modal-dialog modal-lg">
-                                                            <div class="modal-content">
-                                                                <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
-                                                                    <input type="hidden" name="xscfUid" value="@Model.XscfRegister.Uid" />
-                                                                    <input type="hidden" name="xscfFunctionName" value="@item.Key.Name" />
-                                                                    <input type="hidden" name="xscfFunctionParams" value="" id="xscfFunctionParams_@paramIndex" />
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title blue" id="modalLabel_@(paramIndex)"><i class="fa fa-terminal"></i> @item.Key.Name</h4>
-                                                                        <button type="button" class="close" data-dismiss="modal">×</button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <h4><i class="fa fa-newspaper-o"></i> @Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(item.Key.Description)</h4>
-                                                                        <div class="ln_solid"></div>
-                                                                        @foreach (var p in item.Value)
-                                                                        {
-                                                                            <div class="item form-group">
-                                                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@p.Name">
-                                                                                    @p.Title @if (p.IsRequired)
-                                                                                    {<span class="required">*</span>}
-                                                                                </label>
-                                                                                <div class="col-md-6 col-sm-6 ">
-                                                                                    @switch (p.ParameterType)
-                                                                                    {
-                                                                                        case Scf.XscfBase.ParameterType.Text:
-                                                                                          <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
-                                                                                            break;
-                                                                                        case Scf.XscfBase.ParameterType.SingleSelection:
-                                                                                        case Scf.XscfBase.ParameterType.MultipleSelection:
-                                                                                <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
-                                                                                    @foreach (var selectionItem in p.SelectionItems)
-                                                                                    {
-                                                                                        if (p.Value != null && selectionItem == p.Value.ToString())
-                                                                                        {
-                                                                                            <option value="@selectionItem" selected="selected">@selectionItem</option>
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            <option value="@selectionItem">@selectionItem</option>
-                                                                                        }
-                                                                                    }
-                                                                                </select>
-                                                                                            break;
-                                                                                        default:
-                                                                                            break;
-                                                                                    }
-
-                                                                                    <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        }
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                                                                        <button type="submit" class="btn btn-primary">运行</button>
-                                                                    </div>
-                                                                </form>
+                                    {
+                                        paramIndex++;
+                                <li>
+                                    <div class="block">
+                                        <div class="tags">
+                                            @if (Model.XscfModule.State == XscfModules_State.开放)
+                                                    {
+                                            <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg-@paramIndex">
+                                                <span>执行</span>
+                                            </a>
+                                            <div class="modal fade bs-example-modal-lg-@paramIndex" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
+                                                            <input type="hidden" name="xscfUid" value="@Model.XscfRegister.Uid" />
+                                                            <input type="hidden" name="xscfFunctionName" value="@item.Key.Name" />
+                                                            <input type="hidden" name="xscfFunctionParams" value="" id="xscfFunctionParams_@paramIndex" />
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title blue" id="modalLabel_@(paramIndex)"><i class="fa fa-terminal"></i> @item.Key.Name</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">×</button>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                }
-
-                                            </div>
-                                            <div class="block_content">
-                                                <h2 class="title">
-                                                    <span class="green"><i class="fa fa-map-marker fa-terminal"></i> @item.Key.Name</span>
-                                                </h2>
-                                                <div class="byline">
-                                                    <span>@item.Key.Description</span>
-                                                </div>
-                                                <div class="accordion" id="accordion_@paramIndex" role="tablist" aria-multiselectable="true">
-                                                    <div class="panel">
-                                                        <a class="panel-heading collapsed" role="tab" id="heading_@paramIndex" data-toggle="collapse" data-parent="#accordion_@paramIndex" href="#collapse_@paramIndex" aria-expanded="false" aria-controls="collapse_@paramIndex">
-                                                            <h4 class="panel-title">参数透视</h4>
-                                                        </a>
-                                                        <div id="collapse_@paramIndex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_@paramIndex" style="">
-                                                            <div class="panel-body">
-                                                                @if (item.Value.Count > 0)
-                                                                {
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>#</th>
-                                                                                <th style="min-width:50px;">名称</th>
-                                                                                <th>说明</th>
-                                                                                <th style="min-width:50px;">类型</th>
-                                                                                <th style="min-width:50px;">必须</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @{
-                                                                                int logIndex = 0;
-                                                                            }
-                                                                            @foreach (var p in item.Value)
+                                                            <div class="modal-body">
+                                                                <h4><i class="fa fa-newspaper-o"></i> @Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(item.Key.Description)</h4>
+                                                                <div class="ln_solid"></div>
+                                                                @foreach (var p in item.Value)
                                                                             {
-                                                                                <tr>
-                                                                                    <th scope="row">@(++logIndex)</th>
-                                                                                    <td>@p.Title</td>
-                                                                                    <td>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(p.Description)</td>
-                                                                                    <td>@GetSystemTypeName(p.SystemType)</td>
-                                                                                    <td>@(p.IsRequired ? "是" : "否")</td>
-                                                                                </tr>
-                                                                            }
-                                                                        </tbody>
-                                                                    </table>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <div>
-                                                                        无需填写数据
-                                                                    </div>
-                                                                }
+                                                                <div class="item form-group">
+                                                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@p.Name">
+                                                                        @p.Title @if (p.IsRequired)
+                                                                                        {<span class="required">*</span>}
+                                                                    </label>
+                                                                    <div class="col-md-6 col-sm-6 ">
+                                                                        @switch (p.ParameterType)
+                                                                                        {
+                                                                                            case Scf.XscfBase.ParameterType.Text:
+                                                                        <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
+                                                                                                break;
+                                                                                            case Scf.XscfBase.ParameterType.SingleSelection:
+                                                                                            case Scf.XscfBase.ParameterType.MultipleSelection:
+                                                                        <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
+                                                                            @foreach (var selectionItem in p.SelectionItems)
+                                                                                                    {
+                                                                                                        if (p.Value != null && selectionItem == p.Value.ToString())
+                                                                                                        {
+                                                                            <option value="@selectionItem" selected="selected">@selectionItem</option>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                            <option value="@selectionItem">@selectionItem</option>
+                                                                                                        }
+                                                                                                    }
+                                                                        </select>
+                                                                                                break;
+                                                                                            default:
+                                                                                                break;
+                                                                                        }
 
+                                                                        <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
+                                                                    </div>
+                                                                </div>
+                                                                            }
                                                             </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                <button type="submit" class="btn btn-primary">运行</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                    }
+
+                                        </div>
+                                        <div class="block_content">
+                                            <h2 class="title">
+                                                <span class="green"><i class="fa fa-map-marker fa-terminal"></i> @item.Key.Name</span>
+                                            </h2>
+                                            <div class="byline">
+                                                <span>@item.Key.Description</span>
+                                            </div>
+                                            <div class="accordion" id="accordion_@paramIndex" role="tablist" aria-multiselectable="true">
+                                                <div class="panel">
+                                                    <a class="panel-heading collapsed" role="tab" id="heading_@paramIndex" data-toggle="collapse" data-parent="#accordion_@paramIndex" href="#collapse_@paramIndex" aria-expanded="false" aria-controls="collapse_@paramIndex">
+                                                        <h4 class="panel-title">参数透视</h4>
+                                                    </a>
+                                                    <div id="collapse_@paramIndex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_@paramIndex" style="">
+                                                        <div class="panel-body">
+                                                            @if (item.Value.Count > 0)
+                                                                    {
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th style="min-width:50px;">名称</th>
+                                                                        <th>说明</th>
+                                                                        <th style="min-width:50px;">类型</th>
+                                                                        <th style="min-width:50px;">必须</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @{
+                                                                                    int logIndex = 0;
+                                                                    }
+                                                                    @foreach (var p in item.Value)
+                                                                                {
+                                                                    <tr>
+                                                                        <th scope="row">@(++logIndex)</th>
+                                                                        <td>@p.Title</td>
+                                                                        <td>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(p.Description)</td>
+                                                                        <td>@GetSystemTypeName(p.SystemType)</td>
+                                                                        <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                    </tr>
+                                                                                }
+                                                                </tbody>
+                                                            </table>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                            <div>
+                                                                无需填写数据
+                                                            </div>
+                                                                    }
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p class="excerpt">
-
-                                                </p>
                                             </div>
+                                            <p class="excerpt">
+
+                                            </p>
                                         </div>
-                                    </li>
-                                }
+                                    </div>
+                                </li>
+                                    }
                             </ul>
+                            }
+                            else
+                            {
+                            <div class="alert alert-warning">
+                                <h4><i class="fa fa-warning"></i> 警告！</h4> 模块监测发生不兼容性错误（例如数据库未更新），请尝试 <em class="fa fa-gift"></em> 更新 此模块后刷新页面！如果如有问题，请联系
+                                <a href="mailto:zsu@senparc.com?subject=SCF模块不兼容异常" class="alert-link">技术支持</a>。
+                            </div>
+                            }
                         </div>
                     </div>
                 </div>
