@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Models;
-using System.Collections.Generic;
+using Senparc.Scf.Core.Models.DataBaseModel;
+using Senparc.Scf.XscfBase.Attributes;
+using System;
+using System.Collections.Concurrent;
 using System.Linq;
-using System.Reflection;
 
 namespace Senparc.Core.Models
 {
@@ -39,6 +41,28 @@ namespace Senparc.Core.Models
             {
                 databaseRegister.OnModelCreating(modelBuilder);
             }
+
+            ConcurrentDictionary<Type, int> types = new ConcurrentDictionary<Type, int>();
+
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var aTypes = a.GetTypes();
+                foreach (var t in aTypes)
+                {
+                    if (t.IsAbstract)
+                    {
+                        continue;
+                    }
+
+                    if (t.GetCustomAttributes(true).FirstOrDefault(z => z is XscfAutoConfigurationMappingAttribute) != null)
+                    {
+                        types[t] = 1;
+                    }
+                }
+            }
+            SenparcTrace.SendCustomLog("扫描 XscfAutoConfigurationMapping", "总数：" +
+    string.Join(",", types.Select(z => z.Key.GetType().FullName)));
+
 
             //注册所有 XscfAutoConfigurationMapping 动态模块
             SenparcTrace.SendCustomLog("注册 XscfAutoConfigurationMapping", "总数：" +

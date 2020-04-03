@@ -150,7 +150,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         public void OnModelCreating(ModelBuilder modelBuilder)
         {
             //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
-            //modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+            modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
         }
 
         public void AddXscfDatabaseModule(IServiceCollection services)
