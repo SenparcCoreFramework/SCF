@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,12 +39,19 @@ namespace Senparc.Core.Models
             {
                 databaseRegister.OnModelCreating(modelBuilder);
             }
-            
+
+            //注册所有 XscfAutoConfigurationMapping 动态模块
+            SenparcTrace.SendCustomLog("注册 XscfAutoConfigurationMapping", "总数：" +
+                string.Join(",", Senparc.Scf.XscfBase.Register.XscfAutoConfigurationMappingList.Select(z => z.GetType().FullName)));
+            foreach (var autoConfigurationMapping in Senparc.Scf.XscfBase.Register.XscfAutoConfigurationMappingList)
+            {
+                SenparcTrace.SendCustomLog("注册 XscfAutoConfigurationMapping", autoConfigurationMapping.GetType().FullName);
+                modelBuilder.ApplyConfiguration(autoConfigurationMapping);
+            }
+
             #endregion
 
             base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }

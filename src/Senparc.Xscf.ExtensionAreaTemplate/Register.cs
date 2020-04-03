@@ -99,6 +99,12 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             await unsinstallFunc().ConfigureAwait(false);
         }
 
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
+        {
+            //任何需要注册的对象
+            return base.AddXscfModule(services, configuration);
+        }
+
         #endregion
 
         #region IAreaRegister 接口
@@ -122,12 +128,6 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             return builder;
         }
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
-        {
-            //任何需要注册的对象
-            return base.AddXscfModule(services, configuration);
-        }
-
         #endregion
 
         #region IXscfDatabase 接口
@@ -149,7 +149,8 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
 
         public void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+            //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
+            //modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
         }
 
         public void AddXscfDatabaseModule(IServiceCollection services)
