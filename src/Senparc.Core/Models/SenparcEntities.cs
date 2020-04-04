@@ -30,8 +30,9 @@ namespace Senparc.Core.Models
         {
             #region 系统表
 
-            modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
-            modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
+            //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
+            //modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
+            //modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
 
             #endregion
 
