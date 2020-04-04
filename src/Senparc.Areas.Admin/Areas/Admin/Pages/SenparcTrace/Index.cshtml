@@ -1,0 +1,48 @@
+﻿@page
+@model Senparc.Areas.Admin.Areas.Admin.Pages.SenparcTrace_IndexModel
+@{
+    ViewData["Title"] = "SenparcTrace 日志";
+}
+@section breadcrumbs{
+    <li>系统管理</li>
+    <li>SenparcTrace 日志</li>
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_panel">
+            <div class="pull-left" style="width: 100%">
+                <div class="row">
+                    <div class="col-xs-12 col-md-8 col-lg-8">
+                        <h3>日志列表</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="x_content">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = Model.DateList.Count;}
+                        @foreach (var item in Model.DateList)
+                        {
+                            <tr>
+                                <td><strong>#@(i--)</strong></td>
+                                <td>
+                                    <a asp-page="./DateLog" asp-route-date="@item" asp-route-uid="@Model.Uid"><i class="fa fa-folder-open"></i> @item</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

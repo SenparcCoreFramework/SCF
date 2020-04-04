@@ -1,0 +1,185 @@
+﻿@page
+@model Senparc.Areas.Admin.Areas.Admin.Pages.SenparcTrace_DateLogModel
+@{
+    ViewData["Title"] = "日志 - " + Model.Date;
+    ViewData["TempMenuUrl"] = Model.XscfRegister.GetAreaUrl("/Admin/SenparcTrace/Index");
+    var exceptionCount = Model.WeixinTraceItemList.Count(z => z.IsException);
+}
+@section breadcrumbs{
+    <li>系统管理</li>
+    <li>SenparcTrace 日志</li>
+    <li>@Model.Date</li>
+}
+
+@section HeaderContent{
+    <style>
+        .detail_result {
+            display: none;
+            background: #d8d8d8;
+            padding: 8px;
+        }
+
+        table td {
+            word-break: break-all;
+        }
+
+        .exception {
+            background: #fcc2c2;
+        }
+
+        .not_exception {
+        }
+
+        .exceptionCount {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+}
+
+@section scripts{
+    <script>
+        $(function () {
+            $('[id^=more_]').click(function () {
+                $(this).hide();
+                $('#detail_' + $(this).attr('data-i')).slideDown();
+            })
+        })
+
+        function showAllDetails() {
+            $('[id^=detail_').slideDown();
+        }
+
+        var justShowException = false;
+        function showExceptions() {
+            justShowException = !justShowException;
+            if (justShowException) {
+                $('tr.not_exception').hide();
+            } else {
+                $('tr.not_exception').show();
+            }
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_panel">
+            <div class="pull-left" style="width: 100%">
+                <div class="row">
+                    <div class="col-xs-12 col-md-8 col-lg-8">
+                        <h3>日志列表</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="x_content">
+
+                <p>
+                    <a asp-page="./Index" asp-route-uid="@Model.Uid"><i class="fa fa-reply"></i> 返回</a>
+
+                    <a href="javascript:;" onclick="showAllDetails()" class="btn btn-success">显示所有完整结果</a>
+                    <a href="javascript:;" onclick="showExceptions()" class="btn btn-danger">只显示所有异常信息</a>
+                    异常信息：<span class="@(exceptionCount >0 ? "exceptionCount" : "")">@exceptionCount</span> / @Model.WeixinTraceItemList.Count 条
+                </p>
+
+
+                <table class="table" id="tbList">
+                    <tr>
+                        <th width="100px">编号/行号</th>
+                        <th width="120px">时间</th>
+                        <th width="50px">线程</th>
+                        <th width="100px">类型</th>
+                        <th width="80px">是否异常</th>
+                        <th width="120px">标题</th>
+                        <th>内容</th>
+                    </tr>
+                    @{var i = Model.WeixinTraceItemList.Count;}
+                    @foreach (var item in Model.WeixinTraceItemList)
+                    {
+                        var showMessage = false;//是否有特殊消息输出
+                <tr class="@(item.IsException?"exception":"not_exception")">
+                    <td>
+                        <strong>#@(i)</strong> / @item.Line
+                    </td>
+                    <td>
+                        @if (item.DateTime != null)
+                        {
+                            @Html.Raw(item.DateTime?.Replace(" ", "<br />"))
+                        }
+                    </td>
+                    <td>@item.ThreadId</td>
+                    <td>
+                        @item.weixinTraceType.ToString()
+                    </td>
+                    <td>@item.IsException</td>
+                    <td>@item.Title</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Result.Url))
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>URL：</strong>
+                                @item.Result.Url
+                            </p>
+                        }
+
+                        @if (!string.IsNullOrEmpty(item.Result.Result))
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>返回结果：</strong>
+                                @item.Result.Result
+                            </p>
+                        }
+
+
+                        @if (!string.IsNullOrEmpty(item.Result.PostData))
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>Post 数据：</strong>
+                                @item.Result.PostData
+                            </p>
+                        }
+
+
+                        @if (item.IsException)
+                        {
+                            showMessage = true;
+                            <p>
+                                <strong>异常信息：</strong>
+                                @item.Result.ExceptionMessage
+                            </p>
+                        }
+
+                        @if (!showMessage)
+                        {
+                            @Html.Raw(item.Result.ToString())//显示所有结果
+                        }
+                    </td>
+                </tr>
+
+                        if (showMessage)
+                        {
+                            <tr class="@(item.IsException?"exception":"not_exception")">
+                                <td colspan="7">
+                                    <a href="javascript:;" id="more_@i" data-i="@i"><strong>#@i</strong> 点击查看完整结果</a>
+
+                                    <p id="detail_@i" class="detail_result">
+                                        @Html.Raw(item.Result.ToString())
+                                    </p>
+
+                                </td>
+                            </tr>
+                        }
+
+                        i--;
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
