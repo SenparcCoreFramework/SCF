@@ -36,15 +36,21 @@ namespace Senparc.Core.Models
 
             #endregion
 
-            //注册所有 XscfAutoConfigurationMapping 动态模块（请勿改变此命令位置）
-            Senparc.Scf.XscfBase.Register.ApplyAllAutoConfigurationMapping(modelBuilder);
-
             #region 其他动态模块
 
             foreach (var databaseRegister in Senparc.Scf.XscfBase.Register.XscfDatabaseList)
             {
                 databaseRegister.OnModelCreating(modelBuilder);
             }
+
+            #endregion
+
+            #region 全局自动注入（请勿改变此命令位置）
+
+            //注册所有 XscfAutoConfigurationMapping 动态模块
+            var dt1 = SystemTime.Now;
+            Senparc.Scf.XscfBase.Register.ApplyAllAutoConfigurationMapping(modelBuilder);
+            SenparcTrace.SendCustomLog("SenparcEntities 数据库实体注入", $"耗时：{SystemTime.DiffTotalMS(dt1)}ms");
 
             #endregion
 
