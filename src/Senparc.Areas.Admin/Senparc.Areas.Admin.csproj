@@ -25,7 +25,7 @@
     <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="0.3.104" />
     <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.9.104" />
     <PackageReference Include="Senparc.Scf.AreaBase" Version="0.1.307-beta1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.307-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.307.902-beta1" />
     <PackageReference Include="Senparc.Scf.Core" Version="0.3.307-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.307-beta1" />
     <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.307-beta1" />

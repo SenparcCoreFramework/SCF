@@ -191,17 +191,18 @@ namespace Senparc.Areas.Admin
             EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
 
             //AutoMap映射
-            base.AddAutoMapMapping(profile => {
+            base.AddAutoMapMapping(profile =>
+            {
                 profile.CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
             });
         }
 
-     
+
         #endregion
 
 
         #region IXscfRazorRuntimeCompilation 接口
-        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..","..", "Senparc.Areas.Admin"));
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Areas.Admin"));
         #endregion
     }
 }

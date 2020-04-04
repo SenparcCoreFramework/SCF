@@ -19,12 +19,9 @@ using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.AssembleScan;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
-using Senparc.Scf.Core.Models.DataBaseModel;
-using Senparc.Scf.Service;
 using Senparc.Scf.SMS;
 using Senparc.Scf.XscfBase;
 using Senparc.Weixin;
-using Senparc.Weixin.Entities;
 using System;
 using System.IO;
 using System.Linq;
@@ -168,11 +165,11 @@ namespace Senparc.Web
 
             //Repository & Service
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
-            
+
             //Other
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
-           
+
             //激活 Xscf 扩展引擎（必须）
             services.StartEngine(configuration);
         }

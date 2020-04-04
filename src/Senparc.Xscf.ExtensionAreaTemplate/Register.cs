@@ -163,7 +163,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         #endregion
 
         #region IXscfRazorRuntimeCompilation 接口
-        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Xscf.ExtensionAreaTemplate"));
         #endregion
     }
 }
