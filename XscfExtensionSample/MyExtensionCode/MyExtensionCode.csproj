@@ -7,9 +7,9 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Xscf.WeixinManager" Version="0.1.8.1-beta1" />-->
     <!--<ProjectReference Include="..\..\..\Senparc.Xscf.WeixinManager\src\Senparc.Xscf.WeixinManager\Senparc.Xscf.WeixinManager.csproj" />-->
-    <PackageReference Include="Senparc.Xscf.WeixinManager" Version="0.2.0-beta1" />
+    <PackageReference Include="Senparc.Xscf.WeixinManager" Version="0.2.1-beta1" />
     
-    <PackageReference Include="Senparc.Xscf.DatabaseToolkit" Version="0.5.7-beta1" />
+    <PackageReference Include="Senparc.Xscf.DatabaseToolkit" Version="0.5.7.1-beta1" />
     <PackageReference Include="Senparc.Xscf.Terminal" Version="0.1.6-beta1" />
     <PackageReference Include="Senparc.Xscf.ChangeNamespace" Version="0.4.105-beta1" />
   </ItemGroup>

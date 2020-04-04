@@ -36,6 +36,9 @@ namespace Senparc.Core.Models
 
             #endregion
 
+            //注册所有 XscfAutoConfigurationMapping 动态模块（请勿改变此命令位置）
+            Senparc.Scf.XscfBase.Register.ApplyAllAutoConfigurationMapping(modelBuilder);
+
             #region 其他动态模块
 
             foreach (var databaseRegister in Senparc.Scf.XscfBase.Register.XscfDatabaseList)
@@ -43,9 +46,6 @@ namespace Senparc.Core.Models
                 databaseRegister.OnModelCreating(modelBuilder);
             }
 
-            //注册所有 XscfAutoConfigurationMapping 动态模块
-            Senparc.Scf.XscfBase.Register.ApplyAllAutoConfigurationMapping(modelBuilder);
-            
             #endregion
 
             base.OnModelCreating(modelBuilder);

@@ -27,8 +27,6 @@ namespace Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages
         public MyHomePage(IServiceProvider serviceProvider, ColorService colorService, Lazy<XscfModuleService> xscfModuleService)
             : base(xscfModuleService)
         {
-            AreaTemplate_ColorConfigurationMapping o = new AreaTemplate_ColorConfigurationMapping();
-
             _colorService = colorService;
             _serviceProvider = serviceProvider;
         }

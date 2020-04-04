@@ -19,10 +19,10 @@
     <PackageReference Include="Senparc.Weixin.MP" Version="16.10.401" />
     <PackageReference Include="Senparc.Weixin.Open" Version="4.7.401" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.401" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.307-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.307-beta1" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.307-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.307-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.308-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.308-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.308-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.308-beta1" />
   </ItemGroup>
 
   <ItemGroup>
