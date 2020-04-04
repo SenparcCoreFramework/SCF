@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
 using Senparc.Scf.Core.Enums;
+using Senparc.Xscf.ExtensionAreaTemplate.Models;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages
 {
@@ -26,6 +27,8 @@ namespace Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages
         public MyHomePage(IServiceProvider serviceProvider, ColorService colorService, Lazy<XscfModuleService> xscfModuleService)
             : base(xscfModuleService)
         {
+            AreaTemplate_ColorConfigurationMapping o = new AreaTemplate_ColorConfigurationMapping();
+
             _colorService = colorService;
             _serviceProvider = serviceProvider;
         }

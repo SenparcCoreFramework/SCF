@@ -183,6 +183,10 @@ namespace Senparc.Areas.Admin
             services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
             services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
 
+            //Attributes
+            services.AddScoped(typeof(AuthenticationResultFilterAttribute));
+            services.AddScoped(typeof(AuthenticationAsyncPageFilterAttribute));
+
             //预加载 EntitySetKey
             EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
 

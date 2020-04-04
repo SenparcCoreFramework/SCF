@@ -43,13 +43,17 @@ namespace Senparc.Core.Models
             }
 
             //注册所有 XscfAutoConfigurationMapping 动态模块
+
+            SenparcTrace.SendCustomLog("Xscf ApplyConfiguration", string.Join(",",
+               Senparc.Scf.XscfBase.Register.XscfAutoConfigurationMappingList.Select(z => z.GetType().FullName)));
+
             foreach (var autoConfigurationMapping in Senparc.Scf.XscfBase.Register.XscfAutoConfigurationMappingList)
             {
                 if (autoConfigurationMapping == null)
                 {
                     continue;
                 }
-                modelBuilder.ApplyConfiguration(autoConfigurationMapping);
+                //modelBuilder.ApplyConfiguration(autoConfigurationMapping);
             }
 
             #endregion
