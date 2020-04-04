@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Models;
-using System.Collections.Generic;
+using Senparc.Scf.Core.Models.DataBaseModel;
+using Senparc.Scf.XscfBase.Attributes;
+using System;
+using System.Collections.Concurrent;
 using System.Linq;
-using System.Reflection;
 
 namespace Senparc.Core.Models
 {
@@ -27,10 +30,14 @@ namespace Senparc.Core.Models
         {
             #region 系统表
 
-            modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
-            modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
+            //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
+            //modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
+            //modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
 
             #endregion
+
+            //注册所有 XscfAutoConfigurationMapping 动态模块（请勿改变此命令位置）
+            Senparc.Scf.XscfBase.Register.ApplyAllAutoConfigurationMapping(modelBuilder);
 
             #region 其他动态模块
 
@@ -38,12 +45,10 @@ namespace Senparc.Core.Models
             {
                 databaseRegister.OnModelCreating(modelBuilder);
             }
-            
+
             #endregion
 
             base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }

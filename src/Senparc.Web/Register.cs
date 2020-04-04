@@ -19,11 +19,9 @@ using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.AssembleScan;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
-using Senparc.Scf.Service;
 using Senparc.Scf.SMS;
 using Senparc.Scf.XscfBase;
 using Senparc.Weixin;
-using Senparc.Weixin.Entities;
 using System;
 using System.IO;
 using System.Linq;
@@ -165,15 +163,9 @@ namespace Senparc.Web
             });
             services.AddHttpContextAccessor();
 
-            //Attributes
-            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute));
-            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
-
-            //Repository
-            services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
-            services.AddScoped(typeof(ServiceBase<>));
-            services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+            //Repository & Service
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
+
             //Other
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
