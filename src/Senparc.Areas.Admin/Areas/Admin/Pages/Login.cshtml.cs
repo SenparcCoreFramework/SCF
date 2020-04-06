@@ -66,19 +66,21 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var userInfo = await _userInfoService.GetUserInfo(this.Name);
             if (userInfo == null)
             {
-                errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£";
+                //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£";
+                ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£");
             }
             else if (_userInfoService.TryLogin(this.Name, this.Password, true) == null)
             {
-                errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£";
+                //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£";
+                ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£");
             }
 
             if (!errorMsg.IsNullOrEmpty() || !ModelState.IsValid)
             {
-                this.MessagerList = new List<Messager>
-                {
-                    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
-                };
+                //this.MessagerList = new List<Messager>
+                //{
+                //    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
+                //};
                 return null;
             }
 
