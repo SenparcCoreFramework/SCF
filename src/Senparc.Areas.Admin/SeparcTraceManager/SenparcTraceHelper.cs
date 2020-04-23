@@ -76,7 +76,7 @@ namespace Senparc.Areas.Admin.SenparcTraceManager
                     }
 
                     //其他自定义类型
-                    var startRegex = Regex.Match(lineText, @"(?<=\[{3})(\S+)(?=\]{3})");
+                    var startRegex = Regex.Match(lineText, @"(?<=\[{3})([^\]\n\r]+)(?=\]{3})");
                     if (startRegex.Success)
                     {
                         //一个片段的开始

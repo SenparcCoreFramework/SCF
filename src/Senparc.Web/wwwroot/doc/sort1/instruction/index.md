@@ -1,6 +1,9 @@
 <img src="https://weixin.senparc.com/images/SCF/logo.png" width="300" />
 
 
+
+
+
 # SCF - SenparcCoreFramework
 
 SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包含了基础的缓存、数据库、模型、验证及配套管理后台，模块化，具有高度的可扩展性。
@@ -8,7 +11,9 @@ SenparcCoreFramework(SCF) 是一整套可用于构建基础项目的框架，包
 当前版本：`0.1.0-beta4`
 
 > 说明：SCF 由盛派（Senparc）团队经过多年优化迭代的自用系统底层框架 SenparcCore 整理而来，经历了 .NET 3.5/4.5 众多系统的实战检验，并最终移植到 .NET Core，目前已在多个 .NET Core 系统中稳定运行，在将其转型为开源项目的过程中，需要进行一系列的重构、注释完善和兼容性升级，目前尚处于雏形阶段，希望大家多提意见，我们会争取在最短的时间内优化并发布第一个试用版（Preview1）。感谢大家一直以来的支持！<br>
+
 > <br>
+
 > Preview1 版本中，我们将提供更加完善的模块化架构和辅助工具，当前源码已经可用于学习和测试使用。
 
 
@@ -37,6 +42,8 @@ SCF 除了会为大家提供完善的框架代码，还会：
 ## QQ 技术交流群
 
 <img src="https://sdk.weixin.senparc.com/images/QQ_Group_Avatar/SCF/QQ-Group.jpg" width="380" />
+
+
 
 ## 环境要求
 
@@ -83,8 +90,13 @@ Done.
 `方法一结果`
 <img src="https://weixin.senparc.com/images/SCF/Installs/02.1.png" />
 
+
+
 `方法二结果`
 <img src="https://weixin.senparc.com/images/SCF/Installs/02.2.png" />
+
+
+
 
 
 ### 第三步：初始化数据
@@ -99,9 +111,13 @@ Done.
  
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.1.png" />
 
+
+
 点击【立即安装】按钮：
 
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.2.png" />
+
+
 
 > 如果您未手动执行【第二步】，系统将为您在后台自动执行相关步骤。
 
@@ -110,15 +126,23 @@ Done.
 <img src="https://weixin.senparc.com/images/SCF/Installs/03.3.png" />
 
 
+
+
+
  4. 点击【点击这里登录】，使用已经保存好的管理员账号及密码进行登录：
 
 
 <img src="https://weixin.senparc.com/images/SCF/Installs/04.png" />
 
 
+
+
+
 5. 完成登录
 
 <img src="https://weixin.senparc.com/images/SCF/Installs/05.png" />
+
+
 
 ### （备用）第四步：还原样式包
 
@@ -141,6 +165,8 @@ SCF 的扩展模块代号为 `XSCF`。
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/01.png" />
 
+
+
 > 说明：`Senparc.Xscf.ChangeNamespace` 模块在 SCF 源码中已默认装载，无需从 nuget 下载。
 
 #### 第二步：进入管理员后台的 【扩展模块】 > 【模块管理】
@@ -150,11 +176,16 @@ SCF 的扩展模块代号为 `XSCF`。
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/02.png" />
 
 
+
+
+
 #### 第三步：点击所需安装模块的【安装按钮】，即可轻松完成模块安装
 
 点击【安装】按钮后，自动进入到模块详情页面，大功告成！
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/03.png" />
+
+
 
 ### 如何使用已安装的模块？
 
@@ -162,11 +193,15 @@ SCF 的扩展模块代号为 `XSCF`。
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/04.png" />
 
+
+
 > 为了让每个模块更加沟通安全，每一个功能都可以预先看到所有参数的透视说明
 
 选择需要执行的方法，点击左侧【执行】按钮。例如点击“修改命名空间”功能的执行【执行】按钮：
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/05.png" />
+
+
 
 按照提示输入对应的参数，点击【运行】按钮，即可执行此模块的此项功能。
 
@@ -174,9 +209,14 @@ SCF 的扩展模块代号为 `XSCF`。
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/06.png" />
 
+
+
 程序中所有命名空间已被批量修改：
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/07.png" />
+
+
+
 
 
 <strong>此过程中无需编写一行代码！</strong>
@@ -190,9 +230,13 @@ SCF 的扩展模块代号为 `XSCF`。
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/08.png" />
 
+
+
 或 `模块详情页面`
 
 <img src="https://weixin.senparc.com/images/SCF/XscfModules/09.png" />
+
+
 
 点击【立即安装】即可完成新版本的升级！
 
@@ -215,4 +259,3 @@ SCF 的扩展模块代号为 `XSCF`，您可以在 [ScfPackageSources](https://g
 - [ ] 发布官网及在线 Demo
 - [ ] 发布定制模板生成器（在线）
   - [x] 可定制默认加载模块
-

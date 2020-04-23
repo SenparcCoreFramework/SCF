@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.Core.Models;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
@@ -29,11 +30,12 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public CreateOrUpdate_AdminUserInfoDto AdminUserInfo { get; set; } = new CreateOrUpdate_AdminUserInfoDto();
         //public CreateUpdate_AdminUserInfoDto AdminUserInfo { get; set; }
 
+        private readonly IServiceProvider _serviceProvider;
         private readonly AdminUserInfoService _adminUserInfoService;
 
-
-        public AdminUserInfo_EditModel(AdminUserInfoService adminUserInfoService)
+        public AdminUserInfo_EditModel(IServiceProvider serviceProvider,AdminUserInfoService adminUserInfoService)
         {
+            _serviceProvider = serviceProvider;
             _adminUserInfoService = adminUserInfoService;
         }
 

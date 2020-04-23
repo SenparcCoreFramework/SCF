@@ -49,11 +49,11 @@ namespace Senparc.Service
         /// <returns></returns>
         public bool CheckUserNameExisted(long id, string userName)
         {
-            userName = userName.Trim();
+            userName = userName.Trim().ToUpper();
 
             return
             this.GetObject(
-                z => z.Id != id && z.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)) != null;
+                z => z.Id != id && z.UserName.ToUpper() == userName /*z.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)*/) != null;
         }
 
         /// <summary>

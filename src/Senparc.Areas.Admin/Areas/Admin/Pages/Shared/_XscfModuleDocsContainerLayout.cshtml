@@ -1,0 +1,18 @@
+﻿@* XSCF 模块页面的模板页 *@
+@using Senparc.Scf.Core.Areas;
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor _httpContextAccessor
+@{
+    Layout = "_LayoutDocsContainer";
+}
+@{
+    var subTitle = ViewData["Title"];
+}
+@section Style{
+    @RenderSection("Style", false)
+}
+@section scripts{
+    @RenderSection("scripts", false)
+}
+
+@RenderBody()

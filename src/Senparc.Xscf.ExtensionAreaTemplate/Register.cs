@@ -1,27 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.Scf.Core.Areas;
+using Senparc.Scf.Core.Config;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.XscfBase;
 using Senparc.Xscf.ExtensionAreaTemplate.Functions;
 using Senparc.Xscf.ExtensionAreaTemplate.Models;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
 using Senparc.Xscf.ExtensionAreaTemplate.Services;
-using Senparc.Scf.Core.Areas;
-using Senparc.Scf.Core.Enums;
-using Senparc.Scf.Core.Models;
-using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Senparc.Scf.Core.Config;
-using Microsoft.Extensions.Configuration;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate
 {
@@ -102,6 +99,12 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             await unsinstallFunc().ConfigureAwait(false);
         }
 
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
+        {
+            //任何需要注册的对象
+            return base.AddXscfModule(services, configuration);
+        }
+
         #endregion
 
         #region IAreaRegister 接口
@@ -125,47 +128,42 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             return builder;
         }
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
+        #endregion
+
+        #region IXscfDatabase 接口
+
+        /// <summary>
+        /// 数据库前缀
+        /// </summary>
+        public const string DATABASE_PREFIX = "AreaTemplate_";
+
+        /// <summary>
+        /// 数据库前缀
+        /// </summary>
+        public string DatabaseUniquePrefix => DATABASE_PREFIX;
+        /// <summary>
+        /// 设置 XscfSenparcEntities 类型
+        /// </summary>
+        public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
+
+
+        public void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //任何需要注册的对象
-            return base.AddXscfModule(services, configuration);
+            //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
+            //modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+        }
+
+        public void AddXscfDatabaseModule(IServiceCollection services)
+        {
+            services.AddScoped(typeof(Color));
+            services.AddScoped(typeof(ColorDto));
+            services.AddScoped(typeof(ColorService));
+        }
+
+        #endregion
+
+        #region IXscfRazorRuntimeCompilation 接口
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Xscf.ExtensionAreaTemplate"));
+        #endregion
     }
-
-    #endregion
-
-    #region IXscfDatabase 接口
-
-    /// <summary>
-    /// 数据库前缀
-    /// </summary>
-    public const string DATABASE_PREFIX = "AreaTemplate_";
-
-    /// <summary>
-    /// 数据库前缀
-    /// </summary>
-    public string DatabaseUniquePrefix => DATABASE_PREFIX;
-    /// <summary>
-    /// 设置 XscfSenparcEntities 类型
-    /// </summary>
-    public Type XscfDatabaseDbContextType => typeof(MySenparcEntities);
-
-
-    public void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
-    }
-
-    public void AddXscfDatabaseModule(IServiceCollection services)
-    {
-        services.AddScoped(typeof(Color));
-        services.AddScoped(typeof(ColorDto));
-        services.AddScoped(typeof(ColorService));
-    }
-
-    #endregion
-
-    #region IXscfRazorRuntimeCompilation 接口
-    public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
-    #endregion
-}
 }

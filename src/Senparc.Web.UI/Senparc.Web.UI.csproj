@@ -12,11 +12,11 @@
 
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET" Version="1.3.104" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.308-beta1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Core\Senparc.Core.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.300-beta1" />
   </ItemGroup>
 
 </Project>

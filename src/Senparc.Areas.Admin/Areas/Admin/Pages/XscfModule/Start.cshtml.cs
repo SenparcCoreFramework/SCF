@@ -2,14 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
+using Senparc.Scf.XscfBase.Threads;
 using Senparc.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
@@ -19,12 +22,22 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public IXscfRegister XscfRegister { get; set; }
         private readonly SysMenuService _sysMenuService;
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
-        public Dictionary<IXscfFunction, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParammeterInfo>>();
+        public Dictionary<IXscfFunction, List<FunctionParameterInfo>> FunctionParameterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();
 
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
 
         public List<string> XscfModuleUpdateLog { get; set; }
+
+        /// <summary>
+        /// 获取当前模块的已注册线程信息
+        /// </summary>
+       public IEnumerable<KeyValuePair<ThreadInfo, Thread>> RegisteredThreadInfo { get; set; }
+
+        /// <summary>
+        /// 是否必须更新（常规读取失败）
+        /// </summary>
+        public bool MustUpdate { get; set; }
 
         public string Msg { get; set; }
         public object Obj { get; set; }
@@ -68,11 +81,22 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
             }
 
-            foreach (var functionType in XscfRegister.Functions)
+            try
             {
-                var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                FunctionParammeterInfoCollection[function] = function.GetFunctionParammeterInfo().ToList();
+                foreach (var functionType in XscfRegister.Functions)
+                {
+                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+                }
             }
+            catch (Exception ex)
+            {
+                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+请尝试更新此模块后刷新页面！");
+                MustUpdate = true;
+            }
+
+            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
         }
 
         /// <summary>
@@ -96,6 +120,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return RedirectToPage("Start", new { uid = module.Uid });
         }
 
+        /// <summary>
+        /// 提交信息，执行方法
+        /// </summary>
+        /// <param name="xscfUid"></param>
+        /// <param name="xscfFunctionName"></param>
+        /// <param name="xscfFunctionParams"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostRunFunctionAsync(string xscfUid, string xscfFunctionName, string xscfFunctionParams)
         {
             var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == xscfUid);
@@ -121,7 +152,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in xscfRegister.Functions)
             {
                 var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                var functionParameters = fun.GetFunctionParammeterInfo().ToList();
+                //var functionParameters = await function.GetFunctionParameterInfoAsync(_serviceProvider, false);
                 if (fun.Name == xscfFunctionName)
                 {
                     function = fun;

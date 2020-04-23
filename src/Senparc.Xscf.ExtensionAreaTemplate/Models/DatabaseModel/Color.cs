@@ -2,6 +2,7 @@
 using Senparc.Scf.Core.Models;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate
 {
@@ -20,8 +21,6 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         /// 颜色码，0-255
         /// </summary>
         public int Green { get; private set; }
-
-        private int blue;
 
         /// <summary>
         /// 颜色码，0-255

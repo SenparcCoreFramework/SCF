@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Senparc.CO2NET.Trace;
 using Senparc.Scf.Core.Models;
-using System.Collections.Generic;
+using Senparc.Scf.Core.Models.DataBaseModel;
+using Senparc.Scf.XscfBase.Attributes;
+using System;
+using System.Collections.Concurrent;
 using System.Linq;
-using System.Reflection;
 
 namespace Senparc.Core.Models
 {
@@ -27,8 +30,9 @@ namespace Senparc.Core.Models
         {
             #region 系统表
 
-            modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
-            modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
+            //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
+            //modelBuilder.ApplyConfiguration(new AdminUserInfoConfigurationMapping());
+            //modelBuilder.ApplyConfiguration(new FeedbackConfigurationMapping());
 
             #endregion
 
@@ -38,12 +42,19 @@ namespace Senparc.Core.Models
             {
                 databaseRegister.OnModelCreating(modelBuilder);
             }
-            
+
+            #endregion
+
+            #region 全局自动注入（请勿改变此命令位置）
+
+            //注册所有 XscfAutoConfigurationMapping 动态模块
+            var dt1 = SystemTime.Now;
+            Senparc.Scf.XscfBase.Register.ApplyAllAutoConfigurationMapping(modelBuilder);
+            SenparcTrace.SendCustomLog("SenparcEntities 数据库实体注入", $"耗时：{SystemTime.DiffTotalMS(dt1)}ms");
+
             #endregion
 
             base.OnModelCreating(modelBuilder);
         }
-
-
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
 using Senparc.Scf.Core.Enums;
+using Senparc.Xscf.ExtensionAreaTemplate.Models;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages
 {
