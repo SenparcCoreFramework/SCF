@@ -18,3 +18,4 @@ obj/
 /src/Senparc.Web/node_modules/gentelella
 /src/Senparc.Web/node_modules
 /src/ProjectFileManager
+/src/Senparc.Web/App_Data/*.bak
