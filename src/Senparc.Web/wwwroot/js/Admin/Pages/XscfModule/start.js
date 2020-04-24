@@ -10,21 +10,46 @@
 function submitFunction(id) {
     var dataInputs = $('[id^=functionForm_Editor_' + id + '_]');
     var jsonData = {};
+    var checkBoxDataIndex = 0;
     for (var i = 0; i < dataInputs.length; i++) {
+
         var ele = dataInputs[i];
         var tagName = ele.tagName.toLowerCase();
         var obj = $(ele);
+
+        var dataKey = obj.data('funcname');
+
+        if (jsonData[dataKey] === undefined) {
+            checkBoxDataIndex = 0;
+        }
+
         var val;
-        if (tagName === 'input' || tagName === 'textara') {
+        if ((tagName === 'input' && obj.attr('type') === 'text') || tagName === 'textara') {
             val = obj.val();
         } else if (tagName === 'select') {
             val = [obj.val()];
+        } else if (tagName === 'input' && obj.attr('type') === 'checkbox') {
+            checkBoxDataIndex++;
+            val = obj.prop('checked') ? obj.val() : '';
         }
         else {
             alert('未知的编辑器类型：' + tagName);
             return false;
         }
-        jsonData[obj.data('funcname')] = val;
+
+        if (checkBoxDataIndex === 0) {
+            //Normal input e.g. TextBox
+            jsonData[dataKey] = val;
+
+        } else {
+            //CheckBox
+            if (jsonData[dataKey] === undefined) {
+                jsonData[dataKey] = {
+                    SelectedValues:[]
+                };
+            }
+            jsonData[dataKey].SelectedValues.push(val);
+        }
     }
     $('#xscfFunctionParams_' + id).val(JSON.stringify(jsonData));
 
