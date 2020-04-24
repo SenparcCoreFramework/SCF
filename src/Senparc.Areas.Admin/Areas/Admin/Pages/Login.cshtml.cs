@@ -75,14 +75,14 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 ModelState.AddModelError(nameof(this.Password), "’À∫≈ªÚ√‹¬Î¥ÌŒÛ£°¥ÌŒÛ¥˙¬Î£∫102°£");
             }
 
-            //if (!errorMsg.IsNullOrEmpty() || !ModelState.IsValid)
-            //{
-            //    this.MessagerList = new List<Messager>
-            //    {
-            //        new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
-            //    };
-            //    return null;
-            //}
+            if (!errorMsg.IsNullOrEmpty() || !ModelState.IsValid)
+            {
+                //this.MessagerList = new List<Messager>
+                //{
+                //    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
+                //};
+                return null;
+            }
 
             if (this.ReturnUrl.IsNullOrEmpty())
             {
