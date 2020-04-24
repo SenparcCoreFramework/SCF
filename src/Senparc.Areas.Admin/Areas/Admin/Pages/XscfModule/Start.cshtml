@@ -334,9 +334,9 @@
                                                                                                 break;
                                                                                             case Scf.XscfBase.ParameterType.DropDownList:
                                                                                                 <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
-                                                                                                    @foreach (var selectionItem in p.SelectionList)
+                                                                                                    @foreach (var selectionItem in p.SelectionList.Items)
                                                                                                     {
-                                                                                                        if (p.Value != null && selectionItem.Value == p.Value.ToString())
+                                                                                                        if (selectionItem.DefaultSelected)
                                                                                                         {
                                                                                                             <option value="@selectionItem.Value" selected="selected" title="@selectionItem.Note">@selectionItem.Text</option>
                                                                                                         }
@@ -348,12 +348,20 @@
                                                                                                 </select>
                                                                                                 break;
                                                                                             case Scf.XscfBase.ParameterType.CheckBoxList:
-                                                                                                @for (int i = 0; i < p.SelectionList.Count; i++)
+                                                                                                @for (int i = 0; i < p.SelectionList.Items.Count; i++)
                                                                                                 {
-                                                                                                    var selectionItem = p.SelectionList[i];
-                                                                                                    <label for="functionForm_Editor_@(paramIndex)_@(p.Name)_@i" title="@selectionItem.Note">@selectionItem.Text</label>
-                                                                                                    <input type="checkbox" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@(p.Name)_@i" title="@selectionItem.Note"/>
+                                                                                                    var selectionItem = p.SelectionList.Items[i];
+                                                                                                    <div class="checkbox">
+                                                                                                        <label>
+                                                                                                            <input type="checkbox" class="flat" name="function_@p.Name" value="@selectionItem.Value" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@(p.Name)_@i" title="@selectionItem.Note" @(selectionItem.DefaultSelected?"checked=\"checked\"":"")> @selectionItem.Text
+                                                                                                        </label>
+                                                                                                        @if (!selectionItem.Note.IsNullOrEmpty())
+                                                                                                        {
+                                                                                                    <br /><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; @selectionItem.Note</span>
+                                                                                                        }
+                                                                                                    </div>
                                                                                                 }
+                                                                                                <br />
                                                                                                 break;
                                                                                             default:
                                                                                                 break;
