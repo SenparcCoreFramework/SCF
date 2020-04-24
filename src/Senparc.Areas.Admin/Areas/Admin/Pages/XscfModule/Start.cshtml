@@ -174,13 +174,13 @@
                                                         }
                                                         @foreach (var threadInfoKV in Model.RegisteredThreadInfo)
                                                         {
-                                                        <tr>
-                                                            <th scope="row">@(++tIndex)</th>
-                                                            <td>@threadInfoKV.Key.Name</td>
-                                                            <td>@threadInfoKV.Value.IsAlive / @(threadInfoKV.Value.IsAlive ? threadInfoKV.Value.IsBackground : false)</td>
-                                                            <td>@(threadInfoKV.Value.IsAlive? threadInfoKV.Value.ThreadState.ToString():"-")</td>
-                                                            <td>@Html.Raw(threadInfoKV.Key.StoryHtml)</td>
-                                                        </tr>
+                                                            <tr>
+                                                                <th scope="row">@(++tIndex)</th>
+                                                                <td>@threadInfoKV.Key.Name</td>
+                                                                <td>@threadInfoKV.Value.IsAlive / @(threadInfoKV.Value.IsAlive ? threadInfoKV.Value.IsBackground : false)</td>
+                                                                <td>@(threadInfoKV.Value.IsAlive ? threadInfoKV.Value.ThreadState.ToString() : "-")</td>
+                                                                <td>@Html.Raw(threadInfoKV.Key.StoryHtml)</td>
+                                                            </tr>
                                                         }
                                                     </tbody>
                                                 </table>
@@ -332,21 +332,28 @@
                                                                                             case Scf.XscfBase.ParameterType.Text:
                                                                                                 <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
                                                                                                 break;
-                                                                                            case Scf.XscfBase.ParameterType.SingleSelection:
-                                                                                            case Scf.XscfBase.ParameterType.MultipleSelection:
+                                                                                            case Scf.XscfBase.ParameterType.DropDownList:
                                                                                                 <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
-                                                                                                    @foreach (var selectionItem in p.SelectionItems)
+                                                                                                    @foreach (var selectionItem in p.SelectionList)
                                                                                                     {
-                                                                                                        if (p.Value != null && selectionItem == p.Value.ToString())
+                                                                                                        if (p.Value != null && selectionItem.Value == p.Value.ToString())
                                                                                                         {
-                                                                                                            <option value="@selectionItem" selected="selected">@selectionItem</option>
+                                                                                                            <option value="@selectionItem.Value" selected="selected" title="@selectionItem.Note">@selectionItem.Text</option>
                                                                                                         }
                                                                                                         else
                                                                                                         {
-                                                                                                            <option value="@selectionItem">@selectionItem</option>
+                                                                                                            <option value="@selectionItem.Value" title="@selectionItem.Note">@selectionItem.Text</option>
                                                                                                         }
                                                                                                     }
                                                                                                 </select>
+                                                                                                break;
+                                                                                            case Scf.XscfBase.ParameterType.CheckBoxList:
+                                                                                                @for (int i = 0; i < p.SelectionList.Count; i++)
+                                                                                                {
+                                                                                                    var selectionItem = p.SelectionList[i];
+                                                                                                    <label for="functionForm_Editor_@(paramIndex)_@(p.Name)_@i" title="@selectionItem.Note">@selectionItem.Text</label>
+                                                                                                    <input type="checkbox" name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@(p.Name)_@i" title="@selectionItem.Note"/>
+                                                                                                }
                                                                                                 break;
                                                                                             default:
                                                                                                 break;
