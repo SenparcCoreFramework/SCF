@@ -353,11 +353,11 @@
                                                                                                     var selectionItem = paraInfo.SelectionList.Items[i];
                                                                                                     <div class="checkbox">
                                                                                                         <label>
-                                                                                                            <input type="checkbox" class="flat" name="function_@paraInfo.Name" value="@selectionItem.Value" data-funcname="@paraInfo.Name" id="functionForm_Editor_@(paramIndex)_@(paraInfo.Name)_@i" title="@selectionItem.Note" @(selectionItem.DefaultSelected?"checked=\"checked\"":"")> @selectionItem.Text
+                                                                                                            <input type="checkbox" class="flat" name="function_@paraInfo.Name" value="@selectionItem.Value" data-funcname="@paraInfo.Name" id="functionForm_Editor_@(paramIndex)_@(paraInfo.Name)_@i" title="@selectionItem.Note" @(selectionItem.DefaultSelected ? "checked=\"checked\"" : "")> @selectionItem.Text
                                                                                                         </label>
                                                                                                         @if (!selectionItem.Note.IsNullOrEmpty())
                                                                                                         {
-                                                                                                        <span>&nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; @selectionItem.Note</span>
+                                                                                                            <span>&nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; @selectionItem.Note</span>
                                                                                                         }
                                                                                                     </div>
                                                                                                 }
@@ -366,8 +366,10 @@
                                                                                             default:
                                                                                                 break;
                                                                                         }
-
-                                                                                        <span><i class="fa fa-info-circle"></i> &nbsp; @paraInfo.Description</span>
+                                                                                        @if (!paraInfo.Description.IsNullOrEmpty())
+                                                                                        {
+                                                                                            <span><i class="fa fa-info-circle"></i> &nbsp; @paraInfo.Description</span>
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             }
