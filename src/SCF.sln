@@ -58,8 +58,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Xscf.WeixinManager"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyExProjects", "MyExProjects", "{5A44E2E3-99FC-4398-948B-8040555D04CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Xscf.WeChatSampleBuilder", "..\..\..\weixin.senparc.com Site\Senparc.Xscf.WeChatSampleBuilder\Senparc.Xscf.WeChatSampleBuilder.csproj", "{CFB508AC-29D2-49B2-9570-3779591D26E4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -184,12 +182,6 @@ Global
 		{988407D7-77CF-4259-9E54-353B84FA58AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{988407D7-77CF-4259-9E54-353B84FA58AE}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{988407D7-77CF-4259-9E54-353B84FA58AE}.Test|Any CPU.Build.0 = Test|Any CPU
-		{CFB508AC-29D2-49B2-9570-3779591D26E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFB508AC-29D2-49B2-9570-3779591D26E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFB508AC-29D2-49B2-9570-3779591D26E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFB508AC-29D2-49B2-9570-3779591D26E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFB508AC-29D2-49B2-9570-3779591D26E4}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{CFB508AC-29D2-49B2-9570-3779591D26E4}.Test|Any CPU.Build.0 = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,7 +202,6 @@ Global
 		{346475E8-6E39-4AA9-896F-893DC47AD3D7} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
 		{A21645FD-561A-4B91-AA01-6B4E030FFD9E} = {76FC86E0-991D-47B7-8AAB-42B27DAB10C1}
 		{988407D7-77CF-4259-9E54-353B84FA58AE} = {5A44E2E3-99FC-4398-948B-8040555D04CD}
-		{CFB508AC-29D2-49B2-9570-3779591D26E4} = {5A44E2E3-99FC-4398-948B-8040555D04CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7427A6C9-D522-4B10-B0AC-607D69736B50}
