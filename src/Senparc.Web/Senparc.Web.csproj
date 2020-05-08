@@ -26,13 +26,13 @@
 
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.308.7-beta1" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.308-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.309.1-beta1" />
     <PackageReference Include="ML.Xscf.Docs" Version="0.0.1.91-beta1" />
   </ItemGroup>
 
