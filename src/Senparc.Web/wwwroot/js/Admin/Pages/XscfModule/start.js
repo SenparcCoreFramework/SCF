@@ -10,7 +10,7 @@
 function submitFunction(id) {
     var dataInputs = $('[id^=functionForm_Editor_' + id + '_]');
     var jsonData = {};
-    var checkBoxDataIndex = 0;
+    var selectionDataIndex = 0;
     for (var i = 0; i < dataInputs.length; i++) {
 
         var ele = dataInputs[i];
@@ -20,16 +20,17 @@ function submitFunction(id) {
         var dataKey = obj.data('funcname');
 
         if (jsonData[dataKey] === undefined) {
-            checkBoxDataIndex = 0;
+            selectionDataIndex = 0;
         }
 
         var val;
         if ((tagName === 'input' && obj.attr('type') === 'text') || tagName === 'textara') {
             val = obj.val();
         } else if (tagName === 'select') {
-            val = [obj.val()];
+            selectionDataIndex++;
+            val = obj.val();
         } else if (tagName === 'input' && obj.attr('type') === 'checkbox') {
-            checkBoxDataIndex++;
+            selectionDataIndex++;
             val = obj.prop('checked') ? obj.val() : '';
         }
         else {
@@ -37,15 +38,15 @@ function submitFunction(id) {
             return false;
         }
 
-        if (checkBoxDataIndex === 0) {
+        if (selectionDataIndex === 0) {
             //Normal input e.g. TextBox
             jsonData[dataKey] = val;
 
         } else {
-            //CheckBox
+            //CheckBox or Dropdownlad ... SelectionItems
             if (jsonData[dataKey] === undefined) {
                 jsonData[dataKey] = {
-                    SelectedValues:[]
+                    SelectedValues: []
                 };
             }
             jsonData[dataKey].SelectedValues.push(val);
@@ -72,17 +73,27 @@ function submitFunction(id) {
             showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="' + data.msg + '" target="_blank">' + data.msg + '</a>');
         }
         else {
-            showModal('执行成功', '返回信息', data.msg);
+            showModal('执行成功', '返回信息', data.msg, true);
         }
     });
     return false;
 }
 
-function showModal(title, subtitle, contentHtml) {
+function showModal(title, subtitle, contentHtml, rawHTML) {
     $('#result_small_modal_title').html(title);
     $('#result_small_modal_subtitle').html(subtitle);
-    $('#result_small_modal_content').html((contentHtml || '').replace(/\n/g, '<br />'));
+
+    var html = rawHTML ? HTMLDecode(contentHtml || '') : (contentHtml || '');
+    $('#result_small_modal_content').html(html.replace(/\n/g, '<br />'));
 
     $('#result_small_modal').modal();
 
+}
+
+function HTMLDecode(text) {
+    var temp = document.createElement("div");
+    temp.innerHTML = text;
+    var output = temp.innerText || temp.textContent;
+    temp = null;
+    return output;
 }

@@ -319,22 +319,22 @@
                                                                         <div class="modal-body">
                                                                             <h4><i class="fa fa-newspaper-o"></i> @Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(item.Key.Description)</h4>
                                                                             <div class="ln_solid"></div>
-                                                                            @foreach (var p in item.Value)
+                                                                            @foreach (var paraInfo in item.Value)
                                                                             {
                                                                                 <div class="item form-group">
-                                                                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@p.Name">
-                                                                                        @p.Title @if (p.IsRequired)
+                                                                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@paraInfo.Name">
+                                                                                        @paraInfo.Title @if (paraInfo.IsRequired)
                                                                                         {<span class="required">*</span>}
                                                                                     </label>
-                                                                                    <div class="col-md-6 col-sm-6 ">
-                                                                                        @switch (p.ParameterType)
+                                                                                    <div class="col-md-7 col-sm-7 ">
+                                                                                        @switch (paraInfo.ParameterType)
                                                                                         {
                                                                                             case Scf.XscfBase.ParameterType.Text:
-                                                                                                <input type="text" name="function_@p.Name" data-funcname="@p.Name" value="@p.Value" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
+                                                                                                <input type="text" name="function_@paraInfo.Name" data-funcname="@paraInfo.Name" value="@paraInfo.Value" id="functionForm_Editor_@(paramIndex)_@paraInfo.Name" @Html.Raw(paraInfo.IsRequired ? "required=\"required\"" : "") class="form-control">
                                                                                                 break;
                                                                                             case Scf.XscfBase.ParameterType.DropDownList:
-                                                                                                <select name="function_@p.Name" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@p.Name" @Html.Raw(p.IsRequired ? "required=\"required\"" : "") class="form-control">
-                                                                                                    @foreach (var selectionItem in p.SelectionList.Items)
+                                                                                                <select name="function_@paraInfo.Name" data-funcname="@paraInfo.Name" id="functionForm_Editor_@(paramIndex)_@paraInfo.Name" @Html.Raw(paraInfo.IsRequired ? "required=\"required\"" : "") class="form-control">
+                                                                                                    @foreach (var selectionItem in paraInfo.SelectionList.Items)
                                                                                                     {
                                                                                                         if (selectionItem.DefaultSelected)
                                                                                                         {
@@ -348,16 +348,16 @@
                                                                                                 </select>
                                                                                                 break;
                                                                                             case Scf.XscfBase.ParameterType.CheckBoxList:
-                                                                                                @for (int i = 0; i < p.SelectionList.Items.Count; i++)
+                                                                                                @for (int i = 0; i < paraInfo.SelectionList.Items.Count; i++)
                                                                                                 {
-                                                                                                    var selectionItem = p.SelectionList.Items[i];
+                                                                                                    var selectionItem = paraInfo.SelectionList.Items[i];
                                                                                                     <div class="checkbox">
                                                                                                         <label>
-                                                                                                            <input type="checkbox" class="flat" name="function_@p.Name" value="@selectionItem.Value" data-funcname="@p.Name" id="functionForm_Editor_@(paramIndex)_@(p.Name)_@i" title="@selectionItem.Note" @(selectionItem.DefaultSelected?"checked=\"checked\"":"")> @selectionItem.Text
+                                                                                                            <input type="checkbox" class="flat" name="function_@paraInfo.Name" value="@selectionItem.Value" data-funcname="@paraInfo.Name" id="functionForm_Editor_@(paramIndex)_@(paraInfo.Name)_@i" title="@selectionItem.Note" @(selectionItem.DefaultSelected ? "checked=\"checked\"" : "")> @selectionItem.Text
                                                                                                         </label>
                                                                                                         @if (!selectionItem.Note.IsNullOrEmpty())
                                                                                                         {
-                                                                                                    <br /><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; @selectionItem.Note</span>
+                                                                                                            <span>&nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; @selectionItem.Note</span>
                                                                                                         }
                                                                                                     </div>
                                                                                                 }
@@ -366,8 +366,10 @@
                                                                                             default:
                                                                                                 break;
                                                                                         }
-
-                                                                                        <span><i class="fa fa-info-circle"></i> &nbsp; @p.Description</span>
+                                                                                        @if (!paraInfo.Description.IsNullOrEmpty())
+                                                                                        {
+                                                                                            <span><i class="fa fa-info-circle"></i> &nbsp; @paraInfo.Description</span>
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             }
