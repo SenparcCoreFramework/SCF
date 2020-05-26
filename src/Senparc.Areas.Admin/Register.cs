@@ -73,7 +73,7 @@ namespace Senparc.Areas.Admin
 
         public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
-            //XscfModuleServiceExtension xscfModuleServiceExtension = serviceProvider.GetService<XscfModuleServiceExtension>();
+            XscfModuleServiceExtension xscfModuleServiceExtension = serviceProvider.GetService<XscfModuleServiceExtension>();
             //SenparcEntities senparcEntities = (SenparcEntities)xscfModuleServiceExtension.BaseData.BaseDB.BaseDataContext;
 
             ////更新数据库
@@ -84,13 +84,13 @@ namespace Senparc.Areas.Admin
             //    senparcEntities.Migrate();//进行合并
             //}
 
-            //var systemModule = xscfModuleServiceExtension.GetObject(z => z.Uid == this.Uid);
-            //if (systemModule == null)
-            //{
-            //    //只在未安装的情况下进行安装，InstallModuleAsync会访问到此方法，不做判断可能会引发死循环。
-            //    //常规模块中请勿在此方法中自动安装模块！
-            //    await xscfModuleServiceExtension.InstallModuleAsync(this.Uid).ConfigureAwait(false);
-            //}
+            var systemModule = xscfModuleServiceExtension.GetObject(z => z.Uid == this.Uid);
+            if (systemModule == null)
+            {
+                //只在未安装的情况下进行安装，InstallModuleAsync会访问到此方法，不做判断可能会引发死循环。
+                //常规模块中请勿在此方法中自动安装模块！
+                await xscfModuleServiceExtension.InstallModuleAsync(this.Uid).ConfigureAwait(false);
+            }
 
             await base.InstallOrUpdateAsync(serviceProvider, installOrUpdate);
         }

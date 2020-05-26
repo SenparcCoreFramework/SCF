@@ -2,9 +2,11 @@
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Utility;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senparc.Core.Models
 {
+    [Table(nameof(AdminUserInfo) + "s")]//必须添加前缀，防止全系统中发生冲突（系统表可以不加前缀）
     [Serializable]
     public partial class AdminUserInfo : EntityBase<int>
     {
@@ -84,7 +86,6 @@ namespace Senparc.Core.Models
             }
             return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
         }
-
 
         public void UpdateObject(CreateOrUpdate_AdminUserInfoDto objDto)
         {

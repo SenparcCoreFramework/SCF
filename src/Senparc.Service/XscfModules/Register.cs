@@ -53,6 +53,7 @@ namespace Senparc.Service
         public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
             XscfModuleServiceExtension xscfModuleServiceExtension = serviceProvider.GetService<XscfModuleServiceExtension>();
+            //SenparcEntities senparcEntities = (SenparcEntities)xscfModuleServiceExtension.BaseData.BaseDB.BaseDataContext;
             SenparcEntities senparcEntities = (SenparcEntities)xscfModuleServiceExtension.BaseData.BaseDB.BaseDataContext;
 
             //更新数据库
@@ -118,7 +119,7 @@ namespace Senparc.Service
             Func<IServiceProvider, SenparcEntities> implementationFactory = s =>
                 new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
                     .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString,
-                                    b => base.DbContextOptionsAction(b, "Senparc.Web"))
+                                    b => base.DbContextOptionsAction(b, "Senparc.Service")/*从当前程序集读取*/)
                     .Options);
 
             services.AddScoped(implementationFactory);

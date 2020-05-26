@@ -57,7 +57,9 @@ namespace Senparc.Service
             {
                 installOrUpdateValue = installOrUpdate;
                 //底层系统模块此时还没有设置好初始化的菜单信息，不能设置菜单
-                if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_SERVICE_UID)
+                if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_SERVICE_UID &&
+                    register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_AREAS_ADMIN_UID
+                    )
                 {
                     await InstallMenuAsync(register, installOrUpdate);
                 }
