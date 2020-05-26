@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.Service.SystemEntities
+namespace Senparc.Service
 {
     public class SystemServiceEntities : XscfDatabaseDbContext
     {

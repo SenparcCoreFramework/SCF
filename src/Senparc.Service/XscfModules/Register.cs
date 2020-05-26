@@ -85,8 +85,8 @@ namespace Senparc.Service
 
         #region IXscfDatabase 接口
 
-        public string DatabaseUniquePrefix => "ScfSystem_";
-        public Type XscfDatabaseDbContextType => typeof(SenparcEntities);
+        public string DatabaseUniquePrefix => "";//特殊情况：没有前缀
+        public Type XscfDatabaseDbContextType => typeof(SystemServiceEntities);
 
 
         public void OnModelCreating(ModelBuilder modelBuilder)
