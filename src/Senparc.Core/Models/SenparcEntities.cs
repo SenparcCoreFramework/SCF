@@ -18,10 +18,7 @@ namespace Senparc.Core.Models
 
         #region 系统表
 
-        public virtual DbSet<AdminUserInfo> AdminUserInfos { get; set; }
-
-        public DbSet<FeedBack> FeedBacks { get; set; }
-
+        //统一由 SystemServiceEntities 加载
 
         #endregion
 

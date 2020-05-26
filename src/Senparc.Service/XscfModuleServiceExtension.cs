@@ -57,7 +57,7 @@ namespace Senparc.Service
             {
                 installOrUpdateValue = installOrUpdate;
                 //底层系统模块此时还没有设置好初始化的菜单信息，不能设置菜单
-                if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_UID)
+                if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_SERVICE_UID)
                 {
                     await InstallMenuAsync(register, installOrUpdate);
                 }
@@ -91,7 +91,18 @@ namespace Senparc.Service
             {
                 //新建菜单
                 var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
-                var order = register.Uid == SiteConfig.SYSTEM_XSCF_MODULE_UID ? 150 : 20;
+                var order = 20;
+                switch (register.Uid)
+                {
+                    case SiteConfig.SYSTEM_XSCF_MODULE_SERVICE_UID:
+                        order = 160;
+                        break;
+                    case SiteConfig.SYSTEM_XSCF_MODULE_AREAS_ADMIN_UID:
+                        order = 150;
+                        break;
+                    default:
+                        break;
+                }
                 menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, order, true, null);
             }
 

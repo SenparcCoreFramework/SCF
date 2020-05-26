@@ -19,10 +19,10 @@
     <PackageReference Include="Senparc.Weixin.MP" Version="16.10.401" />
     <PackageReference Include="Senparc.Weixin.Open" Version="4.7.401" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.401" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.309.1-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.309.1-beta1" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.309.1-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.309.1-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.309.2-beta1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="SystemEntities\DataBaseModel\" />
     <Folder Include="Weixin\MessageHandler\" />
   </ItemGroup>
 
