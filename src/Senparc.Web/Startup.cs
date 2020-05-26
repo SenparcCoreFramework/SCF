@@ -1,5 +1,3 @@
-using log4net;
-using log4net.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -68,7 +66,7 @@ namespace Senparc.Web
             {
                 endpoints.MapRazorPages();
             });
-            
+
             //Use SCF£¨±ØÐë£©
             app.UseScf(env, senparcCoreSetting, senparcSetting);
         }

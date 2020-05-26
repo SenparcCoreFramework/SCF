@@ -7,9 +7,10 @@ using System.Text;
 
 namespace Senparc.Service
 {
-    ///// <summary>
-    ///// 设计时 DbContext 创建（仅在开发时创建 Code-First 的数据库 Migration 使用，在生产环境不会执行）
-    ///// </summary>
+    /// <summary>
+    /// 设计时 DbContext 创建（仅在开发时创建 Code-First 的数据库 Migration 使用，在生产环境不会执行）
+    /// 用于创建当前模块数据库
+    /// </summary>
     public class SenparcDbContextFactory : SenparcDesignTimeDbContextFactoryBase<SystemServiceEntities, Register>
     {
         /// <summary>

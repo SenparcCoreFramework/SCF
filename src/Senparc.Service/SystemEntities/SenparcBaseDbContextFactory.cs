@@ -13,7 +13,12 @@ using System.IO;
 namespace Senparc.Service
 {
     /// <summary>
-    /// 设计时 DbContext 创建，用于更新底层（Senparc.Scf.Core）的实体，仅供开发时使用
+    /// 设计时 DbContext 创建
+    /// 用于更新底层（Senparc.Scf.Core）的实体，仅供开发时使用。
+    /// add-migration 操作说明：
+    /// 1、将 Senparc.Service 设为启动项目
+    /// 2、【程序包管理器控制台】中设置“默认项目”为“Senparc.Service”
+    /// 3、PM> add-migration Update_SystemConfig -Context SenparcEntities
     /// </summary>
     public class SenparcBaseDbContextFactory : IDesignTimeDbContextFactory<SenparcEntities>
     {
@@ -32,8 +37,6 @@ namespace Senparc.Service
             serviceCollection.AddMemoryCache();//使用内存缓存
             //修复 https://github.com/SenparcCoreFramework/SCF/issues/13 发现的问题（在非Web环境下无法得到网站根目录路径）
             IRegisterService register = RegisterService.Start(senparcSetting);
-
-          
 
             //如果运行 Add-Migration 命令，并且获取不到正确的网站根目录，此处可能无法自动获取到连接字符串（上述#13问题），
             //也可通过下面已经注释的的提供默认值方式解决（不推荐）
