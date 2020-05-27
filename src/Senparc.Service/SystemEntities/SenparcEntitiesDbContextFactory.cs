@@ -18,9 +18,9 @@ namespace Senparc.Service
     /// add-migration 操作说明：
     /// 1、将 Senparc.Service 设为启动项目
     /// 2、【程序包管理器控制台】中设置“默认项目”为“Senparc.Service”
-    /// 3、PM> add-migration Update_SystemConfig -Context SenparcEntities
+    /// 3、PM> add-migration Update_SystemConfig -Context SenparcEntities -OutputDir "SystemEntities/MigrationsForSenparcEntities"
     /// </summary>
-    public class SenparcBaseDbContextFactory : IDesignTimeDbContextFactory<SenparcEntities>
+    public class SenparcEntitiesDbContextFactory : IDesignTimeDbContextFactory<SenparcEntities>
     {
         public SenparcEntities CreateDbContext(string[] args)
         {

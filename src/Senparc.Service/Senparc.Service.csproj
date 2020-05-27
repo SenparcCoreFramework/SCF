@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SystemEntities\DataBaseModel\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Weixin\MessageHandler\" />
   </ItemGroup>
 

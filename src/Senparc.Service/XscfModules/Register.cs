@@ -47,6 +47,8 @@ namespace Senparc.Service
         public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<XscfModuleServiceExtension>();
+            services.AddScoped<SystemServiceEntities>();
+
             return base.AddXscfModule(services, configuration);
         }
 
@@ -58,6 +60,17 @@ namespace Senparc.Service
 
             //更新数据库
             var pendingMigs = await senparcEntities.Database.GetPendingMigrationsAsync();
+            if (pendingMigs.Count() > 0)
+            {
+                senparcEntities.ResetMigrate();//重置合并状态
+                senparcEntities.Migrate();//进行合并
+            }
+
+            //更新数据库
+            //await base.MigrateDatabaseAsync<SystemServiceEntities>(serviceProvider);
+
+            var systemServiceEntities = serviceProvider.GetService<SystemServiceEntities>();
+            pendingMigs = await systemServiceEntities.Database.GetPendingMigrationsAsync();
             if (pendingMigs.Count() > 0)
             {
                 senparcEntities.ResetMigrate();//重置合并状态
