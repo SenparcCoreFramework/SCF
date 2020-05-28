@@ -1,6 +1,7 @@
 ﻿using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Senparc.Core.Models
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Senparc.Web.Migrations
+namespace Senparc.Service.SystemEntities.MigrationsForSenparcEntities
 {
     public partial class Update_Account : Migration
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Senparc.Web.Migrations
+namespace Senparc.Service.SystemEntities.MigrationsForSenparcEntities
 {
     public partial class Update_Menu_20200226 : Migration
     {

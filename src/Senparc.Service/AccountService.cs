@@ -490,6 +490,8 @@ namespace Senparc.Service
             }
         }
 
+        //TODO:提供异步方法
+
         public override void DeleteObject(Account obj)
         {
             obj.Flag = true;

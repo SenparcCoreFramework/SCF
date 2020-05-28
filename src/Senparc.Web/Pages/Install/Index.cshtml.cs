@@ -58,9 +58,13 @@ namespace Senparc.Web.Pages.Install
             }
             catch (Exception)
             {
-                //开始安装系统模块
-                Senparc.Areas.Admin.Register systemRegister = new Areas.Admin.Register();
-                await systemRegister.InstallOrUpdateAsync(_serviceProvider, Scf.Core.Enums.InstallOrUpdate.Install);
+                //开始安装系统模块（Service）
+                Senparc.Service.Register serviceRegister = new Service.Register();
+                await serviceRegister.InstallOrUpdateAsync(_serviceProvider, Scf.Core.Enums.InstallOrUpdate.Install);
+
+                //开始安装系统模块（Admin）
+                Senparc.Areas.Admin.Register adminRegister = new Areas.Admin.Register();
+                await adminRegister.InstallOrUpdateAsync(_serviceProvider, Scf.Core.Enums.InstallOrUpdate.Install);
 
                 //((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).ResetMigrate();//重置合并状态
                 //((SenparcEntities)_accountInfoService.BaseData.BaseDB.BaseDataContext).Migrate();//进行合并
@@ -79,7 +83,7 @@ namespace Senparc.Web.Pages.Install
             {
                 return new StatusCodeResult(404);
                 //base.Response.StatusCode = 404;
-                //return; 
+                //return;
             }
             else
             {

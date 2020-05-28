@@ -16,12 +16,12 @@ namespace Senparc.Core.Models
         {
         }
 
+
         #region 系统表
 
         public virtual DbSet<AdminUserInfo> AdminUserInfos { get; set; }
 
         public DbSet<FeedBack> FeedBacks { get; set; }
-
 
         #endregion
 

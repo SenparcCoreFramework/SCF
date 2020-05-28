@@ -29,18 +29,19 @@ using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin
 {
+    [XscfOrder(5996)]
     public class Register : XscfRegisterBase,
         IXscfRegister, //注册 XSCF 基础模块接口（必须）
-        IAreaRegister, //注册 XSCF 页面接口（按需选用）
-        IXscfDatabase,  //注册 XSCF 模块数据库（按需选用）
-        IXscfRazorRuntimeCompilation  //需要使用 RazorRuntimeCompilation，在开发环境下实时更新 Razor Page
+        IAreaRegister //注册 XSCF 页面接口（按需选用）
+        //IXscfDatabase,  //注册 XSCF 模块数据库（按需选用）
+        //IXscfRazorRuntimeCompilation  //需要使用 RazorRuntimeCompilation，在开发环境下实时更新 Razor Page
     {
 
         #region IXscfRegister 接口
 
-        public override string Name => "SenparcCoreFramework";
+        public override string Name => "SenparcCoreFramework.Admin";
 
-        public override string Uid => SiteConfig.SYSTEM_XSCF_MODULE_UID;// "00000000-0000-0000-0000-000000000001";
+        public override string Uid => SiteConfig.SYSTEM_XSCF_MODULE_AREAS_ADMIN_UID;// "00000000-0000-0000-0000-000000000002";
 
         public override string Version => "0.1.0-beta4";
 
@@ -56,21 +57,32 @@ namespace Senparc.Areas.Admin
         public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<XscfModuleServiceExtension>();
+
+            //Attributes
+            services.AddScoped(typeof(AuthenticationResultFilterAttribute));
+            services.AddScoped(typeof(AuthenticationAsyncPageFilterAttribute));
+
+            //AutoMap映射
+            base.AddAutoMapMapping(profile =>
+            {
+                profile.CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
+            });
+
             return base.AddXscfModule(services, configuration);
         }
 
         public override async Task InstallOrUpdateAsync(IServiceProvider serviceProvider, InstallOrUpdate installOrUpdate)
         {
             XscfModuleServiceExtension xscfModuleServiceExtension = serviceProvider.GetService<XscfModuleServiceExtension>();
-            SenparcEntities senparcEntities = (SenparcEntities)xscfModuleServiceExtension.BaseData.BaseDB.BaseDataContext;
+            //SenparcEntities senparcEntities = (SenparcEntities)xscfModuleServiceExtension.BaseData.BaseDB.BaseDataContext;
 
-            //更新数据库
-            var pendingMigs = await senparcEntities.Database.GetPendingMigrationsAsync();
-            if (pendingMigs.Count() > 0)
-            {
-                senparcEntities.ResetMigrate();//重置合并状态
-                senparcEntities.Migrate();//进行合并
-            }
+            ////更新数据库
+            //var pendingMigs = await senparcEntities.Database.GetPendingMigrationsAsync();
+            //if (pendingMigs.Count() > 0)
+            //{
+            //    senparcEntities.ResetMigrate();//重置合并状态
+            //    senparcEntities.Migrate();//进行合并
+            //}
 
             var systemModule = xscfModuleServiceExtension.GetObject(z => z.Uid == this.Uid);
             if (systemModule == null)
@@ -138,71 +150,70 @@ namespace Senparc.Areas.Admin
         #endregion
 
 
-        #region IXscfDatabase 接口
+        //#region IXscfDatabase 接口
 
-        public string DatabaseUniquePrefix => "ScfSystem_";
-        public Type XscfDatabaseDbContextType => typeof(SenparcEntities);
-
-
-        public void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //已在 SenparcEntities 中完成
-
-        }
-
-        public void AddXscfDatabaseModule(IServiceCollection services)
-        {
-            #region 历史解决方案参考信息
-            /* 参考信息
-             *      错误信息：
-             *          中文：EnableRetryOnFailure 解决短暂的数据库连接失败
-             *          英文：Win32Exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
-             *                InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure()' to the 'UseSqlServer' call.
-             *      问题解决方案说明：https://www.colabug.com/2329124.html
-             */
-
-            /* 参考信息
-             *      错误信息：
-             *          中文：EnableRetryOnFailure 解决短暂的数据库连接失败
-             *          英文：Win32Exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
-             *                InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure()' to the 'UseSqlServer' call.
-             *      问题解决方案说明：https://www.colabug.com/2329124.html
-             */
-            #endregion
-
-            Func<IServiceProvider, SenparcEntities> implementationFactory = s =>
-                new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
-                    .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString,
-                                    b => base.DbContextOptionsAction(b, "Senparc.Web"))
-                    .Options);
-
-            services.AddScoped(implementationFactory);
-            services.AddScoped<ISenparcEntities>(implementationFactory);
-            services.AddScoped<SenparcEntitiesBase>(implementationFactory);
-
-            services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
-            services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
-
-            //Attributes
-            services.AddScoped(typeof(AuthenticationResultFilterAttribute));
-            services.AddScoped(typeof(AuthenticationAsyncPageFilterAttribute));
-
-            //预加载 EntitySetKey
-            EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
-
-            //AutoMap映射
-            base.AddAutoMapMapping(profile =>
-            {
-                profile.CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
-            });
-        }
+        //public string DatabaseUniquePrefix => "ScfSystemAdmin_";
+        //public Type XscfDatabaseDbContextType => typeof(SenparcEntities);
 
 
-        #endregion
+        //public void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    //已在 SenparcEntities 中完成
+
+        //}
+
+        //public void AddXscfDatabaseModule(IServiceCollection services)
+        //{
+        //    #region 历史解决方案参考信息
+        //    /* 参考信息
+        //     *      错误信息：
+        //     *          中文：EnableRetryOnFailure 解决短暂的数据库连接失败
+        //     *          英文：Win32Exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+        //     *                InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure()' to the 'UseSqlServer' call.
+        //     *      问题解决方案说明：https://www.colabug.com/2329124.html
+        //     */
+
+        //    /* 参考信息
+        //     *      错误信息：
+        //     *          中文：EnableRetryOnFailure 解决短暂的数据库连接失败
+        //     *          英文：Win32Exception: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+        //     *                InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure()' to the 'UseSqlServer' call.
+        //     *      问题解决方案说明：https://www.colabug.com/2329124.html
+        //     */
+        //    #endregion
+
+        //    Func<IServiceProvider, SenparcEntities> implementationFactory = s =>
+        //        new SenparcEntities(new DbContextOptionsBuilder<SenparcEntities>()
+        //            .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString,
+        //                            b => base.DbContextOptionsAction(b, "Senparc.Web"))
+        //            .Options);
+
+        //    services.AddScoped(implementationFactory);
+        //    services.AddScoped<ISenparcEntities>(implementationFactory);
+        //    services.AddScoped<SenparcEntitiesBase>(implementationFactory);
+
+        //    services.AddScoped(typeof(ISqlClientFinanceData), typeof(SqlClientFinanceData));
+        //    services.AddScoped(typeof(ISqlBaseFinanceData), typeof(SqlClientFinanceData));
+
+        //    //Attributes
+        //    services.AddScoped(typeof(AuthenticationResultFilterAttribute));
+        //    services.AddScoped(typeof(AuthenticationAsyncPageFilterAttribute));
+
+        //    //预加载 EntitySetKey
+        //    EntitySetKeys.TryLoadSetInfo(typeof(SenparcEntities));
+
+        //    //AutoMap映射
+        //    base.AddAutoMapMapping(profile =>
+        //    {
+        //        profile.CreateMap<AdminUserInfo, CreateOrUpdate_AdminUserInfoDto>();
+        //    });
+        //}
 
 
-        #region IXscfRazorRuntimeCompilation 接口
-        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Areas.Admin"));
-        #endregion
+        //#endregion
+
+        //#region IXscfRazorRuntimeCompilation 接口
+        //public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Areas.Admin"));
+        //#endregion
     }
 }

@@ -9,9 +9,23 @@
     <Compile Remove="ProjectDemandService.cs" />
     <Compile Remove="ProjectKindService.cs" />
     <Compile Remove="ProjectPayLogService.cs" />
+    <Compile Remove="SystemEntities\MigrationsForSenparcEntities\20200528043720_Update_SystemConfig_HideModuleManager.cs" />
+    <Compile Remove="SystemEntities\MigrationsForSenparcEntities\20200528043720_Update_SystemConfig_HideModuleManager.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>    
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Qiniu.Shared" Version="7.2.15" />
@@ -19,10 +33,10 @@
     <PackageReference Include="Senparc.Weixin.MP" Version="16.10.401" />
     <PackageReference Include="Senparc.Weixin.Open" Version="4.7.401" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.401" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.308-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.308-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Repository" Version="0.4.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.309.3-beta1" />
   </ItemGroup>
 
   <ItemGroup>
