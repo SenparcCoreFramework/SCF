@@ -4,14 +4,28 @@
 @using Senparc.Scf.XscfBase;
 @{
     ViewData["Title"] = "模块管理";
+    var hideManager = Model.FullSystemConfig.HideModuleManager == true;
+    var hideManagerTip = hideManager
+        ? "打开【扩展模块】管理功能后，所有扩展模块将显示在【扩展模块】二级目录中。确定要打开吗？"
+        : "隐藏【扩展模块】管理功能后，所有扩展模块将并列显示在一级目录中。如需重新打开，请直接浏览器内访问此页面【/Admin/XscfModule】。确定要隐藏吗？";
 }
 @section breadcrumbs{
     <li>扩展模块</li>
     <li>模块管理</li>
 }
-
+<form id="form_hideManager" novalidate asp-page="Index" asp-page-handler="HideManager" asp-area="Admin" method="post" >
+</form>
 <div class="row">
-
+    <button class="btn btn-primary pull-right" onclick="submitHideManager()">
+        @(hideManager?"开启【扩展模块】管理模式":"切换至发布状态，隐藏【扩展莫管】管理单元")
+    </button>
+    <script>
+        function submitHideManager() {
+            if (confirm('@hideManagerTip')) {
+                document.getElementById('form_hideManager').submit();
+            }
+        }
+    </script>
     <div class="col-md-12 col-sm-12 col-xs-12">
         @if (Model.NewXscfRegisters.Count > 0)
         {
@@ -47,20 +61,20 @@
                             <tbody>
                                 @foreach (var item in Model.NewXscfRegisters)
                                 {
-                                <tr class="pointer">
-                                    <td class=" "><i class="fa fa-cubes"></i> @item.Name </td>
-                                    <td class=" "><i class="@item.Icon"></i> @item.MenuName</td>
-                                    <td class=" "> <i class="fa fa-code-fork"></i> v@(item.Version)</td>
-                                    <td class=" "><i class="fa fa-shield"></i> @item.Uid</td>
-                                    <td class=" ">
-                                        <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@item.Uid" title="扫描" class="btn-sm btn btn-success">
-                                            <em class="glyphicon glyphicon-gift"></em> &nbsp;<small>安装</small>
-                                        </a>
-                                        @*<a asp-page="Start" asp-route-uid="@item.Uid" title="设置" class="btn-xs btn btn-info">
-                <em class="fa fa-gear">设置</em>
-            </a>*@
-                                    </td>
-                                </tr>
+                                    <tr class="pointer">
+                                        <td class=" "><i class="fa fa-cubes"></i> @item.Name </td>
+                                        <td class=" "><i class="@item.Icon"></i> @item.MenuName</td>
+                                        <td class=" "> <i class="fa fa-code-fork"></i> v@(item.Version)</td>
+                                        <td class=" "><i class="fa fa-shield"></i> @item.Uid</td>
+                                        <td class=" ">
+                                            <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@item.Uid" title="扫描" class="btn-sm btn btn-success">
+                                                <em class="glyphicon glyphicon-gift"></em> &nbsp;<small>安装</small>
+                                            </a>
+                                            @*<a asp-page="Start" asp-route-uid="@item.Uid" title="设置" class="btn-xs btn btn-info">
+                                                    <em class="fa fa-gear">设置</em>
+                                                </a>*@
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -92,7 +106,7 @@
                                 <th class="column-title">模块名称 / 唯一编码（全局唯一）</th>
                                 <th class="column-title">状态</th>
                                 @*<th class="column-title">备注</th>
-                                <th class="column-title">说明</th>*@
+                                    <th class="column-title">说明</th>*@
                                 <th class="column-title">添加时间 </th>
                                 <th class="column-title">操作 </th>
                                 <th class="bulk-actions" colspan="16">
@@ -121,14 +135,14 @@
                                     </td>
                                     <td class=" ">@item.State.ToString()</td>
                                     @*<td class=" ">@item.AdminRemark</td>
-                                    <td class=" ">@item.Remark</td>*@
+                                        <td class=" ">@item.Remark</td>*@
                                     <td class=" "> @item.AddTime.ToString()</td>
                                     <td class=" ">
                                         <a asp-page="Start" asp-route-uid="@item.Uid" title="操作" class="btn-xs btn btn-info">
                                             <em class="fa fa-gear"> 操作</em>
                                         </a>
                                         @if (xscfRegister?.GetAreaHomeUrl() is string homeUrl &&
-                                          !homeUrl.IsNullOrEmpty())
+                                         !homeUrl.IsNullOrEmpty())
                                         {
                                             <a href="@homeUrl" title="主页" class="btn-xs btn btn-danger">
                                                 <em class="fa fa-home">
