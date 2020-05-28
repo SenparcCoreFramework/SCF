@@ -1,6 +1,10 @@
 ﻿CREATE TABLE [dbo].[Accounts] (
-    [Flag]                 BIT             DEFAULT ((0)) NOT NULL,
     [Id]                   INT             IDENTITY (1, 1) NOT NULL,
+    [Flag]                 BIT             DEFAULT (CONVERT([bit],(0))) NOT NULL,
+    [AddTime]              DATETIME2 (7)   NOT NULL,
+    [LastUpdateTime]       DATETIME2 (7)   NOT NULL,
+    [AdminRemark]          NVARCHAR (300)  NULL,
+    [Remark]               NVARCHAR (300)  NULL,
     [UserName]             NVARCHAR (50)   NOT NULL,
     [Password]             NVARCHAR (100)  NULL,
     [PasswordSalt]         VARCHAR (100)   NULL,
@@ -31,11 +35,12 @@
     [LastWeixinSignInTime] DATETIME2 (7)   NULL,
     [WeixinSignTimes]      INT             NOT NULL,
     [WeixinUnionId]        NVARCHAR (MAX)  NULL,
-    [Type]                 INT             DEFAULT ((0)) NOT NULL,
-    [AddTime]              DATETIME        NOT NULL,
     [WeixinOpenId]         NVARCHAR (MAX)  NULL,
-    CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED ([Id] ASC)
+    [Locked]               BIT             NULL,
+    CONSTRAINT [PK_Accounts] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 
