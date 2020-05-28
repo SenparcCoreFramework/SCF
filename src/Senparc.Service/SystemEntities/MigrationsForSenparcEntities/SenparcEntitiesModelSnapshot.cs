@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Senparc.Core.Models;
 
-namespace Senparc.Service.Migrations
+namespace Senparc.Service.SystemEntities.MigrationsForSenparcEntities
 {
     [DbContext(typeof(SenparcEntities))]
     partial class SenparcEntitiesModelSnapshot : ModelSnapshot
@@ -19,103 +19,7 @@ namespace Senparc.Service.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Senparc.Core.Models.AdminUserInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AddTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AdminRemark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<bool>("Flag")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastLoginIp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastLoginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordSalt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RealName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("ThisLoginIp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ThisLoginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdminUserInfos");
-                });
-
-            modelBuilder.Entity("Senparc.Core.Models.FeedBack", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AddTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AdminRemark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Flag")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("FeedBacks");
-                });
-
-            modelBuilder.Entity("Senparc.Scf.Core.Models.Account", b =>
+            modelBuilder.Entity("Senparc.Core.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,7 +163,7 @@ namespace Senparc.Service.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.AccountPayLog", b =>
+            modelBuilder.Entity("Senparc.Core.Models.AccountPayLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,7 +250,79 @@ namespace Senparc.Service.Migrations
                     b.ToTable("AccountPayLogs");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.DataBaseModel.SysButton", b =>
+            modelBuilder.Entity("Senparc.Core.Models.AdminUserInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AddTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AdminRemark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastLoginIp")
+                        .HasColumnName("LastLoginIP")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20)
+                        .IsUnicode(false);
+
+                    b.Property<DateTime>("LastLoginTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PasswordSalt")
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .IsUnicode(false);
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20)
+                        .IsUnicode(false);
+
+                    b.Property<string>("RealName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("ThisLoginIp")
+                        .HasColumnName("ThisLoginIP")
+                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(20)
+                        .IsUnicode(false);
+
+                    b.Property<DateTime>("ThisLoginTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdminUserInfos");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysButton", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -390,7 +366,7 @@ namespace Senparc.Service.Migrations
                     b.ToTable("SysButtons");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.DataBaseModel.SysMenu", b =>
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysMenu", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(50)")
@@ -444,7 +420,7 @@ namespace Senparc.Service.Migrations
                     b.ToTable("SysMenus");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.DataBaseModel.SysPermission", b =>
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysPermission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -492,7 +468,7 @@ namespace Senparc.Service.Migrations
                     b.ToTable("SysPermission");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.DataBaseModel.SysRole", b =>
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(50)")
@@ -531,7 +507,7 @@ namespace Senparc.Service.Migrations
                     b.ToTable("SysRoles");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.DataBaseModel.SysRoleAdminUserInfo", b =>
+            modelBuilder.Entity("Senparc.Core.Models.DataBaseModel.SysRoleAdminUserInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -569,6 +545,136 @@ namespace Senparc.Service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SysRoleAdminUserInfos");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.FeedBack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AddTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AdminRemark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Flag")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("FeedBacks");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.PointsLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AccountPayLogId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AddTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AdminRemark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<decimal>("AfterPoints")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("BeforePoints")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Flag")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Points")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("AccountPayLogId");
+
+                    b.ToTable("PointsLogs");
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.SystemConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AddTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AdminRemark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<bool>("Flag")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MchId")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("MchKey")
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("SystemName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("TenPayAppId")
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemConfigs");
                 });
 
             modelBuilder.Entity("Senparc.Scf.Core.Models.DataBaseModel.XscfModule", b =>
@@ -636,129 +742,33 @@ namespace Senparc.Service.Migrations
                     b.ToTable("XscfModules");
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.PointsLog", b =>
+            modelBuilder.Entity("Senparc.Core.Models.AccountPayLog", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AccountPayLogId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AddTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AdminRemark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<decimal>("AfterPoints")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("BeforePoints")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Flag")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Points")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("AccountPayLogId");
-
-                    b.ToTable("PointsLogs");
-                });
-
-            modelBuilder.Entity("Senparc.Scf.Core.Models.SystemConfig", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AddTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AdminRemark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<bool>("Flag")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("HideModuleManager")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MchId")
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("MchKey")
-                        .HasColumnType("varchar(300)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("SystemName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("TenPayAppId")
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SystemConfigs");
-                });
-
-            modelBuilder.Entity("Senparc.Core.Models.FeedBack", b =>
-                {
-                    b.HasOne("Senparc.Scf.Core.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Senparc.Scf.Core.Models.AccountPayLog", b =>
-                {
-                    b.HasOne("Senparc.Scf.Core.Models.Account", "Account")
+                    b.HasOne("Senparc.Core.Models.Account", "Account")
                         .WithMany("AccountPayLogs")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Senparc.Scf.Core.Models.PointsLog", b =>
+            modelBuilder.Entity("Senparc.Core.Models.FeedBack", b =>
                 {
-                    b.HasOne("Senparc.Scf.Core.Models.Account", "Account")
+                    b.HasOne("Senparc.Core.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Senparc.Core.Models.PointsLog", b =>
+                {
+                    b.HasOne("Senparc.Core.Models.Account", "Account")
                         .WithMany("PointsLogs")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Senparc.Scf.Core.Models.AccountPayLog", "AccountPayLog")
+                    b.HasOne("Senparc.Core.Models.AccountPayLog", "AccountPayLog")
                         .WithMany("PointsLogs")
                         .HasForeignKey("AccountPayLogId")
                         .OnDelete(DeleteBehavior.Cascade);

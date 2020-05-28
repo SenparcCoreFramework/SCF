@@ -24,8 +24,7 @@ namespace Senparc.Service
 {
    public class Register : XscfRegisterBase,
         IXscfRegister, //注册 XSCF 基础模块接口（必须）
-        IXscfDatabase,  //注册 XSCF 模块数据库（按需选用）
-        IXscfRazorRuntimeCompilation  //需要使用 RazorRuntimeCompilation，在开发环境下实时更新 Razor Page
+        IXscfDatabase  //注册 XSCF 模块数据库（按需选用）
     {
         #region IXscfRegister 接口
 
@@ -66,16 +65,8 @@ namespace Senparc.Service
                 senparcEntities.Migrate();//进行合并
             }
 
-            //更新数据库
+            //更新数据库（目前不使用 SystemServiceEntities 存放数据库模型）
             //await base.MigrateDatabaseAsync<SystemServiceEntities>(serviceProvider);
-
-            var systemServiceEntities = serviceProvider.GetService<SystemServiceEntities>();
-            pendingMigs = await systemServiceEntities.Database.GetPendingMigrationsAsync();
-            if (pendingMigs.Count() > 0)
-            {
-                senparcEntities.ResetMigrate();//重置合并状态
-                senparcEntities.Migrate();//进行合并
-            }
 
             var systemModule = xscfModuleServiceExtension.GetObject(z => z.Uid == this.Uid);
             if (systemModule == null)
@@ -139,7 +130,7 @@ namespace Senparc.Service
             services.AddScoped<ISenparcEntities>(senparcEntitiesImplementationFactory);
             services.AddScoped<SenparcEntitiesBase>(senparcEntitiesImplementationFactory);
 
-            //SystemServiceEntities 工厂配置
+            //SystemServiceEntities 工厂配置（实际不会用到）
             Func<IServiceProvider, SystemServiceEntities> systemServiceEntitiesImplementationFactory = s =>
                new SystemServiceEntities(new DbContextOptionsBuilder<SystemServiceEntities>()
                    .UseSqlServer(Scf.Core.Config.SenparcDatabaseConfigs.ClientConnectionString,
@@ -155,10 +146,6 @@ namespace Senparc.Service
         }
 
 
-        #endregion
-
-        #region IXscfRazorRuntimeCompilation 接口
-        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Service"));
         #endregion
     }
 }

@@ -9,6 +9,8 @@
     <Compile Remove="ProjectDemandService.cs" />
     <Compile Remove="ProjectKindService.cs" />
     <Compile Remove="ProjectPayLogService.cs" />
+    <Compile Remove="SystemEntities\MigrationsForSenparcEntities\20200528043720_Update_SystemConfig_HideModuleManager.cs" />
+    <Compile Remove="SystemEntities\MigrationsForSenparcEntities\20200528043720_Update_SystemConfig_HideModuleManager.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
