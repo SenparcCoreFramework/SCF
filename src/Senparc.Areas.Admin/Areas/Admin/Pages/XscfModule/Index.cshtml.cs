@@ -81,7 +81,14 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var systemConfig = _systemConfigService.Value.GetObject(z => true);
             systemConfig.HideModuleManager = systemConfig.HideModuleManager.HasValue && systemConfig.HideModuleManager.Value == true ? false : true;
             await _systemConfigService.Value.SaveObjectAsync(systemConfig);
-            return RedirectToPage("../Index");
+            if (systemConfig.HideModuleManager == true)
+            {
+                return RedirectToPage("../Index");
+            }
+            else
+            {
+                return RedirectToPage("./Index");
+            }
         }
     }
 }
