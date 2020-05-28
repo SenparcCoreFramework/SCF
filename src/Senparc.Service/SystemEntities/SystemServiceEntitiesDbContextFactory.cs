@@ -12,6 +12,7 @@ namespace Senparc.Service
     /// 用于创建当前模块数据库
     /// PM> Add-Migration AddTables -Context SystemServiceEntities -OutputDir "SystemEntities/MigrationsForSystemServiceEntities"
     /// </summary>
+    [Obsolete("SystemServiceEntities 暂时不提供实际的类型，系统数据库模型统一由  SenparcEntities 提供。")]
     public class SystemServiceEntitiesDbContextFactory : SenparcDesignTimeDbContextFactoryBase<SystemServiceEntities, Register>
     {
         /// <summary>
