@@ -21,10 +21,11 @@ namespace Senparc.Xscf.ExtensionAreaTemplate.Functions
             /// </summary>
             [Required]
             [Description("源码来源||目前更新最快的是 GitHub，Gitee（码云）在国内下载速度更快，但是不能确定是最新代码，下载前请注意核对最新 GitHub 上的版本。")]
-            public string[] Site { get; set; } = new[] {
-            Parameters_Site.GitHub.ToString(),
-            Parameters_Site.Gitee.ToString()
-        };
+            public SelectionList Site { get; set; } = new SelectionList(SelectionType.DropDownList, new[]
+            {
+                new SelectionItem(Parameters_Site.GitHub.ToString(),Parameters_Site.GitHub.ToString()),
+                new SelectionItem(Parameters_Site.Gitee.ToString(),Parameters_Site.Gitee.ToString())
+            });
 
             public enum Parameters_Site
             {
@@ -55,7 +56,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate.Functions
             /* 这里是处理文字选项（单选）的一个示例 */
             return FunctionHelper.RunFunction<DownloadSourceCode_Parameters>(param, (typeParam, sb, result) =>
             {
-                if (Enum.TryParse<DownloadSourceCode_Parameters.Parameters_Site>(typeParam.Site.FirstOrDefault()/*单选可以这样做，如果是多选需要遍历*/, out var siteType))
+                if (Enum.TryParse<DownloadSourceCode_Parameters.Parameters_Site>(typeParam.Site.SelectedValues.FirstOrDefault()/*单选可以这样做，如果是多选需要遍历*/, out var siteType))
                 {
                     switch (siteType)
                     {
