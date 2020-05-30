@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\**" />
+    <Compile Remove="Pages\Docs\**" />
     <Content Remove="Migrations\**" />
+    <Content Remove="Pages\Docs\**" />
     <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Pages\Docs\**" />
     <None Remove="Migrations\**" />
+    <None Remove="Pages\Docs\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +44,7 @@
     <PackageReference Include="Senparc.Scf.Repository" Version="0.4.309.2-beta1" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.3.312-beta2" />
     <PackageReference Include="Senparc.Scf.Utility" Version="0.3.312-beta2" />
-    <PackageReference Include="ML.Xscf.Docs" Version="0.0.2.3-beta1" />
+    <PackageReference Include="ML.Xscf.Docs" Version="0.0.2.6-beta1" />
   </ItemGroup>
 
   <ItemGroup>
