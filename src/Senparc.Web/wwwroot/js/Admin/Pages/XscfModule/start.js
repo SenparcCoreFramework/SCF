@@ -69,7 +69,7 @@ function submitFunction(id) {
             return;
         }
 
-        if (data.msg && data.msg.indexOf('http://') !== -1 || data.msg.indexOf('https://') !== -1) {
+        if (data.msg && (data.msg.indexOf('http://') !== -1 || data.msg.indexOf('https://') !== -1)) {
             showModal('执行成功', '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：', '<i class="fa fa-external-link"></i> <a href="' + data.msg + '" target="_blank">' + data.msg + '</a>');
         }
         else {

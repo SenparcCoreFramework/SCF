@@ -18,16 +18,16 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.3.104" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.3.110" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.3.104" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.2.106" />
-    <PackageReference Include="Senparc.WebSocket" Version="0.10.401" />
-    <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.401" />
-    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.401" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.401" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.401" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.401" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.3.110" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.2.108" />
+    <PackageReference Include="Senparc.WebSocket" Version="0.10.502" />
+    <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.502" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.502" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.502.1" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.502.2" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.502" />
     <PackageReference Include="Senparc.Scf.Core" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Scf.Service" Version="0.3.302-beta1" />
@@ -38,9 +38,9 @@
     <ProjectReference Include="..\Senparc.File\Senparc.File.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.309.2-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.309.2-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.309.3-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.312-beta2" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>

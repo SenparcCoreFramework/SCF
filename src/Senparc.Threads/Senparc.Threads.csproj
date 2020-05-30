@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.309.2-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.309.2-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.309.3-beta1" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.309.2-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.312-beta2" />
   </ItemGroup>
 
   <ItemGroup>
