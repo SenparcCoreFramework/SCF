@@ -20,3 +20,4 @@ obj/
 /src/ProjectFileManager
 /src/Senparc.Web/App_Data/*.bak
 # /src/Senparc.Web/wwwroot/doc
+/src/Senparc.Web/wwwroot/docs
