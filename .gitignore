@@ -22,3 +22,4 @@ obj/
 # /src/Senparc.Web/wwwroot/doc
 /src/Senparc.Web/wwwroot/docs
 /src/Senparc.Web/wwwroot/ScfDocs
+/src/Senparc.Web/.config
