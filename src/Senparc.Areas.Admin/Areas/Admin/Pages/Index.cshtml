@@ -6,9 +6,10 @@
 @section scripts {
     <script src="~/node_modules/echarts/dist/echarts.js"></script>
     <script src="~/js/Admin/Pages/Index/Index.js"></script>
+    <script src="~/js/Admin/Pages/Test/Vue.js"></script>
 }
 
-<div class="row">
+<div class="row" id="app">
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
             <div class="icon">
@@ -19,6 +20,20 @@
             <p></p>
         </div>
     </div>
+    <el-table :data="tableData"
+              style="width: 100%">
+        <el-table-column prop="date"
+                         label="日期"
+                         width="180">
+        </el-table-column>
+        <el-table-column prop="name"
+                         label="姓名"
+                         width="180">
+        </el-table-column>
+        <el-table-column prop="address"
+                         label="地址">
+        </el-table-column>
+    </el-table>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
             <div class="icon">
