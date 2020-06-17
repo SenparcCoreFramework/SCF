@@ -39,7 +39,7 @@
                             <el-form-item prop="pass">
                                 <el-input type="password" v-model="ruleForm.pass" placeholder="请输入密码" autocomplete="off"></el-input>
                             </el-form-item>
-                            <el-button style="width: 100%;" type="primary" @@click="submitForm('ruleForm')">登录</el-button>
+                            <el-button :loading="loading" style="width: 100%;" type="primary" @@click="submitForm('ruleForm')">登录</el-button>
                         </el-form>
                     </div>
                 </div>
@@ -52,6 +52,8 @@
     </div>
     <script src="~/lib/vue/vue.js"></script>
     <script src="~/lib/element-ui_2.13.2/element.js"></script>
-    <script src="~/js/Admin/Pages/LogIn/index.js"></script>
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/js/Admin/axios.js"></script>
+    <script src="~/js/Admin/Pages/LogIn/index.js" asp-append-version="true"></script>
 </body>
 </html>

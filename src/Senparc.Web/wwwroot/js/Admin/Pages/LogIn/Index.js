@@ -17,7 +17,7 @@ var app = new Vue({
     data: {
         ruleForm: {
             user: '',
-            checkPass: ''
+            pass: ''
         },
         rules: {
             user: [
@@ -26,16 +26,28 @@ var app = new Vue({
             pass: [
                 { validator: validatePass, trigger: 'blur' }
             ]
-        }
+        },loading:false
     },
     mounted() {
-        console.log(1);
     },
     methods: {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
+                this.loading = true;
+                var url = "/Admin/Login?handler=Login";
+                let data = {
+                    Name: this.ruleForm.user,
+                    Password: this.ruleForm.pass
+                };
                 if (valid) {
-                    alert('submit!');
+                    service.post(url, data).then(res => {
+                        if (res.data.success) {
+                            window.location.href = '/Admin/index';
+                        } else {
+                            console.log(res.data);
+                        }
+                    });
+                    this.loading = false;
                 } else {
                     console.log('error submit!!');
                     return false;

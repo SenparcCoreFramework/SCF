@@ -186,10 +186,12 @@ body {
     color: #FFF;
     width: 100%;
     margin-top: 20px;
+    font-size:13px;
 }
 
     .login-ICP a {
-        color: #fff;
+        color: #1382f0;
+        text-decoration: none;
     }
 
         .login-ICP a:hover {
