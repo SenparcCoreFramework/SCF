@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
     [AllowAnonymous]
+    [IgnoreAntiforgeryToken]
     public class LoginModel : BasePageModel/* BaseAdminPageModel*/
     {
         [BindProperty]
@@ -89,6 +90,30 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return RedirectToPage("/Index");
             }
             return LocalRedirect(this.ReturnUrl.UrlDecode());
+        }
+
+        public async Task<IActionResult> OnPostLoginAsync(/*[Required]string name,string password*/)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new { Name, Password });
+            }
+
+            var userInfo = await _userInfoService.GetUserInfo(this.Name);
+            if (userInfo == null)
+            {
+                //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£";
+                return Ok("pwd", false, "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£");
+                //ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£");
+            }
+            else if (_userInfoService.TryLogin(this.Name, this.Password, true) == null)
+            {
+                //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£";
+                //ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£");
+                return Ok("pwd", false, "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£");
+            }
+
+            return Ok(true);
         }
 
         public async Task<IActionResult> OnGetLogoutAsync()
