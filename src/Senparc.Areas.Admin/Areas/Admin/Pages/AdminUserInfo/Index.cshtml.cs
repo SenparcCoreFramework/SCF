@@ -10,6 +10,7 @@ using Senparc.Scf.Service;
 using Senparc.Scf.Utility;
 using Senparc.Service;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.Scf.Core;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
@@ -43,6 +44,23 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             var admins = await _adminUserInfoService.GetObjectListAsync(PageIndex, 20, where, OrderField);
             AdminUserInfoList = admins;
             return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adminUserInfoName"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetListAsync(string adminUserInfoName, int pageIndex, int pageSize)
+        {
+            var seh = new SenparcExpressionHelper<AdminUserInfo>();
+            seh.ValueCompare.AndAlso(!string.IsNullOrEmpty(adminUserInfoName), _ => _.UserName.Contains(adminUserInfoName));
+            var where = seh.BuildWhereExpression();
+            var admins = await _adminUserInfoService.GetObjectListAsync(pageIndex, pageSize, where, OrderField);
+            //AdminUserInfoList = admins;
+            return Ok(new { admins.TotalCount, admins.PageIndex, List = admins.AsEnumerable() });
         }
 
         public IActionResult OnPostDemo()

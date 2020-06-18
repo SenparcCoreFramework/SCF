@@ -1,35 +1,126 @@
 ﻿var vm = new Vue({
     el: "#app",
-    data: function () {
+    data() {
+        const validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'));
+            } else {
+                if (this.dialog.data.password2 !== '') {
+                    this.$refs.dataForm.validateField('password2');
+                }
+                callback();
+            }
+        };
+        const validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请再次输入密码'));
+            } else if (value !== this.dialog.data.password) {
+                callback(new Error('两次输入密码不一致!'));
+            } else {
+                callback();
+            }
+        };
         return {
-            list: [],//AdminUserInfo_getList
-            currentPage1: 5,
-            currentPage2: 5,
-            currentPage3: 5,
-            currentPage4: 4,
-            multipleSelection:[]
+            //分页参数
+            paginationQuery: {
+                total: 5
+            },
+            //分页接口传参
+            listQuery: {
+                pageIndex: 1,
+                pageSize: 20,
+                adminUserInfoName: ''
+            },
+            tableData: [],
+            dialog: {
+                title: '新增管理员',
+                visible: true,
+                data: {
+                    userName: '',
+                    password: '',
+                    password2: '',
+                    realName: '',
+                    phone: '',
+                    note: ''
+                },
+                rules: {
+                    userName: [
+                        { required: true, message: "用户名为必填项", trigger: "blur" }
+                    ],
+                    password: [{ required: true, validator: validatePass, trigger: "blur" }],
+                    password2: [{ required: true, validator: validatePass2, trigger: "blur" }]
+                },
+                updateLoading: false
+            }
         };
     },
     created: function () {
-        //this.adminUserInfo_getList();
+        this.getList();
+    },
+    watch: {
+        'dialog.visible': function (val, old) {
+            // 关闭dialog，清空
+            if (!val) {
+                this.dialog.data = {
+                    userName: '',
+                    password: '',
+                    password2: '',
+                    realName: '',
+                    phone: '',
+                    note: ''
+                };
+                this.dialog.updateLoading = false;
+            }
+        }
     },
     methods: {
-        adminUserInfo_getList: function () {
-            base.get("/Admin/AdminUserInfo/OnGetAsync", function (result) {
-                //vm.list
+        // 获取数据
+        getList() {
+            let { adminUserInfoName, pageIndex, pageSize } = this.listQuery;
+            service.get(`/Admin/AdminUserInfo/index?handler=List&adminUserInfoName=${adminUserInfoName}&pageIndex=${pageIndex}&pageSize=${pageSize}`).then(res => {
+                this.tableData = res.data.data.list;
+                this.paginationQuery.total = res.data.data.totalCount;
             });
         },
-        handleEdit: function (data) {
-            window.open("/Admin/AdminUserInfo/Edit?id=" + data.Id);
+        // 编辑
+        handleEdit(index, row) {
+            this.dialog.visible = true;
+            if (row) {
+                // 编辑
+                let { userName, password, realName, phone, note } = row;
+                this.dialog.data = {
+                    userName, password, realName, phone, note
+                };
+                console.log(this.dialog.data);
+                this.dialog.title = '编辑管理员';
+            } else {
+                // 新增
+                this.dialog.title = '新增管理员';
+            }
         },
-        handleSizeChange(val) {
-            console.log(`每页 `+val+` 条`);
+        // 更新新增编辑
+        updateData() {
+            this.dialog.updateLoading = true;
+            this.$refs['dataForm'].validate(valid => {
+                // 表单校验
+                if (valid) {
+                    console.log(this.dialog.data);
+                    let data = {
+
+                    } = this.dialog.data;
+                    this.dialog.updateLoading = false;
+                }
+            });
+
+
         },
-        handleCurrentChange(val) {
-            console.log(`当前页: `+val);
+        // 设置角色
+        handleSet(index, row) {
+            console.log(index);
         },
-        handleSelectionChange(val) {
-            vm.multipleSelection = val;
+        // 删除
+        handleDelete(index, row) {
+            console.log(row);
         }
     }
 

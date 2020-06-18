@@ -9,11 +9,42 @@
             menuText: '#bfcbd9', // 文字色
             menuActiveText: '#409EFF' //激活颜色
         },
-        activeMenu: '0'
+        activeMenu: '0',
+        //iframe
+        pageSrc: '/Admin/AdminUserInfo/Index',
+        //分页
+        total: 100,
+        listQuery: {
+            page: 1,
+            limit: 20
+        }
+    },
+    watch: {
+        storePageSrc(val) {
+            if (val) {
+                this.pageSrc = val;
+            }
+        }
+    },
+    computed: {
+        storePageSrc() {
+            return Store.state.pageSrc;
+        },
+        store() {
+            return Store.state;
+        }
     },
     mounted() {
         this.getNavMenu();
-    }, methods: {
+    },
+    methods: {
+        setStore(key,value) {
+            Store.commit(key, value);
+            console.log(Store.state.pageSrc);
+        },
+        toggleSideBar() {
+            this.isCollapse = !this.isCollapse;
+        },
         getNavMenu() {
             service.get("/Admin/index?handler=MenuTree").then(res => {
                 if (res.data.success) {
