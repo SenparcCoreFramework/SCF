@@ -67,12 +67,52 @@
     <!-- jQuery -->
     <script src="~/node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
 </head>
-<body>
-    @RenderBody()
-    <script src="~/lib/vue/vue.js"></script>
-    <script src="~/lib/element-ui_2.13.2/element.js"></script>
-    <script src="~/lib/axios/axios.min.js"></script>
-    <script src="~/js/Admin/axios.js"></script>
+<body class="nav-md">
+    @RenderSection("modal", false)
+    <div class="container body">
+        <div class="main_container">
+            <!-- sidebar-->
+            <partial name="_MenuPartial" model="@Model" />
+
+            <!-- top navbar-->
+            <partial name="_HeaderPartial" />
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div>
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>
+                                @ViewData["Title"]
+                                <small> @RenderSection("explanations", false)</small>
+                            </h3>
+                            <ol class="breadcrumb">
+                                @RenderSection("breadcrumbs", false)
+                            </ol>
+                        </div>
+                        <div class="title_right">
+                            @RenderSection("filter", false)
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    @RenderBody()
+                </div>
+            </div>
+
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    &copy; @DateTime.Now.Year -  <a href="http://wwww.senparc.com">苏州盛派网络科技有限公司</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     @*本地*@
     <environment include="Development">
         <!-- jQuery -->

@@ -1,0 +1,51 @@
+﻿.sidebar-logo {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+/*/eset element-ui css*/
+.horizontal-collapse-transition {
+    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+}
+
+.scrollbar-wrapper {
+    overflow-x: hidden !important;
+}
+
+.el-scrollbar__bar.is-vertical {
+    right: 0px;
+}
+
+.el-scrollbar {
+    height: 100%;
+}
+
+.is-horizontal {
+    display: none;
+}
+
+a {
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.svg-icon {
+    margin-right: 16px;
+}
+
+.el-menu {
+    border: none;
+    height: 100%;
+    width: 100% !important;
+}
+
+.sidebar-container .el-submenu .el-menu-item {
+    min-width: 210px !important;
+    background-color: #1f2d3d !important;
+}
+
+    .sidebar-container .el-submenu .el-menu-item:hover {
+        background-color: #001528 !important;
+    }

@@ -2,78 +2,48 @@
 @model Senparc.Areas.Admin.Pages.IndexModel
 @{
     ViewData["Title"] = "管理员后台首页";
+    Layout = null;
 }
-@section scripts {
-    <script src="~/node_modules/echarts/dist/echarts.js"></script>
-    <script src="~/js/Admin/Pages/Index/Index.js"></script>
-    <script src="~/js/Admin/Pages/Test/Vue.js"></script>
-}
-
-<div class="row" id="app">
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon">
-                <i class="fa fa-caret-square-o-right"></i>
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/lib/element-ui_2.13.2/element.css" rel="stylesheet" />
+    <link href="~/css/Admin/new/index.css" rel="stylesheet" />
+    <link href="~/css/Admin/new/sidebar.css" rel="stylesheet" />
+    <title>管理员后台</title>
+</head>
+<body>
+    <div id="app">
+        <div class="app-wrapper">
+            <!--菜单栏-->
+            <div class="sidebar-container">
+                @*<a href="index.html" class="sidebar-logo">
+                    <img src="http://www.wjhszh.gov.cn/images/Admin/base/head/logo_230x55.png">
+                </a>*@
+                <el-scrollbar wrap-class="scrollbar-wrapper">
+                    <el-menu :default-active="activeMenu"
+                             :collapse="isCollapse"
+                             :background-color="variables.menuBg"
+                             :text-color="variables.menuText"
+                             :unique-opened="false"
+                             :active-text-color="variables.menuActiveText"
+                             :collapse-transition="false"
+                             mode="vertical">
+                        <sidebar-item v-for="(items,index) in navMenuList" :key="index" :item="items"></sidebar-item>
+                    </el-menu>
+                </el-scrollbar>
             </div>
-            <div class="count">179</div>
-            <h3>今日新订单数量</h3>
-            <p></p>
-        </div>
-    </div>
-    <el-table :data="tableData"
-              style="width: 100%">
-        <el-table-column prop="date"
-                         label="日期"
-                         width="180">
-        </el-table-column>
-        <el-table-column prop="name"
-                         label="姓名"
-                         width="180">
-        </el-table-column>
-        <el-table-column prop="address"
-                         label="地址">
-        </el-table-column>
-    </el-table>
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon">
-                <i class="fa fa-comments-o"></i>
+            <div class="main-container">
+                <div class="navbar" @@click="isCollapse=false">导航</div>
+                <div class="app-main"@@click="isCollapse=true">内容区域</div>
             </div>
-            <div class="count">179</div>
-            <h3>售后订单数量</h3>
-            <p></p>
         </div>
     </div>
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon">
-                <i class="fa fa-sort-amount-desc"></i>
-            </div>
-            <div class="count">179</div>
-            <h3>新发表文章数</h3>
-            <p></p>
-        </div>
-    </div>
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon">
-                <i class="fa fa-check-square-o"></i>
-            </div>
-            <div class="count">￥91975</div>
-            <h3>账户余额</h3>
-            <p></p>
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-md-6 col-lg-6">
-        <div id="firstChart" style="height:350px;width: 100%">
-
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-md-6 col-lg-6">
-        <div id="secondChart" style="height:350px;width: 100%">
-
-        </div>
-    </div>
-</div>
+</body>
+</html>
+<script src="~/lib/vue/vue.js"></script>
+<script src="~/lib/element-ui_2.13.2/element.js"></script>
+<script src="~/lib/axios/axios.min.js"></script>
+<script src="~/js/Admin/axios.js"></script>
+<script src="~/js/Admin/Pages/Components/Components.js"></script>
+<script src="~/js/Admin/Pages/Index/Index.js"></script>

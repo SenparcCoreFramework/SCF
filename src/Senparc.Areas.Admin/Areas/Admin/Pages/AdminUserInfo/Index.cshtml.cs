@@ -9,6 +9,7 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
 using Senparc.Scf.Utility;
 using Senparc.Service;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
@@ -16,7 +17,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
     {
         private readonly AdminUserInfoService _adminUserInfoService;
         public PagedList<AdminUserInfo> AdminUserInfoList { get; set; }
-
+        private IServiceProvider _serviceProvider;
         /// <summary>
         /// 属性绑定，支持GET
         /// </summary>
@@ -58,5 +59,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
             return RedirectToPage("./Index");
         }
+
+
+        
     }
 }

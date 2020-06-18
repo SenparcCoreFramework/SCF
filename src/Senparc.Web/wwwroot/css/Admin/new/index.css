@@ -1,0 +1,35 @@
+﻿body {
+    margin:0;
+}
+img {
+    width:100%;
+}
+#app {
+    height:100%;
+}
+.app-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.sidebar-container {
+    -webkit-transition: width 0.28s;
+    transition: width 0.28s;
+    width: 210px !important;
+    background-color: #304156;
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+}
+.main-container {
+    min-height: 100%;
+    -webkit-transition: margin-left .28s;
+    transition: margin-left .28s;
+    margin-left: 210px;
+    position: relative;
+}
