@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.Core.Models;
@@ -53,6 +54,47 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
              
             }
             return Page();
+        }
+
+        /// <summary>
+        /// Handler=Detail
+        /// 获取详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult OnGetDetail(int id)
+        {
+            var adminUserInfo = _adminUserInfoService.GetAdminUserInfo(id);
+            return Ok(adminUserInfo ?? new CreateOrUpdate_AdminUserInfoDto());
+        }
+
+        /// <summary>
+        /// Handler=Save
+        /// 保存
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public IActionResult OnPostSave([FromBody] CreateOrUpdate_AdminUserInfoDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(false);
+            }
+            bool isExists = this._adminUserInfoService.CheckUserNameExisted(Id, dto.UserName);
+            if (isExists)
+            {
+                return Ok(false);
+            }
+            if (dto.Id > 0)
+            {
+                AdminUserInfo.Id = Id;
+                _adminUserInfoService.UpdateAdminUserInfo(AdminUserInfo);
+            }
+            else
+            {
+                _adminUserInfoService.CreateAdminUserInfo(AdminUserInfo);
+            }
+            return Ok(true);
         }
 
         public IActionResult OnPost()
