@@ -9,30 +9,45 @@
 <head>
     <link href="~/lib/element-ui_2.13.2/element.css" rel="stylesheet" />
     <link href="~/css/Admin/new/index.css" rel="stylesheet" />
-    <link href="~/css/Admin/new/sidebar.css" rel="stylesheet" />
     <title>管理员后台</title>
 </head>
 <body>
     <div id="app">
         <div class="app-wrapper">
-            <!--菜单栏-->
-            <div class="sidebar-container">
-                @*<a href="index.html" class="sidebar-logo">
-                    <img src="http://www.wjhszh.gov.cn/images/Admin/base/head/logo_230x55.png">
-                </a>*@
-                <el-scrollbar wrap-class="scrollbar-wrapper">
-                    <el-menu :default-active="activeMenu"
-                             :collapse="isCollapse"
-                             :background-color="variables.menuBg"
-                             :text-color="variables.menuText"
-                             :unique-opened="false"
-                             :active-text-color="variables.menuActiveText"
-                             :collapse-transition="false"
-                             mode="vertical">
-                        <sidebar-item v-for="(items,index) in navMenuList" :key="index" :item="items"></sidebar-item>
-                    </el-menu>
-                </el-scrollbar>
-            </div>
+            <el-container>
+                <el-aside width="200px">
+                    <el-scrollbar wrap-class="scrollbar-wrapper">
+                        <el-menu :default-active="activeMenu"
+                                 :collapse="isCollapse"
+                                 :background-color="variables.menuBg"
+                                 :text-color="variables.menuText"
+                                 :unique-opened="false"
+                                 :active-text-color="variables.menuActiveText"
+                                 :collapse-transition="false"
+                                 mode="vertical">
+                            <sidebar-item v-for="(items,index) in navMenuList" :key="index" :item="items"></sidebar-item>
+                        </el-menu>
+                    </el-scrollbar>
+                </el-aside>
+                <el-container>
+                    <el-header>
+                        <div class="header-breadcrumb">
+                            <el-breadcrumb separator="/">
+                                <el-breadcrumb-item><a href="/">首页</a></el-breadcrumb-item>
+                                <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+                                <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+                                <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                            </el-breadcrumb>
+                        </div>
+                        <div class="header-logout">
+                            <el-tooltip class="item" effect="dark" content="退出登录" placement="left">
+                                <el-button icon="el-icon-circle-close" circle></el-button>
+                            </el-tooltip>
+                        </div>
+                    </el-header>
+                    <el-main>Main</el-main>
+                </el-container>
+            </el-container>
         </div>
     </div>
 </body>
