@@ -3,20 +3,20 @@
     template: `         <!--最里面一层-->
                       <template v-if="item.children.length<1">
                             <el-menu-item :index="item.index" @click="link(item)">
-                                <span slot='title'> <i class="el-icon-location"></i>{{item.menuName}}</span>
+                                <span slot='title'>  <i class="el-icon-location"></i> {{item.menuName}}</span>
                             </el-menu-item>
                         </template>
                         <!--递归-->
                         <el-submenu v-else  :index="item.id">
-                                <span slot='title'> <i class="el-icon-location"></i>{{item.menuName}}</span>
-                            <sidebar-item
-                                v-for="child in item.children"
-                                :key="child.id"
-                                :is-nest="true"
-                                :item="child"
-                                class="nest-menu"
-                              />
-                            </el-submenu>
+                                <span slot='title'>  <i class="el-icon-location"></i> {{item.menuName}}</span>
+                                <sidebar-item
+                                    v-for="child in item.children"
+                                    :key="child.id"
+                                    :is-nest="true"
+                                    :item="child"
+                                    class="nest-menu"
+                                  />
+                        </el-submenu>
 `,
     data() {
         return {

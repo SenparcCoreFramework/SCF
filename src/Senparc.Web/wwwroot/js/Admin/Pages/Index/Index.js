@@ -3,7 +3,7 @@
     data: {
         //侧边栏
         navMenuList: [],
-        isCollapse: true,
+        isCollapse: false,
         variables: {
             menuBg: '#304156', // 背景色
             menuText: '#bfcbd9', // 文字色
