@@ -4,7 +4,9 @@
     margin-left: 15px;
     border-radius: 3px;
 }
-
+[v-cloak] {
+    display: none;
+}
 html {
 }
 

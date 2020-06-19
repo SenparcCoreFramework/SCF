@@ -2,6 +2,9 @@
     padding: 0;
     margin: 0;
 }
+[v-cloak] {
+    display: none;
+}
 
 body {
     margin: 0;
