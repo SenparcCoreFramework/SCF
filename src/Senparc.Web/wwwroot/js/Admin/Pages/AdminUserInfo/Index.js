@@ -36,7 +36,7 @@
                 title: '新增管理员',
                 visible: false,
                 data: {
-                    id: '',
+                    id: 0,
                     userName: '',
                     password: '',
                     password2: '',
@@ -63,6 +63,7 @@
             // 关闭dialog，清空
             if (!val) {
                 this.dialog.data = {
+                    id:0,
                     userName: '',
                     password: '',
                     password2: '',
@@ -114,10 +115,9 @@
                         RealName: this.dialog.data.realName,
                         Phone: this.dialog.data.phone
                     };
-                    console.log(data);
                     service.post("/Admin/AdminUserInfo/Edit?handler=Save", data).then(res => {
                         if (res.data.success) {
-                            //this.getList();
+                            this.getList();
                             this.$notify({
                                 title: "Success",
                                 message: "编辑成功",
@@ -139,7 +139,18 @@
         },
         // 删除
         handleDelete(index, row) {
-            console.log(row);
+            let ids = [row.id];
+            service.post("/Admin/AdminUserInfo/Index?handler=Delete", ids).then(res => {
+                if (res.data.success) {
+                    this.getList();
+                    this.$notify({
+                        title: "Success",
+                        message: "编辑成功",
+                        type: "success",
+                        duration: 2000
+                    });
+                }
+            });
         }
     }
 

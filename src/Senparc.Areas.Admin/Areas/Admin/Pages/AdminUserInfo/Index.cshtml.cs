@@ -14,6 +14,8 @@ using Senparc.Scf.Core;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+
+    [IgnoreAntiforgeryToken]
     public class AdminUserInfo_IndexModel : BaseAdminPageModel
     {
         private readonly AdminUserInfoService _adminUserInfoService;
