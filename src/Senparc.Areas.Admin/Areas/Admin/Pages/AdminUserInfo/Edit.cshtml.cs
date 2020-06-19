@@ -80,19 +80,19 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 return Ok(false);
             }
-            bool isExists = this._adminUserInfoService.CheckUserNameExisted(Id, dto.UserName);
+            bool isExists = this._adminUserInfoService.CheckUserNameExisted(dto.Id, dto.UserName);
             if (isExists)
             {
                 return Ok(false);
             }
             if (dto.Id > 0)
             {
-                AdminUserInfo.Id = Id;
-                _adminUserInfoService.UpdateAdminUserInfo(AdminUserInfo);
+                //dto.Id = Id;
+                _adminUserInfoService.UpdateAdminUserInfo(dto);
             }
             else
             {
-                _adminUserInfoService.CreateAdminUserInfo(AdminUserInfo);
+                _adminUserInfoService.CreateAdminUserInfo(dto);
             }
             return Ok(true);
         }
