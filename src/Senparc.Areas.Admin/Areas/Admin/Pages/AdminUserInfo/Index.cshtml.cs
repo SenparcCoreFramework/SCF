@@ -79,6 +79,19 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         }
 
 
-        
+        /// <summary>
+        /// Handler=Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public IActionResult OnPostDelete([FromBody]int[] ids)
+        {
+            foreach (var id in ids)
+            {
+                _adminUserInfoService.DeleteObject(id);
+            }
+            return Ok(ids.Length);
+            //return RedirectToPage("./Index");
+        }
     }
 }
