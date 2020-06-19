@@ -11,7 +11,7 @@
         },
         activeMenu: '0',
         //iframe
-        pageSrc: '/Admin/AdminUserInfo/Index',
+        pageSrc: '/Admin/Role/Index',
         //分页
         total: 100,
         listQuery: {

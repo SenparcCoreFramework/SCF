@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
 }
+
 [v-cloak] {
     display: none;
 }
@@ -105,28 +106,3 @@ img {
         height: 100%;
         width: 100%;
     }
-
-/*内容*/
-.pagination-container {
-    background: #fff;
-    padding: 32px 16px;
-}
-
-    .pagination-container.hidden {
-        display: none;
-    }
-
-/*分页*/
-.filter-container {
-    padding-bottom: 10px;
-}
-
-    .filter-container .filter-item {
-        display: inline-block;
-        vertical-align: middle;
-        margin-bottom: 10px;
-    }
-
-.el-pagination {
-    text-align:center;
-}
