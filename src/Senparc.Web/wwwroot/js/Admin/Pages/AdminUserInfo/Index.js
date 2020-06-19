@@ -120,7 +120,7 @@
                             this.getList();
                             this.$notify({
                                 title: "Success",
-                                message: "编辑成功",
+                                message: "成功",
                                 type: "success",
                                 duration: 2000
                             });
@@ -145,7 +145,7 @@
                     this.getList();
                     this.$notify({
                         title: "Success",
-                        message: "编辑成功",
+                        message: "删除成功",
                         type: "success",
                         duration: 2000
                     });

@@ -5,7 +5,7 @@
 }
 
 
-<div id="app">
+<div id="app" v-cloak>
     <div class="admin-role">
         <div class="filter-container">
             <el-button class="filter-item" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>
@@ -14,39 +14,33 @@
                   border
                   style="width: 100%">
             <el-table-column align="center"
-                             label="id">
-                <template slot-scope="scope">
-                    {{ scope.row.Id}}
-                </template>
-            </el-table-column>
-            <el-table-column align="center"
                              label="角色名称">
                 <template slot-scope="scope">
-                    {{ scope.row.RoleName}}
+                    {{ scope.row.roleName}}
                 </template>
             </el-table-column>
             <el-table-column align="center"
                              label="角色代码">
                 <template slot-scope="scope">
-                    {{ scope.row.RoleCode}}
+                    {{ scope.row.roleCode}}
                 </template>
             </el-table-column>
             <el-table-column align="center"
                              label="备注">
                 <template slot-scope="scope">
-                    {{ scope.row.AdminRemark}}
+                    {{ scope.row.adminRemark}}
                 </template>
             </el-table-column>
             <el-table-column align="center"
                              label="说明">
                 <template slot-scope="scope">
-                    {{ scope.row.Remark}}
+                    {{ scope.row.remark}}
                 </template>
             </el-table-column>
             <el-table-column align="center"
                              label="添加时间">
                 <template slot-scope="scope">
-                    {{formaTableTime(scope.row.AddTime)}}
+                    {{formaTableTime(scope.row.addTime)}}
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
@@ -54,14 +48,12 @@
                     <el-button size="mini"
                                type="primary"
                                @@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    @*<el-button size="mini"
-                        type="primary"
-                        @@click="handleSet(scope.$index, scope.row)">设置角色</el-button>*@
-                    <template>
-                        <el-popconfirm placement="top" title="确认删除此角色吗？" @@on-confirm="handleDelete(scope.$index, scope.row)">
-                            <el-button size="mini" type="danger" slot="reference">删除</el-button>
-                        </el-popconfirm>
-                    </template>
+                    <el-button size="mini"
+                               type="primary"
+                               @@click="handleRole(scope.$index, scope.row)">权限</el-button>
+                    <el-popconfirm placement="top" title="确认删除此角色吗？" @@on-confirm="handleDelete(scope.$index, scope.row)">
+                        <el-button size="mini" type="danger" slot="reference">删除</el-button>
+                    </el-popconfirm>
                 </template>
             </el-table-column>
         </el-table>
@@ -77,29 +69,33 @@
                      label-position="left"
                      label-width="100px"
                      style="max-width: 400px; margin-left:50px;">
-                <p class="username-tip">不建议修改用户名！</p>
-                <el-form-item label="用户名" prop="userName">
-                    <el-input v-model="dialog.data.userName" clearable placeholder="请输入用户名" />
+                <el-form-item label="角色名称" prop="roleName">
+                    <el-input v-model="dialog.data.roleName" clearable placeholder="请输入角色名称" />
                 </el-form-item>
-                <el-form-item label="密码" prop="password">
-                    <el-input v-model="dialog.data.password" show-password clearable placeholder="请输入密码" />
+                <el-form-item label="角色代码" prop="roleCode">
+                    <el-input v-model="dialog.data.roleCode" clearable placeholder="请输入角色代码" />
                 </el-form-item>
-                <el-form-item label="再次确认密码" prop="password2">
-                    <el-input v-model="dialog.data.password2" show-password clearable placeholder="请再次输入密码" />
+                <el-form-item label="是否启用">
+                    <el-switch v-model="dialog.data.enabled"></el-switch>
                 </el-form-item>
-                <el-form-item label="真实姓名" prop="realName">
-                    <el-input v-model="dialog.data.realName" clearable placeholder="请输入真实姓名" />
+                <el-form-item label="说明">
+                    <el-input v-model="dialog.data.remark" clearable placeholder="请输入说明" />
                 </el-form-item>
-                <el-form-item label="手机号" prop="phone">
-                    <el-input v-model="dialog.data.phone" clearable placeholder="请输入手机号" />
-                </el-form-item>
-                <el-form-item label="备注" prop="note">
-                    <el-input v-model="dialog.data.note" clearable placeholder="请输入备注信息" />
+                <el-form-item label="备注">
+                    <el-input v-model="dialog.data.adminRemark" clearable placeholder="请输入备注信息" />
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @@click="dialog.visible = false">取 消</el-button>
                 <el-button :loading="dialog.updateLoading" type="primary" @@click="updateData">确 认</el-button>
+            </div>
+        </el-dialog>
+        <!--授权 -->
+        <el-dialog :title="'为  '+au.title+'  角色授权'" :visible.sync="au.visible">
+            <el-tree :data="allMenu" ref="tree" show-checkbox :props="defaultProps"  :default-checked-keys="defaultCheckedKeys" node-key="id"></el-tree>
+            <div slot="footer" class="dialog-footer">
+                <el-button @@click="au.visible = false">取 消</el-button>
+                <el-button :loading="au.updateLoading" type="primary" @@click="auUpdateData">确 认</el-button>
             </div>
         </el-dialog>
     </div>

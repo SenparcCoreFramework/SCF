@@ -51,8 +51,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             seh.ValueCompare.AndAlso(!string.IsNullOrEmpty(roleName), _ => _.RoleName.Contains(roleName));
             var where = seh.BuildWhereExpression();
             var admins = await _sysRoleService.GetObjectListAsync(pageIndex, pageSize, where, orderField);
+
             //AdminUserInfoList = admins;
-            return Ok(new { admins.TotalCount, admins.PageIndex, List = admins.AsEnumerable() });
+            return Ok(new
+            {
+                admins.TotalCount,
+                admins.PageIndex,
+                List =
+                admins.Select(_ => new { _.Id, _.LastUpdateTime, _.Remark, _.RoleName, _.RoleCode, _.AddTime, _.AdminRemark, _.Enabled })
+            });
         }
 
         //public IActionResult OnPostDelete(string[] ids)

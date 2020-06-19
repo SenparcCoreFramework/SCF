@@ -1,25 +1,6 @@
 ﻿var vm = new Vue({
     el: "#app",
     data() {
-        const validatePass = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请输入密码'));
-            } else {
-                if (this.dialog.data.password2 !== '') {
-                    this.$refs.dataForm.validateField('password2');
-                }
-                callback();
-            }
-        };
-        const validatePass2 = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请再次输入密码'));
-            } else if (value !== this.dialog.data.password) {
-                callback(new Error('两次输入密码不一致!'));
-            } else {
-                callback();
-            }
-        };
         return {
             //分页参数
             paginationQuery: {
@@ -28,30 +9,40 @@
             //分页接口传参
             listQuery: {
                 pageIndex: 1,
-                pageSize: 20
+                pageSize: 20,
+                roleName: '',
+                orderField: ''
             },
             tableData: [],
             dialog: {
-                title: '新增管理员',
+                title: '新增角色',
                 visible: false,
                 data: {
-                    id: 0,
-                    userName: '',
-                    password: '',
-                    password2: '',
-                    realName: '',
-                    phone: '',
-                    note: ''
+                    roleName: '', roleCode: '', adminRemark: '', remark: '', addTime: '', id: '', enabled: false
                 },
                 rules: {
-                    userName: [
-                        { required: true, message: "用户名为必填项", trigger: "blur" }
+                    roleName: [
+                        { required: true, message: "角色名称为必填项", trigger: "blur" }
                     ],
-                    password: [{ required: true, validator: validatePass, trigger: "blur" }],
-                    password2: [{ required: true, validator: validatePass2, trigger: "blur" }]
+                    roleCode: [{ required: true, message: "角色代码为必填项", trigger: "blur" }]
                 },
                 updateLoading: false
-            }
+            },
+            // 树结构字段
+            defaultProps: {
+                children: 'children',
+                label: 'menuName'
+            },
+            // 授权
+            au: {
+                title: '',
+                visible: false,
+                updateLoading: false,
+                temp: {}
+            },
+            allMenu: [],// 所有权限
+            currMenu: [],// 当前权限
+            defaultCheckedKeys: [] // 默认选中
         };
     },
     created: function () {
@@ -62,23 +53,94 @@
             // 关闭dialog，清空
             if (!val) {
                 this.dialog.data = {
-                    id: 0,
-                    userName: '',
-                    password: '',
-                    password2: '',
-                    realName: '',
-                    phone: '',
-                    note: ''
+                    roleName: '', roleCode: '', adminRemark: '', remark: '', addTime: '', id: ''
                 };
                 this.dialog.updateLoading = false;
             }
         }
     },
     methods: {
-        // 获取数据
+        // 权限
+        async handleRole(index, row) {
+            // 打开dialog
+            this.au = {
+                title: row.roleName,
+                visible: true,
+                temp: row
+            };
+            // 获取当前已有权限
+            const c = await service.get(`/Admin/Role/Permission?handler=RolePermission&roleId=${row.id}`);
+            this.currMenu = c.data.data;
+            let defaultCheckedKeys = [];
+            this.currMenu.map(res => {
+                // 默认选中权限
+                defaultCheckedKeys.push(res.permissionId);
+            });
+            this.defaultCheckedKeys = defaultCheckedKeys;
+            // 获取所有权限
+            const a = await service.get('/Admin/Menu/Edit?handler=menu');
+            const b = a.data.data;
+            let allMenu = [];
+            // d 用于求默认和条件为父节点时的差集，解决element tree无半选问题。
+            let d = [];
+            for (var i in b) {
+                // 一级
+                if (b[i].parentId === null) {
+                    allMenu.push(b[i]);
+                    d.push(b[i].id);
+                } else {
+                    allMenu.filter((ele, index) => {
+                        if (ele.id === b[i].parentId) {
+                            if (allMenu[index].children === undefined) { allMenu[index].children = []; }
+                            allMenu[index].children.push(b[i]);
+                        }
+                    });
+                }
+            }
+            // 格式后的数据
+            this.allMenu = allMenu;
+            const e = [];
+            d.map((res) => {
+                this.defaultCheckedKeys.map((ele) => {
+                    if (res !== ele) {
+                        if (e.indexOf(ele) < 0) {
+                            e.push(ele);
+                        }
+                    }
+                });
+            });
+            this.defaultCheckedKeys = e;
+        },
+        // 更新授权
+        async  auUpdateData() {
+            this.au.updateLoading = true;
+            const checkNodes = this.$refs.tree.getCheckedNodes(false, true);
+            let array = [];
+            checkNodes.map((ele) => {
+                array.push({
+                    PermissionId: ele.id,
+                    roleId: this.au.temp.id,
+                    isMenu: ele.isMenu,
+                    roleCode: ele.resourceCode
+                });
+            });
+            const respnseData = await service.post('/Admin/Role/Permission', array);
+            if (respnseData.data.success) {
+                this.getList();
+                this.$notify({
+                    title: "Success",
+                    message: "授权成功",
+                    type: "success",
+                    duration: 2000
+                });
+                this.au.visible = false;
+                this.au.updateLoading = false;
+            }
+        },
+        // 初始化获取数据
         getList() {
-            let { pageIndex, pageSize } = this.listQuery;
-            service.get(`/Admin/Role/index?handler=Async&pageIndex=${pageIndex}&pageSize=${pageSize}`).then(res => {
+            let { pageIndex, pageSize, roleName, orderField } = this.listQuery;
+            service.get(`/Admin/Role/index?handler=List&pageIndex=${pageIndex}&pageSize=${pageSize}&roleName=${roleName}&orderField=${orderField}`).then(res => {
                 this.tableData = res.data.data.list;
                 this.paginationQuery.total = res.data.data.totalCount;
             });
@@ -88,18 +150,17 @@
             this.dialog.visible = true;
             if (row) {
                 // 编辑
-                let { userName, password, realName, phone, note, id } = row;
+                let { roleName, roleCode, adminRemark, remark, addTime, id, enabled } = row;
                 this.dialog.data = {
-                    userName, password, realName, phone, note, id
+                    roleName, roleCode, adminRemark, remark, addTime, id, enabled
                 };
-                this.dialog.data.password2 = password;
-                this.dialog.title = '编辑管理员';
+                this.dialog.title = '编辑角色';
             } else {
                 // 新增
-                this.dialog.title = '新增管理员';
+                this.dialog.title = '新增角色';
             }
         },
-        // 更新新增编辑
+        // 更新新增、编辑
         updateData() {
             this.dialog.updateLoading = true;
             this.$refs['dataForm'].validate(valid => {
@@ -108,18 +169,18 @@
                     console.log(this.dialog.data);
                     let data = {
                         Id: this.dialog.data.id,
-                        UserName: this.dialog.data.userName,
-                        Password: this.dialog.data.password,
-                        Note: this.dialog.data.note,
-                        RealName: this.dialog.data.realName,
-                        Phone: this.dialog.data.phone
+                        RoleName: this.dialog.data.roleName,
+                        RoleCode: this.dialog.data.roleCode,
+                        AdminRemark: this.dialog.data.adminRemark,
+                        Remark: this.dialog.data.remark,
+                        Enabled: this.dialog.data.enabled
                     };
-                    service.post("/Admin/AdminUserInfo/Edit?handler=Save", data).then(res => {
+                    service.post("/Admin/Role/Edit?handler=Save", data).then(res => {
                         if (res.data.success) {
                             this.getList();
                             this.$notify({
                                 title: "Success",
-                                message: "编辑成功",
+                                message: "成功",
                                 type: "success",
                                 duration: 2000
                             });
@@ -132,19 +193,15 @@
 
 
         },
-        // 设置角色
-        handleSet(index, row) {
-            console.log(index);
-        },
         // 删除
         handleDelete(index, row) {
             let ids = [row.id];
-            service.post("/Admin/AdminUserInfo/Index?handler=Delete", ids).then(res => {
+            service.post("/Admin/Role/Index?handler=Delete", ids).then(res => {
                 if (res.data.success) {
                     this.getList();
                     this.$notify({
                         title: "Success",
-                        message: "编辑成功",
+                        message: "删除成功",
                         type: "success",
                         duration: 2000
                     });
