@@ -16,6 +16,7 @@ using Senparc.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class AdminUserInfo_EditModel : BaseAdminPageModel, IValidatorEnvironment
     {
         /// <summary>

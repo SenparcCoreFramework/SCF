@@ -34,8 +34,9 @@
             tableData: [],
             dialog: {
                 title: '新增管理员',
-                visible: true,
+                visible: false,
                 data: {
+                    id: '',
                     userName: '',
                     password: '',
                     password2: '',
@@ -87,11 +88,11 @@
             this.dialog.visible = true;
             if (row) {
                 // 编辑
-                let { userName, password, realName, phone, note } = row;
+                let { userName, password, realName, phone, note, id } = row;
                 this.dialog.data = {
-                    userName, password, realName, phone, note
+                    userName, password, realName, phone, note, id
                 };
-                console.log(this.dialog.data);
+                this.dialog.data.password2 = password;
                 this.dialog.title = '编辑管理员';
             } else {
                 // 新增
@@ -106,9 +107,26 @@
                 if (valid) {
                     console.log(this.dialog.data);
                     let data = {
-
-                    } = this.dialog.data;
-                    this.dialog.updateLoading = false;
+                        Id: this.dialog.data.id,
+                        UserName: this.dialog.data.userName,
+                        Password: this.dialog.data.password,
+                        Note: this.dialog.data.note,
+                        RealName: this.dialog.data.realName,
+                        Phone: this.dialog.data.phone
+                    };
+                    console.log(data);
+                    service.post("/Admin/AdminUserInfo/Edit?handler=Save", data).then(res => {
+                        console.log(res);
+                        //this.getList();
+                        this.$notify({
+                            title: "Success",
+                            message: "编辑成功",
+                            type: "success",
+                            duration: 2000
+                        });
+                        this.dialog.visible = false;
+                        this.dialog.updateLoading = false;
+                    });
                 }
             });
 
