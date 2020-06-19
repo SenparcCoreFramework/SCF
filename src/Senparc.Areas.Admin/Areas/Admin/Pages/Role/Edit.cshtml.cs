@@ -11,6 +11,7 @@ using Senparc.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class RoleEditModel : BaseAdminPageModel
     {
         private readonly SysRoleService _sysRoleService;
@@ -34,6 +35,26 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 var entity = await _sysRoleService.GetObjectAsync(_ => _.Id == Id);
                 SysRoleDto = _sysRoleService.Mapper.Map<SysRoleDto>(entity);
             }
+        }
+
+        /// <summary>
+        /// Handler=Detail
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetDetailAsync(string id)
+        {
+            var entity = await _sysRoleService.GetObjectAsync(_ => _.Id == id);
+            return Ok(entity);
+        }
+
+        /// <summary>
+        /// Handler=Save
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostSaveAsync([FromBody]SysRoleDto sysRoleDto)
+        {
+            await _sysRoleService.CreateOrUpdateAsync(sysRoleDto);
+            return Ok(true);
         }
 
         public async Task<IActionResult> OnPostAsync()
