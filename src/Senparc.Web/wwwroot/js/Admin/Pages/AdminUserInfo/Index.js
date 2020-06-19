@@ -116,16 +116,17 @@
                     };
                     console.log(data);
                     service.post("/Admin/AdminUserInfo/Edit?handler=Save", data).then(res => {
-                        console.log(res);
-                        //this.getList();
-                        this.$notify({
-                            title: "Success",
-                            message: "编辑成功",
-                            type: "success",
-                            duration: 2000
-                        });
-                        this.dialog.visible = false;
-                        this.dialog.updateLoading = false;
+                        if (res.data.success) {
+                            //this.getList();
+                            this.$notify({
+                                title: "Success",
+                                message: "编辑成功",
+                                type: "success",
+                                duration: 2000
+                            });
+                            this.dialog.visible = false;
+                            this.dialog.updateLoading = false;
+                        }
                     });
                 }
             });

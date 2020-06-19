@@ -22,13 +22,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <summary>
         /// Id
         /// </summary>
-        [BindProperty]
+        //[BindProperty]
         public int Id { get; set; }
 
         public bool IsEdit { get; set; }
 
 
-        [BindProperty]
+        //[BindProperty]
         public CreateOrUpdate_AdminUserInfoDto AdminUserInfo { get; set; } = new CreateOrUpdate_AdminUserInfoDto();
         //public CreateUpdate_AdminUserInfoDto AdminUserInfo { get; set; }
 
