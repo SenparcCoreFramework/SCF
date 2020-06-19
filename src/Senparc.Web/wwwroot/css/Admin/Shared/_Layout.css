@@ -1,90 +1,129 @@
-﻿[v-cloak] {
-    display: none;
-}
-
-* {
+﻿* {
     padding: 0;
     margin: 0;
 }
 
 body {
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    color: #000;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+}
+
+
+#app {
     height: 100%;
 }
 
-.wrapper {
+.app-wrapper {
+    position: relative;
     height: 100%;
+    width: 100%;
 }
-/*header -begin*/
+
+.sidebar-container {
+    -webkit-transition: width 0.28s;
+    transition: width 0.28s;
+    width: 210px !important;
+    background-color: #304156;
+    height: 100%;
+    position: fixed;
+    font-size: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+}
+
+.main-container {
+    min-height: 100%;
+    -webkit-transition: margin-left .28s;
+    transition: margin-left .28s;
+    margin-left: 210px;
+    position: relative;
+}
+/*侧边栏*/
+.el-aside {
+    height: 100vh;
+    background-color: #304156;
+}
+
+.el-menu {
+    border: none;
+}
+/*顶部*/
 .el-header {
-    height: 80px;
-    background: -webkit-linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(-90deg, rgb(74, 0, 224), rgb(142, 45, 226)); /* 标准的语法（必须放在最后） */
-    color: #fff;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,21,41,0.08);
 }
 
-.header-logo {
-    display: inline-block;
-    vertical-align: middle;
+.header-breadcrumb {
+    height: 100%;
+    float: left;
 }
 
-.el-header .menu-toggle-Collapse .el-radio-button__inner {
-    color: #fff;
-    background-color: transparent;
-    border: 0;
+.el-breadcrumb {
+    line-height: 60px;
 }
 
-.header-operations {
-    display: inline-block;
+.el-breadcrumb__inner, .el-breadcrumb__inner a {
+    font-weight: 400 !important;
+    color: #303133;
+}
+
+.el-breadcrumb__inner {
+    color: #97a8be !important;
+}
+
+.header-menu {
+    height: 100%;
+    float: left;
+    line-height: 60px;
+    margin-right: 10px
+}
+
+.header-logout {
+    height: 100%;
     float: right;
+    line-height: 60px;
+}
+
+.ifram-wrapper {
+    border: 0;
     height: 100%;
 }
 
-    .header-operations li {
-        color: #fff;
+    .ifram-wrapper iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+/*内容*/
+.pagination-container {
+    background: #fff;
+    padding: 32px 16px;
+}
+
+    .pagination-container.hidden {
+        display: none;
+    }
+
+/*分页*/
+.filter-container {
+    padding-bottom: 10px;
+}
+
+    .filter-container .filter-item {
         display: inline-block;
         vertical-align: middle;
-        padding: 0 10px;
-        margin: 0 10px;
-        line-height: 60px;
-        cursor: pointer;
-    }
-/*header -end*/
-/*menu -begin*/
-.menu {
-    height: 100%;
-}
-
-    .menu a:hover,
-    .menu a:active,
-    .menu a:focus {
-        text-decoration: none;
-        color: #6f17e3;
+        margin-bottom: 10px;
     }
 
-    .menu a {
-        text-decoration: none;
-        display: inherit;
-        height: 100%;
-    }
-
-
-.link-unstyle {
-    text-decoration: none;
-}
-
-a.link-unstyle:hover,
-a.link-unstyle:active,
-a.link-unstyle:focus {
-    text-decoration: none;
-}
-
-.query-form {
-    margin-top: 20px;
-    padding-top: 25px;
+.el-pagination {
+    text-align:center;
 }

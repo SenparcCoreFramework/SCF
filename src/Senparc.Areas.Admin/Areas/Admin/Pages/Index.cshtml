@@ -8,14 +8,14 @@
 <html>
 <head>
     <link href="~/lib/element-ui_2.13.2/element.css" rel="stylesheet" />
-    <link href="~/css/Admin/new/index.css" rel="stylesheet" />
+    <link href="~/css/Admin/Shared/_Layout.css" rel="stylesheet" />
     <title>管理员后台</title>
 </head>
 <body>
     <div id="app">
         <div class="app-wrapper">
             <el-container>
-                <el-aside width="200px">
+                <el-aside>
                     <el-scrollbar wrap-class="scrollbar-wrapper">
                         <el-menu :default-active="activeMenu"
                                  :collapse="isCollapse"
@@ -31,6 +31,9 @@
                 </el-aside>
                 <el-container>
                     <el-header>
+                        <div class="header-menu">
+                            <el-button @@click="toggleSideBar" icon="el-icon-s-fold" circle></el-button>
+                        </div>
                         <div class="header-breadcrumb">
                             <el-breadcrumb separator="/">
                                 <el-breadcrumb-item><a href="/">首页</a></el-breadcrumb-item>
@@ -45,16 +48,24 @@
                             </el-tooltip>
                         </div>
                     </el-header>
-                    <el-main>Main</el-main>
+                    <el-main>
+                        <div class="ifram-wrapper">
+                            <iframe :src="pageSrc"></iframe>
+                        </div>
+                    </el-main>
                 </el-container>
             </el-container>
         </div>
     </div>
 </body>
 </html>
+<!--lib-->
 <script src="~/lib/vue/vue.js"></script>
 <script src="~/lib/element-ui_2.13.2/element.js"></script>
 <script src="~/lib/axios/axios.min.js"></script>
+<script src="~/lib/vuex/vuex.js"></script>
+<!--js-->
 <script src="~/js/Admin/axios.js"></script>
+<script src="~/js/Admin/store.js"></script>
 <script src="~/js/Admin/Pages/Components/Components.js"></script>
 <script src="~/js/Admin/Pages/Index/Index.js"></script>
