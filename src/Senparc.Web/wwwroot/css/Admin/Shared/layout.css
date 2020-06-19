@@ -1,5 +1,7 @@
 ﻿
-
+[v-cloak] {
+    display: none;
+}
 /*分页*/
 .pagination-container {
     background: #fff;
