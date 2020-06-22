@@ -39,6 +39,7 @@ namespace Senparc.Areas.Admin
         /// <param name="context"></param>
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
+            //context
             if (!context.ModelState.IsValid)
             {
                 //全局模型验证

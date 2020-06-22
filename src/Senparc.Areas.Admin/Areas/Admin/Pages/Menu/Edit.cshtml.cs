@@ -83,7 +83,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return Ok(true);
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(string[] ids)
+        public async Task<IActionResult> OnPostDeleteAsync([FromBody]string[] ids)
         {
             var entity = await _sysMenuService.GetFullListAsync(_ => ids.Contains(_.Id) && _.IsLocked == false);
             var buttons = await _sysButtonService.GetFullListAsync(_ => ids.Contains(_.MenuId));
@@ -95,7 +95,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return Ok(unDeleteIds);
         }
 
-        public async Task<IActionResult> OnPostAddMenuAsync(SysMenuDto sysMenu)
+        public async Task<IActionResult> OnPostAddMenuAsync([FromBody]SysMenuDto sysMenu)
         {
             if (string.IsNullOrEmpty(sysMenu.MenuName))
             {
@@ -105,16 +105,16 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return Ok(entity.Id);
         }
 
-        public async Task<IActionResult> OnPostAsync(SysMenuDto sysMenuDto, IEnumerable<SysButtonDto> buttons)
+        public async Task<IActionResult> OnPostAsync([FromBody]SysMenuDto sysMenuDto)
         {
             if (!ModelState.IsValid)
             {
                 return Ok("模型验证未通过", false, "模型验证未通过");
             }
 
-            await _sysMenuService.CreateOrUpdateAsync(sysMenuDto, buttons);
+            await _sysMenuService.CreateOrUpdateAsync(sysMenuDto);
 
-            return Ok(new { buttons, sysMenuDto });
+            return Ok(new { sysMenuDto });
         }
     }
 }
