@@ -11,7 +11,7 @@
         },
         activeMenu: '0',
         //iframe
-        pageSrc: '',
+        pageSrc: '/Admin/Menu/Index',
         //分页
         total: 100,
         listQuery: {
