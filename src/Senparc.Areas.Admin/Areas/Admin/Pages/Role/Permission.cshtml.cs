@@ -11,6 +11,7 @@ using Senparc.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin
 {
+    [IgnoreAntiforgeryToken]
     public class PagesRolePermissionModel : BaseAdminPageModel
     {
         private readonly SysRoleService _sysRoleService;
@@ -41,7 +42,7 @@ namespace Senparc.Areas.Admin.Areas.Admin
 
         public async Task OnGetAsync()
         {
-            SysRoleInfo = await _sysRoleService.GetObjectAsync(_ => _.Id == RoleId);            
+            SysRoleInfo = await _sysRoleService.GetObjectAsync(_ => _.Id == RoleId);
         }
 
         public async Task<IActionResult> OnGetRolePermissionAsync(string roleId)
@@ -50,7 +51,7 @@ namespace Senparc.Areas.Admin.Areas.Admin
             return Ok(data);
         }
 
-        public async Task<IActionResult> OnPostAsync(IEnumerable<SysPermissionDto> sysMenuDto)
+        public async Task<IActionResult> OnPostAsync([FromBody] IEnumerable<SysPermissionDto> sysMenuDto)
         {
             if (!sysMenuDto.Any())
             {
