@@ -1,6 +1,14 @@
 ﻿var vm = new Vue();
 //3.在新的实例上使用组件
-
+function r_cookie(key) {
+    var array = document.cookie.split(';')
+    var result = array.filter(_ => _.split('=')[0] === key);
+    if (result.length > 0) {
+        return result[0].split('=')[1];
+    } else {
+        return null;
+    }
+}
 /**
  * axios封装
  * 请求拦截、响应拦截、错误统一处理
@@ -14,10 +22,9 @@ service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencod
 // 请求拦截
 service.interceptors.request.use(
     config => {
-        //if (store.getters.token) {
-
-        //    config.headers['Authorization'] = 'Bearer ' + getToken();
-        //}
+        if (config.method.toUpperCase() === 'POST') {
+            config.headers['RequestVerificationToken'] = top.window.document.getElementsByName('__RequestVerificationToken')[0].value;
+        }
         return config;
     },
     error => {
@@ -25,7 +32,6 @@ service.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
 // 响应拦截器
 service.interceptors.response.use(
     response => {

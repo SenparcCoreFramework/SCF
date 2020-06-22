@@ -34,11 +34,18 @@ namespace Senparc.Areas.Admin.Pages
                     Icon = _.Icon,
                     ParentId = _.ParentId,
                     ResourceCode = string.Empty,
-                    Url = _.Url,
-                    IsMenu = true,
+                    Url = _.Url
 
                 })
                 .ToListAsync();
+            var results = getSysMenuTreesMainRecursive(sysMenus);
+            return Ok(results);
+        }
+
+
+        public async Task<IActionResult> OnGetMenuTree1Async([FromServices] SysPermissionService sysPermissionService)
+        {
+            IEnumerable<SysMenuDto> sysMenus = await sysPermissionService.GetCurrentUserMenuDtoAsync();
             var results = getSysMenuTreesMainRecursive(sysMenus);
             return Ok(results);
         }
@@ -64,8 +71,7 @@ namespace Senparc.Areas.Admin.Pages
                         MenuName = "设置/执行",
                         Url = item.Url,
                         Id = (index++).ToString(),
-                        ParentId = item.Id,
-                        IsMenu = true
+                        ParentId = item.Id
                     });
                     dest.AddRange(xscfAreapage.AareaPageMenuItems.Select(_ => new SysMenuDto()
                     {
@@ -73,8 +79,7 @@ namespace Senparc.Areas.Admin.Pages
                         Url = _.Url,
                         Icon = _.Icon,
                         Id = (index++).ToString(),
-                        ParentId = item.Id,
-                        IsMenu = true
+                        ParentId = item.Id
                     }));
                     item.Url = string.Empty;
                 }
@@ -89,10 +94,10 @@ namespace Senparc.Areas.Admin.Pages
         }
         private void getSysMenuTreesRecursive(IEnumerable<SysMenuDto> sysMenuTreeItems, IList<SysMenuTreeItemDto> sysMenuTrees, SysMenuDto parent)
         {
-            IEnumerable<SysMenuDto> list = sysMenuTreeItems.Where(_ => _.ParentId == parent?.Id && _.IsMenu);
+            IEnumerable<SysMenuDto> list = sysMenuTreeItems.Where(_ => _.ParentId == parent?.Id);
             foreach (var item in list)
             {
-                SysMenuTreeItemDto sysMenu = new SysMenuTreeItemDto() { MenuName = item.MenuName, Id = item.Id, IsMenu = item.IsMenu, Icon = item.Icon, Url = item.Url, Children = new List<SysMenuTreeItemDto>() };
+                SysMenuTreeItemDto sysMenu = new SysMenuTreeItemDto() { MenuName = item.MenuName, Id = item.Id, Icon = item.Icon, Url = item.Url, Children = new List<SysMenuTreeItemDto>() };
                 sysMenuTrees.Add(sysMenu);
                 getSysMenuTreesRecursive(sysMenuTreeItems, sysMenu.Children, item);
             }

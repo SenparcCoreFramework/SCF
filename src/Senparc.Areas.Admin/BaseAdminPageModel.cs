@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin
 {
-
     public interface IBaseAdminPageModel : IBasePageModel
     {
 
