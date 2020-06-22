@@ -42,6 +42,7 @@
             },
             allMenu: [],// 所有权限
             currMenu: [],// 当前权限
+            defaultExpandedKeys:[], // 默认展开
             defaultCheckedKeys: [] // 默认选中
         };
     },
@@ -56,6 +57,15 @@
                     roleName: '', roleCode: '', adminRemark: '', remark: '', addTime: '', id: ''
                 };
                 this.dialog.updateLoading = false;
+            }
+        },
+        'au.visible': function (val, old) {
+            // 关闭dialog，清空
+            if (!val) {
+                this.currMenu = [];
+                this.defaultCheckedKeys = [];
+                this.defaultExpandedKeys = [];
+                this.au.updateLoading = false;
             }
         }
     },
@@ -81,7 +91,7 @@
             const a = await service.get('/Admin/Menu/Edit?handler=menu');
             const b = a.data.data;
             let allMenu = [];
-            // d 用于求默认和条件为父节点时的差集，解决element tree无半选问题。
+            // d 所有为父节点的集合。用于求默认和条件为父节点时的差集，解决element tree无半选问题。
             let d = [];
             for (var i in b) {
                 // 一级
@@ -97,13 +107,14 @@
                     });
                 }
             }
+            this.defaultExpandedKeys = d;
             // 格式后的数据
             this.allMenu = allMenu;
             const e = [];
             d.map((res) => {
                 this.defaultCheckedKeys.map((ele) => {
                     if (res !== ele) {
-                        if (e.indexOf(ele) < 0) {
+                        if (d.indexOf(ele) < 0) {
                             e.push(ele);
                         }
                     }

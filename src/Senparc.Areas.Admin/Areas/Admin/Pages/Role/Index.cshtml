@@ -92,7 +92,7 @@
         </el-dialog>
         <!--授权 -->
         <el-dialog :title="'为  '+au.title+'  角色授权'" :visible.sync="au.visible">
-            <el-tree :data="allMenu" ref="tree" show-checkbox :props="defaultProps"  :default-checked-keys="defaultCheckedKeys" node-key="id"></el-tree>
+            <el-tree :data="allMenu" ref="tree" show-checkbox :props="defaultProps" :default-expanded-keys="defaultExpandedKeys" :default-checked-keys="defaultCheckedKeys" node-key="id"></el-tree>
             <div slot="footer" class="dialog-footer">
                 <el-button @@click="au.visible = false">取 消</el-button>
                 <el-button :loading="au.updateLoading" type="primary" @@click="auUpdateData">确 认</el-button>
