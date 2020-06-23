@@ -1,6 +1,17 @@
 ﻿var vm = new Vue({
     el: "#app",
     data() {
+        var validateCode = (rule, value, callback) => {
+            if (this.dialog.data.menuType === 3) {
+                if (value === '') {
+                    callback(new Error('当类型是按钮类型时此项必填'));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
         return {
             // 表格数据
             tableData: [],
@@ -8,13 +19,15 @@
                 title: '新增菜单',
                 visible: false,
                 data: {
-                    roleName: '', roleCode: '', adminRemark: '', remark: '', addTime: '', id: '', enabled: false
+                    id: '', menuName: '', parentId: [], url: '', icon: '', sort: '', visible: true,
+                    resourceCode: '', isLocked: false, menuType: ''
                 },
                 rules: {
-                    roleName: [
-                        { required: true, message: "角色名称为必填项", trigger: "blur" }
+                    menuName: [
+                        { required: true, message: "菜单名称为必填项", trigger: "blur" }
                     ],
-                    roleCode: [{ required: true, message: "角色代码为必填项", trigger: "blur" }]
+                    menuType: [{ required: true, message: "类型为必选项", trigger: "blur" }],
+                    resourceCode: [{ validator: validateCode, trigger: "blur" }]
                 },
                 updateLoading: false
             }
@@ -28,7 +41,8 @@
             // 关闭dialog，清空
             if (!val) {
                 this.dialog.data = {
-                    roleName: '', roleCode: '', adminRemark: '', remark: '', addTime: '', id: ''
+                    id: '', menuName: '', parentId: [], url: '', icon: '', sort: '', visible: false,
+                    resourceCode: '', isLocked: false, menuType: ''
                 };
                 this.dialog.updateLoading = false;
             }
@@ -61,63 +75,100 @@
                 this.au.updateLoading = false;
             }
         },
-            // 获取所有菜单
+        // 获取所有菜单
         async  getList() {
-            const a = await service.get('/Admin/Menu/Edit?handler=menu');
+            const a = await service.get('/Admin/Menu/Edit?handler=Menu');
             const b = a.data.data;
             let allMenu = [];
-            // d 所有为父节点的集合。用于求默认和条件为父节点时的差集，解决element tree无半选问题。
-            let d = [];
-            for (var i in b) {
-                // 一级
-                if (b[i].parentId === null) {
-                    allMenu.push(b[i]);
-                    d.push(b[i].id);
-                } else {
-                    allMenu.filter((ele, index) => {
-                        if (ele.id === b[i].parentId) {
-                            if (allMenu[index].children === undefined) { allMenu[index].children = []; }
-                            allMenu[index].children.push(b[i]);
-                        }
-                    });
-                }
-            }
+            //for (var i in b) {
+            //    // 一级
+            //    if (b[i].parentId === null) {
+            //        allMenu.push(b[i]);
+            //    } else {
+            //        allMenu.filter((ele, index) => {
+            //            if (ele.id === b[i].parentId) {
+            //                if (allMenu[index].children === undefined) { allMenu[index].children = []; }
+            //                allMenu[index].children.push(b[i]);
+            //            }
+            //        });
+            //    }
+            //}
+            this.ddd(b, null, allMenu);
             this.tableData = allMenu;
-            console.log(allMenu);
         },
-        // 增加下一级
-        handleAdd(index, row) { console.log('增加下一级');},
-        // 编辑
-        handleEdit(index, row) {
+        ddd(source, parentId, dest) {
+            var array = source.filter(_ => _.parentId === parentId);
+            for (var i in array) {
+                var ele = array[i];
+                ele.children = [];
+                dest.push(ele);
+                this.ddd(source, ele.id, ele.children);
+            }
+        },
+        // 编辑 // 新增菜单 // 增加下一级
+        handleEdit(index, row, flag) {
             this.dialog.visible = true;
-            if (row) {
-                // 编辑
-                let { roleName, roleCode, adminRemark, remark, addTime, id, enabled } = row;
-                this.dialog.data = {
-                    roleName, roleCode, adminRemark, remark, addTime, id, enabled
-                };
-                this.dialog.title = '编辑菜单';
-            } else {
+            if (flag === 'add') {
                 // 新增
                 this.dialog.title = '新增菜单';
+                return;
+            }
+            // 编辑
+            let { id, menuName, parentId, url, icon, sort, visible,
+                resourceCode, isLocked, menuType } = row;
+            this.dialog.data = {
+                id, menuName, parentId: [parentId], url, icon, sort, visible,
+                resourceCode, isLocked, menuType
+            };
+            if (flag === 'edit') {
+                this.dialog.title = '编辑菜单';
+            } else if (flag === 'addNext') {
+                this.dialog.title = '增加下一级菜单';
+                // 增加下一级
+                this.tableData.forEach((res, index) => {
+                    if (res.id === row.id) {
+                        this.dialog.data.parentId = [row.id];
+                        throw new Error("ending");// 跳出循环
+                    } else {
+                        if (!res.children) { return false; }
+                        res.children.forEach(ele => {
+                            if (ele.id === row.id) {
+                                this.dialog.data.parentId = [res.id, row.id];
+                                throw new Error("ending");// 跳出循环
+                            } else {
+                                if (!ele.children) { return false; }
+                                ele.children.forEach(el => {
+                                    if (el.id === row.id) {
+                                        this.dialog.data.parentId = [res.id, row.id, el.id];
+                                        throw new Error("ending");// 跳出循环
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }
         },
         // 更新新增、编辑
         updateData() {
-            this.dialog.updateLoading = true;
             this.$refs['dataForm'].validate(valid => {
                 // 表单校验
                 if (valid) {
-                    console.log(this.dialog.data);
+                    this.dialog.updateLoading = true;
                     let data = {
                         Id: this.dialog.data.id,
-                        RoleName: this.dialog.data.roleName,
-                        RoleCode: this.dialog.data.roleCode,
-                        AdminRemark: this.dialog.data.adminRemark,
-                        Remark: this.dialog.data.remark,
-                        Enabled: this.dialog.data.enabled
+                        MenuName: this.dialog.data.menuName,
+                        ParentId: this.dialog.data.parentId[this.dialog.data.parentId.length - 1],
+                        Url: this.dialog.data.url,
+                        Icon: this.dialog.data.icon,
+                        Sort: this.dialog.data.sort * 1,
+                        Visible: this.dialog.data.visible,
+                        ResourceCode: this.dialog.data.resourceCode,
+                        IsLocked: this.dialog.data.isLocked,
+                        MenuType: this.dialog.data.menuType
                     };
-                    service.post("/Admin/Role/Edit?handler=Save", data).then(res => {
+                    console.log(data)
+                    service.post("/Admin/Menu/Edit", data).then(res => {
                         if (res.data.success) {
                             this.getList();
                             this.$notify({
@@ -138,7 +189,7 @@
         // 删除
         handleDelete(index, row) {
             let ids = [row.id];
-            service.post("/Admin/Role/Index?handler=Delete", ids).then(res => {
+            service.post("/Admin/Menu/edit?handler=Delete", ids).then(res => {
                 if (res.data.success) {
                     this.getList();
                     this.$notify({

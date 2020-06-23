@@ -61,7 +61,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnGetMenuAsync()
         {
-            return Ok(await _sysMenuService.GetMenuDtoByCacheAsync());
+            return Ok(await _sysMenuService.GetMenuDtoByCacheAsync(true));
         }
 
         /// <summary>
