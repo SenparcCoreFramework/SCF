@@ -42,8 +42,9 @@
             },
             allMenu: [],// 所有权限
             currMenu: [],// 当前权限
-            defaultExpandedKeys:[], // 默认展开
-            defaultCheckedKeys: [] // 默认选中
+            defaultExpandedKeys: [], // 默认展开
+            defaultCheckedKeys: [], // 默认选中
+            parentArr: [] // 父节点集合
         };
     },
     created: function () {
@@ -78,49 +79,43 @@
                 visible: true,
                 temp: row
             };
-            // 获取当前已有权限
+            // 当前已有权限
             const c = await service.get(`/Admin/Role/Permission?handler=RolePermission&roleId=${row.id}`);
             this.currMenu = c.data.data;
             let defaultCheckedKeys = [];
             this.currMenu.map(res => {
-                // 默认选中权限
                 defaultCheckedKeys.push(res.permissionId);
             });
-            this.defaultCheckedKeys = defaultCheckedKeys;
-            // 获取所有权限
+
             const a = await service.get('/Admin/Menu/Edit?handler=menu');
             const b = a.data.data;
             let allMenu = [];
-            // d 所有为父节点的集合。用于求默认和条件为父节点时的差集，解决element tree无半选问题。
-            let d = [];
-            for (var i in b) {
-                // 一级
-                if (b[i].parentId === null) {
-                    allMenu.push(b[i]);
-                    d.push(b[i].id);
-                } else {
-                    allMenu.filter((ele, index) => {
-                        if (ele.id === b[i].parentId) {
-                            if (allMenu[index].children === undefined) { allMenu[index].children = []; }
-                            allMenu[index].children.push(b[i]);
-                        }
-                    });
-                }
-            }
-            this.defaultExpandedKeys = d;
-            // 格式后的数据
-            this.allMenu = allMenu;
+            // 父节点的集合, 用于求默认和条件为父节点时的差集，解决element tree无半选问题。
+            let parentMenuNodes = [];
+            this.ddd(b, null, allMenu, parentMenuNodes);
+            this.allMenu = allMenu
+            // 所有权限  格式后的数据(用于渲染tree)
             const e = [];
-            d.map((res) => {
-                this.defaultCheckedKeys.map((ele) => {
-                    if (res !== ele) {
-                        if (d.indexOf(ele) < 0) {
-                            e.push(ele);
-                        }
+            parentMenuNodes.map((res) => {
+                defaultCheckedKeys.map((ele) => {
+                    if (res !== ele && parentMenuNodes.indexOf(ele) < 0 && e.indexOf(ele) < 0) {
+                        e.push(ele);
                     }
                 });
             });
             this.defaultCheckedKeys = e;
+        },
+        ddd(source, parentId, dest, nodes) {
+            var array = source.filter(_ => _.parentId === parentId);
+            for (let i in array) {
+                let ele = array[i];
+                ele.children = [];
+                dest.push(ele);
+                this.ddd(source, ele.id, ele.children, nodes);
+                if (ele.children.length > 0) {
+                    nodes.push(ele.id);
+                }
+            }
         },
         // 更新授权
         async  auUpdateData() {

@@ -1,6 +1,4 @@
-﻿var vm = new Vue();
-//3.在新的实例上使用组件
-function r_cookie(key) {
+﻿function r_cookie(key) {
     var array = document.cookie.split(';')
     var result = array.filter(_ => _.split('=')[0] === key);
     if (result.length > 0) {
@@ -40,7 +38,7 @@ service.interceptors.response.use(
                 return Promise.resolve(response);
             } else {
                 //请求已发出，其他状态
-                vm.$message({
+                top.app.$message({
                     message: response.data.msg || 'Error',
                     type: 'error',
                     duration: 5 * 1000
@@ -48,7 +46,7 @@ service.interceptors.response.use(
                 return Promise.resolve(response);
             }
         } else {
-            vm.$message({
+            top.app.$message({
                 message: response.msg || 'Error',
                 type: 'error',
                 duration: 5 * 1000
@@ -58,7 +56,7 @@ service.interceptors.response.use(
     },
     error => {
         console.log('err' + error);
-        vm.$message({
+        top.app.$message({
             message: error.message,
             type: 'error',
             duration: 5 * 1000

@@ -29,7 +29,8 @@
                     menuType: [{ required: true, message: "类型为必选项", trigger: "blur" }],
                     resourceCode: [{ validator: validateCode, trigger: "blur" }]
                 },
-                updateLoading: false
+                updateLoading: false,
+                disabled: false
             }
         };
     },
@@ -45,6 +46,7 @@
                     resourceCode: '', isLocked: false, menuType: ''
                 };
                 this.dialog.updateLoading = false;
+                this.dialog.disabled = false;
             }
         }
     },
@@ -80,19 +82,6 @@
             const a = await service.get('/Admin/Menu/Edit?handler=Menu');
             const b = a.data.data;
             let allMenu = [];
-            //for (var i in b) {
-            //    // 一级
-            //    if (b[i].parentId === null) {
-            //        allMenu.push(b[i]);
-            //    } else {
-            //        allMenu.filter((ele, index) => {
-            //            if (ele.id === b[i].parentId) {
-            //                if (allMenu[index].children === undefined) { allMenu[index].children = []; }
-            //                allMenu[index].children.push(b[i]);
-            //            }
-            //        });
-            //    }
-            //}
             this.ddd(b, null, allMenu);
             this.tableData = allMenu;
         },
@@ -120,9 +109,13 @@
                 id, menuName, parentId: [parentId], url, icon, sort, visible,
                 resourceCode, isLocked, menuType
             };
+            if (row.isLocked) {
+                this.dialog.disabled = true;
+            }
             if (flag === 'edit') {
                 this.dialog.title = '编辑菜单';
             } else if (flag === 'addNext') {
+                this.dialog.data.id = '';
                 this.dialog.title = '增加下一级菜单';
                 // 增加下一级
                 this.tableData.forEach((res, index) => {
@@ -167,8 +160,7 @@
                         IsLocked: this.dialog.data.isLocked,
                         MenuType: this.dialog.data.menuType
                     };
-                    console.log(data)
-                    service.post("/Admin/Menu/Edit", data).then(res => {
+                    service.post("/Admin/Menu/Edit?handler=save", data).then(res => {
                         if (res.data.success) {
                             this.getList();
                             this.$notify({
@@ -178,7 +170,6 @@
                                 duration: 2000
                             });
                             this.dialog.visible = false;
-                            this.dialog.updateLoading = false;
                         }
                     });
                 }
