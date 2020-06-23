@@ -123,6 +123,7 @@
             if (flag === 'edit') {
                 this.dialog.title = '编辑菜单';
             } else if (flag === 'addNext') {
+                this.dialog.data.id = '';
                 this.dialog.title = '增加下一级菜单';
                 // 增加下一级
                 this.tableData.forEach((res, index) => {
@@ -167,8 +168,7 @@
                         IsLocked: this.dialog.data.isLocked,
                         MenuType: this.dialog.data.menuType
                     };
-                    console.log(data)
-                    service.post("/Admin/Menu/Edit", data).then(res => {
+                    service.post("/Admin/Menu/Edit?handler=save", data).then(res => {
                         if (res.data.success) {
                             this.getList();
                             this.$notify({
