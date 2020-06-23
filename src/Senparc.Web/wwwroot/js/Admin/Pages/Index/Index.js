@@ -46,9 +46,9 @@
             this.isCollapse = !this.isCollapse;
         },
         getNavMenu() {
-            service.get("/Admin/index?handler=MenuTree").then(res => {
+            service.get("/Admin/index?handler=MenuResource").then(res => {
                 if (res.data.success) {
-                    var ddd = res.data.data;
+                    var ddd = res.data.data.menuList;
                     myfunctionMain(ddd);
                     //console.info(ddd);
                     this.navMenuList = ddd;

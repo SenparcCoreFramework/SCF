@@ -3,7 +3,7 @@
     data() {
         var validateCode = (rule, value, callback) => {
             if (this.dialog.data.menuType === 3) {
-                if (value === '') {
+                if (!value) {
                     callback(new Error('当类型是按钮类型时此项必填'));
                 } else {
                     callback();
@@ -109,11 +109,11 @@
                 id, menuName, parentId: [parentId], url, icon, sort, visible,
                 resourceCode, isLocked, menuType
             };
-            if (row.isLocked) {
-                this.dialog.disabled = true;
-            }
             if (flag === 'edit') {
                 this.dialog.title = '编辑菜单';
+                if (row.isLocked) {
+                    this.dialog.disabled = true;
+                }
             } else if (flag === 'addNext') {
                 this.dialog.data.id = '';
                 this.dialog.title = '增加下一级菜单';
