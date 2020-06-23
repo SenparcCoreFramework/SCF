@@ -48,7 +48,13 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             RoleAdminUserInfoDtos = dto;
         }
 
-        public async Task<IActionResult> OnPostAsync(IEnumerable<string> RoleIds, int accountId)
+        public async Task<IActionResult> OnGetDetailAsync(int accountId)
+        {
+            IEnumerable<SysRoleAdminUserInfo> sysRoleAdminUserInfos = await sysRoleAdminUserInfoService.GetFullListAsync(_ => _.AccountId == accountId);
+            return Ok(sysRoleAdminUserInfos);
+        }
+
+        public async Task<IActionResult> OnPostAsync([FromBody]IEnumerable<string> RoleIds, [FromBody]int accountId)
         {
             if (!RoleIds.Any() || accountId <= 0)
             {
