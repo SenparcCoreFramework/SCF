@@ -44,6 +44,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// Handler=Detail
         /// </summary>
         /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-edit")]
         public async Task<IActionResult> OnGetDetailAsync(string id)
         {
             var entity = await _sysRoleService.GetObjectAsync(_ => _.Id == id);
@@ -67,6 +68,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// Handler=Save
         /// </summary>
         /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-add", "role-edit")]
         public async Task<IActionResult> OnPostSaveAsync([FromBody]SysRoleDto sysRoleDto)
         {
             await _sysRoleService.CreateOrUpdateAsync(sysRoleDto);

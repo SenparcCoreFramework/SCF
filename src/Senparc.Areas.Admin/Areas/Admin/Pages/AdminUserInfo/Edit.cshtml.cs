@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.Core.Models;
+using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Validator;
@@ -35,7 +36,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         private readonly IServiceProvider _serviceProvider;
         private readonly AdminUserInfoService _adminUserInfoService;
 
-        public AdminUserInfo_EditModel(IServiceProvider serviceProvider,AdminUserInfoService adminUserInfoService)
+        public AdminUserInfo_EditModel(IServiceProvider serviceProvider, AdminUserInfoService adminUserInfoService)
         {
             _serviceProvider = serviceProvider;
             _adminUserInfoService = adminUserInfoService;
@@ -43,17 +44,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         public IActionResult OnGet(int id)
         {
-            IsEdit = id > 0;
-            if (IsEdit)
-            {
-                AdminUserInfo = _adminUserInfoService.GetAdminUserInfo(id);
-                if (AdminUserInfo == null)
-                {
-                    throw new Exception("信息不存在！");//TODO:临时
-                    //return RenderError("信息不存在！");
-                }
-             
-            }
             return Page();
         }
 
@@ -63,6 +53,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [CustomerResource("admin-edit")]
         public IActionResult OnGetDetail(int id)
         {
             var adminUserInfo = _adminUserInfoService.GetAdminUserInfo(id);
@@ -75,6 +66,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
+        [CustomerResource("admin-add", "admin-edit")]
         public IActionResult OnPostSave([FromBody] CreateOrUpdate_AdminUserInfoDto dto)
         {
             if (!ModelState.IsValid)

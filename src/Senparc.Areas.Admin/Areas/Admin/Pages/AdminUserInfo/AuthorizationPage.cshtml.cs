@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -27,34 +28,23 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         public async Task OnGetAsync(int accountId)
         {
-            AdminUserInfoService adminUserInfoService = _serviceProvider.GetService<AdminUserInfoService>();
-            SysRoleService sysRoleService = _serviceProvider.GetService<SysRoleService>();
-            //SysRoleAdminUserInfoService sysRoleAdminUserInfoService = _serviceProvider.GetService<SysRoleAdminUserInfoService>();
-
-            IEnumerable<SysRole> sysRoles = await sysRoleService.GetFullListAsync(_ => true);
-            IEnumerable<SysRoleAdminUserInfo> sysRoleAdminUserInfos = await sysRoleAdminUserInfoService.GetFullListAsync(_ => _.AccountId == accountId);
-
-            IEnumerable<SysRoleAdminUserInfoDto> dto = from _ in sysRoles
-                                                       join __ in sysRoleAdminUserInfos
-                                                       on _.Id equals __.RoleId into __Left
-                                                       from __ in __Left.DefaultIfEmpty()
-                                                       select new SysRoleAdminUserInfoDto()
-                                                       {
-                                                           AdminAccountId = accountId,
-                                                           HasRole = __ != null,
-                                                           RoleId = _.Id,
-                                                           RoleName = _.RoleName
-                                                       };
-            RoleAdminUserInfoDtos = dto;
+            await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// 获取用户的角色
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("admin-grant")]
         public async Task<IActionResult> OnGetDetailAsync(int accountId)
         {
             IEnumerable<SysRoleAdminUserInfo> sysRoleAdminUserInfos = await sysRoleAdminUserInfoService.GetFullListAsync(_ => _.AccountId == accountId);
             return Ok(sysRoleAdminUserInfos);
         }
 
-        public async Task<IActionResult> OnPostAsync([FromBody]GrantRoleDto grantRoleDto)
+        [Scf.AreaBase.Admin.Filters.CustomerResource("admin-grant")]
+        public async Task<IActionResult> OnPostAsync([FromBody] GrantRoleDto grantRoleDto)
         {
             await sysRoleAdminUserInfoService.AddAsync(grantRoleDto.RoleIds, grantRoleDto.AccountId);
             return Ok(true);

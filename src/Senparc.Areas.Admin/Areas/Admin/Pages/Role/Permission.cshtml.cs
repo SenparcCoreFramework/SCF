@@ -45,12 +45,14 @@ namespace Senparc.Areas.Admin.Areas.Admin
             SysRoleInfo = await _sysRoleService.GetObjectAsync(_ => _.Id == RoleId);
         }
 
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-grant")]
         public async Task<IActionResult> OnGetRolePermissionAsync(string roleId)
         {
             var data = await _sysPermissionService.GetFullListAsync(_ => _.RoleId == roleId);
             return Ok(data);
         }
 
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-grant")]
         public async Task<IActionResult> OnPostAsync([FromBody] IEnumerable<SysPermissionDto> sysMenuDto)
         {
             if (!sysMenuDto.Any())

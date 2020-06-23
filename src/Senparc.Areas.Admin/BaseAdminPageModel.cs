@@ -20,7 +20,7 @@ namespace Senparc.Areas.Admin
     }
 
     //暂时取消权限验证
-    //[ServiceFilter(typeof(AuthenticationAsyncPageFilterAttribute))]
+    [ServiceFilter(typeof(AuthenticationResultFilterAttribute))]
     [AdminAuthorize("AdminOnly")]
     public class BaseAdminPageModel : AdminPageModelBase, IBaseAdminPageModel
     {
@@ -54,78 +54,6 @@ namespace Senparc.Areas.Admin
         public override IActionResult RenderError(string message)
         {
             return base.RenderError(message);
-        }
-    }
-
-
-    public class ResourceCodeAttribute : Attribute
-    {
-        public ResourceCodeAttribute(params string[] codes)
-        {
-            Codes = codes;
-        }
-
-        public ResourceCodeAttribute()
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string[] Codes { get; set; }
-    }
-
-    /// <summary>
-    /// 验证是否权限
-    /// </summary>
-    public class ValidatePermissionFilter : IAsyncPageFilter, IFilterMetadata
-    {
-        IServiceProvider _serviceProvider;
-        public ValidatePermissionFilter(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-        }
-
-        public async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
-        {
-            bool canAccessResource = false;
-            ResourceCodeAttribute attributeCodes = context.HandlerMethod.MethodInfo
-                .GetCustomAttributes(typeof(ResourceCodeAttribute), false)
-                .OfType<ResourceCodeAttribute>()
-                .FirstOrDefault();
-            IEnumerable<string> resourceCodes = attributeCodes?.Codes.ToList() ?? new List<string>() { "*" };//当前方法的资源Code
-            if (resourceCodes.Any(_ => "*".Equals(_)))
-            {
-                await next();
-            }
-            else
-            {
-                canAccessResource = await Task.FromResult(true);//TODO...
-                if (canAccessResource)
-                {
-                    await next();
-                }
-                else
-                {
-                    string path = context.HttpContext.Request.Path.Value;
-                    IActionResult actionResult = null;
-                    if (context.HttpContext.Request.Headers.TryGetValue("x-requested-with", out Microsoft.Extensions.Primitives.StringValues strings))
-                    {
-                        if (strings.Contains("XMLHttpRequest"))
-                        {
-                            actionResult = new OkObjectResult(new Scf.Core.AjaxReturnModel<string>(path) { Msg = "您没有权限访问", Success = false }) { StatusCode = (int)System.Net.HttpStatusCode.Forbidden };
-                        }
-                    }
-
-                    context.Result = actionResult ?? new RedirectResult("/Admin/Forbidden?url=" + System.Web.HttpUtility.UrlEncode(path));
-                }
-            }
-        }
-
-        public Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)
-        {
-            return Task.CompletedTask;
         }
     }
 }

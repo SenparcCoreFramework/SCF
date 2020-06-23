@@ -45,6 +45,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-search")]
         public async Task<IActionResult> OnGetListAsync(string roleName, string orderField, int pageIndex, int pageSize)
         {
             var seh = new SenparcExpressionHelper<SysRole>();
@@ -77,6 +78,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-delete")]
         public IActionResult OnPostDelete([FromBody]string[] ids)
         {
             foreach (var id in ids)
