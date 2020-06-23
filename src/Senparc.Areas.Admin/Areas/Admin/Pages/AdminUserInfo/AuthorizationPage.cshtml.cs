@@ -54,14 +54,17 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return Ok(sysRoleAdminUserInfos);
         }
 
-        public async Task<IActionResult> OnPostAsync([FromBody]IEnumerable<string> RoleIds, [FromBody]int accountId)
+        public async Task<IActionResult> OnPostAsync([FromBody]GrantRoleDto grantRoleDto)
         {
-            if (!RoleIds.Any() || accountId <= 0)
-            {
-                return Ok(false);
-            }
-            await sysRoleAdminUserInfoService.AddAsync(RoleIds, accountId);
+            await sysRoleAdminUserInfoService.AddAsync(grantRoleDto.RoleIds, grantRoleDto.AccountId);
             return Ok(true);
         }
+    }
+
+    public class GrantRoleDto
+    {
+        public IEnumerable<string> RoleIds { get; set; }
+
+        public int AccountId { get; set; }
     }
 }
