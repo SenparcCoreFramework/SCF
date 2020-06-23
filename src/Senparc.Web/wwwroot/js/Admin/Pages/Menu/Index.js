@@ -117,6 +117,7 @@
             } else if (flag === 'addNext') {
                 this.dialog.data.id = '';
                 this.dialog.title = '增加下一级菜单';
+                this.dialog.menuName = '';
                 // 增加下一级
                 this.tableData.forEach((res, index) => {
                     if (res.id === row.id) {

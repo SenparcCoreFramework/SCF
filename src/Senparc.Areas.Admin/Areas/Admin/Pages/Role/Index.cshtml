@@ -8,7 +8,7 @@
 <div id="app"  v-cloak>
     <div class="admin-role">
         <div class="filter-container">
-            <el-button class="filter-item" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>
+            <el-button class="filter-item" v-has="['role-add']" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>
         </div>
         <el-table :data="tableData"
                   border
@@ -47,11 +47,13 @@
                 <template slot-scope="scope">
                     <el-button size="mini"
                                type="primary"
+                               v-has="['role-edit']"
                                @@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                     <el-button size="mini"
                                type="primary"
+                               v-has="['role-grant']"
                                @@click="handleRole(scope.$index, scope.row)">权限</el-button>
-                    <el-popconfirm placement="top" title="确认删除此角色吗？" @@on-confirm="handleDelete(scope.$index, scope.row)">
+                    <el-popconfirm placement="top" title="确认删除此角色吗？" v-has="['role-delete']" @@on-confirm="handleDelete(scope.$index, scope.row)">
                         <el-button size="mini" type="danger" slot="reference">删除</el-button>
                     </el-popconfirm>
                 </template>
