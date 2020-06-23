@@ -29,6 +29,14 @@ namespace Senparc.Areas.Admin.Pages
             return Ok(results);
         }
 
+        public async Task<IActionResult> OnGetMenuResourceAsync([FromServices] SysPermissionService sysPermissionService)
+        {
+            IEnumerable<SysMenuDto> sysMenus = await sysPermissionService.GetCurrentUserMenuDtoAsync();
+            var results = getSysMenuTreesMainRecursive(sysMenus);
+            var resourceCodes = await sysPermissionService.GetCurrentUserResourcesDtoAsync();
+            return Ok(new { menuList = results, resourceCodes });
+        }
+
         private IEnumerable<SysMenuTreeItemDto> getSysMenuTreesMainRecursive(IEnumerable<SysMenuDto> sysMenuTreeItems)
         {
             bool hideModuleManager = FullSystemConfig.HideModuleManager == true;
