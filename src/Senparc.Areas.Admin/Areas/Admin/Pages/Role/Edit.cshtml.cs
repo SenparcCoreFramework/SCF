@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Senparc.Core.Models;
 using Senparc.Core.Models.DataBaseModel;
 using Senparc.Scf.Core.Models.DataBaseModel;
 using Senparc.Scf.Service;
@@ -45,6 +48,19 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             var entity = await _sysRoleService.GetObjectAsync(_ => _.Id == id);
             return Ok(entity);
+        }
+
+        /// <summary>
+        /// handler=SelectItems
+        /// </summary>
+        /// <param name="senparcEntities"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetSelectItemsAsync([FromServices] SenparcEntities senparcEntities)
+        {
+            var list = await senparcEntities.SysRoles.Where(_ => _.Enabled)
+                .Select(_ => new SelectListItem() { Value = _.Id, Text = _.RoleName })
+                .ToListAsync();
+            return Ok(list);
         }
 
         /// <summary>
