@@ -8,7 +8,7 @@
 @section Style{
     <link href="~/css/Admin/AdminUserInfo/AdminUserInfo.css" rel="stylesheet" />
 }
-<div id="app"  v-cloak>
+<div id="app" v-cloak>
     <div class="admin-user-info">
         <div class="filter-container">
             <el-button class="filter-item" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>
@@ -93,6 +93,16 @@
             <div slot="footer" class="dialog-footer">
                 <el-button @@click="dialog.visible = false">取 消</el-button>
                 <el-button :loading="dialog.updateLoading" type="primary" @@click="updateData">确 认</el-button>
+            </div>
+        </el-dialog>
+        <!--分配角色-->
+        <el-dialog :title="'设置角色-'+dialog.setTitle" :visible.sync="dialog.visibleSet">
+            <el-checkbox-group v-model="dialog.dialogSetSelected">
+                <el-checkbox v-for="item in dialog.dialogSetData" :label="item.value" border>{{item.text}}</el-checkbox>
+            </el-checkbox-group>
+            <div slot="footer" class="dialog-footer">
+                <el-button @@click="dialog.visibleSet = false">取 消</el-button>
+                <el-button :loading="dialog.updateLoading" type="primary" @@click="updateDataSet">确 认</el-button>
             </div>
         </el-dialog>
     </div>
