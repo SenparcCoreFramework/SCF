@@ -100,7 +100,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             if (string.IsNullOrEmpty(sysMenu.MenuName))
             {
-                return Ok("菜单名称不能为空", false, "菜单名称不能为空");
+                return Ok(false, "菜单名称不能为空");
             }
             var entity = await _sysMenuService.CreateOrUpdateAsync(sysMenu);
             return Ok(entity.Id);
@@ -110,7 +110,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             if (!ModelState.IsValid)
             {
-                return Ok("模型验证未通过", false, "模型验证未通过");
+                return Ok(false, "模型验证未通过");
             }
 
             await _sysMenuService.CreateOrUpdateAsync(sysMenuDto);
