@@ -22,28 +22,7 @@ namespace Senparc.Areas.Admin.Pages
             //return RedirectToPage("/Home/Index");
         }
 
-        public async Task<IActionResult> OnGetMenuTreeAsync([FromServices] SenparcEntities senparcEntities)
-        {
-            IEnumerable<SysMenuDto> sysMenus = await senparcEntities.SysMenus
-                .Where(_ => _.Visible)
-                .OrderByDescending(_ => _.Sort)
-                .Select(_ => new SysMenuDto()
-                {
-                    MenuName = _.MenuName,
-                    Id = _.Id,
-                    Icon = _.Icon,
-                    ParentId = _.ParentId,
-                    ResourceCode = string.Empty,
-                    Url = _.Url
-
-                })
-                .ToListAsync();
-            var results = getSysMenuTreesMainRecursive(sysMenus);
-            return Ok(results);
-        }
-
-
-        public async Task<IActionResult> OnGetMenuTree1Async([FromServices] SysPermissionService sysPermissionService)
+        public async Task<IActionResult> OnGetMenuTreeAsync([FromServices] SysPermissionService sysPermissionService)
         {
             IEnumerable<SysMenuDto> sysMenus = await sysPermissionService.GetCurrentUserMenuDtoAsync();
             var results = getSysMenuTreesMainRecursive(sysMenus);

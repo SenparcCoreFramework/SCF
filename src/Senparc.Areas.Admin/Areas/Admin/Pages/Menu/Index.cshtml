@@ -12,27 +12,28 @@
         <el-table :data="tableData"
                   style="width: 100%;margin-bottom: 20px;"
                   row-key="id"
+                  
                   border
                   default-expand-all
                   :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-            <el-table-column prop="menuName"
+            <el-table-column prop="menuName"align="center"
                              label="菜单名称"
                              sortable>
             </el-table-column>
-            <el-table-column prop="sort"
+            <el-table-column prop="sort"align="center"
                              label="排序"
                              sortable>
             </el-table-column>
-            <el-table-column prop="adminRemark"
+            <el-table-column prop="adminRemark"align="center"
                              label="备注">
             </el-table-column>
-            <el-table-column prop="remark"
+            <el-table-column prop="remark"align="center"
                              label="说明">
             </el-table-column>
-            <el-table-column prop="addTime"
+            <el-table-column prop="addTime"align="center"
                              label="添加时间">
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button size="mini"
                                type="primary"
@@ -46,13 +47,13 @@
                     </el-popconfirm>
                 </template>
             </el-table-column>
-                               @*v-if="scope.row.children.length>0"*@
         </el-table>
         <!--编辑、新增 -->
         <el-dialog :title="dialog.title" :visible.sync="dialog.visible">
             <el-form ref="dataForm"
                      :rules="dialog.rules"
                      :model="dialog.data"
+                     :disabled="dialog.disabled"
                      label-position="left"
                      label-width="100px"
                      style="max-width: 400px; margin-left:50px;">
@@ -94,7 +95,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @@click="dialog.visible = false">取 消</el-button>
-                <el-button :loading="dialog.updateLoading" type="primary" @@click="updateData">确 认</el-button>
+                <el-button :loading="dialog.updateLoading"  :disabled="dialog.disabled" type="primary" @@click="updateData">确 认</el-button>
             </div>
         </el-dialog>
     </div>
