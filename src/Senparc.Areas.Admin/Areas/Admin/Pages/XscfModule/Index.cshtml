@@ -3,16 +3,12 @@
 @using Senparc.Scf.Core.Areas;
 @using Senparc.Scf.XscfBase;
 @{
-    ViewData["Title"] = "模块管理";
-    var hideManager = Model.FullSystemConfig.HideModuleManager == true;
-    var hideManagerTip = hideManager
-        ? "打开【扩展模块】管理功能后，所有扩展模块将显示在【扩展模块】二级目录中。确定要打开吗？"
-        : "隐藏【扩展模块】管理功能后，所有扩展模块将并列显示在一级目录中。如需重新打开，请直接浏览器内访问此页面【/Admin/XscfModule】。确定要隐藏吗？";
+    ViewData["Title"] = "模块管理"; Layout = "_Layout_Vue";
 }
 @section Style{
     <link href="~/css/Admin/XscfModule/XscfModule.css" rel="stylesheet" />
 }
-<div id="app">
+<div id="app" v-cloak>
     <div class="filter-container">
         <el-popconfirm placement="top" :title="handlerTips" @@on-confirm="handleSwitch">
             <el-button size="mini" type="danger" slot="reference">{{handlerText}}</el-button>
@@ -23,26 +19,27 @@
               style="width: 100%;margin-bottom: 20px;">
         <el-table-column align="left" label="模块名称">
             <template slot-scope="scope">
-                <i class="el-icon-platform-eleme"></i>
-                WeChatSampleBuilder
+                @*<i class="el-icon-menu"></i>*@
+                {{scope.row.name}}
             </template>
         </el-table-column>
         <el-table-column align="center" label="菜单名称（显示名称）">
             <template slot-scope="scope">
-                <i class="el-icon-platform-eleme"></i>
-                WeChatSampleBuilder
+                @*<i class="el-icon-s-check"></i>*@
+                {{scope.row.menuName}}
+
             </template>
         </el-table-column>
         <el-table-column align="center" label="版本号">
             <template slot-scope="scope">
-                <i class="el-icon-platform-eleme"></i>
-                WeChatSampleBuilder
+                @*<i class="el-icon-s-open"></i>*@
+                {{scope.row.version}}
             </template>
         </el-table-column>
         <el-table-column align="center" label="唯一编码（全局唯一）">
             <template slot-scope="scope">
-                <i class="el-icon-platform-eleme"></i>
-                WeChatSampleBuilder
+                @*<i class="el-icon-s-check"></i>*@
+                {{scope.row.uid}}
             </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
@@ -50,45 +47,46 @@
                 <el-button size="mini"
                            type="primary"
                            icon="el-icon-circle-plus"
-                           @@click="handleInstall(scope.$index, scope.row,'edit')">安装</el-button>
+                           @@click="handleInstall(scope.$index, scope.row)">安装</el-button>
             </template>
         </el-table-column>
     </el-table>
     <h3>已安装模块</h3>
-    <el-table :data="tableData"
+    <el-table :data="oldTableData"
+              v-if="oldTableData.length>0"
               style="width: 100%;margin-bottom: 20px;">
         <el-table-column align="left" label="菜单名称/版本号">
             <template slot-scope="scope">
                 <div>
-                <i class="el-icon-platform-eleme"></i>
-                数据库工具包
+                    @*<i class="el-icon-platform-eleme"></i>*@
+                    {{scope.row.xscfModule.menuName}}
                 </div>
                 <div>
-                <i class="el-icon-platform-eleme"></i>
-                v0.5.8.2
+                    @*<i class="el-icon-platform-eleme"></i>*@
+                    v{{scope.row.xscfModule.version}}
                 </div>
             </template>
         </el-table-column>
         <el-table-column align="center" label="模块名称/唯一编码（全局唯一）">
             <template slot-scope="scope">
                 <div>
-                    <i class="el-icon-platform-eleme"></i>
-                    Senparc.Xscf.Database
+                    @*<i class="el-icon-platform-eleme"></i>*@
+                    {{scope.row.xscfModule.name}}
                 </div>
                 <div>
-                    <i class="el-icon-platform-eleme"></i>
-                    302F-652S-585G-6588A-5258Z
+                    @*<i class="el-icon-platform-eleme"></i>*@
+                    {{scope.row.xscfModule.uid}}
                 </div>
             </template>
         </el-table-column>
         <el-table-column align="center" label="状态">
             <template slot-scope="scope">
-                新增待审核
+                {{oldData.state[scope.row.xscfModule.state]}}
             </template>
         </el-table-column>
         <el-table-column align="center" label="添加时间">
             <template slot-scope="scope">
-                2020/6/24 13：18
+                {{formaTableTime(scope.row.xscfModule.addTime)}}
             </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
@@ -96,11 +94,11 @@
                 <el-button size="mini"
                            icon="el-icon-s-tools"
                            type="primary"
-                           @@click="handleHandle(scope.$index, scope.row,'edit')">操作</el-button>
+                           @@click="handleHandle(scope.$index, scope.row)">操作</el-button>
                 <el-button size="mini"
                            icon="el-icon-s-home"
                            type="primary"
-                           @@click="handleIndex(scope.$index, scope.row,'edit')">主页</el-button>
+                           @@click="handleIndex(scope.$index, scope.row)">主页</el-button>
             </template>
         </el-table-column>
     </el-table>
