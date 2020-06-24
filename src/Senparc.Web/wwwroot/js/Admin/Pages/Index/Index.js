@@ -18,7 +18,8 @@ var app = new Vue({
         listQuery: {
             page: 1,
             limit: 20
-        }
+        },
+        reload: true
     },
     watch: {
         storePageSrc(val) {
@@ -48,10 +49,13 @@ var app = new Vue({
         getNavMenu() {
             service.get("/Admin/index?handler=MenuResource").then(res => {
                 if (res.data.success) {
+                    this.reload = false;
                     var ddd = res.data.data.menuList;
                     myfunctionMain(ddd);
                     this.navMenuList = ddd;
-                    console.log(ddd)
+                    setTimeout(function () {
+                        app.reload = true;
+                    }, 0);
                     // 按钮权限存起来  使用：直接在dom上v-has=" ['admin-add']"
                     Store.commit('saveResourceCodes', res.data.data.resourceCodes);
                 }

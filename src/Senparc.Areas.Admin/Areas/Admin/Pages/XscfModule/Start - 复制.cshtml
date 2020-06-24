@@ -1,0 +1,492 @@
+﻿@page
+@model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModuleStartModel
+@using Scf.Core.Enums;
+@using Scf.Core.Areas;
+@{
+    ViewData["Title"] = Model.XscfRegister.MenuName;
+}
+@section Style{
+    <style>
+        .homeUrl .tag {
+            background-color: #ff6a00;
+        }
+
+            .homeUrl .tag:after {
+                border-left-color: #ff6a00;
+            }
+
+        #xscf_homepage_menu_view {
+            background: #2a3f54;
+        }
+    </style>
+}
+@section breadcrumbs{
+    <li>扩展模块</li>
+    <li>模块管理</li>
+    <li>@Model.XscfRegister.MenuName 模块</li>
+}
+@section scripts{
+
+    <script src="~/js/Admin/Pages/XscfModule/start.js"></script>
+    <script src="~/lib/jquery.form.js"></script>
+}
+
+@functions{
+    private string GetSystemTypeName(string systemType)
+    {
+        switch (systemType)
+        {
+            case "String":
+                return "文本";
+            case "Int32":
+            case "Int64":
+                return "数字";
+            case "DateTime":
+                return "日期";
+            case "String[]":
+                return "选项";
+            default:
+                return systemType;
+        }
+    }
+}
+<form id="form_delete" class="form-horizontal form-label-left" novalidate asp-page="Start" asp-page-handler="Delete" asp-area="Admin" method="post">
+    <input type="hidden" asp-for="XscfModule.Id" name="id" />
+    @*<input type="submit" value="删除" class="btn btn-danger" />*@
+</form>
+
+<!-- Module Information -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="@Model.XscfRegister.Icon"></i> &nbsp; @Model.XscfModule.MenuName<small>模块 v@(Model.XscfModule.Version)</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="javascript:void(0);" onclick="return deleteModule();">删除此模块</a>
+                        </div>
+                    </li>
+                    <li>@*<a class="close-link"><i class="fa fa-close"></i></a>*@
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 profile_left">
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <span class="green"><i class="fa fa-map-marker fa-cubes"></i> @Model.XscfModule.Name</span>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-code-fork"></i> <strong>v@(Model.XscfModule.Version)</strong></span>
+                        </li>
+
+                        @if (Model.XscfRegister.Version != Model.XscfModule.Version)
+                        {
+                            <li>
+                                <span style="color: red">（发现新版本：v@(Model.XscfRegister.Version)）</span>
+
+                                <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@Model.XscfRegister.Uid" asp-route-backpage="Start" title="扫描" class="btn-sm btn btn-warning">
+                                    <em class="fa fa-gift"></em> &nbsp;<small>立即更新</small>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li class="m-top-xs">
+                            <span data-original-title="@Model.XscfModule.Uid" data-toggle="tooltip" data-placement="right" class=""><i class="fa fa-map-marker fa-shield"></i> 唯一编号</span>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-sliders"></i> <strong class="@(Model.XscfModule.State == XscfModules_State.开放?"green":"gray")">@Model.XscfModule.State</strong></span>
+                            @switch (Model.XscfModule.State)
+                            {
+                                case Scf.Core.Enums.XscfModules_State.关闭:
+                                case Scf.Core.Enums.XscfModules_State.新增待审核:
+                                case Scf.Core.Enums.XscfModules_State.更新待审核:
+                                    <a title="开启" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.开放" class="btn-sm btn @(Model.XscfModule.State == Scf.Core.Enums.XscfModules_State.关闭 ? "btn-success" : "btn-warning")">
+                                        <em class="glyphicon glyphicon-flash"></em> &nbsp;<small>开启</small>
+                                    </a><br />
+                                    <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
+                                    break;
+                                case Scf.Core.Enums.XscfModules_State.开放:
+                                    <a title="关闭" asp-page="Start" asp-page-handler="ChangeState" asp-route-id="@Model.XscfModule.Id" asp-route-tostate="@XscfModules_State.关闭" class="btn-sm btn btn-danger">
+                                        <em class="glyphicon glyphicon-off"></em> &nbsp;<small>关闭</small>
+                                    </a>
+                                    break;
+                                default:
+                                    break;
+                            }
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <span><i class="fa fa-map-marker puzzle-piece"></i> 特性：</span>
+                                @if (Model.XscfRegister is IAreaRegister areaRegister)
+                                {
+                                    <span data-original-title="网页" data-toggle="tooltip" data-placement="top" class=""><i class="fa fa-map-marker fa-external-link"></i> </span>
+                                    <span>&nbsp;</span>
+                                }
+                                @if (Model.XscfRegister.Functions?.Count > 0)
+                                {
+                                    <span data-original-title="执行方法" data-toggle="tooltip" data-placement="top" class=""><i class="fa fa-map-marker fa-rocket"></i> (@Model.XscfRegister.Functions.Count)</span>
+                                    <span>&nbsp;</span>
+                                }
+                                @if (Model.XscfRegister is IXscfDatabase databaseRegister)
+                                {
+                                    <span data-original-title="数据库" data-toggle="tooltip" data-placement="top" class=""><i class="fa fa-map-marker fa-database"></i> </span>
+                                    <span>&nbsp;</span>
+                                }
+                                @if (Model.XscfRegister is IXscfMiddleware middlewareRegister)
+                                {
+                                    <span data-original-title="中间件" data-toggle="tooltip" data-placement="top" class=""><i class="fa fa-map-marker fa-plug"></i> </span>
+                                    <span>&nbsp;</span>
+                                }
+                                @if (Model.XscfRegister is IXscfThread threadRegister)
+                                {
+                                    <span data-original-title="线程" data-toggle="tooltip" data-placement="top" class=""><a href="" class="" data-toggle="modal" data-target=".bs-example-modal-lg-threadInfo"><i class="fa fa-map-marker fa-retweet"></i> 查看</a></span>
+                                    <span>&nbsp;</span>
+                                    <div class="modal fade bs-example-modal-lg-threadInfo" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <table class="table table-striped table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>名称</th>
+                                                            <th>活动状态/后台</th>
+                                                            <th>线程状态</th>
+                                                            <th>最近故事</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @{
+                                                            int tIndex = 0;
+                                                        }
+                                                        @foreach (var threadInfoKV in Model.RegisteredThreadInfo)
+                                                        {
+                                                            <tr>
+                                                                <th scope="row">@(++tIndex)</th>
+                                                                <td>@threadInfoKV.Key.Name</td>
+                                                                <td>@threadInfoKV.Value.IsAlive / @(threadInfoKV.Value.IsAlive ? threadInfoKV.Value.IsBackground : false)</td>
+                                                                <td>@(threadInfoKV.Value.IsAlive ? threadInfoKV.Value.ThreadState.ToString() : "-")</td>
+                                                                <td>@Html.Raw(threadInfoKV.Key.StoryHtml)</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </p>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span><i class="fa fa-map-marker fa-newspaper-o"></i> 介绍：</span>
+                            <p>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(Model.XscfModule.Description)</p>
+                        </li>
+                    </ul>
+                    <div class="accordion" id="accordion_History" role="tablist" aria-multiselectable="true">
+                        <div class="panel">
+                            <a class="panel-heading collapsed" role="tab" id="heading_History" data-toggle="collapse" data-parent="#accordion_History" href="#collapse_History" aria-expanded="false" aria-controls="collapse_History">
+                                <h4 class="panel-title">更新记录</h4>
+                            </a>
+                            <div id="collapse_History" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_History" style="">
+                                <div class="panel-body">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>更新记录</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int pIndex = 0;
+                                            }
+                                            @foreach (var log in Model.XscfModuleUpdateLog)
+                                            {
+                                                <tr>
+                                                    <th scope="row">@(++pIndex)</th>
+                                                    <td>@log</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-9 col-sm-9">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><small><i class="@Model.XscfRegister.Icon"></i> &nbsp; 功能列表</small></h2> @*TODO：源码（如有）*@
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            @if (!Model.MustUpdate)
+                            {
+                                <ul class="list-unstyled timeline">
+
+                                    @if (Model.XscfRegister is IAreaRegister && Model.XscfRegister.GetAreaHomeUrl() != null)
+                                    {
+                                        <li>
+                                            <div class="block homeUrl">
+                                                <div class="tags">
+                                                    @if (Model.XscfModule.State == XscfModules_State.开放)
+                                                    {
+                                                        <a href="@Model.XscfRegister.GetAreaHomeUrl()" class="tag">
+                                                            <span>进入首页</span>
+                                                        </a>
+                                                    }
+                                                </div>
+                                                <div class="block_content">
+                                                    <h2 class="title">
+                                                        <a>进入 @Model.XscfRegister.MenuName 的首页</a>
+                                                    </h2>
+                                                    <div class="byline">
+                                                        <span>地址：</span><a>@Model.XscfRegister.GetAreaHomeUrl()</a>
+                                                    </div>
+
+                                                    <div class="accordion" id="accordion_homepage" role="tablist" aria-multiselectable="true">
+                                                        <div class="panel">
+                                                            <a class="panel-heading collapsed" role="tab" id="heading_homepage" data-toggle="collapse" data-parent="#accordion_homepage" href="#collapse_homepage" aria-expanded="false" aria-controls="collapse_homepage">
+                                                                <h4 class="panel-title">页面透视</h4>
+                                                            </a>
+                                                            <div id="collapse_homepage" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_homepage" style="">
+                                                                <div class="panel-body" id="xscf_homepage_menu_view">
+                                                                    <partial name="_XscfModuleLayout_Menu" model="@Model.XscfRegister" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <p class="excerpt">
+                                                        说明：当前模块配备了可互动操作的 UI 页面，因此您可以看到这个入口。
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+                                    @{
+                                        var paramIndex = 0;
+                                    }
+                                    @foreach (var item in Model.FunctionParameterInfoCollection)
+                                    {
+                                        paramIndex++;
+                                        <li>
+                                            <div class="block">
+                                                <div class="tags">
+                                                    @if (Model.XscfModule.State == XscfModules_State.开放)
+                                                    {
+                                                        <a href="" class="tag" data-toggle="modal" data-target=".bs-example-modal-lg-@paramIndex">
+                                                            <span>执行</span>
+                                                        </a>
+                                                        <div class="modal fade bs-example-modal-lg-@paramIndex" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <form method="post" asp-page="Start" asp-page-handler="RunFunction" onsubmit="return submitFunction('@paramIndex')" id="functionForm_@(paramIndex)" data-parsley-validate="" class="form-horizontal form-label-left">
+                                                                        <input type="hidden" name="xscfUid" value="@Model.XscfRegister.Uid" />
+                                                                        <input type="hidden" name="xscfFunctionName" value="@item.Key.Name" />
+                                                                        <input type="hidden" name="xscfFunctionParams" value="" id="xscfFunctionParams_@paramIndex" />
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title blue" id="modalLabel_@(paramIndex)"><i class="fa fa-terminal"></i> @item.Key.Name</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <h4><i class="fa fa-newspaper-o"></i> @Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(item.Key.Description)</h4>
+                                                                            <div class="ln_solid"></div>
+                                                                            @foreach (var paraInfo in item.Value)
+                                                                            {
+                                                                                <div class="item form-group">
+                                                                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="functionForm_@(paramIndex)_@paraInfo.Name">
+                                                                                        @paraInfo.Title @if (paraInfo.IsRequired)
+                                                                                        {<span class="required">*</span>}
+                                                                                    </label>
+                                                                                    <div class="col-md-7 col-sm-7 ">
+                                                                                        @switch (paraInfo.ParameterType)
+                                                                                        {
+                                                                                            case Scf.XscfBase.ParameterType.Text:
+                                                                                                <input type="text" name="function_@paraInfo.Name" data-funcname="@paraInfo.Name" value="@paraInfo.Value" id="functionForm_Editor_@(paramIndex)_@paraInfo.Name" @Html.Raw(paraInfo.IsRequired ? "required=\"required\"" : "") class="form-control">
+                                                                                                break;
+                                                                                            case Scf.XscfBase.ParameterType.DropDownList:
+                                                                                                <select name="function_@paraInfo.Name" data-funcname="@paraInfo.Name" id="functionForm_Editor_@(paramIndex)_@paraInfo.Name" @Html.Raw(paraInfo.IsRequired ? "required=\"required\"" : "") class="form-control">
+                                                                                                    @foreach (var selectionItem in paraInfo.SelectionList.Items)
+                                                                                                    {
+                                                                                                        if (selectionItem.DefaultSelected)
+                                                                                                        {
+                                                                                                            <option value="@selectionItem.Value" selected="selected" title="@selectionItem.Note">@selectionItem.Text</option>
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <option value="@selectionItem.Value" title="@selectionItem.Note">@selectionItem.Text</option>
+                                                                                                        }
+                                                                                                    }
+                                                                                                </select>
+                                                                                                break;
+                                                                                            case Scf.XscfBase.ParameterType.CheckBoxList:
+                                                                                                @for (int i = 0; i < paraInfo.SelectionList.Items.Count; i++)
+                                                                                                {
+                                                                                                    var selectionItem = paraInfo.SelectionList.Items[i];
+                                                                                                    <div class="checkbox">
+                                                                                                        <label>
+                                                                                                            <input type="checkbox" class="flat" name="function_@paraInfo.Name" value="@selectionItem.Value" data-funcname="@paraInfo.Name" id="functionForm_Editor_@(paramIndex)_@(paraInfo.Name)_@i" title="@selectionItem.Note" @(selectionItem.DefaultSelected ? "checked=\"checked\"" : "")> @selectionItem.Text
+                                                                                                        </label>
+                                                                                                        @if (!selectionItem.Note.IsNullOrEmpty())
+                                                                                                        {
+                                                                                                            <span>&nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; @selectionItem.Note</span>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                }
+                                                                                                <br />
+                                                                                                break;
+                                                                                            default:
+                                                                                                break;
+                                                                                        }
+                                                                                        @if (!paraInfo.Description.IsNullOrEmpty())
+                                                                                        {
+                                                                                            <span><i class="fa fa-info-circle"></i> &nbsp; @paraInfo.Description</span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                            <button type="submit" class="btn btn-primary">运行</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                                <div class="block_content">
+                                                    <h2 class="title">
+                                                        <span class="green"><i class="fa fa-map-marker fa-terminal"></i> @item.Key.Name</span>
+                                                    </h2>
+                                                    <div class="byline">
+                                                        <span>@item.Key.Description</span>
+                                                    </div>
+                                                    <div class="accordion" id="accordion_@paramIndex" role="tablist" aria-multiselectable="true">
+                                                        <div class="panel">
+                                                            <a class="panel-heading collapsed" role="tab" id="heading_@paramIndex" data-toggle="collapse" data-parent="#accordion_@paramIndex" href="#collapse_@paramIndex" aria-expanded="false" aria-controls="collapse_@paramIndex">
+                                                                <h4 class="panel-title">参数透视</h4>
+                                                            </a>
+                                                            <div id="collapse_@paramIndex" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_@paramIndex" style="">
+                                                                <div class="panel-body">
+                                                                    @if (item.Value.Count > 0)
+                                                                    {
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th style="min-width:50px;">名称</th>
+                                                                                    <th>说明</th>
+                                                                                    <th style="min-width:50px;">类型</th>
+                                                                                    <th style="min-width:50px;">必须</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{
+                                                                                    int logIndex = 0;
+                                                                                }
+                                                                                @foreach (var p in item.Value)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <th scope="row">@(++logIndex)</th>
+                                                                                        <td>@p.Title</td>
+                                                                                        <td>@Senparc.Scf.Core.Extensions.StringExtensions.ExHTML(p.Description)</td>
+                                                                                        <td>@GetSystemTypeName(p.SystemType)</td>
+                                                                                        <td>@(p.IsRequired ? "是" : "否")</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div>
+                                                                            无需填写数据
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="excerpt">
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning">
+                                    <h4><i class="fa fa-warning"></i> 警告！</h4> 模块监测发生不兼容性错误（例如数据库未更新），请尝试 <em class="fa fa-gift"></em> 更新 此模块后刷新页面！如果如有问题，请联系
+                                    <a href="mailto:zsu@senparc.com?subject=SCF模块不兼容异常" class="alert-link">技术支持</a>。
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- small modal -->
+
+<div id="result_small_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="result_small_modal_title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 id="result_small_modal_subtitle"></h4>
+                <p id="result_small_modal_content" style="word-break:break-all; "></p>
+            </div>
+            <div class="modal-footer">
+                <div class="row" id="result_small_modal_download_log" style="display:none;">
+                    <div class="fa-hover col-md-12 col-sm-12">
+                        <a href="#" target="_blank" id="result_small_modal_download_log_link"><i class="fa fa-cloud-download"></i> 下载日志（5分钟内1次有效）</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

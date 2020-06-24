@@ -21,7 +21,7 @@
                     <div :class="[isCollapse?'':'head-log']">
                         <img src="~/images/Admin/base/head/logo_230x55.png" alt="Alternate Text" />
                     </div>
-                    <el-scrollbar wrap-class="scrollbar-wrapper">
+                    <el-scrollbar wrap-class="scrollbar-wrapper" v-if="reload">
                         <el-menu :default-active="activeMenu"
                                  :collapse="isCollapse"
                                  :background-color="variables.menuBg"

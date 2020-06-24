@@ -152,9 +152,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public async Task<IActionResult> OnGetScanAjaxAsync(string uid)
         {
             var result = await _xscfModuleService.InstallModuleAsync(uid);
-            XscfModules = result.Item1;
-            base.SetMessager(Scf.Core.Enums.MessageType.info, result.Item2, true);
-            return Ok(uid);
+            //XscfModules = result.Item1;
+            //base.SetMessager(Scf.Core.Enums.MessageType.info, result.Item2, true);
+            return Ok(result.Item1);
             //return RedirectToPage("Index");
         }
     }
