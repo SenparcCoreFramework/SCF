@@ -119,9 +119,19 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             //¸üÐÂ²Ëµ¥»º´æ
             await _sysMenuService.GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
-            var xscfModules = await _xscfModuleService.GetObjectListAsync(pageIndex, pageSize, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
-            LoadNewXscfRegisters(xscfModules);
-            return Ok(xscfModules);
+            PagedList<XscfModule> xscfModules = await _xscfModuleService.GetObjectListAsync(pageIndex, pageSize, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
+            //xscfModules.FirstOrDefault().
+            var xscfRegisterList = XscfRegisterList.Select(_ => new { _.Uid, homeUrl = _.GetAreaHomeUrl() });
+            var result = from xscfModule in xscfModules
+                         join xscfRegister in xscfRegisterList on xscfModule.Uid equals xscfRegister.Uid
+                         into xscfRegister_left
+                         from xscfRegister in xscfRegister_left.DefaultIfEmpty()
+                         select new
+                         {
+                             xscfModule,
+                             xscfRegister
+                         };
+            return Ok(result);
         }
 
         /// <summary>
