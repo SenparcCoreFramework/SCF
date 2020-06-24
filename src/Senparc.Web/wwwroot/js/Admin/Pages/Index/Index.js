@@ -12,7 +12,7 @@ var app = new Vue({
         },
         activeMenu: '0',
         //iframe
-        pageSrc: '/Admin/Menu/Index',
+        pageSrc: '/Admin/XscfModule',
         //分页
         total: 100,
         listQuery: {
