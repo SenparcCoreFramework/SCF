@@ -142,7 +142,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         {
             var xscfModules = await _xscfModuleService.GetObjectListAsync(0, 0, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
             var newXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !z.IgnoreInstall && !xscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList() ?? new List<IXscfRegister>();
-            return Ok(newXscfRegisters);
+            return Ok(newXscfRegisters.Select(_ => new { _.MenuName, _.Name, _.Uid, _.Version }));;
         }
 
         /// <summary>

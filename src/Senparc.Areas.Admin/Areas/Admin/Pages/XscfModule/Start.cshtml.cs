@@ -3,6 +3,7 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
+using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+    [IgnoreAuth]
     public class XscfModuleStartModel : BaseAdminPageModel
     {
         public IXscfRegister XscfRegister { get; set; }
@@ -32,7 +34,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <summary>
         /// 获取当前模块的已注册线程信息
         /// </summary>
-       public IEnumerable<KeyValuePair<ThreadInfo, Thread>> RegisteredThreadInfo { get; set; }
+        public IEnumerable<KeyValuePair<ThreadInfo, Thread>> RegisteredThreadInfo { get; set; }
 
         /// <summary>
         /// 是否必须更新（常规读取失败）
@@ -246,5 +248,63 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return RedirectToPage("Index");
         }
 
+
+        /// <summary>
+        /// handler=Detail
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetDetailAsync(string uid)
+        {
+            if (uid.IsNullOrEmpty())
+            {
+                throw new Exception("模块编号未提供！");
+            }
+
+
+            Scf.Core.Models.DataBaseModel.XscfModule xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
+
+            if (xscfModule == null)
+            {
+                throw new Exception("模块未添加！");
+            }
+            IEnumerable<string> xscfModuleUpdateLog = new List<string>();
+            if (!xscfModule.UpdateLog.IsNullOrEmpty())
+            {
+                xscfModuleUpdateLog = xscfModule.UpdateLog
+                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
+            }
+
+            IXscfRegister xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
+            if (xscfRegister == null)
+            {
+                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
+            }
+            IDictionary<IXscfFunction, List<FunctionParameterInfo>> functionParameterInfoCollection = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();
+            try
+            {
+                foreach (var functionType in xscfRegister.Functions)
+                {
+                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                    functionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+                }
+            }
+            catch (Exception)
+            {
+                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+请尝试更新此模块后刷新页面！");
+                MustUpdate = true;
+            }
+
+            IEnumerable<KeyValuePair<ThreadInfo, Thread>> registeredThreadInfo = xscfRegister.RegisteredThreadInfo;
+            return Ok(new
+            {
+                xscfModule,
+                xscfModuleUpdateLog,
+                xscfRegister,
+                functionParameterInfoCollection
+            });
+        }
     }
 }
