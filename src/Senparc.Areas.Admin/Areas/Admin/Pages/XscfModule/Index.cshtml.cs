@@ -90,5 +90,62 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return RedirectToPage("./Index");
             }
         }
+
+        /// <summary>
+        /// 隐藏“模块管理”功能 handler=HideManagerAjax
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostHideManagerAjaxAsync()
+        {
+            //TODO:使用DTO操作
+            var systemConfig = _systemConfigService.Value.GetObject(z => true);
+            systemConfig.HideModuleManager = systemConfig.HideModuleManager.HasValue && systemConfig.HideModuleManager.Value == true ? false : true;
+            await _systemConfigService.Value.SaveObjectAsync(systemConfig);
+            if (systemConfig.HideModuleManager == true)
+            {
+                return RedirectToPage("../Index");
+            }
+            else
+            {
+                return RedirectToPage("./Index");
+            }
+        }
+
+        /// <summary>
+        /// 获取已安装模块模块 handler=Mofules
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetMofulesAsync(int pageIndex = 0, int pageSize = 0)
+        {
+            //更新菜单缓存
+            await _sysMenuService.GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
+            var xscfModules = await _xscfModuleService.GetObjectListAsync(pageIndex, pageSize, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
+            LoadNewXscfRegisters(xscfModules);
+            return Ok(xscfModules);
+        }
+
+        /// <summary>
+        /// 获取未安装模块模块 handler=UnMofules
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetUnMofulesAsync()
+        {
+            var xscfModules = await _xscfModuleService.GetObjectListAsync(0, 0, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
+            var newXscfRegisters = Senparc.Scf.XscfBase.Register.RegisterList.Where(z => !z.IgnoreInstall && !xscfModules.Exists(m => m.Uid == z.Uid && m.Version == z.Version)).ToList() ?? new List<IXscfRegister>();
+            return Ok(newXscfRegisters);
+        }
+
+        /// <summary>
+        /// 扫描新模块 handler=ScanAjax
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetScanAjaxAsync(string uid)
+        {
+            var result = await _xscfModuleService.InstallModuleAsync(uid);
+            XscfModules = result.Item1;
+            base.SetMessager(Scf.Core.Enums.MessageType.info, result.Item2, true);
+            return Ok(uid);
+            //return RedirectToPage("Index");
+        }
     }
 }

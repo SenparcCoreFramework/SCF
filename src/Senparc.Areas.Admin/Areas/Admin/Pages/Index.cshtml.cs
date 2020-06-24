@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 
 namespace Senparc.Areas.Admin.Pages
 {
+    [Scf.AreaBase.Admin.Filters.IgnoreAuth]
     public class IndexModel : BaseAdminPageModel
     {
         public IActionResult OnGet()
