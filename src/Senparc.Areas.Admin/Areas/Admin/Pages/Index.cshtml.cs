@@ -58,7 +58,8 @@ namespace Senparc.Areas.Admin.Pages
                         MenuName = "设置/执行",
                         Url = item.Url,
                         Id = (index++).ToString(),
-                        ParentId = item.Id
+                        ParentId = item.Id,
+                        Icon = "s-tools"
                     });
                     dest.AddRange(xscfAreapage.AareaPageMenuItems.Select(_ => new SysMenuDto()
                     {
