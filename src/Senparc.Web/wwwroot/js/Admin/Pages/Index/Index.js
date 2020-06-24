@@ -1,4 +1,5 @@
-﻿var app = new Vue({
+﻿
+var app = new Vue({
     el: '#app',
     data: {
         //侧边栏
@@ -40,7 +41,6 @@
     methods: {
         setStore(key,value) {
             Store.commit(key, value);
-            console.log(Store.state.pageSrc);
         },
         toggleSideBar() {
             this.isCollapse = !this.isCollapse;
@@ -50,8 +50,10 @@
                 if (res.data.success) {
                     var ddd = res.data.data.menuList;
                     myfunctionMain(ddd);
-                    //console.info(ddd);
                     this.navMenuList = ddd;
+                    console.log(ddd)
+                    // 按钮权限存起来  使用：直接在dom上v-has=" ['admin-add']"
+                    Store.commit('saveResourceCodes', res.data.data.resourceCodes);
                 }
             });
         }

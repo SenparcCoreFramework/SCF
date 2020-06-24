@@ -1,10 +1,14 @@
-﻿const Store = new Vuex.Store({
+﻿var Store = new Vuex.Store({
     state: {
-        pageSrc: ''
+        pageSrc: '',
+        resourceCodes:[]
     },
     mutations: {
         changePageSrc(state, data) {
             state.pageSrc = data;
+        },
+        saveResourceCodes(state, data) {
+            state.resourceCodes = data;
         }
     }
 });

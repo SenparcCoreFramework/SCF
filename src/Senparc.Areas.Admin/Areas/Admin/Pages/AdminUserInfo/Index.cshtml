@@ -11,7 +11,7 @@
 <div id="app" v-cloak>
     <div class="admin-user-info">
         <div class="filter-container">
-            <el-button class="filter-item" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>
+            <el-button class="filter-item" v-has="['admin-add']" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>
         </div>
         <el-table :data="tableData"
                   border
@@ -46,11 +46,13 @@
                 <template slot-scope="scope">
                     <el-button size="mini"
                                type="primary"
+                               v-has="['admin-edit']"
                                @@click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                     <el-button size="mini"
                                type="primary"
+                               v-has="['admin-grant']"
                                @@click="handleSet(scope.$index, scope.row)">设置角色</el-button>
-                    <template>
+                    <template v-has="['admin-delete']">
                         <el-popconfirm placement="top" title="确认删除此角色吗？" @@on-confirm="handleDelete(scope.$index, scope.row)">
                             <el-button size="mini" type="danger" slot="reference">删除</el-button>
                         </el-popconfirm>

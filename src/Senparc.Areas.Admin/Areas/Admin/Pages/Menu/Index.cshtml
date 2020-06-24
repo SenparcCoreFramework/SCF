@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "菜单配置";
 }
-
+@section Style{
+    <link href="~/css/Admin/Menu/Menu.css" rel="stylesheet" />
+}
 <div id="app" v-cloak>
     <div class="admin-role">
         <div class="filter-container">
@@ -12,25 +14,24 @@
         <el-table :data="tableData"
                   style="width: 100%;margin-bottom: 20px;"
                   row-key="id"
-                  
                   border
                   default-expand-all
                   :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-            <el-table-column prop="menuName"align="center"
+            <el-table-column prop="menuName" align="left"
                              label="菜单名称"
                              sortable>
             </el-table-column>
-            <el-table-column prop="sort"align="center"
+            <el-table-column prop="sort" align="center"
                              label="排序"
                              sortable>
             </el-table-column>
-            <el-table-column prop="adminRemark"align="center"
+            <el-table-column prop="adminRemark" align="center"
                              label="备注">
             </el-table-column>
-            <el-table-column prop="remark"align="center"
+            <el-table-column prop="remark" align="center"
                              label="说明">
             </el-table-column>
-            <el-table-column prop="addTime"align="center"
+            <el-table-column prop="addTime" align="center"
                              label="添加时间">
             </el-table-column>
             <el-table-column label="操作" align="center">
@@ -64,7 +65,7 @@
                     <el-cascader v-model="dialog.data.parentId"
                                  :options="tableData"
                                  clearable
-                                  :props="{ checkStrictly: true,label: 'menuName',value:'id'}">
+                                 :props="{ checkStrictly: dialog.checkStrictly,label: 'menuName',value:'id'}">
                     </el-cascader>
                 </el-form-item>
                 <el-form-item label="排序">
@@ -90,12 +91,22 @@
                     <el-switch v-model="dialog.data.visible"></el-switch>
                 </el-form-item>
                 <el-form-item label="图标">
-                    <el-input v-model="dialog.data.icon" clearable placeholder="" />
+                    <i v-if="dialog.data.icon" :class="'el-icon-'+dialog.data.icon"></i>
+                    <el-button @@click="dialogIcon.visible=true" plain style="margin-left:15px;">选择图标</el-button>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @@click="dialog.visible = false">取 消</el-button>
-                <el-button :loading="dialog.updateLoading"  :disabled="dialog.disabled" type="primary" @@click="updateData">确 认</el-button>
+                <el-button :loading="dialog.updateLoading" :disabled="dialog.disabled" type="primary" @@click="updateData">确 认</el-button>
+            </div>
+        </el-dialog>
+        <!--选择图标-->
+        <el-dialog title="图标列表" :visible.sync="dialogIcon.visible">
+            <div class="menu-icons-grid">
+                <div v-for="item in dialogIcon.elementIcons" class="menu-icon-item" @@click="pickIcon(item)">
+                    <i :class="'el-icon-'+item"></i>
+                    <span>{{item}}</span>
+                </div>
             </div>
         </el-dialog>
     </div>
