@@ -51,6 +51,7 @@ var app = new Vue({
                     var ddd = res.data.data.menuList;
                     myfunctionMain(ddd);
                     this.navMenuList = ddd;
+                    console.log(ddd)
                     // 按钮权限存起来  使用：直接在dom上v-has=" ['admin-add']"
                     Store.commit('saveResourceCodes', res.data.data.resourceCodes);
                 }

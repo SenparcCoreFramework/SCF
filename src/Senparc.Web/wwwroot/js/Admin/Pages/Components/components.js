@@ -3,12 +3,20 @@
     template: `         <!--最里面一层-->
                       <template v-if="item.children.length<1">
                             <el-menu-item :index="item.index" @click="link(item)">
-                                <span slot='title'>  <i class="el-icon-location"></i> {{item.menuName}}</span>
+                                  <template slot='title'>
+                                        <i v-if="item.icon" :class="'el-icon-'+item.icon"></i>
+                                        <i v-if="!item.icon" class="el-icon-s-help"></i>
+                                        <span>{{item.menuName}}</span>
+                                  </template>
                             </el-menu-item>
                         </template>
                         <!--递归-->
-                        <el-submenu v-else  :index="item.id">
-                                <span slot='title'>  <i class="el-icon-location"></i> {{item.menuName}}</span>
+                        <el-submenu v-else :index="item.id">
+                            <template slot='title'>
+                                <i v-if="item.icon" :class="'el-icon-'+item.icon"></i>
+                                <i v-if="!item.icon" class="el-icon-s-help"></i>
+                                <span >{{item.menuName}}</span>
+                            </template>
                                 <sidebar-item
                                     v-for="child in item.children"
                                     :key="child.id"
