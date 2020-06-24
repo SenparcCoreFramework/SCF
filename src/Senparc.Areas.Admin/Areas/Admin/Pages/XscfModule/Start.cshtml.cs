@@ -302,8 +302,55 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 xscfModule,
                 xscfModuleUpdateLog,
-                xscfRegister,
-                functionParameterInfoCollection
+                xscfRegister = new
+                {
+                    xscfRegister.MenuName,
+                    xscfRegister.Icon,
+                    xscfRegister.Version,
+                    xscfRegister.Uid,
+                    TypeName = xscfRegister.GetType().Name,
+                    FunctionCount = xscfRegister.Functions.Count,
+                    registeredThreadInfo = xscfRegister.RegisteredThreadInfo.Select(_ => new
+                    {
+                        kye = new
+                        {
+                            _.Key.Name,
+                            _.Key.StoryHtml
+                        },
+                        Value = new
+                        {
+                            _.Value.IsAlive,
+                            _.Value.IsBackground,
+                            _.Value.ThreadState,
+                            ThreadStateStr = _.Value.ThreadState.ToString()
+                        }
+                    })
+                },
+                functionParameterInfoCollection = functionParameterInfoCollection
+                .Select(_ => new
+                {
+                    Key = new
+                    {
+                        _.Key.Name,
+                        _.Key.Description
+                    },
+                    _.Value
+                }),
+                registeredThreadInfo = registeredThreadInfo.Select(_ => new
+                {
+                    kye = new
+                    {
+                        _.Key.Name,
+                        _.Key.StoryHtml
+                    },
+                    Value = new
+                    {
+                        _.Value.IsAlive,
+                        _.Value.IsBackground,
+                        _.Value.ThreadState,
+                        ThreadStateStr = _.Value.ThreadState.ToString()
+                    }
+                })
             });
         }
     }
