@@ -9,164 +9,102 @@
         ? "打开【扩展模块】管理功能后，所有扩展模块将显示在【扩展模块】二级目录中。确定要打开吗？"
         : "隐藏【扩展模块】管理功能后，所有扩展模块将并列显示在一级目录中。如需重新打开，请直接浏览器内访问此页面【/Admin/XscfModule】。确定要隐藏吗？";
 }
-@section breadcrumbs{
-    <li>扩展模块</li>
-    <li>模块管理</li>
+@section Style{
+    <link href="~/css/Admin/XscfModule/XscfModule.css" rel="stylesheet" />
 }
-<form id="form_hideManager" novalidate asp-page="Index" asp-page-handler="HideManager" asp-area="Admin" method="post" >
-</form>
-<div class="row">
-    <button class="btn btn-primary pull-right" onclick="submitHideManager()">
-        @(hideManager?"开启【扩展模块】管理模式":"切换至发布状态，隐藏【扩展莫管】管理单元")
-    </button>
-    <script>
-        function submitHideManager() {
-            if (confirm('@hideManagerTip')) {
-                document.getElementById('form_hideManager').submit();
-            }
-        }
-    </script>
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        @if (Model.NewXscfRegisters.Count > 0)
-        {
-
-            <div class="x_panel">
-                <div class="pull-left" style="width: 100%">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-8 col-lg-8">
-                            <h3>发现新模块！</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="x_content">
-                    @*<p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>*@
-                    <div class="table-responsive">
-                        <table class="table  bulk_action">
-                            <thead>
-                                <tr class="headings">
-                                    <th class="column-title">模块名称</th>
-                                    <th class="column-title">菜单名称（显示名称）</th>
-                                    <th class="column-title">版本号</th>
-                                    <th class="column-title">唯一编码（全局唯一）</th>
-                                    <th class="column-title">操作 </th>
-                                    <th class="bulk-actions" colspan="16">
-                                        <a class="antoo" style="color:#fff; font-weight:500;">
-                                            已选中 <span class="action-cnt"> </span>
-                                            <i class="fa fa-chevron-down"></i>
-                                        </a>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.NewXscfRegisters)
-                                {
-                                    <tr class="pointer">
-                                        <td class=" "><i class="fa fa-cubes"></i> @item.Name </td>
-                                        <td class=" "><i class="@item.Icon"></i> @item.MenuName</td>
-                                        <td class=" "> <i class="fa fa-code-fork"></i> v@(item.Version)</td>
-                                        <td class=" "><i class="fa fa-shield"></i> @item.Uid</td>
-                                        <td class=" ">
-                                            <a asp-page="Index" asp-page-handler="Scan" asp-route-uid="@item.Uid" title="扫描" class="btn-sm btn btn-success">
-                                                <em class="glyphicon glyphicon-gift"></em> &nbsp;<small>安装</small>
-                                            </a>
-                                            @*<a asp-page="Start" asp-route-uid="@item.Uid" title="设置" class="btn-xs btn btn-info">
-                                                    <em class="fa fa-gear">设置</em>
-                                                </a>*@
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        }
-
-        <div class="x_panel">
-            <div class="pull-left" style="width: 100%">
-                <div class="row">
-                    <div class="col-xs-12 col-md-8 col-lg-8">
-                        <h3>已安装模块</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="x_content">
-                @*<p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>*@
-                <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                            <tr class="headings">
-                                <th>
-                                    <input type="checkbox" id="check-all" class="flat">
-                                </th>
-                                <th class="column-title">菜单名称 / 版本号</th>
-                                <th class="column-title">模块名称 / 唯一编码（全局唯一）</th>
-                                <th class="column-title">状态</th>
-                                @*<th class="column-title">备注</th>
-                                    <th class="column-title">说明</th>*@
-                                <th class="column-title">添加时间 </th>
-                                <th class="column-title">操作 </th>
-                                <th class="bulk-actions" colspan="16">
-                                    <a class="antoo" style="color:#fff; font-weight:500;">
-                                        已选中 <span class="action-cnt"> </span>
-                                        <i class="fa fa-chevron-down"></i>
-                                    </a>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.XscfModules)
-                            {
-                                var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => z.Uid == item.Uid);
-                                <tr class="pointer">
-                                    <td class="a-center ">
-                                        <input type="checkbox" class="flat table_records" name="ids" form="deleteForm" value="@item.Id">
-                                    </td>
-                                    <td class=" ">
-                                        <i class="@xscfRegister?.Icon"></i> @item.MenuName<br />
-                                        <i class="fa fa-code-fork"></i> v@(item.Version)
-                                    </td>
-                                    <td class=" ">
-                                        <i class="fa fa-cubes"></i> @item.Name<br />
-                                        <i class="fa fa-shield"></i> @item.Uid
-                                    </td>
-                                    <td class=" ">@item.State.ToString()</td>
-                                    @*<td class=" ">@item.AdminRemark</td>
-                                        <td class=" ">@item.Remark</td>*@
-                                    <td class=" "> @item.AddTime.ToString()</td>
-                                    <td class=" ">
-                                        <a asp-page="Start" asp-route-uid="@item.Uid" title="操作" class="btn-xs btn btn-info">
-                                            <em class="fa fa-gear"> 操作</em>
-                                        </a>
-                                        @if (xscfRegister?.GetAreaHomeUrl() is string homeUrl &&
-                                         !homeUrl.IsNullOrEmpty())
-                                        {
-                                            <a href="@homeUrl" title="主页" class="btn-xs btn btn-danger">
-                                                <em class="fa fa-home">
-                                                    主页
-                                                </em>
-                                            </a>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center p jpagerbar">
-                    @Html.Raw((Html.PagerBar(Model.XscfModules, new PagerBarSettings(Url.Page("/XscfModule/Index", new
-               {
-                   pageIndex = "{0}"
-               }))
-               {
-                   NoRecordTip = "暂无数据",
-                   ShowTotalCount = true
-               })))
-                </div>
-            </div>
-        </div>
+<div id="app">
+    <div class="filter-container">
+        <el-popconfirm placement="top" :title="handlerTips" @@on-confirm="handleSwitch">
+            <el-button size="mini" type="danger" slot="reference">{{handlerText}}</el-button>
+        </el-popconfirm>
     </div>
+    <h3>发现新模块！</h3>
+    <el-table :data="newTableData"
+              style="width: 100%;margin-bottom: 20px;">
+        <el-table-column align="left" label="模块名称">
+            <template slot-scope="scope">
+                <i class="el-icon-platform-eleme"></i>
+                WeChatSampleBuilder
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label="菜单名称（显示名称）">
+            <template slot-scope="scope">
+                <i class="el-icon-platform-eleme"></i>
+                WeChatSampleBuilder
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label="版本号">
+            <template slot-scope="scope">
+                <i class="el-icon-platform-eleme"></i>
+                WeChatSampleBuilder
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label="唯一编码（全局唯一）">
+            <template slot-scope="scope">
+                <i class="el-icon-platform-eleme"></i>
+                WeChatSampleBuilder
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+                <el-button size="mini"
+                           type="primary"
+                           icon="el-icon-circle-plus"
+                           @@click="handleInstall(scope.$index, scope.row,'edit')">安装</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <h3>已安装模块</h3>
+    <el-table :data="tableData"
+              style="width: 100%;margin-bottom: 20px;">
+        <el-table-column align="left" label="菜单名称/版本号">
+            <template slot-scope="scope">
+                <div>
+                <i class="el-icon-platform-eleme"></i>
+                数据库工具包
+                </div>
+                <div>
+                <i class="el-icon-platform-eleme"></i>
+                v0.5.8.2
+                </div>
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label="模块名称/唯一编码（全局唯一）">
+            <template slot-scope="scope">
+                <div>
+                    <i class="el-icon-platform-eleme"></i>
+                    Senparc.Xscf.Database
+                </div>
+                <div>
+                    <i class="el-icon-platform-eleme"></i>
+                    302F-652S-585G-6588A-5258Z
+                </div>
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label="状态">
+            <template slot-scope="scope">
+                新增待审核
+            </template>
+        </el-table-column>
+        <el-table-column align="center" label="添加时间">
+            <template slot-scope="scope">
+                2020/6/24 13：18
+            </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+                <el-button size="mini"
+                           icon="el-icon-s-tools"
+                           type="primary"
+                           @@click="handleHandle(scope.$index, scope.row,'edit')">操作</el-button>
+                <el-button size="mini"
+                           icon="el-icon-s-home"
+                           type="primary"
+                           @@click="handleIndex(scope.$index, scope.row,'edit')">主页</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
 </div>
+@section scripts{
+    <script src="~/js/Admin/Pages/XscfModule/Index.js"></script>
+}
