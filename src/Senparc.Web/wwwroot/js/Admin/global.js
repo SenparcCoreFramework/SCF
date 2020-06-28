@@ -1,16 +1,7 @@
-﻿//格式化添加时间等 2020 - 06 - 19T09: 41: 51.1905692
+﻿// 格式化添加时间等 2020 - 06 - 19T09: 41: 51.1905692
 function formaTableTime(value) {
     return value ? value.replace('T', '  ').substr(0, 17) : '暂无时间';
 }
-//Vue.prototype.isCollapse = false;//菜单收起/展开
-//Vue.prototype.handleOpen = function (key, keyPath) {//菜单展开
-//    console.log(key, keyPath);
-
-//};
-//Vue.prototype.handleClose = function (key, keyPath) {//菜单收起
-//    console.log(key, keyPath);
-//};
-
 /**
  * 递归，获取所有子节点
  * @param {any} treeNode 2

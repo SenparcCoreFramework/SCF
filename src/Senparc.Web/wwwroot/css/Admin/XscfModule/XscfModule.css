@@ -1,3 +1,11 @@
-﻿.filter-container button {
+﻿.start-delete{
     float:right;
+}
+.el-collapse-item__header {
+    background-color: #EBEEF5;
+    padding-left: 15px;
+}
+.el-main .el-card {
+    margin: 10px 0;
+    max-width: 1000px;
 }

@@ -11,7 +11,7 @@
                             </el-menu-item>
                         </template>
                         <!--递归-->
-                        <el-submenu v-else :index="item.id">
+                        <el-submenu v-else :index="item.index">
                             <template slot='title'>
                                 <i v-if="item.icon" :class="'el-icon-'+item.icon"></i>
                                 <i v-if="!item.icon" class="el-icon-s-help"></i>
@@ -40,7 +40,7 @@
         link(item) {
             // 显示在首页ifram
             if (!item.url) return;
-            Store.commit('changePageSrc', item.url);
+            window.location.href = item.url;
         }
     }
 });

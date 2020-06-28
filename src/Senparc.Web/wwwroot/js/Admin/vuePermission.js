@@ -1,5 +1,5 @@
 ﻿function permissionJudge(value) {
-    let list = top.app.store.resourceCodes;
+    let list = JSON.parse(window.sessionStorage.getItem('saveResourceCodes'));
     if (!value.length > 0) {
         return true;
     }
