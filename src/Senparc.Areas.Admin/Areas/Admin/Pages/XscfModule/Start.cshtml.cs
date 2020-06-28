@@ -308,7 +308,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     xscfRegister.Icon,
                     xscfRegister.Version,
                     xscfRegister.Uid,
-                    TypeName = xscfRegister.GetType().Name,
+                    areaPageMenuItems = (xscfRegister as Scf.Core.Areas.IAreaRegister)?.AareaPageMenuItems ?? new List<Scf.Core.Areas.AreaPageMenuItem>(),
+                    Interfaces = xscfRegister.GetType().GetInterfaces().Select(_ => _.Name),
                     FunctionCount = xscfRegister.Functions.Count,
                     registeredThreadInfo = xscfRegister.RegisteredThreadInfo.Select(_ => new
                     {
@@ -352,6 +353,26 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     }
                 })
             });
+        }
+
+        /// <summary>
+        /// handler=ChangeStateAjax
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="toState"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetChangeStateAjaxAsync(int id, XscfModules_State toState)
+        {
+            var module = await _xscfModuleService.GetObjectAsync(z => z.Id == id).ConfigureAwait(false);
+
+            if (module == null)
+            {
+                throw new Exception("模块未添加！");
+            }
+
+            module.UpdateState(toState);
+            await _xscfModuleService.SaveObjectAsync(module).ConfigureAwait(false);
+            return Ok(true);
         }
     }
 }
