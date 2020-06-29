@@ -1,4 +1,4 @@
-﻿var vm = new Vue({
+﻿var app = new Vue({
     el: "#app",
     data() {
         const validatePass = (rule, value, callback) => {
@@ -21,6 +21,8 @@
             }
         };
         return {
+            // 菜单栏数据 navMenu.js
+            navMenu: navMenu,
             //分页参数
             paginationQuery: {
                 total: 5
@@ -162,7 +164,7 @@
             this.setId = row.id;
             this.dialog.setTitle = row.userName;
             // 所有角色
-            const a =await service.get("/Admin/Role/edit?Handler=SelectItems");
+            const a = await service.get("/Admin/Role/edit?Handler=SelectItems");
             if (a.data.success) {
                 this.dialog.dialogSetData = a.data.data;
             }

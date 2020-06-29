@@ -1,4 +1,4 @@
-﻿var vm = new Vue({
+﻿var app = new Vue({
     el: "#app",
     data() {
         var validateCode = (rule, value, callback) => {
@@ -13,6 +13,8 @@
             }
         };
         return {
+            // 菜单栏数据 navMenu.js
+            navMenu: navMenu,
             // 表格数据
             tableData: [],
             dialog: {

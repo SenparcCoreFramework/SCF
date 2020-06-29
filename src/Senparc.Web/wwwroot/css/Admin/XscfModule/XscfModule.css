@@ -1,3 +1,61 @@
-﻿.filter-container button {
+﻿.filter-container .float-right {
+    float: right;
+}
+.start-delete {
     float:right;
 }
+.el-collapse-item__header {
+    background-color: #EBEEF5;
+    padding-left: 15px;
+}
+.el-main .el-card {
+    margin: 10px 0;
+    max-width: 1000px;
+}
+.box-card .box-card-action {
+    cursor: pointer;
+    background-color: #ff6a00;
+    float: right;
+    position: relative;
+    white-space: nowrap;
+    line-height: 25px;
+    height: 25px;
+    color: #fff;
+    margin-left: 12.5px;
+    margin-right: 10px;
+    padding-left: 12.5px;
+    padding-right: 9.33333px;
+    width: 59px;
+    font-size: 14px;
+    text-align: right;
+}
+
+    .box-card .box-card-action::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 17.67767px;
+        background-color: #ff6a00;
+        height: 17.67767px;
+        transform: rotate(45deg);
+        transform-origin: top left;
+    }
+.start-green {
+    color: #67C23A;
+}
+.start-gray {
+    color: #909399
+}
+.start-warning {
+    color: #E6A23C
+}
+.start-danger {
+    color: #F56C6C
+}
+.item-container .el-menu {
+    width: 300px;
+}
+    .item-container .el-menu a {
+        color: #bfcbd9;
+        text-decoration: none;
+    }

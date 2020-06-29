@@ -51,54 +51,55 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _sysMenuService = sysMenuService;
         }
 
-        public async Task OnGetAsync(string uid)
+        public async Task OnGetAsync()
         {
-            if (uid.IsNullOrEmpty())
-            {
-                throw new Exception("模块编号未提供！");
-            }
+            await Task.CompletedTask;
+//            if (uid.IsNullOrEmpty())
+//            {
+//                throw new Exception("模块编号未提供！");
+//            }
 
 
-            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
+//            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
 
-            if (XscfModule == null)
-            {
-                throw new Exception("模块未添加！");
-            }
+//            if (XscfModule == null)
+//            {
+//                throw new Exception("模块未添加！");
+//            }
 
-            if (!XscfModule.UpdateLog.IsNullOrEmpty())
-            {
-                XscfModuleUpdateLog = XscfModule.UpdateLog
-                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-                    .ToList();
-            }
-            else
-            {
-                XscfModuleUpdateLog = new List<string>();
-            }
+//            if (!XscfModule.UpdateLog.IsNullOrEmpty())
+//            {
+//                XscfModuleUpdateLog = XscfModule.UpdateLog
+//                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+//                    .ToList();
+//            }
+//            else
+//            {
+//                XscfModuleUpdateLog = new List<string>();
+//            }
 
-            XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
-            if (XscfRegister == null)
-            {
-                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
-            }
+//            XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
+//            if (XscfRegister == null)
+//            {
+//                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
+//            }
 
-            try
-            {
-                foreach (var functionType in XscfRegister.Functions)
-                {
-                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
-                }
-            }
-            catch (Exception)
-            {
-                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
-请尝试更新此模块后刷新页面！");
-                MustUpdate = true;
-            }
+//            try
+//            {
+//                foreach (var functionType in XscfRegister.Functions)
+//                {
+//                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+//                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+//请尝试更新此模块后刷新页面！");
+//                MustUpdate = true;
+//            }
 
-            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
+//            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
         }
 
         /// <summary>
@@ -256,6 +257,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnGetDetailAsync(string uid)
         {
+            bool mustUpdate = false;
             if (uid.IsNullOrEmpty())
             {
                 throw new Exception("模块编号未提供！");
@@ -294,16 +296,18 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
 请尝试更新此模块后刷新页面！");
-                MustUpdate = true;
+                mustUpdate = true;
             }
 
             IEnumerable<KeyValuePair<ThreadInfo, Thread>> registeredThreadInfo = xscfRegister.RegisteredThreadInfo;
             return Ok(new
             {
+                mustUpdate,
                 xscfModule,
                 xscfModuleUpdateLog,
                 xscfRegister = new
                 {
+                    AreaHomeUrl = xscfRegister.GetAreaHomeUrl(),
                     xscfRegister.MenuName,
                     xscfRegister.Icon,
                     xscfRegister.Version,
@@ -321,9 +325,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                         Value = new
                         {
                             _.Value.IsAlive,
-                            IsBackground = _.Value.IsAlive ? new bool?(_.Value.IsBackground) : null,
-                            ThreadState = _.Value.IsAlive ? new ThreadState?(_.Value.ThreadState) : _.Value.ThreadState,
-                            ThreadStateStr = _.Value.IsAlive ? _.Value.ThreadState.ToString() : null
+                            _.Value.IsBackground,
+                            _.Value.ThreadState,
+                            ThreadStateStr = _.Value.ThreadState.ToString()
                         }
                     })
                 },
@@ -347,9 +351,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     Value = new
                     {
                         _.Value.IsAlive,
-                        IsBackground = _.Value.IsAlive ? new bool?(_.Value.IsBackground) : null,
-                        ThreadState = _.Value.IsAlive ? new ThreadState?(_.Value.ThreadState) : _.Value.ThreadState,
-                        ThreadStateStr = _.Value.IsAlive ? _.Value.ThreadState.ToString() : null
+                        _.Value.IsBackground,
+                        _.Value.ThreadState,
+                        ThreadStateStr = _.Value.ThreadState.ToString()
                     }
                 })
             });

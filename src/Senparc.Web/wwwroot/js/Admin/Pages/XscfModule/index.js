@@ -1,7 +1,9 @@
-﻿var vm = new Vue({
+﻿var app = new Vue({
     el: "#app",
     data() {
         return {
+            // 菜单栏数据 navMenu.js
+            navMenu: navMenu,
             newTableData: [], // 新模块数据
             oldTableData: [], // 已安装模块
             isExtend: false, // 是否切换状态
@@ -35,29 +37,39 @@
         // 获取
         async  getList() {
             const oldTableData = await service.get('/Admin/XscfModule/Index?handler=Mofules');
-            this.oldTableData = oldTableData.data.data;
+            this.oldTableData = oldTableData.data.data.result;
+            // 是否切换状态
+            this.isExtend = oldTableData.data.data.hideModuleManager;
             const newTableData = await service.get('/Admin/XscfModule/Index?handler=UnMofules');
             this.newTableData = newTableData.data.data;
         },
         // 切换状态
-        handleSwitch() {
+        async handleSwitch() {
+            await service.post('/Admin/XscfModule/Index?handler=HideManager');
             this.isExtend = !this.isExtend;
+            this.$notify({
+                title: "Success",
+                message: "切换成功",
+                type: "success",
+                duration: 2000
+            });
         },
         // 安装
         async handleInstall(index, row) {
-            const res = await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${row.uid}`);
+            await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${row.uid}`);
             this.getList();
-            top.app.getNavMenu(); // 刷新父级左侧菜单
             this.$notify({
                 title: "Success",
                 message: "安装成功",
                 type: "success",
                 duration: 2000
             });
+            // 始终去详情页
+            window.location.href = "/Admin/XscfModule/Start/?uid=" + row.uid;
         },
         // 操作
         handleHandle(index, row) {
-            console.log('操作');
+            window.location.href = "/Admin/XscfModule/Start/?uid=" + row.xscfRegister.uid;
         },
         // 主页
         handleIndex(index, row) {

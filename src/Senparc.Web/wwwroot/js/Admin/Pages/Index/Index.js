@@ -1,78 +1,18 @@
 ﻿
 var app = new Vue({
     el: '#app',
-    data: {
-        //侧边栏
-        navMenuList: [],
-        isCollapse: false,
-        variables: {
-            menuBg: '#304156', // 背景色
-            menuText: '#bfcbd9', // 文字色
-            menuActiveText: '#409EFF' //激活颜色
-        },
-        activeMenu: '0',
-        //iframe
-        pageSrc: '/Admin/XscfModule',
-        //分页
-        total: 100,
-        listQuery: {
-            page: 1,
-            limit: 20
-        },
-        reload: true
-    },
-    watch: {
-        storePageSrc(val) {
-            if (val) {
-                this.pageSrc = val;
-            }
-        }
-    },
-    computed: {
-        storePageSrc() {
-            return Store.state.pageSrc;
-        },
-        store() {
-            return Store.state;
-        }
+    data() {
+        return {
+            // 菜单栏数据 navMenu.js
+            navMenu: navMenu
+        };
     },
     mounted() {
-        this.getNavMenu();
     },
     methods: {
-        setStore(key,value) {
-            Store.commit(key, value);
-        },
-        toggleSideBar() {
-            this.isCollapse = !this.isCollapse;
-        },
-        getNavMenu() {
-            service.get("/Admin/index?handler=MenuResource").then(res => {
-                if (res.data.success) {
-                    this.reload = false;
-                    var ddd = res.data.data.menuList;
-                    myfunctionMain(ddd);
-                    this.navMenuList = ddd;
-                    setTimeout(function () {
-                        app.reload = true;
-                    }, 0);
-                    // 按钮权限存起来  使用：直接在dom上v-has=" ['admin-add']"
-                    Store.commit('saveResourceCodes', res.data.data.resourceCodes);
-                }
-            });
-        }
+        
     }
 });
-
-function myfunctionMain(list) {
-    if (!list && list.length === 0) {
-        return;
-    }
-    for (var i in list) {
-        list[i].index = list[i].id;
-        myfunctionMain(list[i].children);
-    }
-}
 
 //$(_init);
 //function _init() {

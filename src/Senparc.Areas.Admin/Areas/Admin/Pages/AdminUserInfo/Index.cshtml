@@ -72,7 +72,7 @@
                      label-position="left"
                      label-width="100px"
                      style="max-width: 400px; margin-left:50px;">
-                <p class="username-tip">不建议修改用户名！</p>
+                <p class="username-tip" v-if="dialog.title==='编辑管理员'">不建议修改用户名！</p>
                 <el-form-item label="用户名" prop="userName">
                     <el-input v-model="dialog.data.userName" clearable placeholder="请输入用户名" />
                 </el-form-item>

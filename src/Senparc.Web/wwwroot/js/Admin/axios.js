@@ -39,7 +39,7 @@ service.interceptors.response.use(
                 return Promise.resolve(response);
             } else {
                 //请求已发出，其他状态
-                top.app.$message({
+                app.$message({
                     message: response.data.msg || 'Error',
                     type: 'error',
                     duration: 5 * 1000
@@ -47,7 +47,7 @@ service.interceptors.response.use(
                 return Promise.resolve(response);
             }
         } else {
-            top.app.$message({
+            app.$message({
                 message: response.msg || 'Error',
                 type: 'error',
                 duration: 5 * 1000
@@ -57,7 +57,7 @@ service.interceptors.response.use(
     },
     error => {
         console.log('err' + error);
-        top.app.$message({
+        app.$message({
             message: error.message,
             type: 'error',
             duration: 5 * 1000
