@@ -56,12 +56,12 @@
                         </div>
                         <div class="header-logout">
                             <el-tooltip class="item" effect="dark" content="退出登录" placement="left">
-                                <el-button icon="el-icon-circle-close" circle></el-button>
+                                <el-button icon="el-icon-circle-close" @@click="navMenu.loginout()" circle></el-button>
                             </el-tooltip>
                         </div>
                     </el-header>
                     <el-main>
-                        <div id="app" class="ifram-wrapper">
+                        <div class="ifram-wrapper">
                             @*<iframe :src="pageSrc"></iframe>*@
                             @RenderBody()
                         </div>
