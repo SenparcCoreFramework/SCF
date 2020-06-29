@@ -29,20 +29,24 @@
             // 执行弹窗
             run: {
                 data: {},
-                visible: false,
-                dialogData: {
-                    description: "",
-                    isRequired: false,
-                    name: "",
-                    parameterType: 0,
-                    selectionList:[],
-                    checkboxList:[],
-                    systemType: "",
-                    title: "",
-                    value: null
-                }
+                visible: false
             },
-            checkList:[]
+            runData: {
+                // 绑定数据
+                Modules: [],
+                OpenSln: [],
+                OpenSlnFolder: [],
+                ReferenceType: "",
+                SourcePath: " "
+            },
+            runResult: {
+                visible: false,
+                tit: '',
+                tip: '',
+                msg: '',
+                tempId: '',
+                hasLog: false
+            }
         };
     },
     created() {
@@ -54,27 +58,75 @@
             const res = await service.get(`/Admin/XscfModule/Start?handler=Detail&uid=${uid}`);
             this.data = res.data.data;
             this.data.xscfRegister.interfaces = this.data.xscfRegister.interfaces.splice(1);
-            console.info(this.data);
         },
         // 打开执行
         openRun(item) {
             this.run.data = item;
+            this.runData = {
+                // 绑定数据
+                Modules: [],
+                OpenSln: [],
+                OpenSlnFolder: [],
+                ReferenceType: [],
+                SourcePath: " "
+            },
+                this.run.data.value.map(res => {
+                    // 动态model绑定生成
+                    // 默认选择
+                    if (res.parameterType === 2 && res.selectionList.items) {
+                        this.runData[res.name] = [];
+                        res.selectionList.items.map(ele => {
+                            if (ele.defaultSelected) {
+                                this.runData[res.name].push(ele.value);
+                            }
+                        });
+                    }
+                    if (res.parameterType === 1 && res.selectionList.items) {
+                        res.selectionList.items.map(ele => {
+                            if (ele.defaultSelected) { this.runData[res.name].push(ele.value); }
+                        });
+                    }
+                });
             this.run.visible = true;
-            this.run.dialogData = {
-                description: "",
-                isRequired: false,
-                name: "",
-                parameterType: 0,
-                selectionList: [],
-                checkList: [],
-                systemType: "",
-                title: "",
-                value: null
-            };
-            console.log(item);
         },
         // 执行
-        handleRun(item) {
+        async handleRun() {
+            this.run.visible = false;
+            let xscfFunctionParams = {};
+            for (var i in this.runData) {
+                if (Array.isArray(this.runData[i])) {
+                    xscfFunctionParams[i] = {};
+                    xscfFunctionParams[i].SelectedValues = [];
+                    xscfFunctionParams[i].SelectedValues = this.runData[i];
+                } else {
+                    xscfFunctionParams[i] = this.runData[i];
+                }
+            }
+            const data = {
+                xscfUid: this.data.xscfModule.uid, xscfFunctionName: this.run.data.key.name, xscfFunctionParams: JSON.stringify(xscfFunctionParams)
+            };
+            const res = await service.post(`/Admin/XscfModule/Start?handler=RunFunction`, data);
+            this.runResult.tempId = res.data.tempId;
+            if ((res.data.log || '').length > 0 && (res.data.tempId || '').length > 0) {
+                this.runResult.hasLog = true;
+            }
+            if (!res.data.success) {
+                this.runResult.tit = '遇到错误';
+                this.runResult.tip = '错误信息';
+                this.runResult.msg = res.data.msg;
+                return;
+            }
+            if (res.data.msg && (res.data.msg.indexOf('http://') !== -1 || res.data.msg.indexOf('https://') !== -1)) {
+                this.runResult.tit = '执行成功';
+                this.runResult.tip = '收到网址，点击下方打开<br />（此链接由第三方提供，请注意安全）：';
+                this.runResult.msg = '<i class="fa fa-external-link"></i> <a href="' + res.data.msg + '" target="_blank">' + res.data.msg + '</a>';
+            }
+            else {
+                this.runResult.tit = '执行成功';
+                this.runResult.tip = '返回信息';
+                this.runResult.msg = res.data.msg;
+            }
+            this.runResult.visible = true;
         },
         // 删除
         async updataState() {
