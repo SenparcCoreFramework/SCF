@@ -11,6 +11,7 @@ using Senparc.Scf.XscfBase.Threads;
 using Senparc.Service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -54,52 +55,52 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public async Task OnGetAsync()
         {
             await Task.CompletedTask;
-//            if (uid.IsNullOrEmpty())
-//            {
-//                throw new Exception("模块编号未提供！");
-//            }
+            //            if (uid.IsNullOrEmpty())
+            //            {
+            //                throw new Exception("模块编号未提供！");
+            //            }
 
 
-//            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
+            //            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
 
-//            if (XscfModule == null)
-//            {
-//                throw new Exception("模块未添加！");
-//            }
+            //            if (XscfModule == null)
+            //            {
+            //                throw new Exception("模块未添加！");
+            //            }
 
-//            if (!XscfModule.UpdateLog.IsNullOrEmpty())
-//            {
-//                XscfModuleUpdateLog = XscfModule.UpdateLog
-//                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-//                    .ToList();
-//            }
-//            else
-//            {
-//                XscfModuleUpdateLog = new List<string>();
-//            }
+            //            if (!XscfModule.UpdateLog.IsNullOrEmpty())
+            //            {
+            //                XscfModuleUpdateLog = XscfModule.UpdateLog
+            //                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+            //                    .ToList();
+            //            }
+            //            else
+            //            {
+            //                XscfModuleUpdateLog = new List<string>();
+            //            }
 
-//            XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
-//            if (XscfRegister == null)
-//            {
-//                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
-//            }
+            //            XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
+            //            if (XscfRegister == null)
+            //            {
+            //                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
+            //            }
 
-//            try
-//            {
-//                foreach (var functionType in XscfRegister.Functions)
-//                {
-//                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-//                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
-//请尝试更新此模块后刷新页面！");
-//                MustUpdate = true;
-//            }
+            //            try
+            //            {
+            //                foreach (var functionType in XscfRegister.Functions)
+            //                {
+            //                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+            //                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+            //请尝试更新此模块后刷新页面！");
+            //                MustUpdate = true;
+            //            }
 
-//            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
+            //            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
         }
 
         /// <summary>
@@ -130,9 +131,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <param name="xscfFunctionName"></param>
         /// <param name="xscfFunctionParams"></param>
         /// <returns></returns>
-        public async Task<IActionResult> OnPostRunFunctionAsync(string xscfUid, string xscfFunctionName, string xscfFunctionParams)
+        public async Task<IActionResult> OnPostRunFunctionAsync([FromBody]ExecuteFuncParamDto executeFuncParamDto)
         {
-            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == xscfUid);
+            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == executeFuncParamDto.XscfUid);
 
             if (xscfRegister == null)
             {
@@ -156,7 +157,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
                 //var functionParameters = await function.GetFunctionParameterInfoAsync(_serviceProvider, false);
-                if (fun.Name == xscfFunctionName)
+                if (fun.Name == executeFuncParamDto.XscfFunctionName)
                 {
                     function = fun;
                     break;
@@ -168,7 +169,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return new JsonResult(new { success = false, msg = "方法未匹配上！" });
             }
 
-            var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
+            var paras = SerializerHelper.GetObject(executeFuncParamDto.XscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
             //var paras = function.GenerateParameterInstance();
 
             var result = function.Run(paras);
@@ -378,5 +379,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             await _xscfModuleService.SaveObjectAsync(module).ConfigureAwait(false);
             return Ok(true);
         }
+    }
+
+    public class ExecuteFuncParamDto
+    {
+        [Required]
+        public string XscfUid { get; set; }
+        [Required]
+        public string XscfFunctionName { get; set; }
+        [Required]
+        public string XscfFunctionParams { get; set; }
     }
 }
