@@ -37,7 +37,9 @@
         // 获取
         async  getList() {
             const oldTableData = await service.get('/Admin/XscfModule/Index?handler=Mofules');
-            this.oldTableData = oldTableData.data.data;
+            this.oldTableData = oldTableData.data.data.result;
+            // 是否切换状态
+            this.isExtend = oldTableData.data.data.hideModuleManager;
             const newTableData = await service.get('/Admin/XscfModule/Index?handler=UnMofules');
             this.newTableData = newTableData.data.data;
         },
@@ -56,17 +58,18 @@
         async handleInstall(index, row) {
             await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${row.uid}`);
             this.getList();
-            app.getNavMenu(); // 刷新父级左侧菜单
             this.$notify({
                 title: "Success",
                 message: "安装成功",
                 type: "success",
                 duration: 2000
             });
+            // 始终去详情页
+            window.location.href = "/Admin/XscfModule/Start/?uid=" + row.uid;
         },
         // 操作
         handleHandle(index, row) {
-            console.log('操作');
+            window.location.href = "/Admin/XscfModule/Start/?uid=" + row.xscfRegister.uid;
         },
         // 主页
         handleIndex(index, row) {

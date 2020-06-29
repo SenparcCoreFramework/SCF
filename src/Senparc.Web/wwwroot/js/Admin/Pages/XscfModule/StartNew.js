@@ -1,7 +1,9 @@
-﻿var vm = new Vue({
+﻿var app = new Vue({
     el: "#app",
     data() {
         return {
+            navMenu: navMenu, // 菜单栏数据 navMenu.js
+            data: [], // 数据
             oldData: {
                 state: {
                     'String': '文本',
@@ -12,39 +14,79 @@
                 }
             },
             tooltip: {
-                0: '网页',
-                1: '执行方法',
-                2: '数据库',
-                3: '中间件',
-                4: '线程'
+                "IAreaRegister": '网页',
+                "IXscfDatabase": '数据库',
+                "IXscfMiddleware": '中间件',
+                "IXscfRazorRuntimeCompilation": '线程'
+            },
+            xScfModules_State: {
+                0: '关闭',
+                1: '开放',
+                2: '新增待审核',
+                3: '更新待审核'
             },
             seeMore: false, //查看线程 
-            modifyLog: [{
-                log: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                log: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                log: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                log: '上海市普陀区金沙江路 1516 弄'
-            }] ,// 更新记录
+            // 执行弹窗
+            run: {
+                data: {},
+                visible: false,
+                dialogData: {
+                    description: "",
+                    isRequired: false,
+                    name: "",
+                    parameterType: 0,
+                    selectionList:[],
+                    checkboxList:[],
+                    systemType: "",
+                    title: "",
+                    value: null
+                }
+            },
+            checkList:[]
         };
     },
-    created: function () {
+    created() {
         this.getList();
     },
     methods: {
-        getList() {
+        async  getList() {
+            const uid = resizeUrl().uid;
+            const res = await service.get(`/Admin/XscfModule/Start?handler=Detail&uid=${uid}`);
+            this.data = res.data.data;
+            this.data.xscfRegister.interfaces = this.data.xscfRegister.interfaces.splice(1);
+            console.info(this.data);
         },
-        // 安装
-        async handleInstall(index, row) {
-            await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${row.uid}`);
+        // 打开执行
+        openRun(item) {
+            this.run.data = item;
+            this.run.visible = true;
+            this.run.dialogData = {
+                description: "",
+                isRequired: false,
+                name: "",
+                parameterType: 0,
+                selectionList: [],
+                checkList: [],
+                systemType: "",
+                title: "",
+                value: null
+            };
+            console.log(item);
+        },
+        // 执行
+        handleRun(item) {
         },
         // 删除
-        handleDelete() {
-            app.pageSrc = '/Admin/XscfModule/Index';
+        async updataState() {
+            const uid = resizeUrl().uid;
+            await service.get(`/Admin/XscfModule/Start?handler=ChangeState&uid=${uid}`);
+            window.location.reload();
         },
         // 更新版本
-        updataVersion() { }
+        async  updataVersion() {
+            const uid = resizeUrl().uid;
+            await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${uid}`);
+            window.location.reload();
+        }
     }
 });

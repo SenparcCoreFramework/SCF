@@ -51,8 +51,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _sysMenuService = sysMenuService;
         }
 
-        public async Task OnGetAsync(string uid)
+        public async Task OnGetAsync()
         {
+            await Task.CompletedTask;
 //            if (uid.IsNullOrEmpty())
 //            {
 //                throw new Exception("模块编号未提供！");
@@ -256,6 +257,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// <returns></returns>
         public async Task<IActionResult> OnGetDetailAsync(string uid)
         {
+            bool mustUpdate = false;
             if (uid.IsNullOrEmpty())
             {
                 throw new Exception("模块编号未提供！");
@@ -294,16 +296,18 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             {
                 SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
 请尝试更新此模块后刷新页面！");
-                MustUpdate = true;
+                mustUpdate = true;
             }
 
             IEnumerable<KeyValuePair<ThreadInfo, Thread>> registeredThreadInfo = xscfRegister.RegisteredThreadInfo;
             return Ok(new
             {
+                mustUpdate,
                 xscfModule,
                 xscfModuleUpdateLog,
                 xscfRegister = new
                 {
+                    AreaHomeUrl = xscfRegister.GetAreaHomeUrl(),
                     xscfRegister.MenuName,
                     xscfRegister.Icon,
                     xscfRegister.Version,

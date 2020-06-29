@@ -16,29 +16,44 @@
                 </el-popconfirm>
             </span>
         </el-header>
-        <el-container>
+        <el-container v-if="data.xscfModule">
             <el-aside>
                 <div class="start-des">
                     <ul>
-                        <li>Senparc.Xscf.WeixinManager</li>
-                        <li>v0.2.2-beta1</li>
-                        <li>发现新版本:v0.2.3  <el-button size="mini" @@click="updataVersion">立即更新</el-button></li>
-                        <li>唯一编号:025F-584A-248A-512F</li>
+                        @*模块信息 xscfModule*@
+                        <li class="start-green">{{data.xscfModule.name}}</li>
+                        <li>v{{data.xscfModule.version}}</li>
+                        <li v-if="data.xscfModule.version!==data.xscfRegister.version">发现新版本:v{{data.xscfRegister.version}} <el-button size="mini" @@click="updataVersion">立即更新</el-button></li>
+                        <li>唯一编号:{{data.xscfModule.uid}}</li>
                         <li>
-                            开放
-                            <el-button size="mini" @@click="updataVersion">开启</el-button>
-                            <el-button size="mini" @@click="updataVersion">关闭</el-button>
-                            <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
+                            <span :class="[data.xscfModule.state===1?'start-green':'start-gray']">{{xScfModules_State[data.xscfModule.state]}}</span>
+                            <template v-if="data.xscfModule.state===3">
+                                <el-button size="mini" :class="[data.xscfModule.state===0?'start-green':'start-warning']" @@click="updataState">开启</el-button>
+                                <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
+                            </template>
+                            <template v-if="data.xscfModule.state===1">
+                                <el-button size="mini" calss="start-danger" @@click="updataState">关闭</el-button>
+                            </template>
                         </li>
                         <li>
                             特性：
-                            <el-tooltip class="item" effect="dark" placement="top">
+
+                            <template v-if="data.xscfRegister.functionCount>0">
+                                <el-tooltip class="item" effect="dark" content="执行方法" placement="top-start">
+                                    <i class="el-icon-share"></i>
+                                </el-tooltip>
+                            </template>
+                            <el-tooltip v-for="item in data.xscfRegister.interfaces" class="item" effect="dark" placement="top">
                                 <div slot="content">
-                                    {{tooltip[0]}}
-                                    <el-button size="mini" @@click="seeMore=!seeMore">查看</el-button>
+                                    {{tooltip[item]}}
+                                    <span v-if="item === 'IXscfRazorRuntimeCompilation'" @@mouseover="seeMore=true" @@mouseout="seeMore=false">
+                                        <el-button size="mini">
+                                            查看
+                                        </el-button>
+                                    </span>
                                     <br />
-                                    <div v-if="seeMore">
-                                        <el-table :data="tableData"
+                                    <div style="margin-top:10px" v-if="seeMore">
+                                        <el-table :data="data.registeredThreadInfo"
                                                   style="width: 100%">
                                             <el-table-column label="名称">
                                                 <template slot-scope="scope">
@@ -64,12 +79,12 @@
                                         </el-table>
                                     </div>
                                 </div>
-                                <i class="el-icon-share"></i>
+                                <i class="el-icon-share"></i>(2)
                             </el-tooltip>
                         </li>
                         <li>
                             介绍：
-                            <p>SCF模块介绍SCF模块介绍SCF模块介绍SCF模块介绍 </p>
+                            <p>{{data.xscfModule.description}}</p>
                         </li>
                     </ul>
                 </div>
@@ -77,17 +92,17 @@
                 <div class="start-log">
                     <el-collapse>
                         <el-collapse-item title="更新记录" name="1">
-                            <el-table :data="modifyLog"
+                            <el-table :data="data.xscfModuleUpdateLog"
                                       stripe
                                       style="width: 100%">
-                                <el-table-column label="#">
+                                <el-table-column label="#" width="30">
                                     <template slot-scope="scope">
                                         {{scope.$index+1}}
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="更新记录">
                                     <template slot-scope="scope">
-                                        {{scope.row.log}}
+                                        {{scope.row}}
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -97,27 +112,76 @@
             </el-aside>
             <el-main>
                 <p>功能列表</p>
-                <el-card class="box-card">
+                <template v-if="!data.mustUpdate">
+                    <template v-if="data.xscfRegister.interfaces.includes('IAreaRegister')&&data.xscfRegister.areaHomeUrl!==null">
+                        <el-card class="box-card">
+                            <div slot="header" class="clearfix">
+                                <span>进入 {{data.xscfRegister.menuName}} 的首页</span>
+                                <a v-if="data.xscfModule.state===1" :href="data.xscfRegister.areaHomeUrl" class="box-card-action">进入首页</a>
+                                <p>地址：<a :href="data.xscfRegister.areaHomeUrl">{{data.xscfRegister.areaHomeUrl}}</a></p>
+                            </div>
+                            <template>
+                                <div class="item-container">
+                                    <el-collapse>
+                                        <el-collapse-item title="页面透视" name="2">
+                                            <el-menu default-active="2"
+                                                     class="el-menu-vertical-demo"
+                                                     background-color="#304156"
+                                                     text-color="#bfcbd9"
+                                                     width="300px"
+                                                     active-text-color="#409eff">
+                                                <el-menu-item v-for="(item,index) in data.xscfRegister.areaPageMenuItems" :index="index">
+                                                    <i class="el-icon-location"></i>
+                                                    <span slot="title"><a :href="item.url">{{item.name}}</a></span>
+                                                </el-menu-item>
+                                            </el-menu>
+                                        </el-collapse-item>
+                                    </el-collapse>
+                                </div>
+                                <p>说明：当前模块配备了可互动操作的UI界面，因此您可以看到这个入口。</p>
+                            </template>
+                        </el-card>
+                    </template>
+                </template>
+                <el-card class="box-card" v-for="item in data.functionParameterInfoCollection">
                     <div slot="header" class="clearfix">
-                        <span>进入 微信管理 首页</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">进入首页</el-button>
-                        <p>地址：https://localhost:44311/Admin/index</p>
+                        <span>>_{{item.key.name}}</span>
+                        <template v-if="data.xscfModule.state===1">
+                            <span type="text" class="box-card-action" @@click="openRun(item)">执行</span>
+                        </template>
+                        <p>{{item.key.description}}</p>
                     </div>
                     <template>
                         <div class="item-container">
                             <el-collapse>
-                                <el-collapse-item title="页面透视" name="2">
-                                    <el-table :data="modifyLog"
+                                <el-collapse-item title="参数透视" name="2">
+                                    <el-table v-if="item.value.length>0"
+                                              :data="item.value"
                                               stripe
                                               style="width: 100%">
-                                        <el-table-column label="#">
+                                        <el-table-column label="#" width="30">
                                             <template slot-scope="scope">
                                                 {{scope.$index+1}}
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="更新记录">
+                                        <el-table-column label="名称">
                                             <template slot-scope="scope">
-                                                {{scope.row.log}}
+                                                {{scope.row.title}}
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column label="说明">
+                                            <template slot-scope="scope">
+                                                {{scope.row.description}}
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column label="类型">
+                                            <template slot-scope="scope">
+                                                {{scope.row.systemType}}
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column label="必须">
+                                            <template slot-scope="scope">
+                                                {{scope.row.isRequired?"是":"否"}}
                                             </template>
                                         </el-table-column>
                                     </el-table>
@@ -127,38 +191,41 @@
                         <p>说明：当前模块配备了可互动操作的UI界面，因此您可以看到这个入口。</p>
                     </template>
                 </el-card>
-                <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                        <span>生成Sample</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">执行</el-button>
-                        <p>生成Sample 下载地址：https://localhost:44311/Admin/index</p>
-                    </div>
-                    <template>
-                        <div class="item-container">
-                            <el-collapse>
-                                <el-collapse-item title="参数透视" name="2">
-                                    <el-table :data="modifyLog"
-                                              stripe
-                                              style="width: 100%">
-                                        <el-table-column label="#">
-                                            <template slot-scope="scope">
-                                                {{scope.$index+1}}
-                                            </template>
-                                        </el-table-column>
-                                        <el-table-column label="更新记录">
-                                            <template slot-scope="scope">
-                                                {{scope.row.log}}
-                                            </template>
-                                        </el-table-column>
-                                    </el-table>
-                                </el-collapse-item>
-                            </el-collapse>
-                        </div>
-                    </template>
-                </el-card>
             </el-main>
         </el-container>
     </el-container>
+    @*执行弹窗*@
+    <el-dialog v-if="run.data.key" :title="run.data.key.name" :visible.sync="run.visible">
+        <h4><i class="fa fa-newspaper-o"></i>{{run.data.key.description}}</h4>
+        <el-form>
+            <el-form-item v-for="item in run.data.value" :label="item.title">
+                <el-input v-if="item.parameterType===0" v-model="run.dialogData.name"></el-input>
+                <el-select v-if="item.parameterType===1" v-model="run.dialogData.selectionList">
+                    <template v-if="item.selectionList.items" v-for="selectionItem in item.selectionList.items">
+                        <el-option v-if="selectionItem.defaultSelected" selected="selected" :label="selectionItem.note" :value="selectionItem.value">{{selectionItem.text}}</el-option>
+                        <el-option v-else :label="selectionItem.text" :value="selectionItem.value"></el-option>
+                    </template>
+                </el-select>
+                <template v-if="item.parameterType===2 && item.selectionList.items">
+                    <el-checkbox-group v-model="checkList">
+                        <template v-for="selectionItem in item.selectionList.items">
+                            <el-checkbox :label="selectionItem.text"></el-checkbox>
+                            <template v-if="selectionItem.note!==null">
+                                <span>&nbsp; &nbsp; &nbsp; <i class="fa fa-info-circle"></i> &nbsp; {{selectionItem.note}}</span>
+                            </template>
+                        </template>
+                    </el-checkbox-group>
+                </template>
+                <template v-if="item.description!==null">
+                    <p><i class="fa fa-info-circle"></i> &nbsp; {{item.description}}</p>
+                </template>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @@click="run.visible = false">取 消</el-button>
+            <el-button type="primary" @@click="handleRun">执 行</el-button>
+        </div>
+    </el-dialog>
 </div>
 
 @section scripts{

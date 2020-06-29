@@ -10,7 +10,7 @@
 }
 <div id="app" v-cloak>
     <div class="filter-container">
-        <el-popconfirm placement="top" :title="handlerTips" @@on-confirm="handleSwitch">
+        <el-popconfirm class="float-right" placement="top" :title="handlerTips" @@on-confirm="handleSwitch">
             <el-button size="mini" type="danger" slot="reference">{{handlerText}}</el-button>
         </el-popconfirm>
     </div>
