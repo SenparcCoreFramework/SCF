@@ -3,9 +3,12 @@
 @{
     ViewData["Title"] = "角色管理"; Layout = "_Layout_Vue";
 }
+@section breadcrumbs {
+    <el-breadcrumb-item>系统管理</el-breadcrumb-item>
+    <el-breadcrumb-item>角色列表</el-breadcrumb-item>
+}
 
-
-<div id="app"  v-cloak>
+<div id="app" v-cloak>
     <div class="admin-role">
         <div class="filter-container">
             <el-button class="filter-item" v-has="['role-add']" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>

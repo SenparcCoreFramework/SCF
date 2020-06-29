@@ -16,7 +16,7 @@ const navMenu = {
         }).catch(e => {
             //
         });
-    }
+    },
 };
 // 菜单栏数据
 (function getNavMenu() {

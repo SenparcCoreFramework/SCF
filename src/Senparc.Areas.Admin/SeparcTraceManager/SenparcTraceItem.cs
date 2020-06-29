@@ -36,6 +36,8 @@ namespace Senparc.Areas.Admin.SenparcTraceManager
         /// </summary>
         public WeicinTraceItemContent Result { get; set; } = new WeicinTraceItemContent();
 
+        public string ResultStr => Result?.ToString();
+
     }
 
     public class WeicinTraceItemContent

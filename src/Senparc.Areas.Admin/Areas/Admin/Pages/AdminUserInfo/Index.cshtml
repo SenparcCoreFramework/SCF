@@ -8,7 +8,11 @@
 @section Style{
     <link href="~/css/Admin/AdminUserInfo/AdminUserInfo.css" rel="stylesheet" />
 }
-<div id="app" v-cloak>
+@section breadcrumbs {
+    <el-breadcrumb-item>系统管理</el-breadcrumb-item>
+    <el-breadcrumb-item>管理员列表</el-breadcrumb-item>
+}
+<div>
     <div class="admin-user-info">
         <div class="filter-container">
             <el-button class="filter-item" v-has="['admin-add']" type="primary" icon="el-icon-plus" @@click="handleEdit">增加</el-button>

@@ -116,3 +116,7 @@ img {
         vertical-align: middle;
         margin-bottom: 10px;
     }
+.el-breadcrumb .el-breadcrumb__item:last-of-type {
+    cursor: none;
+    pointer-events: none;
+}
