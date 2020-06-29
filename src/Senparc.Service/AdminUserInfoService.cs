@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Debug;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 
 namespace Senparc.Service
 {
@@ -44,6 +45,7 @@ namespace Senparc.Service
 
         public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
+            await Task.CompletedTask;
             var obj = GetObject(z => z.UserName.Equals(userName.Trim()));
             return obj;
         }

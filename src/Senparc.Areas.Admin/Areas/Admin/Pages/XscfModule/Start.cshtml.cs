@@ -326,9 +326,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                         Value = new
                         {
                             _.Value.IsAlive,
-                            _.Value.IsBackground,
-                            _.Value.ThreadState,
-                            ThreadStateStr = _.Value.ThreadState.ToString()
+                            IsBackground = _.Value.IsAlive ? new bool?(_.Value.IsBackground) : null,
+                            ThreadState = _.Value.IsAlive ? new ThreadState?(_.Value.ThreadState) : null,
+                            ThreadStateStr = _.Value.IsAlive ? _.Value.ThreadState.ToString() : null
                         }
                     })
                 },
@@ -352,9 +352,9 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     Value = new
                     {
                         _.Value.IsAlive,
-                        _.Value.IsBackground,
-                        _.Value.ThreadState,
-                        ThreadStateStr = _.Value.ThreadState.ToString()
+                        IsBackground = _.Value.IsAlive ? new bool?(_.Value.IsBackground) : null,
+                        ThreadState = _.Value.IsAlive ? new ThreadState?(_.Value.ThreadState) : null,
+                        ThreadStateStr = _.Value.IsAlive ? _.Value.ThreadState.ToString() : null
                     }
                 })
             });

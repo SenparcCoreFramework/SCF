@@ -9,7 +9,14 @@ const navMenu = {
         menuActiveText: '#409EFF' //激活颜色
     },
     // 当前激活菜单的 index
-    activeMenu: window.sessionStorage.getItem('activeMenu')||'0'
+    activeMenu: window.sessionStorage.getItem('activeMenu') || '0',
+    loginout: function loginout() {
+        app.$confirm('是否退出登录？', { type: 'warning' }).then(res => {
+            window.location.href = '/Admin/Login?handler=Logout'
+        }).catch(e => {
+            //
+        });
+    }
 };
 // 菜单栏数据
 (function getNavMenu() {

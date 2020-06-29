@@ -91,7 +91,7 @@
                     <el-switch v-model="dialog.data.visible"></el-switch>
                 </el-form-item>
                 <el-form-item label="图标">
-                    <i v-if="dialog.data.icon" :class="'el-icon-'+dialog.data.icon"></i>
+                    <i v-if="dialog.data.icon" :class="'fa '+dialog.data.icon"></i>
                     <el-button @@click="dialogIcon.visible=true" plain style="margin-left:15px;">选择图标</el-button>
                 </el-form-item>
             </el-form>
@@ -104,7 +104,7 @@
         <el-dialog title="图标列表" :visible.sync="dialogIcon.visible">
             <div class="menu-icons-grid">
                 <div v-for="item in dialogIcon.elementIcons" class="menu-icon-item" @@click="pickIcon(item)">
-                    <i :class="'el-icon-'+item"></i>
+                    <i :class="'fa ' + item"></i>
                     <span>{{item}}</span>
                 </div>
             </div>

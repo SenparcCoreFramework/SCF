@@ -40,6 +40,7 @@ namespace Senparc.Areas.Admin.Areas.Admin
         /// </summary>
         public SysRole SysRoleInfo { get; set; }
 
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-grant")]
         public async Task OnGetAsync()
         {
             SysRoleInfo = await _sysRoleService.GetObjectAsync(_ => _.Id == RoleId);
