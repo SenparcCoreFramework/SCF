@@ -4,7 +4,7 @@
                       <template v-if="item.children.length<1">
                             <el-menu-item :index="item.index" @click="link(item)">
                                   <template slot='title'>
-                                        <i v-if="item.icon" :class="'el-icon-'+item.icon"></i>
+                                        <i v-if="item.icon" :class="''+item.icon"></i>
                                         <i v-if="!item.icon" class="el-icon-s-help"></i>
                                         <span>{{item.menuName}}</span>
                                   </template>
@@ -13,7 +13,7 @@
                         <!--递归-->
                         <el-submenu v-else :index="item.index">
                             <template slot='title'>
-                                <i v-if="item.icon" :class="'el-icon-'+item.icon"></i>
+                                <i v-if="item.icon" :class="''+item.icon"></i>
                                 <i v-if="!item.icon" class="el-icon-s-help"></i>
                                 <span >{{item.menuName}}</span>
                             </template>
