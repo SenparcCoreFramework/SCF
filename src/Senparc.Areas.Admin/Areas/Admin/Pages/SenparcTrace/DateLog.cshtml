@@ -41,33 +41,43 @@
 @section HeaderContent {
     <style>
         table.el-table__header colgroup col:nth-of-type(1) {
-            display: none;
+            /*            display: none;*/
+            width: 0px;
         }
 
-        table.el-table__header thead tr th:nth-of-type(1) {
-            display: none;
-        }
-        table.el-table__body colgroup col:nth-of-type(1) {
-            display: none;
-        }
-        /*table.el-table__body tbody tr td.el-table__expand-column:nth-of-type(1) {
+        /*table.el-table__header thead tr th:nth-of-type(1) {
             display: none;
         }*/
 
-        table.el-table__body tbody tr td:nth-of-type(1) {
+        table.el-table__body colgroup col:nth-of-type(1) {
+            /*            display: none;*/
+            width: 0px;
+        }
+
+        table.el-table__body tr.el-table__row div .el-table__expand-icon {
             display: none;
         }
+        /*table.el-table__body tbody tr td.el-table__expand-column:nth-of-type(1) {
+            width: 0px;
+        }*/
+
+        /*table.el-table__body tbody tr td:nth-of-type(1) {
+            display: none;
+        }*/
     </style>
 }
 
 <el-row :gutter="20">
-    <el-col :span="4">
-        <el-button type="primary" @@click="showAll()">显示所有完整结果</el-button>
-    </el-col>
-    <el-col :span="12">
-        <el-button type="danger" @@click="showException()">只显示所有异常信息</el-button>
-        <span>异常信息 <span>{{tableData.filter(_ => _.isException).length}}</span> / {{tableData.length}}</span>
-    </el-col>
+    <el-row :gutter="20" class="filter-container">
+        <el-col :span="4">
+            <el-button type="primary" @@click="showAll()">显示所有完整结果</el-button>
+        </el-col>
+        <el-col :span="12">
+            <el-button type="danger" @@click="showException()">只显示所有异常信息</el-button>
+            <span>异常信息 <span>{{tableData.filter(_ => _.isException).length}}</span> / {{tableData.length}}</span>
+        </el-col>
+    </el-row>
+
     <el-col :span="24">
         <el-table :data="displayData"
                   :row-key="rowKey"
@@ -75,9 +85,9 @@
                   border
                   ref="tableInstance"
                   style="width: 100%">
-            <el-table-column type="expand">
+            <el-table-column type="expand" width="0px">
                 <template slot-scope="scope">
-                    <strong>{{ scope.row.no }}</strong> / {{scope.row.line}}
+                    {{ scope.row.showMessage ? scope.row.resultStr : '---'}}
                 </template>
             </el-table-column>
             <el-table-column align="center"

@@ -17,7 +17,8 @@
             8: 'Exception'
         },
         toogleException: false,
-        expandRowKeys: []
+        expandRowKeys: [],
+        expandRowKeysCache: []
     },
     mounted() {
     },
@@ -55,22 +56,10 @@
                 ele.showMessage = showMessage;
                 actualData.push(ele);
                 if (showMessage) {
-                }
                     expandRowKeys.push(ele.no);
-                //if (ele.isException) {
-                //    //actualData.push({
-                //    //    colSpan: 7,
-                //    //    text: ele.resultStr,
-                //    //    no: 1,
-                //    //    line: 3
-                //    //});
-                //    var d = JSON.parse(JSON.stringify(ele));
-                //    d.colSpan = 7;
-                //    actualData.push(d);
-                //}
+                }
             });
-            this.expandRowKeys = expandRowKeys;
-            //debugger
+            this.expandRowKeysCache = expandRowKeys;
             this.searchData.total = actualData.length;
             this.tableData = actualData;
             this.fetchData();
@@ -104,13 +93,17 @@
             this.fetchData(this.toogleException);
         },
         showAll: function () {
-            debugger;
-            this.expandRowKeys = [1,2];
-            //debugger
-            //this.expandRowKeys.forEach(ele => {
-            //    //this.$refs.tableInstance.toggleRowExpansion(ele);
-            //});
-            //console.info(this.$refs.tableInstance);
+            if (this.expandRowKeys.length > 0) {
+                this.expandRowKeys = [];
+                return;
+            }
+            var expandRowKeys = [];
+            this.displayData.forEach(ele => {
+                if (this.expandRowKeysCache.lastIndexOf(ele.no) >= 0) {
+                    expandRowKeys.push(ele.no);
+                }
+            });
+            this.expandRowKeys = expandRowKeys;
         },
         rowKey(row) {
             return row.no;
