@@ -318,7 +318,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                     FunctionCount = xscfRegister.Functions.Count,
                     registeredThreadInfo = xscfRegister.RegisteredThreadInfo.Select(_ => new
                     {
-                        kye = new
+                        Key = new
                         {
                             _.Key.Name,
                             _.Key.StoryHtml
@@ -344,7 +344,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 }),
                 registeredThreadInfo = registeredThreadInfo.Select(_ => new
                 {
-                    kye = new
+                    Key = new
                     {
                         _.Key.Name,
                         _.Key.StoryHtml

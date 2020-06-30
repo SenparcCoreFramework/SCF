@@ -11,7 +11,10 @@
     padding: 0;
     margin: 0;
 }
-
+a {
+    color: #5A738E;
+    text-decoration: none;
+}
 
 body {
     margin: 0;

@@ -4,15 +4,6 @@
         return {
             navMenu: navMenu, // 菜单栏数据 navMenu.js
             data: [], // 数据
-            oldData: {
-                state: {
-                    'String': '文本',
-                    'Int32': '数字',
-                    'Int64': '数字',
-                    'DateTime': '日期',
-                    'String[]': '选项'
-                }
-            },
             tooltip: {
                 "IAreaRegister": '网页',
                 "IXscfDatabase": '数据库',
@@ -25,7 +16,6 @@
                 2: '新增待审核',
                 3: '更新待审核'
             },
-            seeMore: false, //查看线程 
             // 执行弹窗
             run: {
                 data: {},
@@ -33,11 +23,6 @@
             },
             runData: {
                 // 绑定数据
-                Modules: [],
-                OpenSln: [],
-                OpenSlnFolder: [],
-                ReferenceType: "",
-                SourcePath: " "
             },
             runResult: {
                 visible: false,
@@ -46,6 +31,10 @@
                 msg: '',
                 tempId: '',
                 hasLog: false
+            },
+            //查看线程 
+            thread: {
+                visible: false
             }
         };
     },
@@ -58,18 +47,12 @@
             const res = await service.get(`/Admin/XscfModule/Start?handler=Detail&uid=${uid}`);
             this.data = res.data.data;
             this.data.xscfRegister.interfaces = this.data.xscfRegister.interfaces.splice(1);
+            console.log(this.data);
         },
         // 打开执行
         openRun(item) {
             this.run.data = item;
-            this.runData = {
-                // 绑定数据
-                Modules: [],
-                OpenSln: [],
-                OpenSlnFolder: [],
-                ReferenceType: [],
-                SourcePath: " "
-            },
+            this.runData = {};
                 this.run.data.value.map(res => {
                     // 动态model绑定生成
                     // 默认选择
@@ -82,15 +65,32 @@
                         });
                     }
                     if (res.parameterType === 1 && res.selectionList.items) {
+                        this.runData[res.name] = [];
                         res.selectionList.items.map(ele => {
-                            if (ele.defaultSelected) { this.runData[res.name].push(ele.value); }
+                            if (ele.defaultSelected) {
+                                this.runData[res.name].push(ele.value);
+                            }
                         });
                     }
+                    if (res.parameterType === 0) {
+                        this.runData[res.name] = "";
+                    }
                 });
+            this.runData = Object.assign({}, this.runData);
             this.run.visible = true;
         },
         // 执行
         async handleRun() {
+            // 物理路径校验
+            if (this.runData.hasOwnProperty('SourcePath') && this.runData.SourcePath.length < 1) {
+                this.$notify({
+                    title: '警告',
+                    message: '请填写源码物理路径',
+                    type: 'warning'
+                });
+                return;
+            }
+            // 关闭执行弹窗
             this.run.visible = false;
             let xscfFunctionParams = {};
             for (var i in this.runData) {
@@ -126,12 +126,13 @@
                 this.runResult.tip = '返回信息';
                 this.runResult.msg = res.data.msg;
             }
+            // 打开执行结果弹窗
             this.runResult.visible = true;
         },
-        // 删除
-        async updataState() {
-            const uid = resizeUrl().uid;
-            await service.get(`/Admin/XscfModule/Start?handler=ChangeState&uid=${uid}`);
+        // 关闭和开启
+        async updataState(state) {
+            const id = this.data.xscfModule.id;
+            const res = await service.get(`/Admin/XscfModule/Start?handler=ChangeState&id=${id}&tostate=${state}`);
             window.location.reload();
         },
         // 更新版本

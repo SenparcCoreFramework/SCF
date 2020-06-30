@@ -57,6 +57,17 @@ service.interceptors.response.use(
     },
     error => {
         console.log('err' + error);
+        if (error.message.includes('401')) {
+            app.$message({
+                message: '登陆过期，即将跳转到登录页面',
+                type: 'error',
+                duration: 3 * 1000,
+                onClose: function () {
+                    window.location.href = '/Admin/Login?handler=Logout';
+                }
+            });
+            return;
+        }
         app.$message({
             message: error.message,
             type: 'error',

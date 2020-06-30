@@ -7,83 +7,62 @@
     <link href="~/css/Admin/XscfModule/XscfModule.css" rel="stylesheet" />
 }
 <div id="app" v-cloak>
-    <el-container>
-        <el-header>
-            <span class="start-title">微信管理 模块 v0.2.2-beta1</span>
+    <el-container v-if="data.xscfModule">
+        <el-header class="module-header">
+            <span class="start-title"> <i :class="data.xscfRegister.icon"></i>&nbsp;{{data.xscfModule.menuName}} <span class="module-header-v">模块 {{data.xscfModule.version}}</span></span>
             <span class="start-delete">
                 <el-popconfirm placement="top" title="确认删除此模块吗？" @@on-confirm="handleDelete()">
                     <el-button size="mini" type="danger" slot="reference">删除</el-button>
                 </el-popconfirm>
             </span>
         </el-header>
-        <el-container v-if="data.xscfModule">
-            <el-aside>
+        <el-container>
+            <el-aside class="module-aside">
                 <div class="start-des">
                     <ul>
                         @*模块信息 xscfModule*@
-                        <li class="start-green">{{data.xscfModule.name}}</li>
-                        <li>v{{data.xscfModule.version}}</li>
-                        <li v-if="data.xscfModule.version!==data.xscfRegister.version">发现新版本:v{{data.xscfRegister.version}} <el-button size="mini" @@click="updataVersion">立即更新</el-button></li>
-                        <li>唯一编号:{{data.xscfModule.uid}}</li>
+                        <li><span class="start-green"><i class="fa fa-map-marker fa-cubes"></i>&nbsp;{{data.xscfModule.name}}</span></li>
+                        <li><i class="fa fa-map-marker fa-code-fork"></i>&nbsp;v{{data.xscfModule.version}}</li>
+                        <li v-if="data.xscfModule.version!==data.xscfRegister.version">发现新版本:v{{data.xscfRegister.version}} <el-button size="mini" @@click="updataVersion"> <em class="fa fa-gift"></em>&nbsp;立即更新</el-button></li>
+                        <li><i class="fa fa-map-marker fa-shield"></i>&nbsp;唯一编号:{{data.xscfModule.uid}}</li>
                         <li>
-                            <span :class="[data.xscfModule.state===1?'start-green':'start-gray']">{{xScfModules_State[data.xscfModule.state]}}</span>
-                            <template v-if="data.xscfModule.state===3">
-                                <el-button size="mini" :class="[data.xscfModule.state===0?'start-green':'start-warning']" @@click="updataState">开启</el-button>
-                                <span class="red"><i class="fa fa-exclamation-triangle"></i> 未开启的模块无法执行功能</span>
+                            <i class="fa fa-map-marker fa-sliders"></i><span :class="[data.xscfModule.state===1?'start-green':'start-gray']">&nbsp;{{xScfModules_State[data.xscfModule.state]}}</span>
+                            <template v-if="data.xscfModule.state===3||data.xscfModule.state===0||data.xscfModule.state===2">
+                                <el-button size="mini" :type="data.xscfModule.state===0?'success':'warning'" @@click="updataState('1')"> <em class="glyphicon glyphicon-flash"></em> &nbsp;开启</el-button>
+                                <p class="red"><i class="fa fa-exclamation-triangle"></i>&nbsp;未开启的模块无法执行功能</p>
                             </template>
                             <template v-if="data.xscfModule.state===1">
-                                <el-button size="mini" calss="start-danger" @@click="updataState">关闭</el-button>
+                                <el-button size="mini" c type="danger" @@click="updataState('0')"> <em class="glyphicon glyphicon-off"></em> &nbsp;关闭</el-button>
                             </template>
                         </li>
                         <li>
-                            特性：
-
+                            <i class="fa fa-map-marker puzzle-piece"></i>&nbsp;特性：
                             <template v-if="data.xscfRegister.functionCount>0">
                                 <el-tooltip class="item" effect="dark" content="执行方法" placement="top-start">
-                                    <i class="el-icon-share"></i>
+                                    <i class="fa fa-map-marker fa-rocket"></i>({{data.xscfRegister.functionCount}})
                                 </el-tooltip>
                             </template>
                             <el-tooltip v-for="item in data.xscfRegister.interfaces" class="item" effect="dark" placement="top">
                                 <div slot="content">
                                     {{tooltip[item]}}
-                                    <span v-if="item === 'IXscfRazorRuntimeCompilation'" @@mouseover="seeMore=true" @@mouseout="seeMore=false">
+                                    <span v-if="item === 'IXscfRazorRuntimeCompilation'" @@click="thread.visible=true">
                                         <el-button size="mini">
                                             查看
                                         </el-button>
                                     </span>
-                                    <br />
-                                    <div style="margin-top:10px" v-if="seeMore">
-                                        <el-table :data="data.registeredThreadInfo"
-                                                  style="width: 100%">
-                                            <el-table-column label="名称">
-                                                <template slot-scope="scope">
-                                                    {{scope.row.key.name}}
-                                                </template>
-                                            </el-table-column>
-                                            <el-table-column label="活动状态/后台">
-                                                <template slot-scope="scope">
-                                                    {{scope.row.value.isAlive}}/
-                                                    {{scope.row.value.isAlive ? value.isBackground : false}}
-                                                </template>
-                                            </el-table-column>
-                                            <el-table-column label="线程状态">
-                                                <template slot-scope="scope">
-                                                    {{scope.row.value.isAlive ? formaTableTime(scope.row.value.threadState): "-"}}
-                                                </template>
-                                            </el-table-column>
-                                            <el-table-column label="最近故事">
-                                                <template slot-scope="scope">
-                                                    {{scope.row.key.storyHtml}}
-                                                </template>
-                                            </el-table-column>
-                                        </el-table>
-                                    </div>
                                 </div>
-                                <i class="el-icon-share"></i>(2)
+                                @*网页*@
+                                <i v-if="item === 'IAreaRegister'" class="fa fa-map-marker fa-external-link"></i>
+                                @*数据库*@
+                                <i v-if="item === 'IXscfDatabase'" class="fa fa-map-marker fa-database"></i>
+                                @*中间件*@
+                                <i v-if="item === 'IXscfMiddleware'" class="fa fa-map-marker fa-plug"></i>
+                                @*线程 *@
+                                <i v-if="item === 'IXscfRazorRuntimeCompilation'" class="fa fa-map-marker fa-retweet"></i>
                             </el-tooltip>
                         </li>
                         <li>
-                            介绍：
+                            <i class="fa fa-map-marker fa-newspaper-o"></i>&nbsp;介绍：
                             <p>{{data.xscfModule.description}}</p>
                         </li>
                     </ul>
@@ -111,14 +90,13 @@
                 </div>
             </el-aside>
             <el-main>
-                <p>功能列表</p>
                 <template v-if="!data.mustUpdate">
                     <template v-if="data.xscfRegister.interfaces.includes('IAreaRegister')&&data.xscfRegister.areaHomeUrl!==null">
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span>进入 {{data.xscfRegister.menuName}} 的首页</span>
                                 <a v-if="data.xscfModule.state===1" :href="data.xscfRegister.areaHomeUrl" class="box-card-action">进入首页</a>
-                                <p>地址：<a :href="data.xscfRegister.areaHomeUrl">{{data.xscfRegister.areaHomeUrl}}</a></p>
+                                <p class="box-card-des">地址：<a :href="data.xscfRegister.areaHomeUrl">{{data.xscfRegister.areaHomeUrl}}</a></p>
                             </div>
                             <template>
                                 <div class="item-container">
@@ -138,7 +116,7 @@
                                         </el-collapse-item>
                                     </el-collapse>
                                 </div>
-                                <p>说明：当前模块配备了可互动操作的UI界面，因此您可以看到这个入口。</p>
+                                <p class="box-card-tip">说明：当前模块配备了可互动操作的UI界面，因此您可以看到这个入口。</p>
                             </template>
                         </el-card>
                     </template>
@@ -149,7 +127,7 @@
                         <template v-if="data.xscfModule.state===1">
                             <span type="text" class="box-card-action" @@click="openRun(item)">执行</span>
                         </template>
-                        <p>{{item.key.description}}</p>
+                        <p class="box-card-des">{{item.key.description}}</p>
                     </div>
                     <template>
                         <div class="item-container">
@@ -157,7 +135,6 @@
                                 <el-collapse-item title="参数透视" name="2">
                                     <el-table v-if="item.value.length>0"
                                               :data="item.value"
-                                              stripe
                                               style="width: 100%">
                                         <el-table-column label="#" width="30">
                                             <template slot-scope="scope">
@@ -185,10 +162,12 @@
                                             </template>
                                         </el-table-column>
                                     </el-table>
+                                    <div v-else class="no-content">
+                                        无需填写数据
+                                    </div>
                                 </el-collapse-item>
                             </el-collapse>
                         </div>
-                        <p>说明：当前模块配备了可互动操作的UI界面，因此您可以看到这个入口。</p>
                     </template>
                 </el-card>
             </el-main>
@@ -196,7 +175,7 @@
     </el-container>
     @*执行弹窗*@
     <el-dialog width="60%" v-if="run.data.key" :title="run.data.key.name" :visible.sync="run.visible" class="run-dialog">
-        <h4><i class="fa fa-newspaper-o"></i>{{run.data.key.description}}</h4>
+        <h4><i class="fa fa-newspaper-o"></i>&nbsp;{{run.data.key.description}}</h4>
         <el-form :label-position="'left'">
             <el-form-item v-for="item in run.data.value" :label="item.title" label-width="200px" :required="item.isRequired">
                 <el-input v-if="item.parameterType===0" v-model="runData[item.name]"></el-input>
@@ -211,14 +190,14 @@
                             <el-checkbox :label="selectionItem.value">
                                 {{selectionItem.text}}
                                 <template v-if="selectionItem.note!==null">
-                                    <span class="icon-note">&nbsp; &nbsp;<i class="fa fa-info-circle"></i> &nbsp; {{selectionItem.note}}</span>
+                                    <span class="icon-note">&nbsp; &nbsp;<i class="fa fa-info-circle"></i>&nbsp; &nbsp;{{selectionItem.note}}</span>
                                 </template>
                             </el-checkbox>
                         </template>
                     </el-checkbox-group>
                 </template>
                 <template v-if="item.description!==null">
-                    <p><i class="fa fa-info-circle"></i> &nbsp; {{item.description}}</p>
+                    <p><i class="fa fa-info-circle"></i>&nbsp; &nbsp;{{item.description}}</p>
                 </template>
             </el-form-item>
         </el-form>
@@ -227,14 +206,49 @@
             <el-button type="primary" @@click="handleRun">执 行</el-button>
         </div>
     </el-dialog>
+    @*运行结果*@
     <el-dialog :title="runResult.tit"
                :visible.sync="runResult.visible"
                width="30%">
         <p>{{runResult.tip}}</p>
         <p v-html="runResult.msg"></p>
         <span slot="footer" class="dialog-footer">
-            <a  :href="'?handler=Log&tempId='+ runResult.tempId" v-if="runResult.hasLog" style="display:block"><i class="fa fa-cloud-download"></i> 下载日志（5分钟内1次有效）</a>
+            <a :href="'?handler=Log&tempId='+ runResult.tempId" v-if="runResult.hasLog" style="display:block"><i class="fa fa-cloud-download"></i> 下载日志（5分钟内1次有效）</a>
             <el-button type="primary" @@click="runResult.visible = false">关 闭</el-button>
+        </span>
+    </el-dialog>
+    @*查看线程*@
+    <el-dialog title="查看线程"
+               :visible.sync="thread.visible"
+               width="60%">
+        <div class="thread-contenet">
+            <el-table :data="data.registeredThreadInfo"
+                      style="width: 100%">
+                <el-table-column label="名称">
+                    <template slot-scope="scope">
+                        {{scope.row.key.name}}
+                    </template>
+                </el-table-column>
+                <el-table-column label="活动状态/后台">
+                    <template slot-scope="scope">
+                        {{scope.row.value.isAlive}}/
+                        {{scope.row.value.isAlive ? value.isBackground : false}}
+                    </template>
+                </el-table-column>
+                <el-table-column label="线程状态">
+                    <template slot-scope="scope">
+                        {{scope.row.value.isAlive ? formaTableTime(scope.row.value.threadState): "-"}}
+                    </template>
+                </el-table-column>
+                <el-table-column label="最近故事">
+                    <template slot-scope="scope">
+                        <span v-html="scope.row.key.storyHtml"></span>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @@click="thread.visible = false">关 闭</el-button>
         </span>
     </el-dialog>
 </div>
