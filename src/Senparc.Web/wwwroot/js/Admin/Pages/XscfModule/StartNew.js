@@ -4,15 +4,6 @@
         return {
             navMenu: navMenu, // 菜单栏数据 navMenu.js
             data: [], // 数据
-            oldData: {
-                state: {
-                    'String': '文本',
-                    'Int32': '数字',
-                    'Int64': '数字',
-                    'DateTime': '日期',
-                    'String[]': '选项'
-                }
-            },
             tooltip: {
                 "IAreaRegister": '网页',
                 "IXscfDatabase": '数据库',
@@ -76,18 +67,30 @@
                     if (res.parameterType === 1 && res.selectionList.items) {
                         this.runData[res.name] = [];
                         res.selectionList.items.map(ele => {
-                            if (ele.defaultSelected) { this.runData[res.name].push(ele.value); }
+                            if (ele.defaultSelected) {
+                                this.runData[res.name].push(ele.value);
+                            }
                         });
                     }
                     if (res.parameterType === 0) {
                         this.runData[res.name] = "";
                     }
                 });
-            console.log(this.runData);
+            this.runData = Object.assign({}, this.runData);
             this.run.visible = true;
         },
         // 执行
         async handleRun() {
+            // 物理路径校验
+            if (this.runData.hasOwnProperty('SourcePath') && this.runData.SourcePath.length < 1) {
+                this.$notify({
+                    title: '警告',
+                    message: '请填写源码物理路径',
+                    type: 'warning'
+                });
+                return;
+            }
+            // 关闭执行弹窗
             this.run.visible = false;
             let xscfFunctionParams = {};
             for (var i in this.runData) {
@@ -123,13 +126,13 @@
                 this.runResult.tip = '返回信息';
                 this.runResult.msg = res.data.msg;
             }
+            // 打开执行结果弹窗
             this.runResult.visible = true;
         },
         // 关闭和开启
         async updataState(state) {
             const id = this.data.xscfModule.id;
             const res = await service.get(`/Admin/XscfModule/Start?handler=ChangeState&id=${id}&tostate=${state}`);
-            console.log(res)
             window.location.reload();
         },
         // 更新版本
