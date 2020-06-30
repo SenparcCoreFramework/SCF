@@ -23,6 +23,7 @@
     <div id="app" v-cloak>
         <div class="app-wrapper">
             <el-container>
+                @*菜单栏*@
                 <el-aside :style="{'width':navMenu.isCollapse?'64px':''}" class="el-aside-index">
                     <div :class="[navMenu.isCollapse?'':'head-log']">
                         <img src="~/images/Admin/base/head/logo_230x55.png" alt="Alternate Text" />
@@ -44,14 +45,17 @@
                 <el-container>
                     <el-header>
                         <div class="header-menu">
+                            @*切换菜单栏*@
                             <el-button @@click="toggleSideBar"><i class="fa fa-align-justify" aria-hidden="true"></i></el-button>
                         </div>
+                        @*面包屑*@
                         <div class="header-breadcrumb">
                             <el-breadcrumb separator="/">
                                 <el-breadcrumb-item><a href="/Admin/Index">首页</a></el-breadcrumb-item>
                                 @RenderSection("breadcrumbs", false)
                             </el-breadcrumb>
                         </div>
+                        @*退出*@
                         <div class="header-logout">
                             <el-tooltip class="item" effect="dark" content="退出登录" placement="left">
                                 <el-popconfirm confirmButtonText='退出'
