@@ -35,7 +35,7 @@
                 disabled: false,
                 checkStrictly: true // 是否严格的遵守父子节点不互相关联	
             },
-            dialogIcon:{
+            dialogIcon: {
                 visible: false,
                 elementIcons: [
                     'fa-adjust',
@@ -725,6 +725,20 @@
                 this.ddd(source, ele.id, ele.children);
             }
         },
+        aa(row, source, dest) {
+            if (row.parentId === null) {
+                return;
+            }
+            for (var i in source) {
+                var ele = source[i];
+                if (row.parentId === ele.id) {
+                    this.aa(ele, this.tableData, dest);
+                    dest.push(ele.id);
+                } else {
+                    this.aa(row, ele.children, dest);
+                }
+            }
+        },
         // 编辑 // 新增菜单 // 增加下一级
         handleEdit(index, row, flag) {
             this.dialog.visible = true;
@@ -740,6 +754,12 @@
                 id, menuName, parentId: [parentId], url, icon, sort, visible,
                 resourceCode, isLocked, menuType
             };
+            // dialog中父级菜单 做递归显示
+            let x = [];
+            this.recursionFunc(row, this.tableData, x);
+            this.dialog.data.parentId = x;
+            //////////////////////////////
+
             if (flag === 'edit') {
                 this.dialog.title = '编辑菜单';
                 if (row.isLocked) {
@@ -749,29 +769,21 @@
                 this.dialog.data.id = '';
                 this.dialog.title = '增加下一级菜单';
                 this.dialog.data.menuName = '';
-                // 设置父级菜单默认显示
-                this.tableData.forEach((res, index) => {
-                    if (res.id === row.id) {
-                        this.dialog.data.parentId = [row.id];
-                        throw new Error("ending");// 跳出循环
-                    } else {
-                        if (!res.children) { return false; }
-                        res.children.forEach(ele => {
-                            if (ele.id === row.id) {
-                                this.dialog.data.parentId = [res.id, row.id];
-                                throw new Error("ending");// 跳出循环
-                            } else {
-                                if (!ele.children) { return false; }
-                                ele.children.forEach(el => {
-                                    if (el.id === row.id) {
-                                        this.dialog.data.parentId = [res.id, row.id, el.id];
-                                        throw new Error("ending");// 跳出循环
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
+            }
+        },
+        // 设置父级菜单默认显示 递归
+        recursionFunc(row, source, dest) {
+            if (row.parentId === null) {
+                return;
+            }
+            for (let i in source) {
+                let ele = source[i];
+                if (row.parentId === ele.id) {
+                    this.recursionFunc(ele, this.tableData, dest);
+                    dest.push(ele.id);
+                } else {
+                    this.recursionFunc(row, ele.children, dest);
+                }
             }
         },
         // 更新新增、编辑
@@ -785,7 +797,7 @@
                         MenuName: this.dialog.data.menuName,
                         ParentId: this.dialog.data.parentId[this.dialog.data.parentId.length - 1],
                         Url: this.dialog.data.url,
-                        Icon:'fa '+ this.dialog.data.icon,
+                        Icon: 'fa ' + this.dialog.data.icon,
                         Sort: this.dialog.data.sort * 1,
                         Visible: this.dialog.data.visible,
                         ResourceCode: this.dialog.data.resourceCode,
@@ -806,8 +818,6 @@
                     });
                 }
             });
-
-
         },
         // 删除
         handleDelete(index, row) {

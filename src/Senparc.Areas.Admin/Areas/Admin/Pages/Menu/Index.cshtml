@@ -47,7 +47,7 @@
                                type="primary"
                                v-if="scope.row.children"
                                @@click="handleEdit(scope.$index, scope.row,'addNext')">增加下一级</el-button>
-                    <el-popconfirm placement="top" title="确认删除此角色吗？" @@on-confirm="handleDelete(scope.$index, scope.row)">
+                    <el-popconfirm placement="top" title="确认删除此菜单吗？" @@on-confirm="handleDelete(scope.$index, scope.row)">
                         <el-button size="mini" type="danger" slot="reference">删除</el-button>
                     </el-popconfirm>
                 </template>

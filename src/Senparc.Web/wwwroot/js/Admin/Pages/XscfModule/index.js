@@ -60,12 +60,14 @@
             this.getList();
             this.$notify({
                 title: "Success",
-                message: "安装成功",
+                message: "安装成功，请在 系统管理-角色管理 页面授权之后再使用！",
                 type: "success",
-                duration: 2000
+                duration: 3000,
+                onClose: function () {
+                    // 始终去详情页
+                    window.location.href = "/Admin/XscfModule/Start/?uid=" + row.uid;
+                }
             });
-            // 始终去详情页
-            window.location.href = "/Admin/XscfModule/Start/?uid=" + row.uid;
         },
         // 操作
         handleHandle(index, row) {
@@ -73,7 +75,7 @@
         },
         // 主页
         handleIndex(index, row) {
-            console.log('主页');
+            window.location.href = row.xscfRegister.homeUrl;
         }
     }
 });

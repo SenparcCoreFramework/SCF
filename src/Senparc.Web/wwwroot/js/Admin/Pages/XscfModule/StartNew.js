@@ -47,8 +47,9 @@
             const res = await service.get(`/Admin/XscfModule/Start?handler=Detail&uid=${uid}`);
             this.data = res.data.data;
             this.data.xscfRegister.interfaces = this.data.xscfRegister.interfaces.splice(1);
-            console.log(this.data);
         },
+
+
         // 打开执行
         openRun(item) {
             this.run.data = item;
@@ -140,6 +141,13 @@
             const uid = resizeUrl().uid;
             await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${uid}`);
             window.location.reload();
+        },
+        // 删除
+        async handleDelete() {
+            const id = this.data.xscfModule.id;
+            const res = await service.post(`/Admin/XscfModule/Start?handler=Delete&id=${id}`);
+            window.sessionStorage.setItem('activeMenu', 5);
+            window.location.href ='/Admin/XscfModule/Index';
         }
     }
 });

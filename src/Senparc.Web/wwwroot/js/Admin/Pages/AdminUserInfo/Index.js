@@ -114,7 +114,6 @@
             this.$refs['dataForm'].validate(valid => {
                 // 表单校验
                 if (valid) {
-                    console.log(this.dialog.data);
                     let data = {
                         Id: this.dialog.data.id,
                         UserName: this.dialog.data.userName,
