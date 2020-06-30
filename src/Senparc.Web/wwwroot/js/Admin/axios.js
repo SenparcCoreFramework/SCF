@@ -1,13 +1,4 @@
-﻿function r_cookie(key) {
-    var array = document.cookie.split(';');
-    var result = array.filter(_ => _.split('=')[0] === key);
-    if (result.length > 0) {
-        return result[0].split('=')[1];
-    } else {
-        return null;
-    }
-}
-/**
+﻿/**
  * axios封装
  * 请求拦截、响应拦截、错误统一处理
  */
@@ -15,8 +6,6 @@
 var service = axios.create({
     timeout: 100000 // request timeout
 });
-// 设置post请求头
-service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // 请求拦截
 service.interceptors.request.use(
     config => {
@@ -34,7 +23,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     response => {
-        if (response.status === 200) {
+        if (response.status === 200 ) {
             if (response.data.success) {
                 return Promise.resolve(response);
             } else {
@@ -67,6 +56,8 @@ service.interceptors.response.use(
                     window.location.href = '/Admin/Login?handler=Logout';
                 }
             });
+            return;
+        } else if (error.message.includes('302')) {
             return;
         }
         app.$message({

@@ -62,11 +62,7 @@
                 title: "Success",
                 message: "安装成功，请在 系统管理-角色管理 页面授权之后再使用！",
                 type: "success",
-                duration: 3000,
-                onClose: function () {
-                    // 始终去详情页
-                    window.location.href = "/Admin/XscfModule/Start/?uid=" + row.uid;
-                }
+                duration: 5000
             });
         },
         // 操作

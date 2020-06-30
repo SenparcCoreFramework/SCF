@@ -1,4 +1,8 @@
-﻿// 格式化添加时间等 2020 - 06 - 19T09: 41: 51.1905692
+﻿Vue.prototype.loginout = function () {
+    window.sessionStorage.removeItem('activeMenu');
+    window.location.href = '/Admin/Login?handler=Logout';
+};
+// 格式化添加时间等 2020 - 06 - 19T09: 41: 51.1905692
 function formaTableTime(value) {
     return value ? value.replace('T', '  ').substr(0, 17) : '暂无时间';
 }

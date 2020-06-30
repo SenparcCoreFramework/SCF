@@ -44,7 +44,7 @@
                 <el-container>
                     <el-header>
                         <div class="header-menu">
-                            <el-button @@click="toggleSideBar" icon="el-icon-s-fold" circle></el-button>
+                            <el-button @@click="toggleSideBar"><i class="fa fa-align-justify" aria-hidden="true"></i></el-button>
                         </div>
                         <div class="header-breadcrumb">
                             <el-breadcrumb separator="/">
@@ -54,7 +54,14 @@
                         </div>
                         <div class="header-logout">
                             <el-tooltip class="item" effect="dark" content="退出登录" placement="left">
-                                <el-button icon="el-icon-circle-close" @@click="navMenu.loginout()" circle></el-button>
+                                <el-popconfirm confirmButtonText='退出'
+                                               cancelButtonText='不用了'
+                                               icon="el-icon-info"
+                                               iconColor="red"
+                                               title="确定退出吗？"
+                                               @@on-Confirm="loginout">
+                                    <i slot="reference" style="cursor:pointer;" class="fa fa-sign-out" aria-hidden="true"></i>
+                                </el-popconfirm>
                             </el-tooltip>
                         </div>
                     </el-header>
