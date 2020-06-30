@@ -60,7 +60,7 @@ namespace Senparc.Areas.Admin.Pages
                         Url = item.Url,
                         Id = (index++).ToString(),
                         ParentId = item.Id,
-                        Icon = "s-tools"
+                        Icon = "fa fa-play"
                     });
                     dest.AddRange(xscfAreapage.AareaPageMenuItems.Select(_ => new SysMenuDto()
                     {
