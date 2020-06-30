@@ -1,5 +1,5 @@
 ﻿function r_cookie(key) {
-    var array = document.cookie.split(';')
+    var array = document.cookie.split(';');
     var result = array.filter(_ => _.split('=')[0] === key);
     if (result.length > 0) {
         return result[0].split('=')[1];
@@ -21,7 +21,7 @@ service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencod
 service.interceptors.request.use(
     config => {
         if (config.method.toUpperCase() === 'POST') {
-            config.headers['RequestVerificationToken'] = top.window.document.getElementsByName('__RequestVerificationToken')[0].value;
+            config.headers['RequestVerificationToken'] = window.document.getElementsByName('__RequestVerificationToken')[0].value;
         }
         config.headers['x-requested-with'] = 'XMLHttpRequest';
         return config;
@@ -63,6 +63,7 @@ service.interceptors.response.use(
                 type: 'error',
                 duration: 3 * 1000,
                 onClose: function () {
+                    window.sessionStorage.removeItem('activeMenu');
                     window.location.href = '/Admin/Login?handler=Logout';
                 }
             });

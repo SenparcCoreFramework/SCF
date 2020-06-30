@@ -139,10 +139,13 @@
                     title: "Success",
                     message: "授权成功",
                     type: "success",
-                    duration: 2000
+                    duration: 800,
+                    onClose: function () {
+                        app.au.visible = false;
+                        app.au.updateLoading = false;
+                        window.location.reload();
+                    }
                 });
-                this.au.visible = false;
-                this.au.updateLoading = false;
             }
         },
         // 初始化获取数据
@@ -174,7 +177,6 @@
             this.$refs['dataForm'].validate(valid => {
                 // 表单校验
                 if (valid) {
-                    console.log(this.dialog.data);
                     let data = {
                         Id: this.dialog.data.id,
                         RoleName: this.dialog.data.roleName,

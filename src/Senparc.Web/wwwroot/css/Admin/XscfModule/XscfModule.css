@@ -78,9 +78,6 @@
 }
 .start-des li {
     margin-bottom: 10px;
-    list-style-position: initial;
-    list-style-image: initial;
-    list-style-type: none;
 }
 .item-container .el-menu {
     width: 300px;
@@ -106,8 +103,6 @@
 
 .module-aside {
     padding: 20px;
-    list-style: none;
-    list-style-type: none !important;
 }.module-aside .red{
    color:red;
 }

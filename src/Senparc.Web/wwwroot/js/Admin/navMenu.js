@@ -12,11 +12,12 @@ const navMenu = {
     activeMenu: window.sessionStorage.getItem('activeMenu') || '0',
     loginout: function loginout() {
         app.$confirm('是否退出登录？', { type: 'warning' }).then(res => {
-            window.location.href = '/Admin/Login?handler=Logout'
+            window.sessionStorage.removeItem('activeMenu');
+            window.location.href = '/Admin/Login?handler=Logout';
         }).catch(e => {
             //
         });
-    },
+    }
 };
 // 菜单栏数据
 (function getNavMenu() {

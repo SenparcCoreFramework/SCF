@@ -24,7 +24,11 @@ img {
     width: 100%;
 }
 
-
+li {
+    list-style-position: initial;
+    list-style-image: initial;
+    list-style-type: none;
+}
 #app {
     height: 100%;
 }
@@ -122,4 +126,9 @@ img {
 .el-breadcrumb .el-breadcrumb__item:last-of-type {
     cursor: none;
     pointer-events: none;
+}
+/*模块管理*/
+.module-header {
+    line-height: 60px;
+    font-size: 20px;
 }
