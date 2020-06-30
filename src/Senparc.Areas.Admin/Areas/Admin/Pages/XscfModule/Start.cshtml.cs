@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
@@ -223,12 +224,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             Func<Task> uninstall = async () =>
             {
                 //删除菜单
+                SysPermissionService sysPermissionService = _serviceProvider.GetService<SysPermissionService>();
                 var menu = await _sysMenuService.GetObjectAsync(z => z.Id == module.MenuId).ConfigureAwait(false);
                 if (menu != null)
                 {
                     //删除菜单
                     await _sysMenuService.DeleteObjectAsync(menu).ConfigureAwait(false);
-                    //更新菜单缓存
+                    //删除权限数据
+                    await sysPermissionService.DeleteAllAsync(_ => _.PermissionId == menu.Id);
+                    //更新菜单缓存                                                                                                                            
                     await _sysMenuService.GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
                 }
                 await _xscfModuleService.DeleteObjectAsync(module).ConfigureAwait(false);
