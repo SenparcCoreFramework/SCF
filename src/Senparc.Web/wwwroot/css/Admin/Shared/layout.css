@@ -41,6 +41,13 @@ li {
     width: 100%;
 }
 
+.footer {
+    text-align: right;
+    color: #5A738E
+}
+    .footer a:hover {
+        color: #23527c;
+    }
 /*侧边栏*/
 .el-aside-index {
     min-height: 100vh;

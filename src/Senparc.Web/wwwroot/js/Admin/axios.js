@@ -28,6 +28,9 @@ service.interceptors.response.use(
                 return Promise.resolve(response);
             } else {
                 //请求已发出，其他状态
+                if (response.config.url.includes('XscfModule')) {
+                    return;
+                }
                 app.$message({
                     message: response.data.msg || 'Error',
                     type: 'error',
