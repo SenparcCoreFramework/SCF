@@ -222,7 +222,7 @@
     <el-dialog :title="runResult.tit"
                :visible.sync="runResult.visible"
                width="30%">
-        <p>{{runResult.tip}}</p>
+        <p v-html="runResult.tip"></p>
         <p v-html="runResult.msg"></p>
         <span slot="footer" class="dialog-footer">
             <a :href="'?handler=Log&tempId='+ runResult.tempId" v-if="runResult.hasLog" style="display:block"><i class="fa fa-cloud-download"></i> 下载日志（5分钟内1次有效）</a>

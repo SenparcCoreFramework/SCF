@@ -141,3 +141,9 @@
 .thread-contenet {
     margin-top: 10px;
 }
+
+.start-title {
+    font-weight: 400;
+    font-size: 22px;
+    color: #1f2d3d;
+}

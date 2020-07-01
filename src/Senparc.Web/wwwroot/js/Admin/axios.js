@@ -27,8 +27,9 @@ service.interceptors.response.use(
             if (response.data.success) {
                 return Promise.resolve(response);
             } else {
-                //请求已发出，其他状态
-                if (response.config.url.includes('XscfModule')) {
+                // 请求已发出，其他状态
+                // 切换隐藏时不给错误提示，直接刷新
+                if (response.config.url.includes('HideManager')) {
                     return;
                 }
                 app.$message({
