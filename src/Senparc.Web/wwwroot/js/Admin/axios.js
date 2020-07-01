@@ -52,8 +52,7 @@ service.interceptors.response.use(
                 type: 'error',
                 duration: 3 * 1000,
                 onClose: function () {
-                    window.sessionStorage.removeItem('activeMenu');
-                    window.location.href = '/Admin/Login?handler=Logout';
+                    window.location.href = '/Admin/Login?url=' + escape(window.location.pathname + window.location.search);
                 }
             });
             return;

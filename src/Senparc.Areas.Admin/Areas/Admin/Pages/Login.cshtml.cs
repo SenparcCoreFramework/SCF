@@ -44,17 +44,18 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         public async Task<IActionResult> OnGetAsync(string ReturnUrl)
         {
+            await Task.CompletedTask;
             //ÊÇ·ñÒÑ¾­µÇÂ¼
-            var logined = await base.CheckLoginedAsync(AdminAuthorizeAttribute.AuthenticationScheme);//ÅÐ¶ÏµÇÂ¼
+            //var logined = await base.CheckLoginedAsync(AdminAuthorizeAttribute.AuthenticationScheme);//ÅÐ¶ÏµÇÂ¼
 
-            if (logined)
-            {
-                if (ReturnUrl.IsNullOrEmpty())
-                {
-                    return RedirectToPage("/Index");
-                }
-                return LocalRedirect(ReturnUrl.UrlDecode());
-            }
+            //if (logined)
+            //{
+            //    if (ReturnUrl.IsNullOrEmpty())
+            //    {
+            //        return RedirectToPage("/Index");
+            //    }
+            //    return LocalRedirect(ReturnUrl.UrlDecode());
+            //}
 
             return null;
         }

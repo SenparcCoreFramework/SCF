@@ -26,7 +26,7 @@ var app = new Vue({
             pass: [
                 { validator: validatePass, trigger: 'blur' }
             ]
-        },loading:false
+        }, loading: false
     },
     mounted() {
     },
@@ -42,7 +42,8 @@ var app = new Vue({
                 if (valid) {
                     service.post(url, data).then(res => {
                         if (res.data.success) {
-                            window.location.href = '/Admin/index';
+                            const url = this.resizeUrl().url;
+                            window.location.href = url ? unescape(url) : '/Admin/index';
                         } else {
                             console.log(res.data);
                         }
@@ -53,6 +54,21 @@ var app = new Vue({
                     return false;
                 }
             });
+        },
+        resizeUrl() {//处理剪切url id
+            let url = window.location.href;
+            let obj = {};
+            let reg = /[?&][^?&]+=[^?&]+/g;
+            let arr = url.match(reg); // return ["?id=123456","&a=b"]
+            if (arr) {
+                arr.forEach((item) => {
+                    let tempArr = item.substring(1).split('=');
+                    let key = tempArr[0];
+                    let val = tempArr[1];
+                    obj[key] = decodeURIComponent(val);
+                });
+            }
+            return obj;
         }
     }
 });
