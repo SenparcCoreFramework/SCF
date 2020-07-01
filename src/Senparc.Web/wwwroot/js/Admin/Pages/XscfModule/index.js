@@ -45,7 +45,7 @@
         async handleSwitch() {
             await service.post('/Admin/XscfModule/Index?handler=HideManager');
             this.isExtend = !this.isExtend;
-            window.location.reload();
+            window.location.href ="/Admin/Index";
         },
         // 安装
         async handleInstall(index, row) {

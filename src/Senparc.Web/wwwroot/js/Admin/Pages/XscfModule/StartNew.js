@@ -162,8 +162,8 @@
         async handleDelete() {
             const id = this.data.xscfModule.id;
             const res = await service.post(`/Admin/XscfModule/Start?handler=Delete&id=${id}`);
-            window.sessionStorage.setItem('activeMenu', 5);
-            window.location.href ='/Admin/XscfModule/Index';
+            window.sessionStorage.removeItem('activeMenu');
+            window.location.href ='/Admin/Index';
         }
     }
 });
