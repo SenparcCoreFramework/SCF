@@ -11,10 +11,10 @@ Vue.prototype.menuSelect = function (key, keypath) {
 (function getNavMenu() {
     service.get("/Admin/index?handler=MenuResource").then(res => {
         if (res.data.success) {
-            var ddd = res.data.data.menuList;
-            myfunctionMain(ddd);
+            var temp = res.data.data.menuList;
+            myfunctionMain(temp);
             // 数据存起来
-            Store.commit('savenavMenuList', ddd);
+            Store.commit('savenavMenuList', temp);
             // 按钮权限存起来  使用：直接在dom上v-has=" ['admin-add']"
             window.sessionStorage.setItem('saveResourceCodes', JSON.stringify(res.data.data.resourceCodes));
         }
