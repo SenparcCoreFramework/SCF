@@ -1,9 +1,11 @@
 ﻿// 切换菜单栏展开
 Vue.prototype.toggleSideBar = function () {
     Store.commit('changeIsCollapse', !Store.state.navMenu.isCollapse);
-    let isCollapse =JSON.parse( window.sessionStorage.getItem('isCollapse') )|| false;
+    let isCollapse = JSON.parse(window.sessionStorage.getItem('isCollapse')) || false;
+    // 解决刷新菜单状态复原问题
     window.sessionStorage.setItem('isCollapse', !isCollapse);
 };
+
 // 点击菜单，高亮
 Vue.prototype.menuSelect = function (key, keypath) {
     window.sessionStorage.setItem('activeMenu', key);

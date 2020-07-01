@@ -1,7 +1,6 @@
 ﻿// 退出
 Vue.prototype.loginout = function () {
-    window.sessionStorage.removeItem('activeMenu');
-    window.location.href = '/Admin/Login?handler=Logout';
+    window.location.href = '/Admin/Login?url=' + escape(window.location.pathname + window.location.search);
 };
 
 // 格式化添加时间等 2020 - 06 - 19T09: 41: 51.1905692
