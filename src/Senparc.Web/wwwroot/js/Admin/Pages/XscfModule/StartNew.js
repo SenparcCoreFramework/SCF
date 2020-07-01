@@ -58,7 +58,16 @@
 
 
         // 打开执行
-        openRun(item) {
+        openRun(item, flag) {
+            flag = flag + '';
+            if (flag === '0') {
+                this.$notify({
+                    title: '提示',
+                    message: '请开启后执行',
+                    type: 'warning'
+                });
+                return;
+            }
             this.run.data = item;
             this.runData = {};
                 this.run.data.value.map(res => {

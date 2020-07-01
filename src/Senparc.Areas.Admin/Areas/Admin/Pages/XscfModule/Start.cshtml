@@ -38,16 +38,6 @@
                             </el-tooltip>
                         </li>
                         <li>
-                            <i class="fa fa-map-marker fa-sliders"></i><span :class="[data.xscfModule.state===1?'start-green':'start-gray']">&nbsp;{{xScfModules_State[data.xscfModule.state]}}</span>
-                            <template v-if="data.xscfModule.state===3||data.xscfModule.state===0||data.xscfModule.state===2">
-                                <el-button size="mini" :type="data.xscfModule.state===0?'success':'warning'" @@click="updataState('1')"> <em class="glyphicon glyphicon-flash"></em> &nbsp;开启</el-button>
-                                <p class="red"><i class="fa fa-exclamation-triangle"></i>&nbsp;未开启的模块无法执行功能</p>
-                            </template>
-                            <template v-if="data.xscfModule.state===1">
-                                <el-button size="mini" c type="danger" @@click="updataState('0')"> <em class="glyphicon glyphicon-off"></em> &nbsp;关闭</el-button>
-                            </template>
-                        </li>
-                        <li>
                             <i class="fa fa-map-marker puzzle-piece"></i>&nbsp;特性：
                             <el-tooltip v-for="item in data.xscfRegister.interfaces" class="item" effect="dark" placement="top">
                                 <div slot="content">
@@ -71,6 +61,16 @@
                                 <el-tooltip class="item" effect="dark" content="执行方法" placement="top-start">
                                     <i class="fa fa-map-marker fa-rocket">({{data.xscfRegister.functionCount}})</i>
                                 </el-tooltip>
+                            </template>
+                        </li>
+                        <li>
+                            <i class="fa fa-map-marker fa-sliders"></i><span :class="[data.xscfModule.state===1?'start-green':'start-gray']">&nbsp;{{xScfModules_State[data.xscfModule.state]}}</span>
+                            <template v-if="data.xscfModule.state===3||data.xscfModule.state===0||data.xscfModule.state===2">
+                                <el-button size="mini" :type="data.xscfModule.state===0?'success':'warning'" @@click="updataState('1')"> <em class="glyphicon glyphicon-flash"></em> &nbsp;开启</el-button>
+                                <p class="red"><i class="fa fa-exclamation-triangle"></i>&nbsp;未开启的模块无法执行功能</p>
+                            </template>
+                            <template v-if="data.xscfModule.state===1">
+                                <el-button size="mini" c type="danger" @@click="updataState('0')"> <em class="glyphicon glyphicon-off"></em> &nbsp;关闭</el-button>
                             </template>
                         </li>
                         <li>
@@ -136,9 +136,7 @@
                 <el-card class="box-card" v-for="item in data.functionParameterInfoCollection">
                     <div slot="header" class="clearfix">
                         <span>>_{{item.key.name}}</span>
-                        <template v-if="data.xscfModule.state===1">
-                            <span type="text" class="box-card-action" @@click="openRun(item)">执行</span>
-                        </template>
+                            <span type="text" :class="[data.xscfModule.state===1?'box-card-action':'box-card-action2']" @@click="openRun(item,data.xscfModule.state)">执行</span>
                         <p class="box-card-des">{{item.key.description}}</p>
                     </div>
                     <template>
