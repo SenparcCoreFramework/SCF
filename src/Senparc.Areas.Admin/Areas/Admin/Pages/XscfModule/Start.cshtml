@@ -24,7 +24,14 @@
                         <li><span class="start-green"><i class="fa fa-map-marker fa-cubes"></i>&nbsp;{{data.xscfModule.name}}</span></li>
                         <li><i class="fa fa-map-marker fa-code-fork"></i>&nbsp;v{{data.xscfModule.version}}</li>
                         <li v-if="data.xscfModule.version!==data.xscfRegister.version">发现新版本:v{{data.xscfRegister.version}} <el-button size="mini" @@click="updataVersion"> <em class="fa fa-gift"></em>&nbsp;立即更新</el-button></li>
-                        <li><i class="fa fa-map-marker fa-shield"></i>&nbsp;唯一编号:{{data.xscfModule.uid}}</li>
+                        <li>
+                            <el-tooltip class="item" effect="dark" :content="data.xscfModule.uid" placement="top-start">
+                                <span>
+                                <i class="fa fa-map-marker fa-shield"></i>
+                                    唯一编号
+                                </span>
+                            </el-tooltip>
+                        </li>
                         <li>
                             <i class="fa fa-map-marker fa-sliders"></i><span :class="[data.xscfModule.state===1?'start-green':'start-gray']">&nbsp;{{xScfModules_State[data.xscfModule.state]}}</span>
                             <template v-if="data.xscfModule.state===3||data.xscfModule.state===0||data.xscfModule.state===2">
@@ -37,11 +44,6 @@
                         </li>
                         <li>
                             <i class="fa fa-map-marker puzzle-piece"></i>&nbsp;特性：
-                            <template v-if="data.xscfRegister.functionCount>0">
-                                <el-tooltip class="item" effect="dark" content="执行方法" placement="top-start">
-                                    <i class="fa fa-map-marker fa-rocket"></i>({{data.xscfRegister.functionCount}})
-                                </el-tooltip>
-                            </template>
                             <el-tooltip v-for="item in data.xscfRegister.interfaces" class="item" effect="dark" placement="top">
                                 <div slot="content">
                                     {{tooltip[item]}}
@@ -60,6 +62,11 @@
                                 @*线程 *@
                                 <i v-if="item === 'IXscfRazorRuntimeCompilation'" class="fa fa-map-marker fa-retweet"></i>
                             </el-tooltip>
+                            <template v-if="data.xscfRegister.functionCount>0">
+                                <el-tooltip class="item" effect="dark" content="执行方法" placement="top-start">
+                                    <i class="fa fa-map-marker fa-rocket">({{data.xscfRegister.functionCount}})</i>
+                                </el-tooltip>
+                            </template>
                         </li>
                         <li>
                             <i class="fa fa-map-marker fa-newspaper-o"></i>&nbsp;介绍：
@@ -141,7 +148,7 @@
                                                 {{scope.$index+1}}
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="名称">
+                                        <el-table-column label="名称" width="200">
                                             <template slot-scope="scope">
                                                 {{scope.row.title}}
                                             </template>
@@ -151,12 +158,12 @@
                                                 {{scope.row.description}}
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="类型">
+                                        <el-table-column label="类型" width="150">
                                             <template slot-scope="scope">
-                                                {{scope.row.systemType}}
+                                                {{state[scope.row.systemType] || scope.row.systemType}}
                                             </template>
                                         </el-table-column>
-                                        <el-table-column label="必须">
+                                        <el-table-column label="必须" width="150">
                                             <template slot-scope="scope">
                                                 {{scope.row.isRequired?"是":"否"}}
                                             </template>
@@ -224,18 +231,18 @@
         <div class="thread-contenet">
             <el-table :data="data.registeredThreadInfo"
                       style="width: 100%">
-                <el-table-column label="名称">
+                <el-table-column label="名称" width="180">
                     <template slot-scope="scope">
                         {{scope.row.key.name}}
                     </template>
                 </el-table-column>
-                <el-table-column label="活动状态/后台">
+                <el-table-column label="活动状态/后台" width="180">
                     <template slot-scope="scope">
                         {{scope.row.value.isAlive}}/
                         {{scope.row.value.isAlive ? value.isBackground : false}}
                     </template>
                 </el-table-column>
-                <el-table-column label="线程状态">
+                <el-table-column label="线程状态" width="180">
                     <template slot-scope="scope">
                         {{scope.row.value.isAlive ? formaTableTime(scope.row.value.threadState): "-"}}
                     </template>

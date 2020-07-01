@@ -9,6 +9,13 @@
                 "IXscfMiddleware": '中间件',
                 "IXscfRazorRuntimeCompilation": '线程'
             },
+            state: {
+                'String': '文本',
+                'Int32': '数字',
+                'Int64': '数字',
+                'DateTime': '日期',
+                'String[]': '选项'
+            },
             xScfModules_State: {
                 0: '关闭',
                 1: '开放',
