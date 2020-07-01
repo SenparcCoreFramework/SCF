@@ -2,7 +2,6 @@
     el: "#app",
     data() {
         return {
-            navMenu: navMenu, // 菜单栏数据 navMenu.js
             data: [], // 数据
             tooltip: {
                 "IAreaRegister": '网页',

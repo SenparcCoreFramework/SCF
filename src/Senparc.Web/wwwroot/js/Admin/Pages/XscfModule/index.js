@@ -2,8 +2,6 @@
     el: "#app",
     data() {
         return {
-            // 菜单栏数据 navMenu.js
-            navMenu: navMenu,
             newTableData: [], // 新模块数据
             oldTableData: [], // 已安装模块
             isExtend: false, // 是否切换状态

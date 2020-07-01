@@ -24,21 +24,21 @@
         <div class="app-wrapper">
             <el-container>
                 @*菜单栏*@
-                <el-aside :style="{'width':navMenu.isCollapse?'64px':''}" class="el-aside-index">
-                    <div :class="[navMenu.isCollapse?'':'head-log']">
+                <el-aside :style="{'width':Store.state.navMenu.isCollapse?'64px':''}" class="el-aside-index">
+                    <div :class="[Store.state.navMenu.isCollapse?'head-log2':'head-log']">
                         <img src="~/images/Admin/base/head/logo_230x55.png" alt="Alternate Text" />
                     </div>
                     <el-scrollbar wrap-class="scrollbar-wrapper">
-                        <el-menu :default-active="navMenu.activeMenu"
-                                 :collapse="navMenu.isCollapse"
-                                 :background-color="navMenu.variables.menuBg"
-                                 :text-color="navMenu.variables.menuText"
+                        <el-menu :default-active="Store.state.navMenu.activeMenu"
+                                 :collapse="Store.state.navMenu.isCollapse"
+                                 :background-color="Store.state.navMenu.variables.menuBg"
+                                 :text-color="Store.state.navMenu.variables.menuText"
+                                 :active-text-color="Store.state.navMenu.variables.menuActiveText"
                                  :unique-opened="false"
-                                 :active-text-color="navMenu.variables.menuActiveText"
                                  :collapse-transition="false"
                                  @@select="menuSelect"
                                  mode="vertical">
-                            <sidebar-item v-for="(items,index) in navMenu.navMenuList" :key="index" :item="items"></sidebar-item>
+                            <sidebar-item v-for="(items,index) in Store.state.navMenu.navMenuList" :key="index" :item="items"></sidebar-item>
                         </el-menu>
                     </el-scrollbar>
                 </el-aside>
@@ -46,7 +46,7 @@
                     <el-header>
                         <div class="header-menu">
                             @*切换菜单栏*@
-                            <el-button @@click="toggleSideBar"><i class="fa fa-align-justify" aria-hidden="true"></i></el-button>
+                            <i class="fa fa-indent" aria-hidden="true" @@click="toggleSideBar"></i>
                         </div>
                         @*面包屑*@
                         <div class="header-breadcrumb">
@@ -83,7 +83,9 @@
     <script src="~/lib/vue/vue.js"></script>
     <script src="~/lib/element-ui_2.13.2/element.js"></script>
     <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/lib/vuex.js"></script>
     <!--js-->
+    <script src="~/js/Admin/store.js"></script>
     <script src="~/js/Admin/axios.js"></script>
     <script src="~/js/Admin/global.js"></script>
     <!--菜单栏-->

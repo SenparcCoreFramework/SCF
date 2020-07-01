@@ -3,8 +3,6 @@ var app = new Vue({
     el: '#app',
     data() {
         return {
-            // 菜单栏数据 navMenu.js
-            navMenu: navMenu
         };
     },
     mounted() {

@@ -2,8 +2,6 @@
     el: "#app",
     data() {
         return {
-            // 菜单栏数据 navMenu.js
-            navMenu: navMenu,
             //分页参数
             paginationQuery: {
                 total: 5

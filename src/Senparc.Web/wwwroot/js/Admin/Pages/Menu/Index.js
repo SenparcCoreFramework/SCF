@@ -13,8 +13,6 @@
             }
         };
         return {
-            // 菜单栏数据 navMenu.js
-            navMenu: navMenu,
             // 表格数据
             tableData: [],
             dialog: {
