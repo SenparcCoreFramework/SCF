@@ -26,7 +26,9 @@
                 @*菜单栏*@
                 <el-aside :style="{'width':Store.state.navMenu.isCollapse?'64px':''}" class="el-aside-index">
                     <div :class="[Store.state.navMenu.isCollapse?'head-log2':'head-log']">
-                        <img src="~/images/Admin/base/head/logo_230x55.png" alt="Alternate Text" />
+                        <a href="/Admin/Index">
+                            <img src="~/images/Admin/base/head/logo_230x55.png" alt="Alternate Text" />
+                        </a>
                     </div>
                     <el-scrollbar wrap-class="scrollbar-wrapper">
                         <el-menu :default-active="Store.state.navMenu.activeMenu"

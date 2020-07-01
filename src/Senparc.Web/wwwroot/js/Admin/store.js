@@ -4,7 +4,7 @@
         resourceCodes: [],
         navMenu: { //侧边栏数据
             navMenuList: [],
-            isCollapse: false,
+            isCollapse:JSON.parse( window.sessionStorage.getItem('isCollapse'))|| false,
             variables: {
                 menuBg: '#304156', // 背景色
                 menuText: '#bfcbd9', // 文字色
