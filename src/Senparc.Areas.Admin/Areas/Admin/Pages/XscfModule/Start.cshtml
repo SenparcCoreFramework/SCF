@@ -1,12 +1,17 @@
 ﻿@page
 @model Senparc.Areas.Admin.Areas.Admin.Pages.XscfModuleStartModel
 @{
-    ViewData["Title"] = null; Layout = "_Layout_Vue";
+    ViewData["Title"] = ""; Layout = "_Layout_Vue";
+}
+@section breadcrumbs {
+    <el-breadcrumb-item>扩展模块</el-breadcrumb-item>
+    <el-breadcrumb-item>模块管理</el-breadcrumb-item>
+    <el-breadcrumb-item v-if="data.xscfModule">{{data.xscfModule.menuName}}</el-breadcrumb-item>
 }
 @section Style{
     <link href="~/css/Admin/XscfModule/XscfModule.css" rel="stylesheet" />
 }
-<div id="app" v-cloak>
+<div>
     <el-container v-if="data.xscfModule">
         <el-header class="module-header">
             <span class="start-title"> <i :class="data.xscfRegister.icon"></i>&nbsp;{{data.xscfModule.menuName}} <span class="module-header-v">模块 {{data.xscfModule.version}}</span></span>
@@ -27,7 +32,7 @@
                         <li>
                             <el-tooltip class="item" effect="dark" :content="data.xscfModule.uid" placement="top-start">
                                 <span>
-                                <i class="fa fa-map-marker fa-shield"></i>
+                                    <i class="fa fa-map-marker fa-shield"></i>
                                     唯一编号
                                 </span>
                             </el-tooltip>

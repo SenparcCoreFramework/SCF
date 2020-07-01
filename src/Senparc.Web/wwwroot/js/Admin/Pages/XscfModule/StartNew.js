@@ -53,6 +53,7 @@
             const res = await service.get(`/Admin/XscfModule/Start?handler=Detail&uid=${uid}`);
             this.data = res.data.data;
             this.data.xscfRegister.interfaces = this.data.xscfRegister.interfaces.splice(1);
+            window.document.title = this.data.xscfModule.menuName;
         },
 
 
