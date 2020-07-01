@@ -714,27 +714,14 @@
             this.ddd(b, null, allMenu);
             this.tableData = allMenu;
         },
+        // 数据处理
         ddd(source, parentId, dest) {
             var array = source.filter(_ => _.parentId === parentId);
             for (var i in array) {
                 var ele = array[i];
                 ele.children = [];
-                dest.push(ele);
+                dest.unshift(ele);
                 this.ddd(source, ele.id, ele.children);
-            }
-        },
-        aa(row, source, dest) {
-            if (row.parentId === null) {
-                return;
-            }
-            for (var i in source) {
-                var ele = source[i];
-                if (row.parentId === ele.id) {
-                    this.aa(ele, this.tableData, dest);
-                    dest.push(ele.id);
-                } else {
-                    this.aa(row, ele.children, dest);
-                }
             }
         },
         // 编辑 // 新增菜单 // 增加下一级
