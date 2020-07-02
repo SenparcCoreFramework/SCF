@@ -754,6 +754,7 @@
                 this.dialog.data.id = '';
                 this.dialog.title = '增加下一级菜单';
                 this.dialog.data.menuName = '';
+                this.dialog.data.parentId.push(row.id);
             }
         },
         // 设置父级菜单默认显示 递归
