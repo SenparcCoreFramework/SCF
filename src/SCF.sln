@@ -54,7 +54,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Xscf.ExtensionAreaT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyExtensionCode", "..\XscfExtensionSample\MyExtensionCode\MyExtensionCode.csproj", "{F843D239-088B-420C-9559-2D334CDAB279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Web.FirefoxDriverTest", "Senparc.Web.FirefoxDriverTest\Senparc.Web.FirefoxDriverTest.csproj", "{22B88A11-137D-42FB-9ED0-AC15A3FF651F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Web.FirefoxDriverTest", "Senparc.Web.FirefoxDriverTest\Senparc.Web.FirefoxDriverTest.csproj", "{22B88A11-137D-42FB-9ED0-AC15A3FF651F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
