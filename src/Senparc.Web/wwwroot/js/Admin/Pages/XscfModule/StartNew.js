@@ -59,6 +59,7 @@
 
         // 打开执行
         openRun(item, flag) {
+            // 关闭状态返回
             flag = flag + '';
             if (flag === '0') {
                 this.$notify({
@@ -72,28 +73,60 @@
             this.runData = {};
                 this.run.data.value.map(res => {
                     // 动态model绑定生成
-                    // 默认选择
+                    // 默认选择赋值
+                    // 多选
                     if (res.parameterType === 2 && res.selectionList.items) {
-                        this.runData[res.name] = [];
+                        this.runData[res.name] = {};
+                        this.runData[res.name].value = [];
+                        this.runData[res.name].item = res;
                         res.selectionList.items.map(ele => {
                             if (ele.defaultSelected) {
-                                this.runData[res.name].push(ele.value);
+                                this.runData[res.name].value.push(ele.value);
                             }
                         });
                     }
+                    // 下拉框value
                     if (res.parameterType === 1 && res.selectionList.items) {
-                        this.runData[res.name] = [];
+                        this.runData[res.name] = {};
+                        this.runData[res.name].value = '';
+                        this.runData[res.name].item = res;
                         res.selectionList.items.map(ele => {
                             if (ele.defaultSelected) {
-                                this.runData[res.name].push(ele.value);
+                                this.runData[res.name].value=ele.value;
                             }
                         });
+                        // 如果没有默认给第一个
+                        if (this.runData[res.name].value.length === 0) {
+                            this.runData[res.name].value = res.selectionList.items[0].value;
+                        }
                     }
+                    // 输入框
                     if (res.parameterType === 0) {
-                        this.runData[res.name] = "";
+                        this.runData[res.name] = {};
+                        this.runData[res.name].item = res;
+                        this.runData[res.name].value = "";
                     }
                 });
             this.runData = Object.assign({}, this.runData);
+            //  this.runData数组结构
+            //在接口传输时，将下拉单选转成数组
+            //{
+            //   // parameterType === 2 多选
+            //    Modules: {
+            //        item: {},
+            //        value: []
+            //    },
+            //   // parameterType === 1 下拉单选
+            //    ReferenceType: {
+            //        item: {},
+            //        value: []
+            //    },
+            //   // parameterType === 0 input
+            //    SourcePath: {
+            //        item: {},
+            //        value: ''
+            //    }
+            //};
             this.run.visible = true;
         },
         // 执行
@@ -111,12 +144,21 @@
             this.run.visible = false;
             let xscfFunctionParams = {};
             for (var i in this.runData) {
-                if (Array.isArray(this.runData[i])) {
+                // 多选
+                if (this.runData[i].item.parameterType === 2) {
                     xscfFunctionParams[i] = {};
                     xscfFunctionParams[i].SelectedValues = [];
-                    xscfFunctionParams[i].SelectedValues = this.runData[i];
-                } else {
-                    xscfFunctionParams[i] = this.runData[i];
+                    xscfFunctionParams[i].SelectedValues = this.runData[i].value;
+                }
+                // 下拉框value为字符串，但接口要数组
+                if (this.runData[i].item.parameterType === 1) {
+                    xscfFunctionParams[i] = {};
+                    xscfFunctionParams[i].SelectedValues = [];
+                    xscfFunctionParams[i].SelectedValues[0] = this.runData[i].value;
+                }
+                // 输入框
+                if (this.runData[i].item.parameterType === 0) {
+                    xscfFunctionParams[i] = this.runData[i].value;
                 }
             }
             const data = {
