@@ -790,7 +790,7 @@
                         IsLocked: this.dialog.data.isLocked,
                         MenuType: this.dialog.data.menuType
                     };
-                    service.post("/Admin/Menu/Edit?handler=save", data).then(res => {
+                    service.post("/Admin/Menu/Edit", data).then(res => {
                         if (res.data.success) {
                             this.getList();
                             this.$notify({
