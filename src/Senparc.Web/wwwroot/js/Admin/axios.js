@@ -23,7 +23,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     response => {
-        if (response.status === 200 ) {
+        if (response.status === 200) {
             if (response.data.success) {
                 return Promise.resolve(response);
             } else {
@@ -59,9 +59,16 @@ service.interceptors.response.use(
                     window.location.href = '/Admin/Login?url=' + escape(window.location.pathname + window.location.search);
                 }
             });
-            return;
+            return Promise.reject(error);
+        } if (error.message.includes('403')) {
+            app.$message({
+                message: '您没有访问权限~',
+                type: 'error',
+                duration: 3 * 1000
+            });
+            return Promise.reject(error);
         } else if (error.message.includes('302')) {
-            return;
+            return Promise.reject(error);
         }
         app.$message({
             message: error.message,

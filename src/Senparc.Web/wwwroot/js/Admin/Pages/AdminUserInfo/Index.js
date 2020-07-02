@@ -97,10 +97,10 @@
                 // 编辑
                 let { userName, password, realName, phone, note, id } = row;
                 this.dialog.data = {
-                    userName, password, realName, phone, note, id
+                    userName, realName, phone, note, id, password: '', password2:''
                 };
-                this.dialog.data.password2 = password;
                 this.dialog.title = '编辑管理员';
+                this.dialog = Object.assign({}, this.dialog);
             } else {
                 // 新增
                 this.dialog.title = '新增管理员';

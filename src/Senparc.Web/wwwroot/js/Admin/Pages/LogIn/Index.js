@@ -36,7 +36,7 @@ var app = new Vue({
                 this.loading = true;
                 var url = "/Admin/Login?handler=Login";
                 let data = {
-                    Name: this.ruleForm.user,
+                    Name: this.ruleForm.user+'',
                     Password: this.ruleForm.pass
                 };
                 if (valid) {
