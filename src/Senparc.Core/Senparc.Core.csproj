@@ -31,13 +31,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
 
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.312-beta2" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.312-beta2" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.400-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.400-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.400-beta1" />
     <PackageReference Include="Senparc.Weixin" Version="6.7.502" />
     <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.502" />
     <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.502" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.502" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.502.1" />
   </ItemGroup>
 
   <ItemGroup>
