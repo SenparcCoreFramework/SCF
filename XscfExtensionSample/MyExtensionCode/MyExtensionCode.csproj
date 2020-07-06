@@ -7,7 +7,7 @@
   <ItemGroup>
     <!--<ProjectReference Include="..\..\..\..\weixin.senparc.com Site\Senparc.Xscf.WeChatSampleBuilder\Senparc.Xscf.WeChatSampleBuilder.csproj" />
     <ProjectReference Include="..\..\..\Senparc.Xscf.WeixinManager\src\Senparc.Xscf.WeixinManager\Senparc.Xscf.WeixinManager.csproj" />-->
-    <PackageReference Include="Senparc.Xscf.WeixinManager" Version="0.2.2-beta1" />
+    <PackageReference Include="Senparc.Xscf.WeixinManager" Version="0.2.4.2-beta1" />
     <PackageReference Include="Senparc.Xscf.WeChatSampleBuilder" Version="0.1.0" />
 
     <PackageReference Include="Senparc.Xscf.DatabaseToolkit" Version="0.5.900-beta1" />
