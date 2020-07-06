@@ -19,7 +19,7 @@ namespace Senparc.Service
         public SmsRecordService(IHttpContextAccessor httpContextAccessor, IServiceProvider serviceProvider)
         {
             _httpContextAccessor = httpContextAccessor;
-            _serviceProvider = _serviceProvider;
+            _serviceProvider = serviceProvider;
         }
         /// <summary>
         /// 设置允许发送令牌

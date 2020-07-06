@@ -87,7 +87,18 @@ namespace Senparc.Web
                 {
                     //opt.RootDirectory = "/";
                 })
-              .AddScfAreas(env)//注册所有 Scf 的 Area 模块（必须）
+              .AddScfAreas(env).ConfigureApiBehaviorOptions(options =>
+              {
+                  options.InvalidModelStateResponseFactory = actionContext =>
+                  {
+                      var values = actionContext.ModelState.Where(_ => _.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid).Select(_ => new { _.Key, Errors = _.Value.Errors.Select(__ => __.ErrorMessage) });
+                      AjaxReturnModel commonReturnModel = new AjaxReturnModel<object>(values);
+                      commonReturnModel.Success = false;
+                      commonReturnModel.Msg = "参数校验未通过";
+                      //commonReturnModel.StatusCode = Core.App.CommonReturnStatusCode.参数校验不通过;
+                      return new BadRequestObjectResult(commonReturnModel);
+                  };
+              })//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
               {

@@ -60,7 +60,7 @@ namespace Senparc.Areas.Admin
 
             //Attributes
             services.AddScoped(typeof(AuthenticationResultFilterAttribute));
-            services.AddScoped(typeof(AuthenticationAsyncPageFilterAttribute));
+            //services.AddScoped(typeof(AuthenticationAsyncPageFilterAttribute));
 
             //AutoMap映射
             base.AddAutoMapMapping(profile =>

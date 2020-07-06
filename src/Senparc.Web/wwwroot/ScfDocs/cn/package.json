@@ -1,0 +1,16 @@
+{
+  "name": "dongjian-doc-website",
+  "version": "1.0.0",
+  "description": "dongjian doc website",
+  "author": "henry",
+  "main": "index.html",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "morgan": "^1.9.1",
+    "serve-static": "^1.13.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "node server.js"
+  }
+}

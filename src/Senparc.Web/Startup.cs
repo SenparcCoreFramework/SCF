@@ -1,3 +1,5 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.Scf.Core.Models;
 using Senparc.Web.Hubs;
+using System;
 using System.IO;
 
 namespace Senparc.Web
@@ -29,6 +32,8 @@ namespace Senparc.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute>();
+            //services.AddAutoMapper(typeof(Scf.Core.AutoMapper.SystemProfile));
             //添加（注册） Scf 服务（重要，必须！）
             services.AddScfServices(Configuration, env, CompatibilityVersion.Version_3_0);
         }
@@ -49,14 +54,8 @@ namespace Senparc.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
-                RequestPath = new PathString("/node_modules")
-            });
 
             app.UseCookiePolicy();
 

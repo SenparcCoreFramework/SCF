@@ -1,15 +1,37 @@
 ﻿@page
 @model Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages.About
-@addTagHelper *, MyArea
 @{
-    ViewData["Title"] = "关于";
-    Layout = "_XscfModuleLayout";
+    ViewData["Title"] = "扩展页面测试模块";
+    Layout = "_Layout_Vue";
 }
 @section breadcrumbs{
-    <li>手动设置导航-关于</li>
-}
-@section subMenu{
-    <li><a href="@Model.XscfRegister.GetAreaUrl("/Admin/MyApp/HidePage")"><i class="fa fa-bookmark-o"></i> 隐藏菜单</a></li>
+    <el-breadcrumb-item>扩展模块</el-breadcrumb-item>
+    <el-breadcrumb-item>扩展页面测试模块</el-breadcrumb-item>
+    <el-breadcrumb-item>关于</el-breadcrumb-item>
 }
 
-<p>@Model.XscfRegister.Description</p>
+<div>
+    <el-container>
+        <el-header class="module-header">
+            <span class="start-title"> <i class="fa fa-dot-circle-o"></i>&nbsp;<span class="module-header-v">关于</span></span>
+        </el-header>
+        <el-main>
+            <h4>@Model.XscfRegister.Description</h4>
+            <br />
+            <a :href="'/Admin/MyApp/HidePage?uid='+uid"><i class="fa fa-bookmark-o"></i>隐藏菜单</a>
+        </el-main>
+    </el-container>
+</div>
+@section scripts{
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    uid:resizeUrl().uid
+                };
+            }
+        });
+    </script>
+}
+
