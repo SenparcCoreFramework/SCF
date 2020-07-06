@@ -107,7 +107,7 @@
                         <el-card class="box-card">
                             <div slot="header" class="clearfix">
                                 <span>进入 {{data.xscfRegister.menuName}} 的首页</span>
-                                <a v-if="data.xscfModule.state===1" :href="data.xscfRegister.areaHomeUrl" class="box-card-action">进入首页</a>
+                                <a @@click="openUrl(data.xscfRegister.areaHomeUrl,data.xscfModule.state)" :class="[data.xscfModule.state===1?'box-card-action':'box-card-action2','box-card-action']">进入首页</a>
                                 <p class="box-card-des">地址：<a :href="data.xscfRegister.areaHomeUrl">{{data.xscfRegister.areaHomeUrl}}</a></p>
                             </div>
                             <template>
