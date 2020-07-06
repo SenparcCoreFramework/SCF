@@ -25,8 +25,8 @@
     <PackageReference Include="Senparc.WebSocket" Version="0.10.502" />
     <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.502" />
     <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.502" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.502.1" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.502.2" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.502.2" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.502.3" />
     <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.502" />
     <PackageReference Include="Senparc.Scf.Core" Version="0.3.302-beta1" />
     <PackageReference Include="Senparc.Scf.Log" Version="0.3.302-beta1" />
@@ -38,9 +38,9 @@
     <ProjectReference Include="..\Senparc.File\Senparc.File.csproj" />
     <ProjectReference Include="..\Senparc.ImageUtility\Senparc.ImageUtility.csproj" />
     <ProjectReference Include="..\Senparc.Log\Senparc.Log.csproj" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.312-beta2" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.312-beta2" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.312-beta2" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.401-beta1" />
     <ProjectReference Include="..\Senparc.Service\Senparc.Service.csproj" />
     <ProjectReference Include="..\Senparc.Utility\Senparc.Utility.csproj" />
   </ItemGroup>

@@ -71,7 +71,7 @@ namespace Senparc.Service
             return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
         }
 
-        public async Task Logout()
+        public async Task LogoutAsync()
         {
             try
             {
@@ -102,7 +102,7 @@ namespace Senparc.Service
                 IsPersistent = false,
             };
 
-            Logout(); //退出登录
+            LogoutAsync().ConfigureAwait(false).GetAwaiter().GetResult(); //退出登录
             _contextAccessor.Value.HttpContext.SignInAsync(SiteConfig.ScfAdminAuthorizeScheme, new ClaimsPrincipal(identity), authProperties);
 
             #endregion
