@@ -23,7 +23,6 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
     [IgnoreAuth]
     public class XscfModuleStartModel : BaseAdminPageModel
     {
-        public IXscfRegister XscfRegister { get; set; }
         private readonly SysMenuService _sysMenuService;
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
         public Dictionary<IXscfFunction, List<FunctionParameterInfo>> FunctionParameterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();

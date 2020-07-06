@@ -20,7 +20,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
     {
         private readonly AdminUserInfoService _adminUserInfoService;
         public PagedList<AdminUserInfo> AdminUserInfoList { get; set; }
-        private IServiceProvider _serviceProvider;
+
         /// <summary>
         /// 属性绑定，支持GET
         /// </summary>

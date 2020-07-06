@@ -24,13 +24,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Senparc.CO2NET.Cache.CsRedis" Version="0.3.110" />
     <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.9.110" />
-    <PackageReference Include="Senparc.Scf.AreaBase" Version="0.3.400-beta1" />
-    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.400-beta1" />
-    <PackageReference Include="Senparc.Scf.Core" Version="0.3.400-beta1" />
-    <PackageReference Include="Senparc.Scf.Log" Version="0.3.400-beta1" />
-    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.400-beta1" />
-    <PackageReference Include="Senparc.Scf.Service" Version="0.3.400-beta1" />
-    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.400-beta1" />
+    <PackageReference Include="Senparc.Scf.AreaBase" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.XscfBase" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Core" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Log" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Mvc.UI" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Service" Version="0.3.401-beta1" />
+    <PackageReference Include="Senparc.Scf.Utility" Version="0.3.401-beta1" />
   </ItemGroup>
 
   <ItemGroup>

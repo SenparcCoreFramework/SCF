@@ -123,7 +123,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         public async Task<IActionResult> OnGetLogoutAsync()
         {
             SenparcTrace.SendCustomLog("管理员退出登录", $"用户名：{base.UserName}");
-            await _userInfoService.Logout();
+            await _userInfoService.LogoutAsync();
             return RedirectToPage(new { area = "Admin" });
         }
     }
