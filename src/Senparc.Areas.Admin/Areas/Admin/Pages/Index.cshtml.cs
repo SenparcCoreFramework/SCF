@@ -72,6 +72,11 @@ namespace Senparc.Areas.Admin.Pages
                     }));
                     item.Url = string.Empty;
                 }
+                else if (!string.IsNullOrEmpty(item.Url) && item.Url.Contains("uid=") && hideModuleManager)
+                {
+                    item.ParentId = null;
+                    item.Id = (index++).ToString();
+                }
                 if (hideModuleManager && item.Id == "4")
                 {
                     continue;
