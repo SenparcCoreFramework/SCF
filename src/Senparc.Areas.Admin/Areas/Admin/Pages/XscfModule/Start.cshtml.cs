@@ -250,7 +250,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 await register.UninstallAsync(_serviceProvider, uninstall).ConfigureAwait(false);
             }
 
-            return RedirectToPage("Index");
+            return Ok(true);
         }
 
 
