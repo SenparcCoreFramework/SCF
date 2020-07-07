@@ -4,7 +4,7 @@
         return {
             newTableData: [], // 新模块数据
             oldTableData: [], // 已安装模块
-            isExtend: false, // 是否切换状态
+            isExtend: false, //是否切换状态
             handlerText: "",
             handlerTips: "",
             newData: {},
