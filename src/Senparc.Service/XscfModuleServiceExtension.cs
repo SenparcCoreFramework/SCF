@@ -1,5 +1,6 @@
 ﻿using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.Core.Models;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -113,6 +115,13 @@ namespace Senparc.Service
             if (installOrUpdate == InstallOrUpdate.Install)
             {
                 //更新菜单信息
+                SysPermissionDto sysPermissionDto = new SysPermissionDto() 
+                {
+                     IsMenu = true, ResourceCode = sysMemu.ResourceCode, RoleId = "1", RoleCode = "administrator", PermissionId = sysMemu.Id
+                };
+                SenparcEntities db = _serviceProvider.GetService<SenparcEntities>();
+                db.SysPermission.Add(new SysPermission(sysPermissionDto));
+                await db.SaveChangesAsync();
                 var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
                 await base.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
             }
