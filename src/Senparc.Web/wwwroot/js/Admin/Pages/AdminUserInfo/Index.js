@@ -64,6 +64,17 @@
     created: function () {
         this.getList();
     },
+    computed: {
+        isVerPass() {
+            if (this.dialog.title === '新增管理员') {
+                return true;
+            } else if (this.dialog.title === '编辑管理员' && this.dialog.data.password.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
     watch: {
         'dialog.visible': function (val, old) {
             // 关闭dialog，清空
@@ -97,7 +108,7 @@
                 // 编辑
                 let { userName, password, realName, phone, note, id } = row;
                 this.dialog.data = {
-                    userName, realName, phone, note, id, password: '', password2:''
+                    userName, realName, phone, note, id, password: '', password2: ''
                 };
                 this.dialog.title = '编辑管理员';
                 this.dialog = Object.assign({}, this.dialog);
@@ -108,10 +119,10 @@
         },
         // 更新新增编辑
         updateData() {
-            this.dialog.updateLoading = true;
             this.$refs['dataForm'].validate(valid => {
                 // 表单校验
                 if (valid) {
+                    this.dialog.updateLoading = true;
                     let data = {
                         Id: this.dialog.data.id,
                         UserName: this.dialog.data.userName,
@@ -132,6 +143,8 @@
                             this.dialog.visible = false;
                             this.dialog.updateLoading = false;
                         }
+                    }).catch(error => {
+                        this.dialog.updateLoading = false;
                     });
                 }
             });
