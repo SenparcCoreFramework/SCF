@@ -1,25 +1,23 @@
 ﻿var app = new Vue({
     el: "#app",
     data() {
-        const validatePass = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请输入密码'));
-            } else {
-                if (this.dialog.data.password2 !== '') {
-                    this.$refs.dataForm.validateField('password2');
-                }
-                callback();
-            }
-        };
-        const validatePass2 = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请再次输入密码'));
-            } else if (value !== this.dialog.data.password) {
-                callback(new Error('两次输入密码不一致!'));
-            } else {
-                callback();
-            }
-        };
+        //const validatePass = (rule, value, callback) => {
+        //    if (value === '') {
+        //        callback();
+        //    } else {
+        //            this.$refs.dataForm.validateField('password2');
+        //        callback();
+        //    }
+        //};
+        //const validatePass2 = (rule, value, callback) => {
+        //    if (value === '') {
+        //        callback(new Error('请再次输入密码'));
+        //    } else if (value !== this.dialog.data.password) {
+        //        callback(new Error('两次输入密码不一致!'));
+        //    } else {
+        //        callback();
+        //    }
+        //};
         return {
             //分页参数
             paginationQuery: {
@@ -47,9 +45,9 @@
                 rules: {
                     userName: [
                         { required: true, message: "用户名为必填项", trigger: "blur" }
-                    ],
-                    password: [{ required: true, validator: validatePass, trigger: "blur" }],
-                    password2: [{ required: true, validator: validatePass2, trigger: "blur" }]
+                    ]
+                    //password: [{ required: true, validator: validatePass, trigger: "blur" }],
+                    //password2: [{ required: true, validator: validatePass2, trigger: "blur" }]
                 },
                 updateLoading: false,
                 visibleSet: false, // 设置角色dialog
@@ -57,7 +55,10 @@
                 dialogSetData: [],
                 dialogSetSelected: [], //多选框
                 setId: '',
-                setTitle: ''
+                setTitle: '',
+                passwordError:'',
+                password2Error: '',
+                isVerTrue:false // 密码校验是否通过
             }
         };
     },
@@ -65,10 +66,11 @@
         this.getList();
     },
     computed: {
+        // 密码需要校验
         isVerPass() {
             if (this.dialog.title === '新增管理员') {
                 return true;
-            } else if (this.dialog.title === '编辑管理员' && this.dialog.data.password.length > 0) {
+            } else if (this.dialog.title === '编辑管理员' && this.dialog.data.password.length > 0 || this.dialog.title === '编辑管理员' && this.dialog.data.password2.length > 0) {
                 return true;
             } else {
                 return false;
@@ -76,6 +78,12 @@
         }
     },
     watch: {
+        'dialog.data.password': function myfunction(val) {
+            this.checkPass();
+        },
+        'dialog.data.password2': function myfunction(val) {
+            this.checkPass();
+        },
         'dialog.visible': function (val, old) {
             // 关闭dialog，清空
             if (!val) {
@@ -88,11 +96,43 @@
                     phone: '',
                     note: ''
                 };
+                this.dialog.password2Error = '';
+                this.dialog.passwordError = '';
                 this.dialog.updateLoading = false;
+                this.$refs['dataForm'].resetFields();
             }
         }
     },
     methods: {
+        // 再次校验密码
+        checkPass() {
+            if (this.isVerPass) {
+                if (this.dialog.data.password === '') {
+                    if (this.dialog.visible) {
+
+                    this.dialog.passwordError = '请输入密码';
+                    this.dialog.isVerTrue = false;
+                    return false;
+                    }
+                } else {
+                    this.dialog.passwordError = '';
+                    if (this.dialog.data.password2 === '') {
+                        this.dialog.password2Error = '请再次输入密码';
+                        this.dialog.isVerTrue = false;
+                        return false;
+                    } else if (this.dialog.data.password !== this.dialog.data.password2) {
+                        this.dialog.password2Error = '请输入相同的密码';
+                        this.dialog.isVerTrue = false;
+                        return false;
+                    } else {
+                        this.dialog.password2Error = '';
+                        this.dialog.passwordError = '';
+                        this.dialog.isVerTrue = true;
+                        return true;
+                    }
+                }
+            }
+        },
         // 获取数据
         getList() {
             let { adminUserInfoName, pageIndex, pageSize } = this.listQuery;
@@ -122,6 +162,14 @@
             this.$refs['dataForm'].validate(valid => {
                 // 表单校验
                 if (valid) {
+                    // 需要校验
+                    if (this.isVerPass) {
+                        // 校验不通过
+                        if (!this.dialog.isVerTrue) {
+                            console.log('不通过');
+                            return false;
+                        }
+                    }
                     this.dialog.updateLoading = true;
                     let data = {
                         Id: this.dialog.data.id,

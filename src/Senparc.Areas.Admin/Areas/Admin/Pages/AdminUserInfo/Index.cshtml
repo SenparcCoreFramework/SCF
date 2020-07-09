@@ -69,7 +69,7 @@
                     :limit.sync="listQuery.pageSize"
                     @@pagination="getList"></pagination>
         <!--编辑、新增 -->
-        <el-dialog :title="dialog.title" :visible.sync="dialog.visible">
+        <el-dialog :title="dialog.title" :visible.sync="dialog.visible" :close-on-click-modal="false">
             <el-form ref="dataForm"
                      :rules="dialog.rules"
                      :model="dialog.data"
@@ -80,10 +80,10 @@
                 <el-form-item label="用户名" prop="userName">
                     <el-input v-model="dialog.data.userName" clearable placeholder="请输入用户名" />
                 </el-form-item>
-                <el-form-item label="密码" :prop="isVerPass?'password':''">
+                <el-form-item label="密码" :error="dialog.passwordError" :required="isVerPass">
                     <el-input v-model="dialog.data.password" show-password clearable placeholder="请输入密码" />
                 </el-form-item>
-                <el-form-item label="再次确认密码" :prop="isVerPass?'password2':''">
+                <el-form-item label="再次确认密码" :error="dialog.password2Error" :required="isVerPass">
                     <el-input v-model="dialog.data.password2" show-password clearable placeholder="请再次输入密码" />
                 </el-form-item>
                 <el-form-item label="真实姓名" prop="realName">
