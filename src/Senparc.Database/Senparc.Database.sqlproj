@@ -63,14 +63,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Local.scmp" />
+    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />
     <Build Include="dbo\Tables\SystemConfigs.sql" />
     <Build Include="dbo\Tables\AdminUserInfos.sql" />
     <Build Include="dbo\Tables\FeedBacks.sql" />
     <Build Include="dbo\Tables\Accounts.sql" />
     <Build Include="dbo\Tables\PointsLogs.sql" />
     <Build Include="dbo\Tables\AccountPayLogs.sql" />
+    <Build Include="dbo\Tables\XscfModules.sql" />
+    <Build Include="dbo\Tables\WeixinManager_WeixinUser.sql" />
+    <Build Include="dbo\Tables\WeixinManager_UserTag_WeixinUser.sql" />
+    <Build Include="dbo\Tables\WeixinManager_UserTag.sql" />
+    <Build Include="dbo\Tables\WeixinManager_MpAccount.sql" />
+    <Build Include="dbo\Tables\SysRoles.sql" />
+    <Build Include="dbo\Tables\SysRoleAdminUserInfos.sql" />
+    <Build Include="dbo\Tables\SysPermission.sql" />
+    <Build Include="dbo\Tables\SysMenus.sql" />
+    <Build Include="dbo\Tables\SysButtons.sql" />
+    <Build Include="dbo\Tables\Docs_Catalog.sql" />
+    <Build Include="dbo\Tables\Docs_Article.sql" />
+    <Build Include="dbo\Tables\__WeixinManager__EFMigrationsHistory.sql" />
+    <Build Include="dbo\Tables\__Docs__EFMigrationsHistory.sql" />
+    <Build Include="dbo\Tables\___EFMigrationsHistory.sql" />
   </ItemGroup>
 </Project>

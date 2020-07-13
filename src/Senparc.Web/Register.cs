@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using log4net;
+using log4net.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Senparc.CO2NET;
+using Senparc.CO2NET.AspNet;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET.Trace;
 using Senparc.Respository;
 using Senparc.Scf.Core;
@@ -15,11 +19,13 @@ using Senparc.Scf.Core.Areas;
 using Senparc.Scf.Core.AssembleScan;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Models;
-using Senparc.Scf.Service;
 using Senparc.Scf.SMS;
 using Senparc.Scf.XscfBase;
+using Senparc.Weixin;
 using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -38,6 +44,17 @@ namespace Senparc.Web
             //{
             //    options.ForwardClientCertificate = false;
             //});
+
+            //启用以下代码强制使用 https 访问
+            //services.AddHttpsRedirection(options =>
+            //{
+            //    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //    options.HttpsPort = 443;
+            //});
+
+            //读取Log配置文件
+            var repository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
 
             //提供网站根目录
             if (env.ContentRootPath != null)
@@ -64,12 +81,24 @@ namespace Senparc.Web
             //    //options.AllowMappingHeadRequestsToGetHandler = false;//https://www.learnrazorpages.com/razor-pages/handler-methods
             //})
 
+            services.AddSenparcGlobalServices(configuration);
 
             var builder = services.AddRazorPages(opt =>
                 {
                     //opt.RootDirectory = "/";
                 })
-              .AddScfAreas(env)//注册所有 Scf 的 Area 模块（必须）
+              .AddScfAreas(env).ConfigureApiBehaviorOptions(options =>
+              {
+                  options.InvalidModelStateResponseFactory = actionContext =>
+                  {
+                      var values = actionContext.ModelState.Where(_ => _.Value.ValidationState == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid).Select(_ => new { _.Key, Errors = _.Value.Errors.Select(__ => __.ErrorMessage) });
+                      AjaxReturnModel commonReturnModel = new AjaxReturnModel<object>(values);
+                      commonReturnModel.Success = false;
+                      commonReturnModel.Msg = "参数校验未通过";
+                      //commonReturnModel.StatusCode = Core.App.CommonReturnStatusCode.参数校验不通过;
+                      return new BadRequestObjectResult(commonReturnModel);
+                  };
+              })//注册所有 Scf 的 Area 模块（必须）
               .AddXmlSerializerFormatters()
               .AddJsonOptions(options =>
               {
@@ -145,27 +174,150 @@ namespace Senparc.Web
             });
             services.AddHttpContextAccessor();
 
-            //Attributes
-            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationResultFilterAttribute));
-            services.AddScoped(typeof(Senparc.Scf.AreaBase.Admin.Filters.AuthenticationAsyncPageFilterAttribute));
-
-            //Repository
-            services.AddScoped(typeof(Senparc.Scf.Repository.IRepositoryBase<>), typeof(Senparc.Scf.Repository.RepositoryBase<>));
-            services.AddScoped(typeof(ServiceBase<>));
-            services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+            //Repository & Service
             services.AddScoped(typeof(ISysButtonRespository), typeof(SysButtonRespository));
+
             //Other
             services.AddScoped(typeof(Scf.Core.WorkContext.Provider.IAdminWorkContextProvider), typeof(Scf.Core.WorkContext.Provider.AdminWorkContextProvider));
             services.AddTransient<Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor, Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor>();
 
-            //激活 Xscf 扩展引擎
-            services.StartEngine();
+            //激活 Xscf 扩展引擎（必须）
+            services.StartEngine(configuration);
         }
 
-        public static void UseScf(this IApplicationBuilder app, IOptions<SenparcCoreSetting> senparcCoreSetting)
+        public static void UseScf(this IApplicationBuilder app, IWebHostEnvironment env,
+            IOptions<SenparcCoreSetting> senparcCoreSetting,
+            IOptions<SenparcSetting> senparcSetting)
         {
             Senparc.Scf.Core.Config.SiteConfig.SenparcCoreSetting = senparcCoreSetting.Value;
-            Senparc.Scf.XscfBase.Register.UseScfModules(app);
+
+            // 启动 CO2NET 全局注册，必须！
+            // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
+            var registerService = app
+                //全局注册
+                .UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
+                {
+                    #region CO2NET 全局配置
+
+                    #region 全局缓存配置（按需）
+
+                    #region 配置和使用 Redis
+
+                    //配置全局使用Redis缓存（按需，独立）
+                    if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
+                    {
+                        /* 说明：
+                         * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
+                        /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
+                         */
+                        Senparc.CO2NET.Cache.CsRedis.Register.SetConfigurationOption(redisConfigurationStr);
+
+                        //以下会立即将全局缓存设置为 Redis
+                        Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow(); //键值对缓存策略（推荐）
+                                                                                     //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+
+                        //也可以通过以下方式自定义当前需要启用的缓存策略
+                        //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
+                        //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisHashSetObjectCacheStrategy.Instance);//HashSet
+                    }
+                    //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
+
+                    #endregion
+
+                    #endregion
+
+                    #region 注册日志（按需，建议）
+
+                    globalRegister.RegisterTraceLog(ConfigTraceLog); //配置TraceLog
+
+                    #endregion
+
+
+                    #endregion
+                });
+
+            //XscfModules（必须）
+            Senparc.Scf.XscfBase.Register.UseXscfModules(app, registerService);
+
+            #region .NET Core默认不支持GB2312
+
+            //http://www.mamicode.com/info-detail-2225481.html
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            #endregion
+
+            #region Senparc.Core 设置
+
+            //用于解决HttpContext.Connection.RemoteIpAddress为null的问题
+            //https://stackoverflow.com/questions/35441521/remoteipaddress-is-always-null
+            app.UseHttpMethodOverride(new HttpMethodOverrideOptions
+            {
+                //FormFieldName = "X-Http-Method-Override"//此为默认值
+            });
+
+            #endregion
+
+            #region 异步线程
+
+            {
+                ////APM Ending 数据统计
+                //var utility = new APMNeuralDataThreadUtility();
+                //Thread thread = new Thread(utility.Run) { Name = "APMNeuralDataThread" };
+                //SiteConfig.AsynThread.Add(thread.Name, thread);
+            }
+
+            SiteConfig.AsynThread.Values.ToList().ForEach(z =>
+            {
+                z.IsBackground = true;
+                z.Start();
+            }); //全部运行 
+
+            //更多 XSCF 模块线程已经集成到 Senparc.Scf.XscfBase.Register.ThreadCollection 中
+
+            #endregion
         }
+
+
+        /// <summary>
+        /// 判断当前配置是否满足使用 Redis（根据是否已经修改了默认配置字符串判断）
+        /// </summary>
+        /// <param name="senparcSetting"></param>
+        /// <returns></returns>
+        internal static bool UseRedis(SenparcSetting senparcSetting, out string redisConfigurationStr)
+        {
+            redisConfigurationStr = senparcSetting.Cache_Redis_Configuration;
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
+            return useRedis;
+        }
+
+
+        /// <summary>
+        /// 配置微信跟踪日志
+        /// </summary>
+        private static void ConfigTraceLog()
+        {
+            //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
+
+            //如果全局的IsDebug（Senparc.CO2NET.Config.IsDebug）为false，此处可以单独设置true，否则自动为true
+            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("系统日志",
+                "SenparcCoreFramework 系统启动"); //只在Senparc.Weixin.Config.IsDebug = true的情况下生效
+
+            //全局自定义日志记录回调
+            Senparc.CO2NET.Trace.SenparcTrace.OnLogFunc = () =>
+            {
+                //加入每次触发Log后需要执行的代码
+            };
+
+            //当发生基于WeixinException的异常时触发
+            WeixinTrace.OnWeixinExceptionFunc = ex =>
+            {
+                //加入每次触发WeixinExceptionLog后需要执行的代码
+
+                //发送模板消息给管理员
+                //var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
+                //eventService.ConfigOnWeixinExceptionFunc(ex);
+            };
+        }
+
     }
 }

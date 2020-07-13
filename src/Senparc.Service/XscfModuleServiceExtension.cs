@@ -1,5 +1,6 @@
 ﻿using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.Core.Models;
 using Senparc.Scf.Core.Config;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Core.Models;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Service
 {
@@ -57,7 +59,9 @@ namespace Senparc.Service
             {
                 installOrUpdateValue = installOrUpdate;
                 //底层系统模块此时还没有设置好初始化的菜单信息，不能设置菜单
-                if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_UID)
+                if (register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_SERVICE_UID &&
+                    register.Uid != Senparc.Scf.Core.Config.SiteConfig.SYSTEM_XSCF_MODULE_AREAS_ADMIN_UID
+                    )
                 {
                     await InstallMenuAsync(register, installOrUpdate);
                 }
@@ -91,7 +95,18 @@ namespace Senparc.Service
             {
                 //新建菜单
                 var icon = register.Icon.IsNullOrEmpty() ? "fa fa-bars" : register.Icon;
-                var order = register.Uid == SiteConfig.SYSTEM_XSCF_MODULE_UID ? 150 : 20;
+                var order = 20;
+                switch (register.Uid)
+                {
+                    case SiteConfig.SYSTEM_XSCF_MODULE_SERVICE_UID:
+                        order = 160;
+                        break;
+                    case SiteConfig.SYSTEM_XSCF_MODULE_AREAS_ADMIN_UID:
+                        order = 150;
+                        break;
+                    default:
+                        break;
+                }
                 menuDto = new SysMenuDto(true, null, register.MenuName, topMenu.Id, $"/Admin/XscfModule/Start/?uid={register.Uid}", icon, order, true, null);
             }
 
@@ -100,6 +115,13 @@ namespace Senparc.Service
             if (installOrUpdate == InstallOrUpdate.Install)
             {
                 //更新菜单信息
+                SysPermissionDto sysPermissionDto = new SysPermissionDto() 
+                {
+                     IsMenu = true, ResourceCode = sysMemu.ResourceCode, RoleId = "1", RoleCode = "administrator", PermissionId = sysMemu.Id
+                };
+                SenparcEntities db = _serviceProvider.GetService<SenparcEntities>();
+                db.SysPermission.Add(new SysPermission(sysPermissionDto));
+                await db.SaveChangesAsync();
                 var updateMenuDto = new UpdateMenuId_XscfModuleDto(register.Uid, sysMemu.Id);
                 await base.UpdateMenuId(updateMenuDto).ConfigureAwait(false);
             }

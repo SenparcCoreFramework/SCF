@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
 using Senparc.Scf.Core.Enums;
+using Senparc.Xscf.ExtensionAreaTemplate.Models;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages
 {
@@ -37,18 +38,29 @@ namespace Senparc.Xscf.ExtensionAreaTemplate.Areas.MyApp.Pages
             return Task.CompletedTask;
         }
 
-        public async Task OnGetBrightenAsync()
+        public IActionResult OnGetDetail()
         {
-            ColorDto = await _colorService.Brighten().ConfigureAwait(false);
+            var color = _colorService.GetObject(z => true, z => z.Id, OrderingType.Descending);
+            var colorDto = _colorService.Mapper.Map<ColorDto>(color);
+            //return Task.CompletedTask;
+            return Ok(new { colorDto, XscfModuleDto });
         }
 
-        public async Task OnGetDarkenAsync()
+        public async Task<IActionResult> OnGetBrightenAsync()
         {
-            ColorDto = await _colorService.Darken().ConfigureAwait(false);
+            var colorDto = await _colorService.Brighten().ConfigureAwait(false);
+            return Ok(colorDto);
         }
-        public async Task OnGetRandomAsync()
+
+        public async Task<IActionResult> OnGetDarkenAsync()
         {
-            ColorDto = await _colorService.Random().ConfigureAwait(false);
+            var colorDto = await _colorService.Darken().ConfigureAwait(false);
+            return Ok(colorDto);
+        }
+        public async Task<IActionResult> OnGetRandomAsync()
+        {
+            var colorDto = await _colorService.Random().ConfigureAwait(false);
+            return Ok(colorDto);
         }
     }
 }

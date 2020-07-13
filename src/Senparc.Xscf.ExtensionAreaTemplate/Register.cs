@@ -1,26 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.Scf.Core.Areas;
+using Senparc.Scf.Core.Config;
+using Senparc.Scf.Core.Enums;
+using Senparc.Scf.Core.Models;
+using Senparc.Scf.XscfBase;
 using Senparc.Xscf.ExtensionAreaTemplate.Functions;
 using Senparc.Xscf.ExtensionAreaTemplate.Models;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel;
 using Senparc.Xscf.ExtensionAreaTemplate.Models.DatabaseModel.Dto;
 using Senparc.Xscf.ExtensionAreaTemplate.Services;
-using Senparc.Scf.Core.Areas;
-using Senparc.Scf.Core.Enums;
-using Senparc.Scf.Core.Models;
-using Senparc.Scf.XscfBase;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Senparc.Scf.Core.Config;
 
 namespace Senparc.Xscf.ExtensionAreaTemplate
 {
@@ -91,7 +89,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         public override async Task UninstallAsync(IServiceProvider serviceProvider, Func<Task> unsinstallFunc)
         {
             MySenparcEntities mySenparcEntities = serviceProvider.GetService<MySenparcEntities>();
-            
+
             //指定需要删除的数据实体
 
             //注意：这里作为演示，删除了所有的表，实际操作过程中，请谨慎操作，并且按照删除顺序对实体进行排序！
@@ -99,6 +97,12 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             await base.DropTablesAsync(serviceProvider, mySenparcEntities, dropTableKeys);
 
             await unsinstallFunc().ConfigureAwait(false);
+        }
+
+        public override IServiceCollection AddXscfModule(IServiceCollection services, IConfiguration configuration)
+        {
+            //任何需要注册的对象
+            return base.AddXscfModule(services, configuration);
         }
 
         #endregion
@@ -124,12 +128,6 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
             return builder;
         }
 
-        public override IServiceCollection AddXscfModule(IServiceCollection services)
-        {
-            //任何需要注册的对象
-            return base.AddXscfModule(services);
-        }
-
         #endregion
 
         #region IXscfDatabase 接口
@@ -151,7 +149,8 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
 
         public void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
+            //实现 [XscfAutoConfigurationMapping] 特性之后，可以自动执行，无需手动添加
+            //modelBuilder.ApplyConfiguration(new AreaTemplate_ColorConfigurationMapping());
         }
 
         public void AddXscfDatabaseModule(IServiceCollection services)
@@ -164,7 +163,7 @@ namespace Senparc.Xscf.ExtensionAreaTemplate
         #endregion
 
         #region IXscfRazorRuntimeCompilation 接口
-        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "Senparc.Xscf.ExtensionAreaTemplate"));
+        public string LibraryPath => Path.GetFullPath(Path.Combine(SiteConfig.WebRootPath, "..", "..", "Senparc.Xscf.ExtensionAreaTemplate"));
         #endregion
     }
 }

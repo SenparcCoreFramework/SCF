@@ -15,19 +15,23 @@ using System.Threading.Tasks;
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
     [AllowAnonymous]
+    [IgnoreAntiforgeryToken]
+    [BindProperties()]
     public class LoginModel : BasePageModel/* BaseAdminPageModel*/
     {
-        [BindProperty]
-        [Required(ErrorMessage = "ÇëÊäÈëÓÃ»§Ãû")]
-        public string Name { get; set; }
+        //[BindProperty]
+        //[FromBody]
+        //[Required(ErrorMessage = "ÇëÊäÈëÓÃ»§Ãû")]
+        //public string Name { get; set; }
 
-        [BindProperty]
-        [Required(ErrorMessage = "ÇëÊäÈëÃÜÂë")]
-        public string Password { get; set; }
+        //[BindProperty]
+        //[FromBody]
+        //[Required(ErrorMessage = "ÇëÊäÈëÃÜÂë")]
+        //public string Password { get; set; }
 
         //°ó¶¨²ÎÊı
-        [BindProperty]
-        public string ReturnUrl { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public string ReturnUrl { get; set; }
 
 
 
@@ -40,60 +44,95 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
 
         public async Task<IActionResult> OnGetAsync(string ReturnUrl)
         {
+            await Task.CompletedTask;
             //ÊÇ·ñÒÑ¾­µÇÂ¼
-            var logined = await base.CheckLoginedAsync(AdminAuthorizeAttribute.AuthenticationScheme);//ÅĞ¶ÏµÇÂ¼
+            //var logined = await base.CheckLoginedAsync(AdminAuthorizeAttribute.AuthenticationScheme);//ÅĞ¶ÏµÇÂ¼
 
-            if (logined)
-            {
-                if (ReturnUrl.IsNullOrEmpty())
-                {
-                    return RedirectToPage("/Index");
-                }
-                return LocalRedirect(ReturnUrl.UrlDecode());
-            }
+            //if (logined)
+            //{
+            //    if (ReturnUrl.IsNullOrEmpty())
+            //    {
+            //        return RedirectToPage("/Index");
+            //    }
+            //    return LocalRedirect(ReturnUrl.UrlDecode());
+            //}
 
             return null;
         }
 
-        public async Task<IActionResult> OnPostAsync(/*[Required]string name,string password*/)
+        //public async Task<IActionResult> OnPostAsync(/*[Required]string name,string password*/)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return null;
+        //    }
+        //    string errorMsg = null;
+
+        //    var userInfo = await _userInfoService.GetUserInfo(this.Name);
+        //    if (userInfo == null)
+        //    {
+        //        //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£";
+        //        ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£");
+        //    }
+        //    else if (_userInfoService.TryLogin(this.Name, this.Password, true) == null)
+        //    {
+        //        //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£";
+        //        ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£");
+        //    }
+
+        //    if (!errorMsg.IsNullOrEmpty() || !ModelState.IsValid)
+        //    {
+        //        //this.MessagerList = new List<Messager>
+        //        //{
+        //        //    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
+        //        //};
+        //        return null;
+        //    }
+
+        //    if (this.ReturnUrl.IsNullOrEmpty())
+        //    {
+        //        return RedirectToPage("/Index");
+        //    }
+        //    return LocalRedirect(this.ReturnUrl.UrlDecode());
+        //}
+
+        public async Task<IActionResult> OnPostLoginAsync([FromBody]LoginInDto loginInDto/*[Required]string name,string password*/)
         {
             if (!ModelState.IsValid)
             {
-                return null;
+                return Ok(new { loginInDto.Name, loginInDto.Password });
             }
-            string errorMsg = null;
 
-            var userInfo = await _userInfoService.GetUserInfo(this.Name);
+            var userInfo = await _userInfoService.GetUserInfo(loginInDto.Name);
             if (userInfo == null)
             {
-                errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£";
+                //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£";
+                return Ok("pwd", false, "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£");
+                //ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º101¡£");
             }
-            else if (_userInfoService.TryLogin(this.Name, this.Password, true) == null)
+            else if (_userInfoService.TryLogin(loginInDto.Name, loginInDto.Password, true) == null)
             {
-                errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£";
+                //errorMsg = "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£";
+                //ModelState.AddModelError(nameof(this.Password), "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£");
+                return Ok("pwd", false, "ÕËºÅ»òÃÜÂë´íÎó£¡´íÎó´úÂë£º102¡£");
             }
 
-            if (!errorMsg.IsNullOrEmpty() || !ModelState.IsValid)
-            {
-                this.MessagerList = new List<Messager>
-                {
-                    new Messager(Senparc.Scf.Core.Enums.MessageType.danger, errorMsg)
-                };
-                return null;
-            }
-
-            if (this.ReturnUrl.IsNullOrEmpty())
-            {
-                return RedirectToPage("/Index");
-            }
-            return LocalRedirect(this.ReturnUrl.UrlDecode());
+            return Ok(true);
         }
 
         public async Task<IActionResult> OnGetLogoutAsync()
         {
             SenparcTrace.SendCustomLog("¹ÜÀíÔ±ÍË³öµÇÂ¼", $"ÓÃ»§Ãû£º{base.UserName}");
-            await _userInfoService.Logout();
-            return Redirect("/");
+            await _userInfoService.LogoutAsync();
+            return RedirectToPage(new { area = "Admin" });
         }
+    }
+
+    public class LoginInDto
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging.Debug;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 
 namespace Senparc.Service
 {
@@ -35,11 +36,16 @@ namespace Senparc.Service
         /// <returns></returns>
         public bool CheckUserNameExisted(long id, string userName)
         {
-            return GetObject(z => z.Id != id && z.UserName.Equals(userName.Trim(), StringComparison.CurrentCultureIgnoreCase)) != null;
+            userName = userName.Trim().ToUpper();
+
+            return
+            GetObject(
+                z => z.Id != id && z.UserName.ToUpper() == userName /*z.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)*/) != null;
         }
 
         public async Task<AdminUserInfo> GetUserInfo(string userName)
         {
+            await Task.CompletedTask;
             var obj = GetObject(z => z.UserName.Equals(userName.Trim()));
             return obj;
         }
@@ -65,7 +71,7 @@ namespace Senparc.Service
             return MD5.GetMD5Code(md5, salt).Replace("-", ""); //再加密
         }
 
-        public async Task Logout()
+        public async Task LogoutAsync()
         {
             try
             {
@@ -96,7 +102,7 @@ namespace Senparc.Service
                 IsPersistent = false,
             };
 
-            Logout(); //退出登录
+            LogoutAsync().ConfigureAwait(false).GetAwaiter().GetResult(); //退出登录
             _contextAccessor.Value.HttpContext.SignInAsync(SiteConfig.ScfAdminAuthorizeScheme, new ClaimsPrincipal(identity), authProperties);
 
             #endregion

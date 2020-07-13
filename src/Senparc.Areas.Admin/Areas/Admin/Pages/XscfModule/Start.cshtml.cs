@@ -2,29 +2,45 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
+using Senparc.Scf.AreaBase.Admin.Filters;
 using Senparc.Scf.Core.Enums;
 using Senparc.Scf.Service;
 using Senparc.Scf.XscfBase;
+using Senparc.Scf.XscfBase.Threads;
 using Senparc.Service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+    [IgnoreAuth]
     public class XscfModuleStartModel : BaseAdminPageModel
     {
-        public IXscfRegister XscfRegister { get; set; }
         private readonly SysMenuService _sysMenuService;
         public Senparc.Scf.Core.Models.DataBaseModel.XscfModule XscfModule { get; set; }
-        public Dictionary<IXscfFunction, List<FunctionParammeterInfo>> FunctionParammeterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParammeterInfo>>();
+        public Dictionary<IXscfFunction, List<FunctionParameterInfo>> FunctionParameterInfoCollection { get; set; } = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();
 
         XscfModuleService _xscfModuleService;
         IServiceProvider _serviceProvider;
 
         public List<string> XscfModuleUpdateLog { get; set; }
+
+        /// <summary>
+        /// 获取当前模块的已注册线程信息
+        /// </summary>
+        public IEnumerable<KeyValuePair<ThreadInfo, Thread>> RegisteredThreadInfo { get; set; }
+
+        /// <summary>
+        /// 是否必须更新（常规读取失败）
+        /// </summary>
+        public bool MustUpdate { get; set; }
 
         public string Msg { get; set; }
         public object Obj { get; set; }
@@ -36,43 +52,55 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _sysMenuService = sysMenuService;
         }
 
-        public async Task OnGetAsync(string uid)
+        public async Task OnGetAsync()
         {
-            if (uid.IsNullOrEmpty())
-            {
-                throw new Exception("模块编号未提供！");
-            }
+            await Task.CompletedTask;
+            //            if (uid.IsNullOrEmpty())
+            //            {
+            //                throw new Exception("模块编号未提供！");
+            //            }
 
 
-            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
+            //            XscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
 
-            if (XscfModule == null)
-            {
-                throw new Exception("模块未添加！");
-            }
+            //            if (XscfModule == null)
+            //            {
+            //                throw new Exception("模块未添加！");
+            //            }
 
-            if (!XscfModule.UpdateLog.IsNullOrEmpty())
-            {
-                XscfModuleUpdateLog = XscfModule.UpdateLog
-                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-                    .ToList();
-            }
-            else
-            {
-                XscfModuleUpdateLog = new List<string>();
-            }
+            //            if (!XscfModule.UpdateLog.IsNullOrEmpty())
+            //            {
+            //                XscfModuleUpdateLog = XscfModule.UpdateLog
+            //                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+            //                    .ToList();
+            //            }
+            //            else
+            //            {
+            //                XscfModuleUpdateLog = new List<string>();
+            //            }
 
-            XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
-            if (XscfRegister == null)
-            {
-                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
-            }
+            //            XscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
+            //            if (XscfRegister == null)
+            //            {
+            //                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
+            //            }
 
-            foreach (var functionType in XscfRegister.Functions)
-            {
-                var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                FunctionParammeterInfoCollection[function] = function.GetFunctionParammeterInfo().ToList();
-            }
+            //            try
+            //            {
+            //                foreach (var functionType in XscfRegister.Functions)
+            //                {
+            //                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+            //                    FunctionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+            //请尝试更新此模块后刷新页面！");
+            //                MustUpdate = true;
+            //            }
+
+            //            RegisteredThreadInfo = XscfRegister.RegisteredThreadInfo;
         }
 
         /// <summary>
@@ -96,9 +124,16 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return RedirectToPage("Start", new { uid = module.Uid });
         }
 
-        public async Task<IActionResult> OnPostRunFunctionAsync(string xscfUid, string xscfFunctionName, string xscfFunctionParams)
+        /// <summary>
+        /// 提交信息，执行方法
+        /// </summary>
+        /// <param name="xscfUid"></param>
+        /// <param name="xscfFunctionName"></param>
+        /// <param name="xscfFunctionParams"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostRunFunctionAsync([FromBody]ExecuteFuncParamDto executeFuncParamDto)
         {
-            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == xscfUid);
+            var xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == executeFuncParamDto.XscfUid);
 
             if (xscfRegister == null)
             {
@@ -121,8 +156,8 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             foreach (var functionType in xscfRegister.Functions)
             {
                 var fun = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
-                var functionParameters = fun.GetFunctionParammeterInfo().ToList();
-                if (fun.Name == xscfFunctionName)
+                //var functionParameters = await function.GetFunctionParameterInfoAsync(_serviceProvider, false);
+                if (fun.Name == executeFuncParamDto.XscfFunctionName)
                 {
                     function = fun;
                     break;
@@ -134,7 +169,7 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 return new JsonResult(new { success = false, msg = "方法未匹配上！" });
             }
 
-            var paras = SerializerHelper.GetObject(xscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
+            var paras = SerializerHelper.GetObject(executeFuncParamDto.XscfFunctionParams, function.FunctionParameterType) as IFunctionParameter;
             //var paras = function.GenerateParameterInstance();
 
             var result = function.Run(paras);
@@ -188,12 +223,15 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             Func<Task> uninstall = async () =>
             {
                 //删除菜单
+                SysPermissionService sysPermissionService = _serviceProvider.GetService<SysPermissionService>();
                 var menu = await _sysMenuService.GetObjectAsync(z => z.Id == module.MenuId).ConfigureAwait(false);
                 if (menu != null)
                 {
                     //删除菜单
                     await _sysMenuService.DeleteObjectAsync(menu).ConfigureAwait(false);
-                    //更新菜单缓存
+                    //删除权限数据
+                    await sysPermissionService.DeleteAllAsync(_ => _.PermissionId == menu.Id);
+                    //更新菜单缓存                                                                                                                            
                     await _sysMenuService.GetMenuDtoByCacheAsync(true).ConfigureAwait(false);
                 }
                 await _xscfModuleService.DeleteObjectAsync(module).ConfigureAwait(false);
@@ -212,8 +250,147 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
                 await register.UninstallAsync(_serviceProvider, uninstall).ConfigureAwait(false);
             }
 
-            return RedirectToPage("Index");
+            return Ok(true);
         }
 
+
+        /// <summary>
+        /// handler=Detail
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetDetailAsync(string uid)
+        {
+            bool mustUpdate = false;
+            if (uid.IsNullOrEmpty())
+            {
+                throw new Exception("模块编号未提供！");
+            }
+
+
+            Scf.Core.Models.DataBaseModel.XscfModule xscfModule = await _xscfModuleService.GetObjectAsync(z => z.Uid == uid).ConfigureAwait(false);
+
+            if (xscfModule == null)
+            {
+                throw new Exception("模块未添加！");
+            }
+            IEnumerable<string> xscfModuleUpdateLog = new List<string>();
+            if (!xscfModule.UpdateLog.IsNullOrEmpty())
+            {
+                xscfModuleUpdateLog = xscfModule.UpdateLog
+                    .Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
+            }
+
+            IXscfRegister xscfRegister = Senparc.Scf.XscfBase.Register.RegisterList.FirstOrDefault(z => z.Uid == uid);
+            if (xscfRegister == null)
+            {
+                throw new Exception($"模块丢失或未加载（{Senparc.Scf.XscfBase.Register.RegisterList.Count}）！");
+            }
+            IDictionary<IXscfFunction, List<FunctionParameterInfo>> functionParameterInfoCollection = new Dictionary<IXscfFunction, List<FunctionParameterInfo>>();
+            try
+            {
+                foreach (var functionType in xscfRegister.Functions)
+                {
+                    var function = _serviceProvider.GetService(functionType) as FunctionBase;//如：Senparc.Xscf.ChangeNamespace.Functions.ChangeNamespace
+                    functionParameterInfoCollection[function] = await function.GetFunctionParameterInfoAsync(_serviceProvider, true);
+                }
+            }
+            catch (Exception)
+            {
+                SenparcTrace.SendCustomLog("模块读取失败", @$"模块：{XscfModule.Name} / {XscfModule.MenuName} / {XscfModule.Uid}
+请尝试更新此模块后刷新页面！");
+                mustUpdate = true;
+            }
+
+            IEnumerable<KeyValuePair<ThreadInfo, Thread>> registeredThreadInfo = xscfRegister.RegisteredThreadInfo;
+            return Ok(new
+            {
+                mustUpdate,
+                xscfModule,
+                xscfModuleUpdateLog,
+                xscfRegister = new
+                {
+                    AreaHomeUrl = xscfRegister.GetAreaHomeUrl(),
+                    xscfRegister.MenuName,
+                    xscfRegister.Icon,
+                    xscfRegister.Version,
+                    xscfRegister.Uid,
+                    areaPageMenuItems = (xscfRegister as Scf.Core.Areas.IAreaRegister)?.AareaPageMenuItems ?? new List<Scf.Core.Areas.AreaPageMenuItem>(),
+                    Interfaces = xscfRegister.GetType().GetInterfaces().Select(_ => _.Name),
+                    FunctionCount = xscfRegister.Functions.Count,
+                    registeredThreadInfo = xscfRegister.RegisteredThreadInfo.Select(_ => new
+                    {
+                        Key = new
+                        {
+                            _.Key.Name,
+                            _.Key.StoryHtml
+                        },
+                        Value = new
+                        {
+                            _.Value.IsAlive,
+                            IsBackground = _.Value.IsAlive ? new bool?(_.Value.IsBackground) : null,
+                            ThreadState = _.Value.IsAlive ? new ThreadState?(_.Value.ThreadState) : null,
+                            ThreadStateStr = _.Value.IsAlive ? _.Value.ThreadState.ToString() : null
+                        }
+                    })
+                },
+                functionParameterInfoCollection = functionParameterInfoCollection
+                .Select(_ => new
+                {
+                    Key = new
+                    {
+                        _.Key.Name,
+                        _.Key.Description
+                    },
+                    _.Value
+                }),
+                registeredThreadInfo = registeredThreadInfo.Select(_ => new
+                {
+                    Key = new
+                    {
+                        _.Key.Name,
+                        _.Key.StoryHtml
+                    },
+                    Value = new
+                    {
+                        _.Value.IsAlive,
+                        IsBackground = _.Value.IsAlive ? new bool?(_.Value.IsBackground) : null,
+                        ThreadState = _.Value.IsAlive ? new ThreadState?(_.Value.ThreadState) : null,
+                        ThreadStateStr = _.Value.IsAlive ? _.Value.ThreadState.ToString() : null
+                    }
+                })
+            });
+        }
+
+        /// <summary>
+        /// handler=ChangeStateAjax
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="toState"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnGetChangeStateAjaxAsync(int id, XscfModules_State toState)
+        {
+            var module = await _xscfModuleService.GetObjectAsync(z => z.Id == id).ConfigureAwait(false);
+
+            if (module == null)
+            {
+                throw new Exception("模块未添加！");
+            }
+
+            module.UpdateState(toState);
+            await _xscfModuleService.SaveObjectAsync(module).ConfigureAwait(false);
+            return Ok(true);
+        }
+    }
+
+    public class ExecuteFuncParamDto
+    {
+        [Required]
+        public string XscfUid { get; set; }
+        [Required]
+        public string XscfFunctionName { get; set; }
+        [Required]
+        public string XscfFunctionParams { get; set; }
     }
 }

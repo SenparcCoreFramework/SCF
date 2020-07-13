@@ -1,26 +1,14 @@
-using System;
+using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.Extensions;
+using Senparc.Repository;
+using Senparc.Scf.Core.Cache;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Log;
-using Senparc.Scf.Repository;
-using Senparc.Scf.Core.Cache;
-using Senparc.Scf.Utility;
-using Senparc.CO2NET;
-using Senparc.Core.Models;
-using Senparc.Repository;
-using Senparc.Core.Cache;
-using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Service
 {
-    //public interface ISystemConfigService : IBaseClientService<SystemConfig>
-    //{
-    //    string GetRuningDatabasePath();
-    //    string BackupDatabase();
-    //    void RestoreDatabase(string fileName);
-    //    void DeleteBackupDatabase(string fileName, bool deleteAllBefore);
-    //    void RecycleAppPool();
-    //}
-
     public class SystemConfigService : BaseClientService<SystemConfig>/*, ISystemConfigService*/
     {
         public SystemConfigService(SystemConfigRepository systemConfigRepo, IServiceProvider serviceProvider)
@@ -29,7 +17,7 @@ namespace Senparc.Service
 
         }
 
-        public SystemConfig Init()
+        public SystemConfig Init(string systemName = null)
         {
             var systemConfig = GetObject(z => true);
             if (systemConfig != null)
@@ -39,7 +27,7 @@ namespace Senparc.Service
 
             systemConfig = new SystemConfig()
             {
-                SystemName = "SCF - Template Project"
+                SystemName = systemName ?? "SCF - Template Project"
             };
 
             SaveObject(systemConfig);
@@ -49,36 +37,30 @@ namespace Senparc.Service
 
         public override void SaveObject(SystemConfig obj)
         {
-            LogUtility.SystemLogger.Info("系统信息被编辑");
-
             base.SaveObject(obj);
+            LogUtility.WebLogger.InfoFormat("SystemConfig 被编辑：{0}", obj.ToJson());
 
-            //删除缓存
-            var systemConfigCache = _serviceProvider.GetService<FullSystemConfigCache>();
-            systemConfigCache.RemoveCache();
+            //清除缓存
+            var fullSystemConfigCache = _serviceProvider.GetService<FullSystemConfigCache>();
+            //示范同步缓存锁
+            using (fullSystemConfigCache.Cache.BeginCacheLock(FullSystemConfigCache.CACHE_KEY, ""))
+            {
+                fullSystemConfigCache.RemoveCache();
+            }
         }
 
-        public string GetRuningDatabasePath()
+        public override async Task SaveObjectAsync(SystemConfig obj)
         {
-            var dbPath = "~/App_Data/#SenparcCRM.config";
-            return dbPath;
-        }
+            await base.SaveObjectAsync(obj);
+            LogUtility.WebLogger.InfoFormat("SystemConfig 被编辑：{0}", obj.ToJson());
 
-        public string BackupDatabase()
-        {
-            string timeStamp = DateTime.Now.ToString("yyyyMMdd-HH-mm");//分钟
-            return timeStamp;
-        }
-
-        public void RecycleAppPool()
-        {
-            //string webConfigPath = HttpContext.Current.Server.MapPath("~/Web.config");
-            //System.IO.File.SetLastWriteTimeUtc(webConfigPath, DateTime.UtcNow);
-        }
-
-        public override void DeleteObject(SystemConfig obj)
-        {
-            throw new Exception("系统信息不能被删除！");
+            //清除缓存
+            var fullSystemConfigCache = _serviceProvider.GetService<FullSystemConfigCache>();
+            //示范同步缓存锁
+            using (await fullSystemConfigCache.Cache.BeginCacheLockAsync(FullSystemConfigCache.CACHE_KEY, ""))
+            {
+                fullSystemConfigCache.RemoveCache();
+            }
         }
     }
 }

@@ -8,10 +8,12 @@ using Senparc.Core.Models.DataBaseModel;
 using Senparc.Scf.Core.Models;
 using Senparc.Scf.Core.Models.DataBaseModel;
 using Senparc.Scf.Service;
+using Senparc.Scf.Utility;
 using Senparc.Service;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+    [IgnoreAntiforgeryToken]
     public class RoleIndexModel : BaseAdminPageModel
     {
         private readonly SysRoleService _sysRoleService;
@@ -30,19 +32,60 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
         /// </summary>
         public PagedList<SysRole> SysRoles { get; set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            SysRoles = await _sysRoleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
+            //SysRoles = new ;// await _sysRoleService.GetObjectListAsync(PageIndex, 10, _ => true, _ => _.AddTime, Scf.Core.Enums.OrderingType.Descending);
         }
 
-        public IActionResult OnPostDelete(string[] ids)
+        /// <summary>
+        /// Handler=List
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <param name="orderField">XXX DESC,YYY ASC</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-search")]
+        public async Task<IActionResult> OnGetListAsync(string roleName, string orderField, int pageIndex, int pageSize)
+        {
+            var seh = new SenparcExpressionHelper<SysRole>();
+            seh.ValueCompare.AndAlso(!string.IsNullOrEmpty(roleName), _ => _.RoleName.Contains(roleName));
+            var where = seh.BuildWhereExpression();
+            var admins = await _sysRoleService.GetObjectListAsync(pageIndex, pageSize, where, orderField);
+
+            //AdminUserInfoList = admins;
+            return Ok(new
+            {
+                admins.TotalCount,
+                admins.PageIndex,
+                List =
+                admins.Select(_ => new { _.Id, _.LastUpdateTime, _.Remark, _.RoleName, _.RoleCode, _.AddTime, _.AdminRemark, _.Enabled })
+            });
+        }
+
+        //public IActionResult OnPostDelete(string[] ids)
+        //{
+        //    foreach (var id in ids)
+        //    {
+        //        _sysRoleService.DeleteObject(_ => _.Id == id);
+        //    }
+
+        //    return RedirectToPage("./Index");
+        //}
+
+        /// <summary>
+        /// Handler=Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("role-delete")]
+        public IActionResult OnPostDelete([FromBody]string[] ids)
         {
             foreach (var id in ids)
             {
                 _sysRoleService.DeleteObject(_ => _.Id == id);
             }
-
-            return RedirectToPage("./Index");
+            return Ok(ids.Length);
         }
     }
 }

@@ -9,9 +9,13 @@ using Senparc.Scf.Core.Models;
 using Senparc.Scf.Service;
 using Senparc.Scf.Utility;
 using Senparc.Service;
+using Microsoft.Extensions.DependencyInjection;
+using Senparc.Scf.Core;
 
 namespace Senparc.Areas.Admin.Areas.Admin.Pages
 {
+
+    [IgnoreAntiforgeryToken]
     public class AdminUserInfo_IndexModel : BaseAdminPageModel
     {
         private readonly AdminUserInfoService _adminUserInfoService;
@@ -34,29 +38,43 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             _adminUserInfoService = adminUserInfoService;
         }
 
-        //[Filters.CustomerResourceFilter("Add")]
         public async Task<IActionResult> OnGetAsync()
         {
-            var seh = new SenparcExpressionHelper<AdminUserInfo>();
-            var where = seh.BuildWhereExpression();
-            var admins = await _adminUserInfoService.GetObjectListAsync(PageIndex, 20, where, OrderField);
-            AdminUserInfoList = admins;
+            await Task.CompletedTask;
             return null;
         }
 
-        public IActionResult OnPostDemo()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adminUserInfoName"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("admin-search")]
+        public async Task<IActionResult> OnGetListAsync(string adminUserInfoName, int pageIndex, int pageSize)
         {
-            return Ok(null);
+            var seh = new SenparcExpressionHelper<AdminUserInfo>();
+            seh.ValueCompare.AndAlso(!string.IsNullOrEmpty(adminUserInfoName), _ => _.UserName.Contains(adminUserInfoName));
+            var where = seh.BuildWhereExpression();
+            var admins = await _adminUserInfoService.GetObjectListAsync(pageIndex, pageSize, where, OrderField);
+            return Ok(new { admins.TotalCount, admins.PageIndex, List = admins.AsEnumerable() });
         }
 
-        public IActionResult OnPost(int[] ids)
+        /// <summary>
+        /// Handler=Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [Scf.AreaBase.Admin.Filters.CustomerResource("admin-delete")]
+        public IActionResult OnPostDelete([FromBody]int[] ids)
         {
             foreach (var id in ids)
             {
                 _adminUserInfoService.DeleteObject(id);
             }
-
-            return RedirectToPage("./Index");
+            return Ok(ids.Length);
+            //return RedirectToPage("./Index");
         }
     }
 }

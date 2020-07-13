@@ -14,6 +14,7 @@ namespace Senparc.Web.Pages
     {
         public async Task<IActionResult> OnGetAsync()
         {
+            await Task.CompletedTask;
             //判断是否需要自动进入到安装程序
             if (base.FullSystemConfig==null)
             {

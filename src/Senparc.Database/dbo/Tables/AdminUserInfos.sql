@@ -1,18 +1,24 @@
 ﻿CREATE TABLE [dbo].[AdminUserInfos] (
-    [Id]            INT            IDENTITY (1, 1) NOT NULL,
-    [UserName]      NVARCHAR (50)  NULL,
-    [Password]      NVARCHAR (50)  NULL,
-    [PasswordSalt]  VARCHAR (100)  NULL,
-    [RealName]      NVARCHAR (50)  NULL,
-    [Phone]         VARCHAR (20)   NULL,
-    [Note]          NVARCHAR (MAX) NULL,
-    [ThisLoginTime] DATETIME       NOT NULL,
-    [ThisLoginIP]   VARCHAR (20)   NULL,
-    [LastLoginTime] DATETIME       NOT NULL,
-    [LastLoginIP]   VARCHAR (20)   NULL,
-    [AddTime]       DATETIME       NOT NULL,
-    CONSTRAINT [PK_AdminUserInfo] PRIMARY KEY CLUSTERED ([Id] ASC)
+    [Id]             INT            IDENTITY (1, 1) NOT NULL,
+    [Flag]           BIT            NOT NULL,
+    [AddTime]        DATETIME2 (7)  NOT NULL,
+    [LastUpdateTime] DATETIME2 (7)  NOT NULL,
+    [AdminRemark]    NVARCHAR (300) NULL,
+    [Remark]         NVARCHAR (300) NULL,
+    [UserName]       NVARCHAR (MAX) NULL,
+    [Password]       NVARCHAR (MAX) NULL,
+    [PasswordSalt]   NVARCHAR (MAX) NULL,
+    [RealName]       NVARCHAR (MAX) NULL,
+    [Phone]          NVARCHAR (MAX) NULL,
+    [Note]           NVARCHAR (MAX) NULL,
+    [ThisLoginTime]  DATETIME2 (7)  NOT NULL,
+    [ThisLoginIp]    NVARCHAR (MAX) NULL,
+    [LastLoginTime]  DATETIME2 (7)  NOT NULL,
+    [LastLoginIp]    NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_AdminUserInfos] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 

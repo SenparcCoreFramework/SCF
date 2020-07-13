@@ -45,8 +45,9 @@
         }
         return "";
     }
-
 }
+
+
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title hidden-small">
@@ -54,7 +55,7 @@
                     <img src="~/images/Admin/base/head/logo_230x55.png" class="hidden-small" />
                     <img src="~/images/Admin/base/head/logo_70x55.png" class="hidden-lg" />
                 </a>*@
-            <a href="index.html" class="site_title">
+            <a href="/" class="site_title">
                 <img src="~/images/Admin/base/head/logo_230x55.png" />
             </a>
         </div>
@@ -81,7 +82,14 @@
                     </li>
                     @foreach (var item in sysMenuDtos)
                     {
-                        <li>
+                        //判断是否隐藏模块管理单元
+                        var hideXscfModuleManager = item.MenuName == "扩展模块" && Model.FullSystemConfig.HideModuleManager == true;
+
+                        @if (!hideXscfModuleManager)
+                        {
+                            //显示扩展模块，建立一级目录
+                            @Html.Raw(@"<li>")
+
                             <a href="@item.Url">
                                 @if (!string.IsNullOrEmpty(item.Icon))
                                 {
@@ -90,71 +98,89 @@
                                 @item.MenuName
 
                             </a>
-                            @if (item.Children != null)
+                        }
+
+                        @if (item.Children != null)
+                        {
+                            @if (!hideXscfModuleManager)
                             {
-                                <ul class="nav child_menu">
-                                    @foreach (var childrenItem in item.Children.Where(_ => _.IsMenu))
-                                    {
-                                        <li>
-                                            @{
-                                                var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => !childrenItem.Url.IsNullOrEmpty() && childrenItem.Url.Contains($"uid={z.Uid}", StringComparison.OrdinalIgnoreCase));
-                                            }
-                                            @if (xscfRegister != null)
-                                            {
-                                                if (xscfRegister is Senparc.Scf.Core.Areas.IAreaRegister xscfAreapage &&
-                                                xscfAreapage.AareaPageMenuItems.Count() > 0)
-                                                {
-                                                    //这是一个 XSCF UI 模块菜单，并且包含多个菜单配置
-                                                    <a><i class="@childrenItem.Icon"></i> @childrenItem.MenuName<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li class="sub_menu xscf_area_submenu">
-                                                            <a href="@childrenItem.Url" class="@CurrentXscfPage(childrenItem.Url)">
-                                                                <i class="fa fa-gear"></i>
-                                                                <text>设置/执行</text>
-                                                            </a>
-                                                        </li>
-                                                        @foreach (var xscfSubMenu in xscfAreapage.AareaPageMenuItems)
-                                                        {
-                                                            <li class="xscf_area_submenu">
-                                                                <a href="@xscfSubMenu.Url" class="@CurrentXscfSubPage(xscfSubMenu.Url)">
-                                                                    @if (!string.IsNullOrEmpty(xscfSubMenu.Icon))
-                                                                    {
-                                                                        <i class="@xscfSubMenu.Icon"></i>
-                                                                    }
-                                                                    @xscfSubMenu.Name
-                                                                </a>
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                }
-                                                else
-                                                {
-                                                    //这是一个普通的 XSCF（可能只包含 Functions）菜单
-                                                    <a href="@childrenItem.Url" class="@CurrentXscfPage(childrenItem.Url)">
-                                                        @if (!string.IsNullOrEmpty(childrenItem.Icon))
-                                                        {
-                                                            <i class="@childrenItem.Icon"></i>
-                                                        }
-                                                        @childrenItem.MenuName
-                                                    </a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                //其他菜单，如系统或自定义菜单
-                                                <a href="@childrenItem.Url">
-                                                    @if (!string.IsNullOrEmpty(childrenItem.Icon))
-                                                    {
-                                                        <i class="@childrenItem.Icon"></i>
-                                                    }
-                                                    @childrenItem.MenuName
-                                                </a>
-                                            }
-                                        </li>
-                                    }
-                                </ul>
+                                //显示扩展模块，建立二级目录
+                                @Html.Raw(@"<ul class=""nav child_menu"">")
                             }
-                        </li>
+                            @foreach (var childrenItem in item.Children.Where(_ => _.IsMenu))
+                            {
+                                if (hideXscfModuleManager && childrenItem.MenuName=="模块管理")
+                                {
+                                    continue;//隐藏“模块管理”菜单
+                                }
+                                <li>
+                                    @{
+                                        var xscfRegister = Model.XscfRegisterList.FirstOrDefault(z => !childrenItem.Url.IsNullOrEmpty() && childrenItem.Url.Contains($"uid={z.Uid}", StringComparison.OrdinalIgnoreCase));
+                                    }
+                                    @if (xscfRegister != null)
+                                    {
+                                        if (xscfRegister is Senparc.Scf.Core.Areas.IAreaRegister xscfAreapage &&
+                                        xscfAreapage.AareaPageMenuItems.Count() > 0)
+                                        {
+                                            //这是一个 XSCF UI 模块菜单，并且包含多个菜单配置
+                                            <a><i class="@childrenItem.Icon"></i> @childrenItem.MenuName<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu @(hideXscfModuleManager?"":"xscf_area_submenu")">
+                                                    <a href="@childrenItem.Url" class="@CurrentXscfPage(childrenItem.Url)">
+                                                        <i class="fa fa-gear"></i>
+                                                        <text>设置/执行</text>
+                                                    </a>
+                                                </li>
+                                                @foreach (var xscfSubMenu in xscfAreapage.AareaPageMenuItems)
+                                                {
+                                                    <li class="@(hideXscfModuleManager?"":"xscf_area_submenu")">
+                                                        <a href="@xscfSubMenu.Url" class="@CurrentXscfSubPage(xscfSubMenu.Url)">
+                                                            @if (!string.IsNullOrEmpty(xscfSubMenu.Icon))
+                                                            {
+                                                                <i class="@xscfSubMenu.Icon"></i>
+                                                            }
+                                                            @xscfSubMenu.Name
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            //这是一个普通的 XSCF（可能只包含 Functions）菜单
+                                            <a href="@childrenItem.Url" class="@CurrentXscfPage(childrenItem.Url)">
+                                                @if (!string.IsNullOrEmpty(childrenItem.Icon))
+                                                {
+                                                    <i class="@childrenItem.Icon"></i>
+                                                }
+                                                @childrenItem.MenuName
+                                            </a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //其他菜单，如系统或自定义菜单
+                                        <a href="@childrenItem.Url">
+                                            @if (!string.IsNullOrEmpty(childrenItem.Icon))
+                                            {
+                                                <i class="@childrenItem.Icon"></i>
+                                            }
+                                            @childrenItem.MenuName
+                                        </a>
+                                    }
+                                </li>
+                            }
+                            @if (!hideXscfModuleManager)
+                            {
+                                //显示扩展模块，二级目录结束
+                                @Html.Raw(@"</ul>")
+                            }
+                        }
+                        @if (!hideXscfModuleManager)
+                        {
+                            //显示扩展模块，一级目录结束
+                            @Html.Raw(@"</li>")
+                        }
                     }
                 </ul>
             </div>
