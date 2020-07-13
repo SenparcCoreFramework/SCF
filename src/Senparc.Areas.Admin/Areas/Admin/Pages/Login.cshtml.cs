@@ -120,11 +120,14 @@ namespace Senparc.Areas.Admin.Areas.Admin.Pages
             return Ok(true);
         }
 
-        public async Task<IActionResult> OnGetLogoutAsync()
+        public async Task<IActionResult> OnGetLogoutAsync(string ReturnUrl)
         {
             SenparcTrace.SendCustomLog("管理员退出登录", $"用户名：{base.UserName}");
             await _userInfoService.LogoutAsync();
-            return RedirectToPage(new { area = "Admin" });
+            if (string.IsNullOrEmpty(ReturnUrl))
+                return RedirectToPage(new { area = "Admin" });
+            else
+                return LocalRedirect(ReturnUrl.UrlDecode());
         }
     }
 
