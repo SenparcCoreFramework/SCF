@@ -51,12 +51,13 @@
         async handleInstall(index, row) {
             await service.get(`/Admin/XscfModule/Index?handler=ScanAjax&uid=${row.uid}`);
             this.getList();
-            this.$notify({
-                title: "Success",
-                message: "安装成功，请在 系统管理-角色管理 页面授权之后再使用！",
-                type: "success",
-                duration: 5000
-            });
+            //this.$notify({
+            //    title: "Success",
+            //    message: "安装成功，请在 系统管理-角色管理 页面授权之后再使用！",
+            //    type: "success",
+            //    duration: 5000
+            //});
+            window.location.reload();
         },
         // 操作
         handleHandle(index, row) {
