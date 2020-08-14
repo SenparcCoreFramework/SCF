@@ -1,3 +1,5 @@
+> # 注意：当前项目已停止更新，请移步：https://github.com/NeuCharFramework/NCF
+
 <img src="https://weixin.senparc.com/images/SCF/logo.png" width="300" />
 
 
