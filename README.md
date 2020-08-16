@@ -1,4 +1,4 @@
-|  SCF    |  moved to    | NCF    
+|  SCF    |  moved to    | [NCF](https://github.com/NeuCharFramework/NCF)    
 |-------|-------|---------
 |<img src="https://weixin.senparc.com/images/SCF/logo.png" width="300" /> | >>>>> | <img src="https://weixin.senparc.com/images/NCF/logo.png" width="320" />
 
